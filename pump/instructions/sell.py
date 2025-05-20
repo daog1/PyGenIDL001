@@ -62,7 +62,10 @@ def Sell(
     if remaining_accounts is not None:
         keys += remaining_accounts
     identifier = b"\x33\xe6\x85\xa4\x01\x7f\x83\xad"
-    encoded_args = b""
+    encoded_args = layout.build({
+    "amount":args["amount"],
+    "minSolOutput":args["minSolOutput"],
+       })
 
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)

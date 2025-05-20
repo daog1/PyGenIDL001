@@ -57,7 +57,14 @@ def SetParams(
     if remaining_accounts is not None:
         keys += remaining_accounts
     identifier = b"\x1b\xea\xb2\x34\x93\x02\xbb\x8d"
-    encoded_args = b""
+    encoded_args = layout.build({
+    "feeRecipient":args["feeRecipient"],
+    "initialVirtualTokenReserves":args["initialVirtualTokenReserves"],
+    "initialVirtualSolReserves":args["initialVirtualSolReserves"],
+    "initialRealTokenReserves":args["initialRealTokenReserves"],
+    "tokenTotalSupply":args["tokenTotalSupply"],
+    "feeBasisPoints":args["feeBasisPoints"],
+       })
 
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)

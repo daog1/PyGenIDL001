@@ -62,7 +62,10 @@ def Buy(
     if remaining_accounts is not None:
         keys += remaining_accounts
     identifier = b"\x66\x06\x3d\x12\x01\xda\xeb\xea"
-    encoded_args = b""
+    encoded_args = layout.build({
+    "amount":args["amount"],
+    "maxSolCost":args["maxSolCost"],
+       })
 
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)

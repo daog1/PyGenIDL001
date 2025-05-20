@@ -71,7 +71,12 @@ def Create(
     if remaining_accounts is not None:
         keys += remaining_accounts
     identifier = b"\x18\x1e\xc8\x28\x05\x1c\x07\x77"
-    encoded_args = b""
+    encoded_args = layout.build({
+    "name":args["name"],
+    "symbol":args["symbol"],
+    "uri":args["uri"],
+    "creator":args["creator"],
+       })
 
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
