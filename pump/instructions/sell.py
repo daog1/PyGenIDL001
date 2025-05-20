@@ -13,6 +13,16 @@ from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
+class SellArgs(typing.TypedDict):
+    amount:int
+    minSolOutput:int
+
+
+layout = borsh.CStruct(
+    "amount" /borsh.U64,
+    "minSolOutput" /borsh.U64,
+    )
+
 
 class SellAccounts(typing.TypedDict):
     global_:Pubkey
@@ -29,6 +39,7 @@ class SellAccounts(typing.TypedDict):
     program:Pubkey
 
 def Sell(
+    args: SellArgs,
     accounts: SellAccounts,
     program_id: Pubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,

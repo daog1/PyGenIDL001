@@ -7,12 +7,27 @@
 
 import borsh_construct as borsh;
 import typing;
+from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
+class CreateArgs(typing.TypedDict):
+    name:str
+    symbol:str
+    uri:str
+    creator:Pubkey
+
+
+layout = borsh.CStruct(
+    "name" /borsh.String,
+    "symbol" /borsh.String,
+    "uri" /borsh.String,
+    "creator" /BorshPubkey,
+    )
+
 
 class CreateAccounts(typing.TypedDict):
     mint:Pubkey
@@ -31,6 +46,7 @@ class CreateAccounts(typing.TypedDict):
     program:Pubkey
 
 def Create(
+    args: CreateArgs,
     accounts: CreateAccounts,
     program_id: Pubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,

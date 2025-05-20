@@ -7,12 +7,31 @@
 
 import borsh_construct as borsh;
 import typing;
+from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
+class SetParamsArgs(typing.TypedDict):
+    feeRecipient:Pubkey
+    initialVirtualTokenReserves:int
+    initialVirtualSolReserves:int
+    initialRealTokenReserves:int
+    tokenTotalSupply:int
+    feeBasisPoints:int
+
+
+layout = borsh.CStruct(
+    "feeRecipient" /BorshPubkey,
+    "initialVirtualTokenReserves" /borsh.U64,
+    "initialVirtualSolReserves" /borsh.U64,
+    "initialRealTokenReserves" /borsh.U64,
+    "tokenTotalSupply" /borsh.U64,
+    "feeBasisPoints" /borsh.U64,
+    )
+
 
 class SetParamsAccounts(typing.TypedDict):
     global_:Pubkey
@@ -22,6 +41,7 @@ class SetParamsAccounts(typing.TypedDict):
     program:Pubkey
 
 def SetParams(
+    args: SetParamsArgs,
     accounts: SetParamsAccounts,
     program_id: Pubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
