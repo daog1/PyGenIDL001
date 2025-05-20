@@ -1,0 +1,36 @@
+[project]
+name = "pygenidl001"
+version = "0.1.0"
+description = "Add your description here"
+authors = [{ name = "daog1", email = "lixiao187@gmail.com" }]
+dependencies = [
+    "borsh-construct>=0.1.0",
+    "anchorpy>=0.21.0",
+    "solana>=0.36.6",
+    "solders>=0.26.0",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+pythonVersion = "3.13"
+typeCheckingMode = "basic"
+include = ["src", "pump"]
+exclude = [".venv"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pygenidl001"]
