@@ -1,0 +1,2 @@
+overrides:
+  "@codama/renderers": link:../../jsrc/codama-py/packages/renderers

@@ -1,0 +1,14 @@
+{
+  "name": "PyGenIDL001",
+  "devDependencies": {
+    "get-tsconfig": "^4.10.0",
+    "tsup": "^8.4.0",
+    "tsx": "^4.19.3"
+  },
+  "dependencies": {
+    "@codama/nodes-from-anchor": "^1.1.11",
+    "@codama/renderers": "^1.0.19",
+    "codama": "^1.2.11"
+  },
+  "packageManager": "pnpm@10.8.1+sha512.c50088ba998c67b8ca8c99df8a5e02fd2ae2e2b29aaf238feaa9e124248d3f48f9fb6db2424949ff901cffbb5e0f0cc1ad6aedb602cd29450751d11c35023677"
+}
