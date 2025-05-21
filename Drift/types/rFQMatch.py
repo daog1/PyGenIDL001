@@ -16,19 +16,19 @@ from solders.sysvar import RENT;
 class RFQMatchJSON(typing.TypedDict):
     baseAssetAmount: int
     makerOrderParams: types.rFQMakerOrderParams.RFQMakerOrderParamsJSON
-    makerSignature: str
+    makerSignature: list[int]
 
 @dataclass
 class RFQMatch:
     layout: typing.ClassVar = borsh.CStruct(
         "baseAssetAmount" /borsh.U64,
         "makerOrderParams" /types.rFQMakerOrderParams.RFQMakerOrderParams.layout,
-        "makerSignature" /borsh.visitFixedSizeType,
+        "makerSignature" /borsh.U8[64],
         )
     #fields
     baseAssetAmount: int
     makerOrderParams: types.rFQMakerOrderParams.RFQMakerOrderParams
-    makerSignature: borsh.String
+    makerSignature: list[int]
     
     @classmethod
     def from_decoded(cls, obj: Container) -> "RFQMatch":

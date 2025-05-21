@@ -15,12 +15,12 @@ from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class UpdateUserNameArgs(typing.TypedDict):
     subAccountId:int
-    name:borsh.String
+    name:list[int]
 
 
 layout = borsh.CStruct(
     "subAccountId" /borsh.U16,
-    "name" /borsh.visitFixedSizeType,
+    "name" /borsh.U8[32],
     )
 
 

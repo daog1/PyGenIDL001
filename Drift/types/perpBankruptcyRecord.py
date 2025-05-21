@@ -69,11 +69,7 @@ class PerpBankruptcyRecord:
                 marketIndex=obj["marketIndex"],
                 pnl=obj["pnl"],
                 ifPayment=obj["ifPayment"],
-                clawbackUser=(
-                    None
-                    if obj["clawbackUser"] is None
-                    else Pubkey.from_string(obj["clawbackUser"])
-                ),
+                clawbackUser=(None if obj["clawbackUser"] is None else Pubkey.from_string(obj["clawbackUser"])),
                 clawbackUserPayment=(None if obj["clawbackUserPayment"] is None else obj["clawbackUserPayment"]),
                 cumulativeFundingRateDelta=obj["cumulativeFundingRateDelta"],
         )

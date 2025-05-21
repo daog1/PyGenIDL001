@@ -23,7 +23,7 @@ class ProtectedMakerModeConfigJSON(typing.TypedDict):
     maxUsers: int
     currentUsers: int
     reduceOnly: int
-    padding: str
+    padding: list[int]
 
 @dataclass
 class ProtectedMakerModeConfig:
@@ -33,13 +33,13 @@ class ProtectedMakerModeConfig:
         "maxUsers" /borsh.U32,
         "currentUsers" /borsh.U32,
         "reduceOnly" /borsh.U8,
-        "padding" /borsh.visitFixedSizeType,
+        "padding" /borsh.U8[31],
         )
     #fields
     maxUsers: int
     currentUsers: int
     reduceOnly: int
-    padding: borsh.String
+    padding: list[int]
     
 
     @classmethod

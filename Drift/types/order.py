@@ -37,7 +37,7 @@ class OrderJSON(typing.TypedDict):
     immediateOrCancel: bool
     triggerCondition: types.orderTriggerCondition.OrderTriggerConditionJSON
     auctionDuration: int
-    padding: str
+    padding: list[int]
 
 @dataclass
 class Order:
@@ -65,7 +65,7 @@ class Order:
         "immediateOrCancel" /borsh.U8,
         "triggerCondition" /types.orderTriggerCondition.OrderTriggerCondition.layout,
         "auctionDuration" /borsh.U8,
-        "padding" /borsh.visitFixedSizeType,
+        "padding" /borsh.U8[3],
         )
     #fields
     slot: int
@@ -91,7 +91,7 @@ class Order:
     immediateOrCancel: bool
     triggerCondition: types.orderTriggerCondition.OrderTriggerCondition
     auctionDuration: int
-    padding: borsh.String
+    padding: list[int]
     
     @classmethod
     def from_decoded(cls, obj: Container) -> "Order":

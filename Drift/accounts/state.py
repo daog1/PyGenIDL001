@@ -45,7 +45,7 @@ class StateJSON(typing.TypedDict):
     initialPctToLiquidate: int
     maxNumberOfSubAccounts: int
     maxInitializeUserFee: int
-    padding: str
+    padding: list[int]
 
 @dataclass
 class State:
@@ -76,7 +76,7 @@ class State:
         "initialPctToLiquidate" /borsh.U16,
         "maxNumberOfSubAccounts" /borsh.U16,
         "maxInitializeUserFee" /borsh.U16,
-        "padding" /borsh.visitFixedSizeType,
+        "padding" /borsh.U8[10],
         )
     #fields
     admin: Pubkey
@@ -103,7 +103,7 @@ class State:
     initialPctToLiquidate: int
     maxNumberOfSubAccounts: int
     maxInitializeUserFee: int
-    padding: borsh.String
+    padding: list[int]
     
 
     @classmethod

@@ -26,7 +26,7 @@ class PrelaunchOracleJSON(typing.TypedDict):
     lastUpdateSlot: int
     ammLastUpdateSlot: int
     perpMarketIndex: int
-    padding: str
+    padding: list[int]
 
 @dataclass
 class PrelaunchOracle:
@@ -39,7 +39,7 @@ class PrelaunchOracle:
         "lastUpdateSlot" /borsh.U64,
         "ammLastUpdateSlot" /borsh.U64,
         "perpMarketIndex" /borsh.U16,
-        "padding" /borsh.visitFixedSizeType,
+        "padding" /borsh.U8[70],
         )
     #fields
     price: int
@@ -48,7 +48,7 @@ class PrelaunchOracle:
     lastUpdateSlot: int
     ammLastUpdateSlot: int
     perpMarketIndex: int
-    padding: borsh.String
+    padding: list[int]
     
 
     @classmethod

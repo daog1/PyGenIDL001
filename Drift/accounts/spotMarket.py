@@ -25,7 +25,7 @@ class SpotMarketJSON(typing.TypedDict):
     oracle: str
     mint: str
     vault: str
-    name: str
+    name: list[int]
     historicalOracleData: types.historicalOracleData.HistoricalOracleDataJSON
     historicalIndexData: types.historicalIndexData.HistoricalIndexDataJSON
     revenuePool: types.poolBalance.PoolBalanceJSON
@@ -84,7 +84,7 @@ class SpotMarketJSON(typing.TypedDict):
     fuelBoostInsurance: int
     tokenProgram: int
     poolId: int
-    padding: str
+    padding: list[int]
 
 @dataclass
 class SpotMarket:
@@ -95,7 +95,7 @@ class SpotMarket:
         "oracle" /BorshPubkey,
         "mint" /BorshPubkey,
         "vault" /BorshPubkey,
-        "name" /borsh.visitFixedSizeType,
+        "name" /borsh.U8[32],
         "historicalOracleData" /types.historicalOracleData.HistoricalOracleData.layout,
         "historicalIndexData" /types.historicalIndexData.HistoricalIndexData.layout,
         "revenuePool" /types.poolBalance.PoolBalance.layout,
@@ -154,14 +154,14 @@ class SpotMarket:
         "fuelBoostInsurance" /borsh.U8,
         "tokenProgram" /borsh.U8,
         "poolId" /borsh.U8,
-        "padding" /borsh.visitFixedSizeType,
+        "padding" /borsh.U8[40],
         )
     #fields
     pubkey: Pubkey
     oracle: Pubkey
     mint: Pubkey
     vault: Pubkey
-    name: borsh.String
+    name: list[int]
     historicalOracleData: types.historicalOracleData.HistoricalOracleData
     historicalIndexData: types.historicalIndexData.HistoricalIndexData
     revenuePool: types.poolBalance.PoolBalance
@@ -220,7 +220,7 @@ class SpotMarket:
     fuelBoostInsurance: int
     tokenProgram: int
     poolId: int
-    padding: borsh.String
+    padding: list[int]
     
 
     @classmethod

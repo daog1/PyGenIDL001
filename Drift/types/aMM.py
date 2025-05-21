@@ -12,7 +12,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
-from .. import types
 
 class AMMJSON(typing.TypedDict):
     oracle: str
@@ -98,7 +97,7 @@ class AMMJSON(typing.TypedDict):
     netUnsettledFundingPnl: int
     quoteAssetAmountWithUnsettledLp: int
     referencePriceOffset: int
-    padding: str
+    padding: list[int]
 
 @dataclass
 class AMM:
@@ -186,7 +185,7 @@ class AMM:
         "netUnsettledFundingPnl" /borsh.I64,
         "quoteAssetAmountWithUnsettledLp" /borsh.I64,
         "referencePriceOffset" /borsh.I32,
-        "padding" /borsh.visitFixedSizeType,
+        "padding" /borsh.U8[12],
         )
     #fields
     oracle: Pubkey
@@ -272,7 +271,7 @@ class AMM:
     netUnsettledFundingPnl: int
     quoteAssetAmountWithUnsettledLp: int
     referencePriceOffset: int
-    padding: borsh.String
+    padding: list[int]
     
     @classmethod
     def from_decoded(cls, obj: Container) -> "AMM":

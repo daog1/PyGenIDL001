@@ -39,7 +39,7 @@ class InitializePerpMarketArgs(typing.TypedDict):
     concentrationCoefScale:int
     curveUpdateIntensity:int
     ammJitIntensity:int
-    name:borsh.String
+    name:list[int]
 
 
 layout = borsh.CStruct(
@@ -67,7 +67,7 @@ layout = borsh.CStruct(
     "concentrationCoefScale" /borsh.U128,
     "curveUpdateIntensity" /borsh.U8,
     "ammJitIntensity" /borsh.U8,
-    "name" /borsh.visitFixedSizeType,
+    "name" /borsh.U8[32],
     )
 
 

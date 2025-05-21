@@ -30,7 +30,7 @@ class PhoenixV1FulfillmentConfigJSON(typing.TypedDict):
     marketIndex: int
     fulfillmentType: types.spotFulfillmentType.SpotFulfillmentTypeJSON
     status: types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatusJSON
-    padding: str
+    padding: list[int]
 
 @dataclass
 class PhoenixV1FulfillmentConfig:
@@ -46,7 +46,7 @@ class PhoenixV1FulfillmentConfig:
         "marketIndex" /borsh.U16,
         "fulfillmentType" /types.spotFulfillmentType.SpotFulfillmentType.layout,
         "status" /types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatus.layout,
-        "padding" /borsh.visitFixedSizeType,
+        "padding" /borsh.U8[4],
         )
     #fields
     pubkey: Pubkey
@@ -58,7 +58,7 @@ class PhoenixV1FulfillmentConfig:
     marketIndex: int
     fulfillmentType: types.spotFulfillmentType.SpotFulfillmentType
     status: types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatus
-    padding: borsh.String
+    padding: list[int]
     
 
     @classmethod

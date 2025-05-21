@@ -24,7 +24,7 @@ class PerpMarketJSON(typing.TypedDict):
     pubkey: str
     amm: types.aMM.AMMJSON
     pnlPool: types.poolBalance.PoolBalanceJSON
-    name: str
+    name: list[int]
     insuranceClaim: types.insuranceClaim.InsuranceClaimJSON
     unrealizedPnlMaxImbalance: int
     expiryTs: int
@@ -55,7 +55,7 @@ class PerpMarketJSON(typing.TypedDict):
     poolId: int
     highLeverageMarginRatioInitial: int
     highLeverageMarginRatioMaintenance: int
-    padding: str
+    padding: list[int]
 
 @dataclass
 class PerpMarket:
@@ -65,7 +65,7 @@ class PerpMarket:
         "pubkey" /BorshPubkey,
         "amm" /types.aMM.AMM.layout,
         "pnlPool" /types.poolBalance.PoolBalance.layout,
-        "name" /borsh.visitFixedSizeType,
+        "name" /borsh.U8[32],
         "insuranceClaim" /types.insuranceClaim.InsuranceClaim.layout,
         "unrealizedPnlMaxImbalance" /borsh.U64,
         "expiryTs" /borsh.I64,
@@ -96,13 +96,13 @@ class PerpMarket:
         "poolId" /borsh.U8,
         "highLeverageMarginRatioInitial" /borsh.U16,
         "highLeverageMarginRatioMaintenance" /borsh.U16,
-        "padding" /borsh.visitFixedSizeType,
+        "padding" /borsh.U8[38],
         )
     #fields
     pubkey: Pubkey
     amm: types.aMM.AMM
     pnlPool: types.poolBalance.PoolBalance
-    name: borsh.String
+    name: list[int]
     insuranceClaim: types.insuranceClaim.InsuranceClaim
     unrealizedPnlMaxImbalance: int
     expiryTs: int
@@ -133,7 +133,7 @@ class PerpMarket:
     poolId: int
     highLeverageMarginRatioInitial: int
     highLeverageMarginRatioMaintenance: int
-    padding: borsh.String
+    padding: list[int]
     
 
     @classmethod

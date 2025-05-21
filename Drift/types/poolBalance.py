@@ -16,19 +16,19 @@ from solders.sysvar import RENT;
 class PoolBalanceJSON(typing.TypedDict):
     scaledBalance: int
     marketIndex: int
-    padding: str
+    padding: list[int]
 
 @dataclass
 class PoolBalance:
     layout: typing.ClassVar = borsh.CStruct(
         "scaledBalance" /borsh.U128,
         "marketIndex" /borsh.U16,
-        "padding" /borsh.visitFixedSizeType,
+        "padding" /borsh.U8[6],
         )
     #fields
     scaledBalance: int
     marketIndex: int
-    padding: borsh.String
+    padding: list[int]
     
     @classmethod
     def from_decoded(cls, obj: Container) -> "PoolBalance":

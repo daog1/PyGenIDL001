@@ -14,11 +14,11 @@ from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class InitializePythPullOracleArgs(typing.TypedDict):
-    feedId:borsh.String
+    feedId:list[int]
 
 
 layout = borsh.CStruct(
-    "feedId" /borsh.visitFixedSizeType,
+    "feedId" /borsh.U8[32],
     )
 
 

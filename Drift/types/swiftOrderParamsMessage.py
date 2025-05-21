@@ -17,7 +17,7 @@ class SwiftOrderParamsMessageJSON(typing.TypedDict):
     swiftOrderParams: types.orderParams.OrderParamsJSON
     subAccountId: int
     slot: int
-    uuid: str
+    uuid: list[int]
     takeProfitOrderParams: typing.Optional[types.swiftTriggerOrderParams.SwiftTriggerOrderParamsJSON]
     stopLossOrderParams: typing.Optional[types.swiftTriggerOrderParams.SwiftTriggerOrderParamsJSON]
 
@@ -27,7 +27,7 @@ class SwiftOrderParamsMessage:
         "swiftOrderParams" /types.orderParams.OrderParams.layout,
         "subAccountId" /borsh.U16,
         "slot" /borsh.U64,
-        "uuid" /borsh.visitFixedSizeType,
+        "uuid" /borsh.U8[8],
         "takeProfitOrderParams" /borsh.Option(types.swiftTriggerOrderParams.SwiftTriggerOrderParams.layout),
         "stopLossOrderParams" /borsh.Option(types.swiftTriggerOrderParams.SwiftTriggerOrderParams.layout),
         )
@@ -35,7 +35,7 @@ class SwiftOrderParamsMessage:
     swiftOrderParams: types.orderParams.OrderParams
     subAccountId: int
     slot: int
-    uuid: borsh.String
+    uuid: list[int]
     takeProfitOrderParams: typing.Optional[types.swiftTriggerOrderParams.SwiftTriggerOrderParamsJSON]
     stopLossOrderParams: typing.Optional[types.swiftTriggerOrderParams.SwiftTriggerOrderParamsJSON]
     

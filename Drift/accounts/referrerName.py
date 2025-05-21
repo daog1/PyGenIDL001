@@ -23,7 +23,7 @@ class ReferrerNameJSON(typing.TypedDict):
     authority: str
     user: str
     userStats: str
-    name: str
+    name: list[int]
 
 @dataclass
 class ReferrerName:
@@ -33,13 +33,13 @@ class ReferrerName:
         "authority" /BorshPubkey,
         "user" /BorshPubkey,
         "userStats" /BorshPubkey,
-        "name" /borsh.visitFixedSizeType,
+        "name" /borsh.U8[32],
         )
     #fields
     authority: Pubkey
     user: Pubkey
     userStats: Pubkey
-    name: borsh.String
+    name: list[int]
     
 
     @classmethod

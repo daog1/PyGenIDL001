@@ -14,11 +14,11 @@ from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class InitializeReferrerNameArgs(typing.TypedDict):
-    name:borsh.String
+    name:list[int]
 
 
 layout = borsh.CStruct(
-    "name" /borsh.visitFixedSizeType,
+    "name" /borsh.U8[32],
     )
 
 

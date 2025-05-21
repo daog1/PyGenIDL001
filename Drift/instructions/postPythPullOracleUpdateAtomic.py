@@ -14,12 +14,12 @@ from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class PostPythPullOracleUpdateAtomicArgs(typing.TypedDict):
-    feedId:borsh.String
+    feedId:list[int]
     params:str
 
 
 layout = borsh.CStruct(
-    "feedId" /borsh.visitFixedSizeType,
+    "feedId" /borsh.U8[32],
     "params" /borsh.String,
     )
 

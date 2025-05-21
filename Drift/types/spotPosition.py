@@ -21,7 +21,7 @@ class SpotPositionJSON(typing.TypedDict):
     marketIndex: int
     balanceType: types.spotBalanceType.SpotBalanceTypeJSON
     openOrders: int
-    padding: str
+    padding: list[int]
 
 @dataclass
 class SpotPosition:
@@ -33,7 +33,7 @@ class SpotPosition:
         "marketIndex" /borsh.U16,
         "balanceType" /types.spotBalanceType.SpotBalanceType.layout,
         "openOrders" /borsh.U8,
-        "padding" /borsh.visitFixedSizeType,
+        "padding" /borsh.U8[4],
         )
     #fields
     scaledBalance: int
@@ -43,7 +43,7 @@ class SpotPosition:
     marketIndex: int
     balanceType: types.spotBalanceType.SpotBalanceType
     openOrders: int
-    padding: borsh.String
+    padding: list[int]
     
     @classmethod
     def from_decoded(cls, obj: Container) -> "SpotPosition":

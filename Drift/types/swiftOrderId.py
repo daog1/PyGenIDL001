@@ -14,7 +14,7 @@ from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
 class SwiftOrderIdJSON(typing.TypedDict):
-    uuid: str
+    uuid: list[int]
     maxSlot: int
     orderId: int
     padding: int
@@ -22,13 +22,13 @@ class SwiftOrderIdJSON(typing.TypedDict):
 @dataclass
 class SwiftOrderId:
     layout: typing.ClassVar = borsh.CStruct(
-        "uuid" /borsh.visitFixedSizeType,
+        "uuid" /borsh.U8[8],
         "maxSlot" /borsh.U64,
         "orderId" /borsh.U32,
         "padding" /borsh.U32,
         )
     #fields
-    uuid: borsh.String
+    uuid: list[int]
     maxSlot: int
     orderId: int
     padding: int

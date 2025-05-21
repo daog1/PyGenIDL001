@@ -15,17 +15,17 @@ from solders.sysvar import RENT;
 
 class RFQMakerMessageJSON(typing.TypedDict):
     orderParams: types.rFQMakerOrderParams.RFQMakerOrderParamsJSON
-    signature: str
+    signature: list[int]
 
 @dataclass
 class RFQMakerMessage:
     layout: typing.ClassVar = borsh.CStruct(
         "orderParams" /types.rFQMakerOrderParams.RFQMakerOrderParams.layout,
-        "signature" /borsh.visitFixedSizeType,
+        "signature" /borsh.U8[64],
         )
     #fields
     orderParams: types.rFQMakerOrderParams.RFQMakerOrderParams
-    signature: borsh.String
+    signature: list[int]
     
     @classmethod
     def from_decoded(cls, obj: Container) -> "RFQMakerMessage":

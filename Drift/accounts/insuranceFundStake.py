@@ -29,7 +29,7 @@ class InsuranceFundStakeJSON(typing.TypedDict):
     lastWithdrawRequestTs: int
     costBasis: int
     marketIndex: int
-    padding: str
+    padding: list[int]
 
 @dataclass
 class InsuranceFundStake:
@@ -45,7 +45,7 @@ class InsuranceFundStake:
         "lastWithdrawRequestTs" /borsh.I64,
         "costBasis" /borsh.I64,
         "marketIndex" /borsh.U16,
-        "padding" /borsh.visitFixedSizeType,
+        "padding" /borsh.U8[14],
         )
     #fields
     authority: Pubkey
@@ -57,7 +57,7 @@ class InsuranceFundStake:
     lastWithdrawRequestTs: int
     costBasis: int
     marketIndex: int
-    padding: borsh.String
+    padding: list[int]
     
 
     @classmethod

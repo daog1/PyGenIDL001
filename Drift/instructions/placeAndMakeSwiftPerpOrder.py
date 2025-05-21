@@ -16,12 +16,12 @@ from .. import types;
 from ..program_id import PROGRAM_ID;
 class PlaceAndMakeSwiftPerpOrderArgs(typing.TypedDict):
     params:types.orderParams.OrderParams
-    swiftOrderUuid:borsh.String
+    swiftOrderUuid:list[int]
 
 
 layout = borsh.CStruct(
     "params" /types.orderParams.OrderParams.layout,
-    "swiftOrderUuid" /borsh.visitFixedSizeType,
+    "swiftOrderUuid" /borsh.U8[8],
     )
 
 

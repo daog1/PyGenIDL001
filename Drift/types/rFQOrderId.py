@@ -14,17 +14,17 @@ from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
 class RFQOrderIdJSON(typing.TypedDict):
-    uuid: str
+    uuid: list[int]
     maxTs: int
 
 @dataclass
 class RFQOrderId:
     layout: typing.ClassVar = borsh.CStruct(
-        "uuid" /borsh.visitFixedSizeType,
+        "uuid" /borsh.U8[8],
         "maxTs" /borsh.I64,
         )
     #fields
-    uuid: borsh.String
+    uuid: list[int]
     maxTs: int
     
     @classmethod

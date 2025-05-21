@@ -36,7 +36,7 @@ class UserStatsJSON(typing.TypedDict):
     numberOfSubAccountsCreated: int
     referrerStatus: int
     disableUpdatePerpBidAskTwap: bool
-    padding1: str
+    padding1: list[int]
     fuelInsurance: int
     fuelDeposits: int
     fuelBorrows: int
@@ -45,7 +45,7 @@ class UserStatsJSON(typing.TypedDict):
     fuelMaker: int
     ifStakedGovTokenAmount: int
     lastFuelIfBonusUpdateTs: int
-    padding: str
+    padding: list[int]
 
 @dataclass
 class UserStats:
@@ -67,7 +67,7 @@ class UserStats:
         "numberOfSubAccountsCreated" /borsh.U16,
         "referrerStatus" /borsh.U8,
         "disableUpdatePerpBidAskTwap" /borsh.U8,
-        "padding1" /borsh.visitFixedSizeType,
+        "padding1" /borsh.U8[2],
         "fuelInsurance" /borsh.U32,
         "fuelDeposits" /borsh.U32,
         "fuelBorrows" /borsh.U32,
@@ -76,7 +76,7 @@ class UserStats:
         "fuelMaker" /borsh.U32,
         "ifStakedGovTokenAmount" /borsh.U64,
         "lastFuelIfBonusUpdateTs" /borsh.U32,
-        "padding" /borsh.visitFixedSizeType,
+        "padding" /borsh.U8[12],
         )
     #fields
     authority: Pubkey
@@ -94,7 +94,7 @@ class UserStats:
     numberOfSubAccountsCreated: int
     referrerStatus: int
     disableUpdatePerpBidAskTwap: bool
-    padding1: borsh.String
+    padding1: list[int]
     fuelInsurance: int
     fuelDeposits: int
     fuelBorrows: int
@@ -103,7 +103,7 @@ class UserStats:
     fuelMaker: int
     ifStakedGovTokenAmount: int
     lastFuelIfBonusUpdateTs: int
-    padding: borsh.String
+    padding: list[int]
     
 
     @classmethod

@@ -23,7 +23,7 @@ from ..program_id import PROGRAM_ID;
 class UserJSON(typing.TypedDict):
     authority: str
     delegate: str
-    name: str
+    name: list[int]
     spotPositions: list[types.spotPosition.SpotPositionJSON]
     perpPositions: list[types.perpPosition.PerpPositionJSON]
     orders: list[types.order.OrderJSON]
@@ -49,9 +49,9 @@ class UserJSON(typing.TypedDict):
     hasOpenAuction: bool
     marginMode: types.marginMode.MarginModeJSON
     poolId: int
-    padding1: str
+    padding1: list[int]
     lastFuelBonusUpdateTs: int
-    padding: str
+    padding: list[int]
 
 @dataclass
 class User:
@@ -60,7 +60,7 @@ class User:
     layout: typing.ClassVar = borsh.CStruct(
         "authority" /BorshPubkey,
         "delegate" /BorshPubkey,
-        "name" /borsh.visitFixedSizeType,
+        "name" /borsh.U8[32],
         "spotPositions" /types.spotPosition.SpotPosition.layout[8],
         "perpPositions" /types.perpPosition.PerpPosition.layout[8],
         "orders" /types.order.Order.layout[32],
@@ -86,14 +86,14 @@ class User:
         "hasOpenAuction" /borsh.U8,
         "marginMode" /types.marginMode.MarginMode.layout,
         "poolId" /borsh.U8,
-        "padding1" /borsh.visitFixedSizeType,
+        "padding1" /borsh.U8[3],
         "lastFuelBonusUpdateTs" /borsh.U32,
-        "padding" /borsh.visitFixedSizeType,
+        "padding" /borsh.U8[12],
         )
     #fields
     authority: Pubkey
     delegate: Pubkey
-    name: borsh.String
+    name: list[int]
     spotPositions: list[types.spotPosition.SpotPosition]
     perpPositions: list[types.perpPosition.PerpPosition]
     orders: list[types.order.Order]
@@ -119,9 +119,9 @@ class User:
     hasOpenAuction: bool
     marginMode: types.marginMode.MarginMode
     poolId: int
-    padding1: borsh.String
+    padding1: list[int]
     lastFuelBonusUpdateTs: int
-    padding: borsh.String
+    padding: list[int]
     
 
     @classmethod

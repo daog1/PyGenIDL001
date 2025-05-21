@@ -33,7 +33,7 @@ class InitializeSpotMarketArgs(typing.TypedDict):
     orderTickSize:int
     orderStepSize:int
     ifTotalFactor:int
-    name:borsh.String
+    name:list[int]
 
 
 layout = borsh.CStruct(
@@ -55,7 +55,7 @@ layout = borsh.CStruct(
     "orderTickSize" /borsh.U64,
     "orderStepSize" /borsh.U64,
     "ifTotalFactor" /borsh.U32,
-    "name" /borsh.visitFixedSizeType,
+    "name" /borsh.U8[32],
     )
 
 

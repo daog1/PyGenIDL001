@@ -14,7 +14,7 @@ from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
 class RFQMakerOrderParamsJSON(typing.TypedDict):
-    uuid: str
+    uuid: list[int]
     authority: str
     subAccountId: int
     marketIndex: int
@@ -27,7 +27,7 @@ class RFQMakerOrderParamsJSON(typing.TypedDict):
 @dataclass
 class RFQMakerOrderParams:
     layout: typing.ClassVar = borsh.CStruct(
-        "uuid" /borsh.visitFixedSizeType,
+        "uuid" /borsh.U8[8],
         "authority" /BorshPubkey,
         "subAccountId" /borsh.U16,
         "marketIndex" /borsh.U16,
@@ -38,7 +38,7 @@ class RFQMakerOrderParams:
         "maxTs" /borsh.I64,
         )
     #fields
-    uuid: borsh.String
+    uuid: list[int]
     authority: Pubkey
     subAccountId: int
     marketIndex: int

@@ -24,7 +24,7 @@ class PythLazerOracleJSON(typing.TypedDict):
     publishTime: int
     postedSlot: int
     exponent: int
-    padding: str
+    padding: list[int]
     conf: int
 
 @dataclass
@@ -36,7 +36,7 @@ class PythLazerOracle:
         "publishTime" /borsh.U64,
         "postedSlot" /borsh.U64,
         "exponent" /borsh.I32,
-        "padding" /borsh.visitFixedSizeType,
+        "padding" /borsh.U8[4],
         "conf" /borsh.U64,
         )
     #fields
@@ -44,7 +44,7 @@ class PythLazerOracle:
     publishTime: int
     postedSlot: int
     exponent: int
-    padding: borsh.String
+    padding: list[int]
     conf: int
     
 
