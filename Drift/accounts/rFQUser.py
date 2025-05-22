@@ -80,9 +80,9 @@ class RFQUser:
             )
         dec = RFQUser.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
         return cls(
-           userPubkey=dec.userPubkey,
-           rfqOrderData=dec.rfqOrderData,
-        )
+                userPubkey=dec.userPubkey,
+                rfqOrderData=dec.rfqOrderData,
+                )
 
     def to_json(self) -> RFQUserJSON:
         return {

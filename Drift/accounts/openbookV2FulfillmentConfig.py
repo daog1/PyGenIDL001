@@ -50,8 +50,8 @@ class OpenbookV2FulfillmentConfig:
         "openbookV2BaseVault" /BorshPubkey,
         "openbookV2QuoteVault" /BorshPubkey,
         "marketIndex" /borsh.U16,
-        "fulfillmentType" /types.spotFulfillmentType.SpotFulfillmentType.layout,
-        "status" /types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatus.layout,
+        "fulfillmentType" /types.spotFulfillmentType.layout,
+        "status" /types.spotFulfillmentConfigStatus.layout,
         "padding" /borsh.U8[4],
         )
     #fields
@@ -65,8 +65,8 @@ class OpenbookV2FulfillmentConfig:
     openbookV2BaseVault: Pubkey
     openbookV2QuoteVault: Pubkey
     marketIndex: int
-    fulfillmentType: types.spotFulfillmentType.SpotFulfillmentType
-    status: types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatus
+    fulfillmentType: types.spotFulfillmentType.SpotFulfillmentTypeKind
+    status: types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatusKind
     padding: list[int]
     
 
@@ -114,20 +114,20 @@ class OpenbookV2FulfillmentConfig:
             )
         dec = OpenbookV2FulfillmentConfig.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
         return cls(
-           pubkey=dec.pubkey,
-           openbookV2ProgramId=dec.openbookV2ProgramId,
-           openbookV2Market=dec.openbookV2Market,
-           openbookV2MarketAuthority=dec.openbookV2MarketAuthority,
-           openbookV2EventHeap=dec.openbookV2EventHeap,
-           openbookV2Bids=dec.openbookV2Bids,
-           openbookV2Asks=dec.openbookV2Asks,
-           openbookV2BaseVault=dec.openbookV2BaseVault,
-           openbookV2QuoteVault=dec.openbookV2QuoteVault,
-           marketIndex=dec.marketIndex,
-           fulfillmentType=types.spotFulfillmentType.SpotFulfillmentType.from_decoded(dec.fulfillmentType),
-           status=types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatus.from_decoded(dec.status),
-           padding=dec.padding,
-        )
+                pubkey=dec.pubkey,
+                openbookV2ProgramId=dec.openbookV2ProgramId,
+                openbookV2Market=dec.openbookV2Market,
+                openbookV2MarketAuthority=dec.openbookV2MarketAuthority,
+                openbookV2EventHeap=dec.openbookV2EventHeap,
+                openbookV2Bids=dec.openbookV2Bids,
+                openbookV2Asks=dec.openbookV2Asks,
+                openbookV2BaseVault=dec.openbookV2BaseVault,
+                openbookV2QuoteVault=dec.openbookV2QuoteVault,
+                marketIndex=dec.marketIndex,
+                fulfillmentType=types.spotFulfillmentType.from_decoded(dec.fulfillmentType),
+                status=types.spotFulfillmentConfigStatus.from_decoded(dec.status),
+                padding=dec.padding,
+                )
 
     def to_json(self) -> OpenbookV2FulfillmentConfigJSON:
         return {
@@ -159,8 +159,8 @@ class OpenbookV2FulfillmentConfig:
                 openbookV2BaseVault=Pubkey.from_string(obj["openbookV2BaseVault"]),
                 openbookV2QuoteVault=Pubkey.from_string(obj["openbookV2QuoteVault"]),
                 marketIndex=obj["marketIndex"],
-                fulfillmentType=types.spotFulfillmentType.SpotFulfillmentType.from_json(obj["fulfillmentType"]),
-                status=types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatus.from_json(obj["status"]),
+                fulfillmentType=types.spotFulfillmentType.from_json(obj["fulfillmentType"]),
+                status=types.spotFulfillmentConfigStatus.from_json(obj["status"]),
                 padding=obj["padding"],
                 )
 

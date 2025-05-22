@@ -83,10 +83,10 @@ class SwiftUserOrders:
             )
         dec = SwiftUserOrders.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
         return cls(
-           userPubkey=dec.userPubkey,
-           padding=dec.padding,
-           swiftOrderData=dec.swiftOrderData,
-        )
+                userPubkey=dec.userPubkey,
+                padding=dec.padding,
+                swiftOrderData=dec.swiftOrderData,
+                )
 
     def to_json(self) -> SwiftUserOrdersJSON:
         return {

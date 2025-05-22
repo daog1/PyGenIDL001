@@ -31,7 +31,7 @@ class SpotPosition:
         "openAsks" /borsh.I64,
         "cumulativeDeposits" /borsh.I64,
         "marketIndex" /borsh.U16,
-        "balanceType" /types.spotBalanceType.SpotBalanceType.layout,
+        "balanceType" /types.spotBalanceType.layout,
         "openOrders" /borsh.U8,
         "padding" /borsh.U8[4],
         )
@@ -41,7 +41,7 @@ class SpotPosition:
     openAsks: int
     cumulativeDeposits: int
     marketIndex: int
-    balanceType: types.spotBalanceType.SpotBalanceType
+    balanceType: types.spotBalanceType.SpotBalanceTypeKind
     openOrders: int
     padding: list[int]
     
@@ -81,7 +81,7 @@ class SpotPosition:
                 openAsks=obj["openAsks"],
                 cumulativeDeposits=obj["cumulativeDeposits"],
                 marketIndex=obj["marketIndex"],
-                balanceType=types.spotBalanceType.SpotBalanceType.from_json(obj["balanceType"]),
+                balanceType=types.spotBalanceType.from_json(obj["balanceType"]),
                 openOrders=obj["openOrders"],
                 padding=obj["padding"],
         )

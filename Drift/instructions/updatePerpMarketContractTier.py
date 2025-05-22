@@ -15,11 +15,11 @@ from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 class UpdatePerpMarketContractTierArgs(typing.TypedDict):
-    contractTier:types.contractTier.ContractTier
+    contractTier:types.contractTier.ContractTierKind
 
 
 layout = borsh.CStruct(
-    "contractTier" /types.contractTier.ContractTier.layout,
+    "contractTier" /types.contractTier.layout,
     )
 
 

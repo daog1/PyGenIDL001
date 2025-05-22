@@ -54,8 +54,8 @@ class SerumV3FulfillmentConfig:
         "serumOpenOrders" /BorshPubkey,
         "serumSignerNonce" /borsh.U64,
         "marketIndex" /borsh.U16,
-        "fulfillmentType" /types.spotFulfillmentType.SpotFulfillmentType.layout,
-        "status" /types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatus.layout,
+        "fulfillmentType" /types.spotFulfillmentType.layout,
+        "status" /types.spotFulfillmentConfigStatus.layout,
         "padding" /borsh.U8[4],
         )
     #fields
@@ -71,8 +71,8 @@ class SerumV3FulfillmentConfig:
     serumOpenOrders: Pubkey
     serumSignerNonce: int
     marketIndex: int
-    fulfillmentType: types.spotFulfillmentType.SpotFulfillmentType
-    status: types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatus
+    fulfillmentType: types.spotFulfillmentType.SpotFulfillmentTypeKind
+    status: types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatusKind
     padding: list[int]
     
 
@@ -120,22 +120,22 @@ class SerumV3FulfillmentConfig:
             )
         dec = SerumV3FulfillmentConfig.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
         return cls(
-           pubkey=dec.pubkey,
-           serumProgramId=dec.serumProgramId,
-           serumMarket=dec.serumMarket,
-           serumRequestQueue=dec.serumRequestQueue,
-           serumEventQueue=dec.serumEventQueue,
-           serumBids=dec.serumBids,
-           serumAsks=dec.serumAsks,
-           serumBaseVault=dec.serumBaseVault,
-           serumQuoteVault=dec.serumQuoteVault,
-           serumOpenOrders=dec.serumOpenOrders,
-           serumSignerNonce=dec.serumSignerNonce,
-           marketIndex=dec.marketIndex,
-           fulfillmentType=types.spotFulfillmentType.SpotFulfillmentType.from_decoded(dec.fulfillmentType),
-           status=types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatus.from_decoded(dec.status),
-           padding=dec.padding,
-        )
+                pubkey=dec.pubkey,
+                serumProgramId=dec.serumProgramId,
+                serumMarket=dec.serumMarket,
+                serumRequestQueue=dec.serumRequestQueue,
+                serumEventQueue=dec.serumEventQueue,
+                serumBids=dec.serumBids,
+                serumAsks=dec.serumAsks,
+                serumBaseVault=dec.serumBaseVault,
+                serumQuoteVault=dec.serumQuoteVault,
+                serumOpenOrders=dec.serumOpenOrders,
+                serumSignerNonce=dec.serumSignerNonce,
+                marketIndex=dec.marketIndex,
+                fulfillmentType=types.spotFulfillmentType.from_decoded(dec.fulfillmentType),
+                status=types.spotFulfillmentConfigStatus.from_decoded(dec.status),
+                padding=dec.padding,
+                )
 
     def to_json(self) -> SerumV3FulfillmentConfigJSON:
         return {
@@ -171,8 +171,8 @@ class SerumV3FulfillmentConfig:
                 serumOpenOrders=Pubkey.from_string(obj["serumOpenOrders"]),
                 serumSignerNonce=obj["serumSignerNonce"],
                 marketIndex=obj["marketIndex"],
-                fulfillmentType=types.spotFulfillmentType.SpotFulfillmentType.from_json(obj["fulfillmentType"]),
-                status=types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatus.from_json(obj["status"]),
+                fulfillmentType=types.spotFulfillmentType.from_json(obj["fulfillmentType"]),
+                status=types.spotFulfillmentConfigStatus.from_json(obj["status"]),
                 padding=obj["padding"],
                 )
 

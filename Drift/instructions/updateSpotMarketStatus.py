@@ -15,11 +15,11 @@ from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 class UpdateSpotMarketStatusArgs(typing.TypedDict):
-    status:types.marketStatus.MarketStatus
+    status:types.marketStatus.MarketStatusKind
 
 
 layout = borsh.CStruct(
-    "status" /types.marketStatus.MarketStatus.layout,
+    "status" /types.marketStatus.layout,
     )
 
 

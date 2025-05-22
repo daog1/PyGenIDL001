@@ -84,9 +84,9 @@ class PerpMarket:
         "numberOfUsersWithBase" /borsh.U32,
         "numberOfUsers" /borsh.U32,
         "marketIndex" /borsh.U16,
-        "status" /types.marketStatus.MarketStatus.layout,
-        "contractType" /types.contractType.ContractType.layout,
-        "contractTier" /types.contractTier.ContractTier.layout,
+        "status" /types.marketStatus.layout,
+        "contractType" /types.contractType.layout,
+        "contractTier" /types.contractTier.layout,
         "pausedOperations" /borsh.U8,
         "quoteSpotMarketIndex" /borsh.U16,
         "feeAdjustment" /borsh.I16,
@@ -121,9 +121,9 @@ class PerpMarket:
     numberOfUsersWithBase: int
     numberOfUsers: int
     marketIndex: int
-    status: types.marketStatus.MarketStatus
-    contractType: types.contractType.ContractType
-    contractTier: types.contractTier.ContractTier
+    status: types.marketStatus.MarketStatusKind
+    contractType: types.contractType.ContractTypeKind
+    contractTier: types.contractTier.ContractTierKind
     pausedOperations: int
     quoteSpotMarketIndex: int
     feeAdjustment: int
@@ -180,42 +180,42 @@ class PerpMarket:
             )
         dec = PerpMarket.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
         return cls(
-           pubkey=dec.pubkey,
-           amm=types.aMM.AMM.from_decoded(dec.amm),
-           pnlPool=types.poolBalance.PoolBalance.from_decoded(dec.pnlPool),
-           name=dec.name,
-           insuranceClaim=types.insuranceClaim.InsuranceClaim.from_decoded(dec.insuranceClaim),
-           unrealizedPnlMaxImbalance=dec.unrealizedPnlMaxImbalance,
-           expiryTs=dec.expiryTs,
-           expiryPrice=dec.expiryPrice,
-           nextFillRecordId=dec.nextFillRecordId,
-           nextFundingRateRecordId=dec.nextFundingRateRecordId,
-           nextCurveRecordId=dec.nextCurveRecordId,
-           imfFactor=dec.imfFactor,
-           unrealizedPnlImfFactor=dec.unrealizedPnlImfFactor,
-           liquidatorFee=dec.liquidatorFee,
-           ifLiquidationFee=dec.ifLiquidationFee,
-           marginRatioInitial=dec.marginRatioInitial,
-           marginRatioMaintenance=dec.marginRatioMaintenance,
-           unrealizedPnlInitialAssetWeight=dec.unrealizedPnlInitialAssetWeight,
-           unrealizedPnlMaintenanceAssetWeight=dec.unrealizedPnlMaintenanceAssetWeight,
-           numberOfUsersWithBase=dec.numberOfUsersWithBase,
-           numberOfUsers=dec.numberOfUsers,
-           marketIndex=dec.marketIndex,
-           status=types.marketStatus.MarketStatus.from_decoded(dec.status),
-           contractType=types.contractType.ContractType.from_decoded(dec.contractType),
-           contractTier=types.contractTier.ContractTier.from_decoded(dec.contractTier),
-           pausedOperations=dec.pausedOperations,
-           quoteSpotMarketIndex=dec.quoteSpotMarketIndex,
-           feeAdjustment=dec.feeAdjustment,
-           fuelBoostPosition=dec.fuelBoostPosition,
-           fuelBoostTaker=dec.fuelBoostTaker,
-           fuelBoostMaker=dec.fuelBoostMaker,
-           poolId=dec.poolId,
-           highLeverageMarginRatioInitial=dec.highLeverageMarginRatioInitial,
-           highLeverageMarginRatioMaintenance=dec.highLeverageMarginRatioMaintenance,
-           padding=dec.padding,
-        )
+                pubkey=dec.pubkey,
+                amm=types.aMM.AMM.from_decoded(dec.amm),
+                pnlPool=types.poolBalance.PoolBalance.from_decoded(dec.pnlPool),
+                name=dec.name,
+                insuranceClaim=types.insuranceClaim.InsuranceClaim.from_decoded(dec.insuranceClaim),
+                unrealizedPnlMaxImbalance=dec.unrealizedPnlMaxImbalance,
+                expiryTs=dec.expiryTs,
+                expiryPrice=dec.expiryPrice,
+                nextFillRecordId=dec.nextFillRecordId,
+                nextFundingRateRecordId=dec.nextFundingRateRecordId,
+                nextCurveRecordId=dec.nextCurveRecordId,
+                imfFactor=dec.imfFactor,
+                unrealizedPnlImfFactor=dec.unrealizedPnlImfFactor,
+                liquidatorFee=dec.liquidatorFee,
+                ifLiquidationFee=dec.ifLiquidationFee,
+                marginRatioInitial=dec.marginRatioInitial,
+                marginRatioMaintenance=dec.marginRatioMaintenance,
+                unrealizedPnlInitialAssetWeight=dec.unrealizedPnlInitialAssetWeight,
+                unrealizedPnlMaintenanceAssetWeight=dec.unrealizedPnlMaintenanceAssetWeight,
+                numberOfUsersWithBase=dec.numberOfUsersWithBase,
+                numberOfUsers=dec.numberOfUsers,
+                marketIndex=dec.marketIndex,
+                status=types.marketStatus.from_decoded(dec.status),
+                contractType=types.contractType.from_decoded(dec.contractType),
+                contractTier=types.contractTier.from_decoded(dec.contractTier),
+                pausedOperations=dec.pausedOperations,
+                quoteSpotMarketIndex=dec.quoteSpotMarketIndex,
+                feeAdjustment=dec.feeAdjustment,
+                fuelBoostPosition=dec.fuelBoostPosition,
+                fuelBoostTaker=dec.fuelBoostTaker,
+                fuelBoostMaker=dec.fuelBoostMaker,
+                poolId=dec.poolId,
+                highLeverageMarginRatioInitial=dec.highLeverageMarginRatioInitial,
+                highLeverageMarginRatioMaintenance=dec.highLeverageMarginRatioMaintenance,
+                padding=dec.padding,
+                )
 
     def to_json(self) -> PerpMarketJSON:
         return {
@@ -281,9 +281,9 @@ class PerpMarket:
                 numberOfUsersWithBase=obj["numberOfUsersWithBase"],
                 numberOfUsers=obj["numberOfUsers"],
                 marketIndex=obj["marketIndex"],
-                status=types.marketStatus.MarketStatus.from_json(obj["status"]),
-                contractType=types.contractType.ContractType.from_json(obj["contractType"]),
-                contractTier=types.contractTier.ContractTier.from_json(obj["contractTier"]),
+                status=types.marketStatus.from_json(obj["status"]),
+                contractType=types.contractType.from_json(obj["contractType"]),
+                contractTier=types.contractTier.from_json(obj["contractTier"]),
                 pausedOperations=obj["pausedOperations"],
                 quoteSpotMarketIndex=obj["quoteSpotMarketIndex"],
                 feeAdjustment=obj["feeAdjustment"],

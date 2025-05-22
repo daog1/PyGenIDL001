@@ -12,6 +12,7 @@ from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
+from .. import types;
 from ..program_id import PROGRAM_ID;
 class EndSwapArgs(typing.TypedDict):
     inMarketIndex:int
@@ -24,7 +25,7 @@ layout = borsh.CStruct(
     "inMarketIndex" /borsh.U16,
     "outMarketIndex" /borsh.U16,
     "limitPrice" /borsh.Option(borsh.U64),
-    "reduceOnly" /borsh.Option(types.swapReduceOnly.SwapReduceOnly.layout),
+    "reduceOnly" /borsh.Option(types.swapReduceOnly.layout),
     )
 
 

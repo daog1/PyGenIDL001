@@ -12,6 +12,7 @@ from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
+from .. import types;
 from ..program_id import PROGRAM_ID;
 class CancelOrdersArgs(typing.TypedDict):
     marketType:typing.Optional[types.marketType.MarketTypeJSON]
@@ -20,9 +21,9 @@ class CancelOrdersArgs(typing.TypedDict):
 
 
 layout = borsh.CStruct(
-    "marketType" /borsh.Option(types.marketType.MarketType.layout),
+    "marketType" /borsh.Option(types.marketType.layout),
     "marketIndex" /borsh.Option(borsh.U16),
-    "direction" /borsh.Option(types.positionDirection.PositionDirection.layout),
+    "direction" /borsh.Option(types.positionDirection.layout),
     )
 
 

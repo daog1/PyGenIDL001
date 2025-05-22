@@ -44,8 +44,8 @@ class PhoenixV1FulfillmentConfig:
         "phoenixBaseVault" /BorshPubkey,
         "phoenixQuoteVault" /BorshPubkey,
         "marketIndex" /borsh.U16,
-        "fulfillmentType" /types.spotFulfillmentType.SpotFulfillmentType.layout,
-        "status" /types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatus.layout,
+        "fulfillmentType" /types.spotFulfillmentType.layout,
+        "status" /types.spotFulfillmentConfigStatus.layout,
         "padding" /borsh.U8[4],
         )
     #fields
@@ -56,8 +56,8 @@ class PhoenixV1FulfillmentConfig:
     phoenixBaseVault: Pubkey
     phoenixQuoteVault: Pubkey
     marketIndex: int
-    fulfillmentType: types.spotFulfillmentType.SpotFulfillmentType
-    status: types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatus
+    fulfillmentType: types.spotFulfillmentType.SpotFulfillmentTypeKind
+    status: types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatusKind
     padding: list[int]
     
 
@@ -105,17 +105,17 @@ class PhoenixV1FulfillmentConfig:
             )
         dec = PhoenixV1FulfillmentConfig.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
         return cls(
-           pubkey=dec.pubkey,
-           phoenixProgramId=dec.phoenixProgramId,
-           phoenixLogAuthority=dec.phoenixLogAuthority,
-           phoenixMarket=dec.phoenixMarket,
-           phoenixBaseVault=dec.phoenixBaseVault,
-           phoenixQuoteVault=dec.phoenixQuoteVault,
-           marketIndex=dec.marketIndex,
-           fulfillmentType=types.spotFulfillmentType.SpotFulfillmentType.from_decoded(dec.fulfillmentType),
-           status=types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatus.from_decoded(dec.status),
-           padding=dec.padding,
-        )
+                pubkey=dec.pubkey,
+                phoenixProgramId=dec.phoenixProgramId,
+                phoenixLogAuthority=dec.phoenixLogAuthority,
+                phoenixMarket=dec.phoenixMarket,
+                phoenixBaseVault=dec.phoenixBaseVault,
+                phoenixQuoteVault=dec.phoenixQuoteVault,
+                marketIndex=dec.marketIndex,
+                fulfillmentType=types.spotFulfillmentType.from_decoded(dec.fulfillmentType),
+                status=types.spotFulfillmentConfigStatus.from_decoded(dec.status),
+                padding=dec.padding,
+                )
 
     def to_json(self) -> PhoenixV1FulfillmentConfigJSON:
         return {
@@ -141,8 +141,8 @@ class PhoenixV1FulfillmentConfig:
                 phoenixBaseVault=Pubkey.from_string(obj["phoenixBaseVault"]),
                 phoenixQuoteVault=Pubkey.from_string(obj["phoenixQuoteVault"]),
                 marketIndex=obj["marketIndex"],
-                fulfillmentType=types.spotFulfillmentType.SpotFulfillmentType.from_json(obj["fulfillmentType"]),
-                status=types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatus.from_json(obj["status"]),
+                fulfillmentType=types.spotFulfillmentType.from_json(obj["fulfillmentType"]),
+                status=types.spotFulfillmentConfigStatus.from_json(obj["status"]),
                 padding=obj["padding"],
                 )
 

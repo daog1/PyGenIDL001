@@ -15,11 +15,11 @@ from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 class UpdateSpotMarketAssetTierArgs(typing.TypedDict):
-    assetTier:types.assetTier.AssetTier
+    assetTier:types.assetTier.AssetTierKind
 
 
 layout = borsh.CStruct(
-    "assetTier" /types.assetTier.AssetTier.layout,
+    "assetTier" /types.assetTier.layout,
     )
 
 

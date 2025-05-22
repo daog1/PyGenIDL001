@@ -92,13 +92,13 @@ class PythLazerOracle:
             )
         dec = PythLazerOracle.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
         return cls(
-           price=dec.price,
-           publishTime=dec.publishTime,
-           postedSlot=dec.postedSlot,
-           exponent=dec.exponent,
-           padding=dec.padding,
-           conf=dec.conf,
-        )
+                price=dec.price,
+                publishTime=dec.publishTime,
+                postedSlot=dec.postedSlot,
+                exponent=dec.exponent,
+                padding=dec.padding,
+                conf=dec.conf,
+                )
 
     def to_json(self) -> PythLazerOracleJSON:
         return {

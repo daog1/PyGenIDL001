@@ -31,10 +31,10 @@ class RFQMakerOrderParams:
         "authority" /BorshPubkey,
         "subAccountId" /borsh.U16,
         "marketIndex" /borsh.U16,
-        "marketType" /types.marketType.MarketType.layout,
+        "marketType" /types.marketType.layout,
         "baseAssetAmount" /borsh.U64,
         "price" /borsh.U64,
-        "direction" /types.positionDirection.PositionDirection.layout,
+        "direction" /types.positionDirection.layout,
         "maxTs" /borsh.I64,
         )
     #fields
@@ -42,10 +42,10 @@ class RFQMakerOrderParams:
     authority: Pubkey
     subAccountId: int
     marketIndex: int
-    marketType: types.marketType.MarketType
+    marketType: types.marketType.MarketTypeKind
     baseAssetAmount: int
     price: int
-    direction: types.positionDirection.PositionDirection
+    direction: types.positionDirection.PositionDirectionKind
     maxTs: int
     
     @classmethod
@@ -85,10 +85,10 @@ class RFQMakerOrderParams:
                 authority=Pubkey.from_string(obj["authority"]),
                 subAccountId=obj["subAccountId"],
                 marketIndex=obj["marketIndex"],
-                marketType=types.marketType.MarketType.from_json(obj["marketType"]),
+                marketType=types.marketType.from_json(obj["marketType"]),
                 baseAssetAmount=obj["baseAssetAmount"],
                 price=obj["price"],
-                direction=types.positionDirection.PositionDirection.from_json(obj["direction"]),
+                direction=types.positionDirection.from_json(obj["direction"]),
                 maxTs=obj["maxTs"],
         )
 

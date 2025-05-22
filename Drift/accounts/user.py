@@ -84,7 +84,7 @@ class User:
         "hasOpenOrder" /borsh.U8,
         "openAuctions" /borsh.U8,
         "hasOpenAuction" /borsh.U8,
-        "marginMode" /types.marginMode.MarginMode.layout,
+        "marginMode" /types.marginMode.layout,
         "poolId" /borsh.U8,
         "padding1" /borsh.U8[3],
         "lastFuelBonusUpdateTs" /borsh.U32,
@@ -117,7 +117,7 @@ class User:
     hasOpenOrder: bool
     openAuctions: int
     hasOpenAuction: bool
-    marginMode: types.marginMode.MarginMode
+    marginMode: types.marginMode.MarginModeKind
     poolId: int
     padding1: list[int]
     lastFuelBonusUpdateTs: int
@@ -168,38 +168,38 @@ class User:
             )
         dec = User.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
         return cls(
-           authority=dec.authority,
-           delegate=dec.delegate,
-           name=dec.name,
-           spotPositions=dec.spotPositions,
-           perpPositions=dec.perpPositions,
-           orders=dec.orders,
-           lastAddPerpLpSharesTs=dec.lastAddPerpLpSharesTs,
-           totalDeposits=dec.totalDeposits,
-           totalWithdraws=dec.totalWithdraws,
-           totalSocialLoss=dec.totalSocialLoss,
-           settledPerpPnl=dec.settledPerpPnl,
-           cumulativeSpotFees=dec.cumulativeSpotFees,
-           cumulativePerpFunding=dec.cumulativePerpFunding,
-           liquidationMarginFreed=dec.liquidationMarginFreed,
-           lastActiveSlot=dec.lastActiveSlot,
-           nextOrderId=dec.nextOrderId,
-           maxMarginRatio=dec.maxMarginRatio,
-           nextLiquidationId=dec.nextLiquidationId,
-           subAccountId=dec.subAccountId,
-           status=dec.status,
-           isMarginTradingEnabled=dec.isMarginTradingEnabled,
-           idle=dec.idle,
-           openOrders=dec.openOrders,
-           hasOpenOrder=dec.hasOpenOrder,
-           openAuctions=dec.openAuctions,
-           hasOpenAuction=dec.hasOpenAuction,
-           marginMode=types.marginMode.MarginMode.from_decoded(dec.marginMode),
-           poolId=dec.poolId,
-           padding1=dec.padding1,
-           lastFuelBonusUpdateTs=dec.lastFuelBonusUpdateTs,
-           padding=dec.padding,
-        )
+                authority=dec.authority,
+                delegate=dec.delegate,
+                name=dec.name,
+                spotPositions=dec.spotPositions,
+                perpPositions=dec.perpPositions,
+                orders=dec.orders,
+                lastAddPerpLpSharesTs=dec.lastAddPerpLpSharesTs,
+                totalDeposits=dec.totalDeposits,
+                totalWithdraws=dec.totalWithdraws,
+                totalSocialLoss=dec.totalSocialLoss,
+                settledPerpPnl=dec.settledPerpPnl,
+                cumulativeSpotFees=dec.cumulativeSpotFees,
+                cumulativePerpFunding=dec.cumulativePerpFunding,
+                liquidationMarginFreed=dec.liquidationMarginFreed,
+                lastActiveSlot=dec.lastActiveSlot,
+                nextOrderId=dec.nextOrderId,
+                maxMarginRatio=dec.maxMarginRatio,
+                nextLiquidationId=dec.nextLiquidationId,
+                subAccountId=dec.subAccountId,
+                status=dec.status,
+                isMarginTradingEnabled=dec.isMarginTradingEnabled,
+                idle=dec.idle,
+                openOrders=dec.openOrders,
+                hasOpenOrder=dec.hasOpenOrder,
+                openAuctions=dec.openAuctions,
+                hasOpenAuction=dec.hasOpenAuction,
+                marginMode=types.marginMode.from_decoded(dec.marginMode),
+                poolId=dec.poolId,
+                padding1=dec.padding1,
+                lastFuelBonusUpdateTs=dec.lastFuelBonusUpdateTs,
+                padding=dec.padding,
+                )
 
     def to_json(self) -> UserJSON:
         return {
@@ -265,7 +265,7 @@ class User:
                 hasOpenOrder=obj["hasOpenOrder"],
                 openAuctions=obj["openAuctions"],
                 hasOpenAuction=obj["hasOpenAuction"],
-                marginMode=types.marginMode.MarginMode.from_json(obj["marginMode"]),
+                marginMode=types.marginMode.from_json(obj["marginMode"]),
                 poolId=obj["poolId"],
                 padding1=obj["padding1"],
                 lastFuelBonusUpdateTs=obj["lastFuelBonusUpdateTs"],

@@ -16,12 +16,12 @@ from .. import types;
 from ..program_id import PROGRAM_ID;
 class SettleMultiplePnlsArgs(typing.TypedDict):
     marketIndexes:list[int]
-    mode:types.settlePnlMode.SettlePnlMode
+    mode:types.settlePnlMode.SettlePnlModeKind
 
 
 layout = borsh.CStruct(
     "marketIndexes" /borsh.U16[0],
-    "mode" /types.settlePnlMode.SettlePnlMode.layout,
+    "mode" /types.settlePnlMode.layout,
     )
 
 

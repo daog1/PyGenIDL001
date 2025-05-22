@@ -17,12 +17,12 @@ from .. import types;
 from ..program_id import PROGRAM_ID;
 class UpdateSpotMarketOracleArgs(typing.TypedDict):
     oracle:Pubkey
-    oracleSource:types.oracleSource.OracleSource
+    oracleSource:types.oracleSource.OracleSourceKind
 
 
 layout = borsh.CStruct(
     "oracle" /BorshPubkey,
-    "oracleSource" /types.oracleSource.OracleSource.layout,
+    "oracleSource" /types.oracleSource.layout,
     )
 
 

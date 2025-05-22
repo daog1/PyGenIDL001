@@ -86,11 +86,11 @@ class HighLeverageModeConfig:
             )
         dec = HighLeverageModeConfig.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
         return cls(
-           maxUsers=dec.maxUsers,
-           currentUsers=dec.currentUsers,
-           reduceOnly=dec.reduceOnly,
-           padding=dec.padding,
-        )
+                maxUsers=dec.maxUsers,
+                currentUsers=dec.currentUsers,
+                reduceOnly=dec.reduceOnly,
+                padding=dec.padding,
+                )
 
     def to_json(self) -> HighLeverageModeConfigJSON:
         return {

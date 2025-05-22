@@ -104,17 +104,17 @@ class InsuranceFundStake:
             )
         dec = InsuranceFundStake.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
         return cls(
-           authority=dec.authority,
-           ifShares=dec.ifShares,
-           lastWithdrawRequestShares=dec.lastWithdrawRequestShares,
-           ifBase=dec.ifBase,
-           lastValidTs=dec.lastValidTs,
-           lastWithdrawRequestValue=dec.lastWithdrawRequestValue,
-           lastWithdrawRequestTs=dec.lastWithdrawRequestTs,
-           costBasis=dec.costBasis,
-           marketIndex=dec.marketIndex,
-           padding=dec.padding,
-        )
+                authority=dec.authority,
+                ifShares=dec.ifShares,
+                lastWithdrawRequestShares=dec.lastWithdrawRequestShares,
+                ifBase=dec.ifBase,
+                lastValidTs=dec.lastValidTs,
+                lastWithdrawRequestValue=dec.lastWithdrawRequestValue,
+                lastWithdrawRequestTs=dec.lastWithdrawRequestTs,
+                costBasis=dec.costBasis,
+                marketIndex=dec.marketIndex,
+                padding=dec.padding,
+                )
 
     def to_json(self) -> InsuranceFundStakeJSON:
         return {

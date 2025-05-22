@@ -175,7 +175,7 @@ class AMM:
         "maxSlippageRatio" /borsh.U16,
         "curveUpdateIntensity" /borsh.U8,
         "ammJitIntensity" /borsh.U8,
-        "oracleSource" /types.oracleSource.OracleSource.layout,
+        "oracleSource" /types.oracleSource.layout,
         "lastOracleValid" /borsh.U8,
         "targetBaseAssetAmountPerLp" /borsh.I32,
         "perLpBase" /borsh.I8,
@@ -261,7 +261,7 @@ class AMM:
     maxSlippageRatio: int
     curveUpdateIntensity: int
     ammJitIntensity: int
-    oracleSource: types.oracleSource.OracleSource
+    oracleSource: types.oracleSource.OracleSourceKind
     lastOracleValid: bool
     targetBaseAssetAmountPerLp: int
     perLpBase: int
@@ -529,7 +529,7 @@ class AMM:
                 maxSlippageRatio=obj["maxSlippageRatio"],
                 curveUpdateIntensity=obj["curveUpdateIntensity"],
                 ammJitIntensity=obj["ammJitIntensity"],
-                oracleSource=types.oracleSource.OracleSource.from_json(obj["oracleSource"]),
+                oracleSource=types.oracleSource.from_json(obj["oracleSource"]),
                 lastOracleValid=obj["lastOracleValid"],
                 targetBaseAssetAmountPerLp=obj["targetBaseAssetAmountPerLp"],
                 perLpBase=obj["perLpBase"],

@@ -20,8 +20,8 @@ class InitializePerpMarketArgs(typing.TypedDict):
     ammQuoteAssetReserve:int
     ammPeriodicity:int
     ammPegMultiplier:int
-    oracleSource:types.oracleSource.OracleSource
-    contractTier:types.contractTier.ContractTier
+    oracleSource:types.oracleSource.OracleSourceKind
+    contractTier:types.contractTier.ContractTierKind
     marginRatioInitial:int
     marginRatioMaintenance:int
     liquidatorFee:int
@@ -48,8 +48,8 @@ layout = borsh.CStruct(
     "ammQuoteAssetReserve" /borsh.U128,
     "ammPeriodicity" /borsh.I64,
     "ammPegMultiplier" /borsh.U128,
-    "oracleSource" /types.oracleSource.OracleSource.layout,
-    "contractTier" /types.contractTier.ContractTier.layout,
+    "oracleSource" /types.oracleSource.layout,
+    "contractTier" /types.contractTier.layout,
     "marginRatioInitial" /borsh.U32,
     "marginRatioMaintenance" /borsh.U32,
     "liquidatorFee" /borsh.U32,

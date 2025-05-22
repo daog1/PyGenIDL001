@@ -12,6 +12,7 @@ from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
+from .. import types;
 from ..program_id import PROGRAM_ID;
 class FillSpotOrderArgs(typing.TypedDict):
     orderId:typing.Optional[int]
@@ -21,7 +22,7 @@ class FillSpotOrderArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "orderId" /borsh.Option(borsh.U32),
-    "fulfillmentType" /borsh.Option(types.spotFulfillmentType.SpotFulfillmentType.layout),
+    "fulfillmentType" /borsh.Option(types.spotFulfillmentType.layout),
     "makerOrderId" /borsh.Option(borsh.U32),
     )
 

@@ -54,16 +54,16 @@ class Order:
         "oraclePriceOffset" /borsh.I32,
         "orderId" /borsh.U32,
         "marketIndex" /borsh.U16,
-        "status" /types.orderStatus.OrderStatus.layout,
-        "orderType" /types.orderType.OrderType.layout,
-        "marketType" /types.marketType.MarketType.layout,
+        "status" /types.orderStatus.layout,
+        "orderType" /types.orderType.layout,
+        "marketType" /types.marketType.layout,
         "userOrderId" /borsh.U8,
-        "existingPositionDirection" /types.positionDirection.PositionDirection.layout,
-        "direction" /types.positionDirection.PositionDirection.layout,
+        "existingPositionDirection" /types.positionDirection.layout,
+        "direction" /types.positionDirection.layout,
         "reduceOnly" /borsh.U8,
         "postOnly" /borsh.U8,
         "immediateOrCancel" /borsh.U8,
-        "triggerCondition" /types.orderTriggerCondition.OrderTriggerCondition.layout,
+        "triggerCondition" /types.orderTriggerCondition.layout,
         "auctionDuration" /borsh.U8,
         "padding" /borsh.U8[3],
         )
@@ -80,16 +80,16 @@ class Order:
     oraclePriceOffset: int
     orderId: int
     marketIndex: int
-    status: types.orderStatus.OrderStatus
-    orderType: types.orderType.OrderType
-    marketType: types.marketType.MarketType
+    status: types.orderStatus.OrderStatusKind
+    orderType: types.orderType.OrderTypeKind
+    marketType: types.marketType.MarketTypeKind
     userOrderId: int
-    existingPositionDirection: types.positionDirection.PositionDirection
-    direction: types.positionDirection.PositionDirection
+    existingPositionDirection: types.positionDirection.PositionDirectionKind
+    direction: types.positionDirection.PositionDirectionKind
     reduceOnly: bool
     postOnly: bool
     immediateOrCancel: bool
-    triggerCondition: types.orderTriggerCondition.OrderTriggerCondition
+    triggerCondition: types.orderTriggerCondition.OrderTriggerConditionKind
     auctionDuration: int
     padding: list[int]
     
@@ -168,16 +168,16 @@ class Order:
                 oraclePriceOffset=obj["oraclePriceOffset"],
                 orderId=obj["orderId"],
                 marketIndex=obj["marketIndex"],
-                status=types.orderStatus.OrderStatus.from_json(obj["status"]),
-                orderType=types.orderType.OrderType.from_json(obj["orderType"]),
-                marketType=types.marketType.MarketType.from_json(obj["marketType"]),
+                status=types.orderStatus.from_json(obj["status"]),
+                orderType=types.orderType.from_json(obj["orderType"]),
+                marketType=types.marketType.from_json(obj["marketType"]),
                 userOrderId=obj["userOrderId"],
-                existingPositionDirection=types.positionDirection.PositionDirection.from_json(obj["existingPositionDirection"]),
-                direction=types.positionDirection.PositionDirection.from_json(obj["direction"]),
+                existingPositionDirection=types.positionDirection.from_json(obj["existingPositionDirection"]),
+                direction=types.positionDirection.from_json(obj["direction"]),
                 reduceOnly=obj["reduceOnly"],
                 postOnly=obj["postOnly"],
                 immediateOrCancel=obj["immediateOrCancel"],
-                triggerCondition=types.orderTriggerCondition.OrderTriggerCondition.from_json(obj["triggerCondition"]),
+                triggerCondition=types.orderTriggerCondition.from_json(obj["triggerCondition"]),
                 auctionDuration=obj["auctionDuration"],
                 padding=obj["padding"],
         )

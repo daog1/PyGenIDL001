@@ -86,11 +86,11 @@ class ReferrerName:
             )
         dec = ReferrerName.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
         return cls(
-           authority=dec.authority,
-           user=dec.user,
-           userStats=dec.userStats,
-           name=dec.name,
-        )
+                authority=dec.authority,
+                user=dec.user,
+                userStats=dec.userStats,
+                name=dec.name,
+                )
 
     def to_json(self) -> ReferrerNameJSON:
         return {

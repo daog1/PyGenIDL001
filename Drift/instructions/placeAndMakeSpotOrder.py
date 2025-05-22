@@ -23,7 +23,7 @@ class PlaceAndMakeSpotOrderArgs(typing.TypedDict):
 layout = borsh.CStruct(
     "params" /types.orderParams.OrderParams.layout,
     "takerOrderId" /borsh.U32,
-    "fulfillmentType" /borsh.Option(types.spotFulfillmentType.SpotFulfillmentType.layout),
+    "fulfillmentType" /borsh.Option(types.spotFulfillmentType.layout),
     )
 
 

@@ -15,11 +15,11 @@ from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 class PhoenixFulfillmentConfigStatusArgs(typing.TypedDict):
-    status:types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatus
+    status:types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatusKind
 
 
 layout = borsh.CStruct(
-    "status" /types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatus.layout,
+    "status" /types.spotFulfillmentConfigStatus.layout,
     )
 
 

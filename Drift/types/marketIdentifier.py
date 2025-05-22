@@ -20,11 +20,11 @@ class MarketIdentifierJSON(typing.TypedDict):
 @dataclass
 class MarketIdentifier:
     layout: typing.ClassVar = borsh.CStruct(
-        "marketType" /types.marketType.MarketType.layout,
+        "marketType" /types.marketType.layout,
         "marketIndex" /borsh.U16,
         )
     #fields
-    marketType: types.marketType.MarketType
+    marketType: types.marketType.MarketTypeKind
     marketIndex: int
     
     @classmethod
@@ -46,7 +46,7 @@ class MarketIdentifier:
     @classmethod
     def from_json(cls, obj: MarketIdentifierJSON) -> "MarketIdentifier":
         return cls(
-                marketType=types.marketType.MarketType.from_json(obj["marketType"]),
+                marketType=types.marketType.from_json(obj["marketType"]),
                 marketIndex=obj["marketIndex"],
         )
 

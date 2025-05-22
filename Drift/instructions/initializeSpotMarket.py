@@ -18,7 +18,7 @@ class InitializeSpotMarketArgs(typing.TypedDict):
     optimalUtilization:int
     optimalBorrowRate:int
     maxBorrowRate:int
-    oracleSource:types.oracleSource.OracleSource
+    oracleSource:types.oracleSource.OracleSourceKind
     initialAssetWeight:int
     maintenanceAssetWeight:int
     initialLiabilityWeight:int
@@ -27,7 +27,7 @@ class InitializeSpotMarketArgs(typing.TypedDict):
     liquidatorFee:int
     ifLiquidationFee:int
     activeStatus:bool
-    assetTier:types.assetTier.AssetTier
+    assetTier:types.assetTier.AssetTierKind
     scaleInitialAssetWeightStart:int
     withdrawGuardThreshold:int
     orderTickSize:int
@@ -40,7 +40,7 @@ layout = borsh.CStruct(
     "optimalUtilization" /borsh.U32,
     "optimalBorrowRate" /borsh.U32,
     "maxBorrowRate" /borsh.U32,
-    "oracleSource" /types.oracleSource.OracleSource.layout,
+    "oracleSource" /types.oracleSource.layout,
     "initialAssetWeight" /borsh.U32,
     "maintenanceAssetWeight" /borsh.U32,
     "initialLiabilityWeight" /borsh.U32,
@@ -49,7 +49,7 @@ layout = borsh.CStruct(
     "liquidatorFee" /borsh.U32,
     "ifLiquidationFee" /borsh.U32,
     "activeStatus" /borsh.U8,
-    "assetTier" /types.assetTier.AssetTier.layout,
+    "assetTier" /types.assetTier.layout,
     "scaleInitialAssetWeightStart" /borsh.U64,
     "withdrawGuardThreshold" /borsh.U64,
     "orderTickSize" /borsh.U64,

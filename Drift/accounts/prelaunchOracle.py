@@ -95,14 +95,14 @@ class PrelaunchOracle:
             )
         dec = PrelaunchOracle.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
         return cls(
-           price=dec.price,
-           maxPrice=dec.maxPrice,
-           confidence=dec.confidence,
-           lastUpdateSlot=dec.lastUpdateSlot,
-           ammLastUpdateSlot=dec.ammLastUpdateSlot,
-           perpMarketIndex=dec.perpMarketIndex,
-           padding=dec.padding,
-        )
+                price=dec.price,
+                maxPrice=dec.maxPrice,
+                confidence=dec.confidence,
+                lastUpdateSlot=dec.lastUpdateSlot,
+                ammLastUpdateSlot=dec.ammLastUpdateSlot,
+                perpMarketIndex=dec.perpMarketIndex,
+                padding=dec.padding,
+                )
 
     def to_json(self) -> PrelaunchOracleJSON:
         return {

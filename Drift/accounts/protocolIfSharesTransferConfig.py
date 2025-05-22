@@ -89,12 +89,12 @@ class ProtocolIfSharesTransferConfig:
             )
         dec = ProtocolIfSharesTransferConfig.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
         return cls(
-           whitelistedSigners=dec.whitelistedSigners,
-           maxTransferPerEpoch=dec.maxTransferPerEpoch,
-           currentEpochTransfer=dec.currentEpochTransfer,
-           nextEpochTs=dec.nextEpochTs,
-           padding=dec.padding,
-        )
+                whitelistedSigners=dec.whitelistedSigners,
+                maxTransferPerEpoch=dec.maxTransferPerEpoch,
+                currentEpochTransfer=dec.currentEpochTransfer,
+                nextEpochTs=dec.nextEpochTs,
+                padding=dec.padding,
+                )
 
     def to_json(self) -> ProtocolIfSharesTransferConfigJSON:
         return {
