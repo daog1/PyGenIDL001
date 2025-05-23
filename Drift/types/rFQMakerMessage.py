@@ -12,19 +12,20 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
+from . import rFQMakerOrderParams;
 
 class RFQMakerMessageJSON(typing.TypedDict):
-    orderParams: types.rFQMakerOrderParams.RFQMakerOrderParamsJSON
+    orderParams: rFQMakerOrderParams.RFQMakerOrderParamsJSON
     signature: list[int]
 
 @dataclass
 class RFQMakerMessage:
     layout: typing.ClassVar = borsh.CStruct(
-        "orderParams" /types.rFQMakerOrderParams.RFQMakerOrderParams.layout,
+        "orderParams" /rFQMakerOrderParams.RFQMakerOrderParams.layout,
         "signature" /borsh.U8[64],
         )
     #fields
-    orderParams: types.rFQMakerOrderParams.RFQMakerOrderParams
+    orderParams: rFQMakerOrderParams.RFQMakerOrderParams
     signature: list[int]
     
     @classmethod
@@ -46,7 +47,7 @@ class RFQMakerMessage:
     @classmethod
     def from_json(cls, obj: RFQMakerMessageJSON) -> "RFQMakerMessage":
         return cls(
-                orderParams=types.rFQMakerOrderParams.RFQMakerOrderParams.from_json(obj["orderParams"]),
+                orderParams=rFQMakerOrderParams.RFQMakerOrderParams.from_json(obj["orderParams"]),
                 signature=obj["signature"],
         )
 

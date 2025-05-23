@@ -98,15 +98,15 @@ class Global:
             )
         dec = Global.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
         return cls(
-           initialized=dec.initialized,
-           authority=dec.authority,
-           feeRecipient=dec.feeRecipient,
-           initialVirtualTokenReserves=dec.initialVirtualTokenReserves,
-           initialVirtualSolReserves=dec.initialVirtualSolReserves,
-           initialRealTokenReserves=dec.initialRealTokenReserves,
-           tokenTotalSupply=dec.tokenTotalSupply,
-           feeBasisPoints=dec.feeBasisPoints,
-        )
+                initialized=dec.initialized,
+                authority=dec.authority,
+                feeRecipient=dec.feeRecipient,
+                initialVirtualTokenReserves=dec.initialVirtualTokenReserves,
+                initialVirtualSolReserves=dec.initialVirtualSolReserves,
+                initialRealTokenReserves=dec.initialRealTokenReserves,
+                tokenTotalSupply=dec.tokenTotalSupply,
+                feeBasisPoints=dec.feeBasisPoints,
+                )
 
     def to_json(self) -> GlobalJSON:
         return {

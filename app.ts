@@ -13,6 +13,6 @@ function GenIdl(file: String, dirPath: String) {
   codama.accept(renderPythonVisitor(dirPath));
 }
 
-//GenIdl("./idls/pump.json", "pump");
-//GenIdl("./idls/idl-0.1.2.json", "Lifinity");
+GenIdl("./idls/pump.json", "pump");
+GenIdl("./idls/idl-0.1.2.json", "Lifinity");
 GenIdl("./idls/drift.json", "Drift");

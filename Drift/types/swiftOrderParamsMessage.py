@@ -12,32 +12,33 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
+from . import orderParams, swiftTriggerOrderParams;
 
 class SwiftOrderParamsMessageJSON(typing.TypedDict):
-    swiftOrderParams: types.orderParams.OrderParamsJSON
+    swiftOrderParams: orderParams.OrderParamsJSON
     subAccountId: int
     slot: int
     uuid: list[int]
-    takeProfitOrderParams: typing.Optional[types.swiftTriggerOrderParams.SwiftTriggerOrderParamsJSON]
-    stopLossOrderParams: typing.Optional[types.swiftTriggerOrderParams.SwiftTriggerOrderParamsJSON]
+    takeProfitOrderParams: typing.Optional[swiftTriggerOrderParams.SwiftTriggerOrderParamsJSON]
+    stopLossOrderParams: typing.Optional[swiftTriggerOrderParams.SwiftTriggerOrderParamsJSON]
 
 @dataclass
 class SwiftOrderParamsMessage:
     layout: typing.ClassVar = borsh.CStruct(
-        "swiftOrderParams" /types.orderParams.OrderParams.layout,
+        "swiftOrderParams" /orderParams.OrderParams.layout,
         "subAccountId" /borsh.U16,
         "slot" /borsh.U64,
         "uuid" /borsh.U8[8],
-        "takeProfitOrderParams" /borsh.Option(types.swiftTriggerOrderParams.SwiftTriggerOrderParams.layout),
-        "stopLossOrderParams" /borsh.Option(types.swiftTriggerOrderParams.SwiftTriggerOrderParams.layout),
+        "takeProfitOrderParams" /borsh.Option(swiftTriggerOrderParams.SwiftTriggerOrderParams.layout),
+        "stopLossOrderParams" /borsh.Option(swiftTriggerOrderParams.SwiftTriggerOrderParams.layout),
         )
     #fields
-    swiftOrderParams: types.orderParams.OrderParams
+    swiftOrderParams: orderParams.OrderParams
     subAccountId: int
     slot: int
     uuid: list[int]
-    takeProfitOrderParams: typing.Optional[types.swiftTriggerOrderParams.SwiftTriggerOrderParamsJSON]
-    stopLossOrderParams: typing.Optional[types.swiftTriggerOrderParams.SwiftTriggerOrderParamsJSON]
+    takeProfitOrderParams: typing.Optional[swiftTriggerOrderParams.SwiftTriggerOrderParamsJSON]
+    stopLossOrderParams: typing.Optional[swiftTriggerOrderParams.SwiftTriggerOrderParamsJSON]
     
     @classmethod
     def from_decoded(cls, obj: Container) -> "SwiftOrderParamsMessage":
@@ -66,12 +67,12 @@ class SwiftOrderParamsMessage:
     @classmethod
     def from_json(cls, obj: SwiftOrderParamsMessageJSON) -> "SwiftOrderParamsMessage":
         return cls(
-                swiftOrderParams=types.orderParams.OrderParams.from_json(obj["swiftOrderParams"]),
+                swiftOrderParams=orderParams.OrderParams.from_json(obj["swiftOrderParams"]),
                 subAccountId=obj["subAccountId"],
                 slot=obj["slot"],
                 uuid=obj["uuid"],
-                takeProfitOrderParams=(None if obj["takeProfitOrderParams"] is None else types.swiftTriggerOrderParams.SwiftTriggerOrderParams.from_json(obj["takeProfitOrderParams"])),
-                stopLossOrderParams=(None if obj["stopLossOrderParams"] is None else types.swiftTriggerOrderParams.SwiftTriggerOrderParams.from_json(obj["stopLossOrderParams"])),
+                takeProfitOrderParams=(None if obj["takeProfitOrderParams"] is None else swiftTriggerOrderParams.SwiftTriggerOrderParams.from_json(obj["takeProfitOrderParams"])),
+                stopLossOrderParams=(None if obj["stopLossOrderParams"] is None else swiftTriggerOrderParams.SwiftTriggerOrderParams.from_json(obj["stopLossOrderParams"])),
         )
 
 

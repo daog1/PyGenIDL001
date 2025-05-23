@@ -12,19 +12,20 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
+from . import marketType;
 
 class MarketIdentifierJSON(typing.TypedDict):
-    marketType: types.marketType.MarketTypeJSON
+    marketType: 
     marketIndex: int
 
 @dataclass
 class MarketIdentifier:
     layout: typing.ClassVar = borsh.CStruct(
-        "marketType" /types.marketType.layout,
+        "marketType" /marketType.layout,
         "marketIndex" /borsh.U16,
         )
     #fields
-    marketType: types.marketType.MarketTypeKind
+    marketType: marketType.MarketTypeKind
     marketIndex: int
     
     @classmethod
@@ -46,7 +47,7 @@ class MarketIdentifier:
     @classmethod
     def from_json(cls, obj: MarketIdentifierJSON) -> "MarketIdentifier":
         return cls(
-                marketType=types.marketType.from_json(obj["marketType"]),
+                marketType=marketType.from_json(obj["marketType"]),
                 marketIndex=obj["marketIndex"],
         )
 

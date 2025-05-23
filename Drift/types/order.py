@@ -12,6 +12,7 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
+from . import marketType, orderStatus, orderTriggerCondition, orderType, positionDirection;
 
 class OrderJSON(typing.TypedDict):
     slot: int
@@ -26,16 +27,16 @@ class OrderJSON(typing.TypedDict):
     oraclePriceOffset: int
     orderId: int
     marketIndex: int
-    status: types.orderStatus.OrderStatusJSON
-    orderType: types.orderType.OrderTypeJSON
-    marketType: types.marketType.MarketTypeJSON
+    status: 
+    orderType: 
+    marketType: 
     userOrderId: int
-    existingPositionDirection: types.positionDirection.PositionDirectionJSON
-    direction: types.positionDirection.PositionDirectionJSON
+    existingPositionDirection: 
+    direction: 
     reduceOnly: bool
     postOnly: bool
     immediateOrCancel: bool
-    triggerCondition: types.orderTriggerCondition.OrderTriggerConditionJSON
+    triggerCondition: 
     auctionDuration: int
     padding: list[int]
 
@@ -54,16 +55,16 @@ class Order:
         "oraclePriceOffset" /borsh.I32,
         "orderId" /borsh.U32,
         "marketIndex" /borsh.U16,
-        "status" /types.orderStatus.layout,
-        "orderType" /types.orderType.layout,
-        "marketType" /types.marketType.layout,
+        "status" /orderStatus.layout,
+        "orderType" /orderType.layout,
+        "marketType" /marketType.layout,
         "userOrderId" /borsh.U8,
-        "existingPositionDirection" /types.positionDirection.layout,
-        "direction" /types.positionDirection.layout,
+        "existingPositionDirection" /positionDirection.layout,
+        "direction" /positionDirection.layout,
         "reduceOnly" /borsh.U8,
         "postOnly" /borsh.U8,
         "immediateOrCancel" /borsh.U8,
-        "triggerCondition" /types.orderTriggerCondition.layout,
+        "triggerCondition" /orderTriggerCondition.layout,
         "auctionDuration" /borsh.U8,
         "padding" /borsh.U8[3],
         )
@@ -80,16 +81,16 @@ class Order:
     oraclePriceOffset: int
     orderId: int
     marketIndex: int
-    status: types.orderStatus.OrderStatusKind
-    orderType: types.orderType.OrderTypeKind
-    marketType: types.marketType.MarketTypeKind
+    status: orderStatus.OrderStatusKind
+    orderType: orderType.OrderTypeKind
+    marketType: marketType.MarketTypeKind
     userOrderId: int
-    existingPositionDirection: types.positionDirection.PositionDirectionKind
-    direction: types.positionDirection.PositionDirectionKind
+    existingPositionDirection: positionDirection.PositionDirectionKind
+    direction: positionDirection.PositionDirectionKind
     reduceOnly: bool
     postOnly: bool
     immediateOrCancel: bool
-    triggerCondition: types.orderTriggerCondition.OrderTriggerConditionKind
+    triggerCondition: orderTriggerCondition.OrderTriggerConditionKind
     auctionDuration: int
     padding: list[int]
     
@@ -168,16 +169,16 @@ class Order:
                 oraclePriceOffset=obj["oraclePriceOffset"],
                 orderId=obj["orderId"],
                 marketIndex=obj["marketIndex"],
-                status=types.orderStatus.from_json(obj["status"]),
-                orderType=types.orderType.from_json(obj["orderType"]),
-                marketType=types.marketType.from_json(obj["marketType"]),
+                status=orderStatus.from_json(obj["status"]),
+                orderType=orderType.from_json(obj["orderType"]),
+                marketType=marketType.from_json(obj["marketType"]),
                 userOrderId=obj["userOrderId"],
-                existingPositionDirection=types.positionDirection.from_json(obj["existingPositionDirection"]),
-                direction=types.positionDirection.from_json(obj["direction"]),
+                existingPositionDirection=positionDirection.from_json(obj["existingPositionDirection"]),
+                direction=positionDirection.from_json(obj["direction"]),
                 reduceOnly=obj["reduceOnly"],
                 postOnly=obj["postOnly"],
                 immediateOrCancel=obj["immediateOrCancel"],
-                triggerCondition=types.orderTriggerCondition.from_json(obj["triggerCondition"]),
+                triggerCondition=orderTriggerCondition.from_json(obj["triggerCondition"]),
                 auctionDuration=obj["auctionDuration"],
                 padding=obj["padding"],
         )

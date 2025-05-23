@@ -12,24 +12,25 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
+from . import orderFillerRewardStructure;
 
 class FeeStructureJSON(typing.TypedDict):
-    feeTiers: list[types.feeTier.FeeTierJSON]
-    fillerRewardStructure: types.orderFillerRewardStructure.OrderFillerRewardStructureJSON
+    feeTiers: list[feeTier.FeeTierJSON]
+    fillerRewardStructure: orderFillerRewardStructure.OrderFillerRewardStructureJSON
     referrerRewardEpochUpperBound: int
     flatFillerFee: int
 
 @dataclass
 class FeeStructure:
     layout: typing.ClassVar = borsh.CStruct(
-        "feeTiers" /types.feeTier.FeeTier.layout[10],
-        "fillerRewardStructure" /types.orderFillerRewardStructure.OrderFillerRewardStructure.layout,
+        "feeTiers" /feeTier.FeeTier.layout[10],
+        "fillerRewardStructure" /orderFillerRewardStructure.OrderFillerRewardStructure.layout,
         "referrerRewardEpochUpperBound" /borsh.U64,
         "flatFillerFee" /borsh.U64,
         )
     #fields
-    feeTiers: list[types.feeTier.FeeTier]
-    fillerRewardStructure: types.orderFillerRewardStructure.OrderFillerRewardStructure
+    feeTiers: list[feeTier.FeeTier]
+    fillerRewardStructure: orderFillerRewardStructure.OrderFillerRewardStructure
     referrerRewardEpochUpperBound: int
     flatFillerFee: int
     
@@ -56,8 +57,8 @@ class FeeStructure:
     @classmethod
     def from_json(cls, obj: FeeStructureJSON) -> "FeeStructure":
         return cls(
-                feeTiers=list(map(lambda item:types.feeTier.FeeTier.from_json(item),obj["feeTiers"])),
-                fillerRewardStructure=types.orderFillerRewardStructure.OrderFillerRewardStructure.from_json(obj["fillerRewardStructure"]),
+                feeTiers=list(map(lambda item:feeTier.FeeTier.from_json(item),obj["feeTiers"])),
+                fillerRewardStructure=orderFillerRewardStructure.OrderFillerRewardStructure.from_json(obj["fillerRewardStructure"]),
                 referrerRewardEpochUpperBound=obj["referrerRewardEpochUpperBound"],
                 flatFillerFee=obj["flatFillerFee"],
         )

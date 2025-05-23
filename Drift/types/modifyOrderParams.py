@@ -12,17 +12,18 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
+from . import orderTriggerCondition, positionDirection, postOnlyParam;
 
 class ModifyOrderParamsJSON(typing.TypedDict):
-    direction: typing.Optional[types.positionDirection.PositionDirectionJSON]
+    direction: typing.Optional[]
     baseAssetAmount: typing.Optional[int]
     price: typing.Optional[int]
     reduceOnly: typing.Optional[bool]
-    postOnly: typing.Optional[types.postOnlyParam.PostOnlyParamJSON]
+    postOnly: typing.Optional[]
     immediateOrCancel: typing.Optional[bool]
     maxTs: typing.Optional[int]
     triggerPrice: typing.Optional[int]
-    triggerCondition: typing.Optional[types.orderTriggerCondition.OrderTriggerConditionJSON]
+    triggerCondition: typing.Optional[]
     oraclePriceOffset: typing.Optional[int]
     auctionDuration: typing.Optional[int]
     auctionStartPrice: typing.Optional[int]
@@ -32,15 +33,15 @@ class ModifyOrderParamsJSON(typing.TypedDict):
 @dataclass
 class ModifyOrderParams:
     layout: typing.ClassVar = borsh.CStruct(
-        "direction" /borsh.Option(types.positionDirection.layout),
+        "direction" /borsh.Option(positionDirection.layout),
         "baseAssetAmount" /borsh.Option(borsh.U64),
         "price" /borsh.Option(borsh.U64),
         "reduceOnly" /borsh.Option(borsh.U8),
-        "postOnly" /borsh.Option(types.postOnlyParam.layout),
+        "postOnly" /borsh.Option(postOnlyParam.layout),
         "immediateOrCancel" /borsh.Option(borsh.U8),
         "maxTs" /borsh.Option(borsh.I64),
         "triggerPrice" /borsh.Option(borsh.U64),
-        "triggerCondition" /borsh.Option(types.orderTriggerCondition.layout),
+        "triggerCondition" /borsh.Option(orderTriggerCondition.layout),
         "oraclePriceOffset" /borsh.Option(borsh.I32),
         "auctionDuration" /borsh.Option(borsh.U8),
         "auctionStartPrice" /borsh.Option(borsh.I64),
@@ -48,15 +49,15 @@ class ModifyOrderParams:
         "policy" /borsh.Option(borsh.U8),
         )
     #fields
-    direction: typing.Optional[types.positionDirection.PositionDirectionJSON]
+    direction: typing.Optional[]
     baseAssetAmount: typing.Optional[int]
     price: typing.Optional[int]
     reduceOnly: typing.Optional[bool]
-    postOnly: typing.Optional[types.postOnlyParam.PostOnlyParamJSON]
+    postOnly: typing.Optional[]
     immediateOrCancel: typing.Optional[bool]
     maxTs: typing.Optional[int]
     triggerPrice: typing.Optional[int]
-    triggerCondition: typing.Optional[types.orderTriggerCondition.OrderTriggerConditionJSON]
+    triggerCondition: typing.Optional[]
     oraclePriceOffset: typing.Optional[int]
     auctionDuration: typing.Optional[int]
     auctionStartPrice: typing.Optional[int]
@@ -106,15 +107,15 @@ class ModifyOrderParams:
     @classmethod
     def from_json(cls, obj: ModifyOrderParamsJSON) -> "ModifyOrderParams":
         return cls(
-                direction=(None if obj["direction"] is None else types.positionDirection.from_json(obj["direction"])),
+                direction=(None if obj["direction"] is None else positionDirection.from_json(obj["direction"])),
                 baseAssetAmount=(None if obj["baseAssetAmount"] is None else obj["baseAssetAmount"]),
                 price=(None if obj["price"] is None else obj["price"]),
                 reduceOnly=(None if obj["reduceOnly"] is None else obj["reduceOnly"]),
-                postOnly=(None if obj["postOnly"] is None else types.postOnlyParam.from_json(obj["postOnly"])),
+                postOnly=(None if obj["postOnly"] is None else postOnlyParam.from_json(obj["postOnly"])),
                 immediateOrCancel=(None if obj["immediateOrCancel"] is None else obj["immediateOrCancel"]),
                 maxTs=(None if obj["maxTs"] is None else obj["maxTs"]),
                 triggerPrice=(None if obj["triggerPrice"] is None else obj["triggerPrice"]),
-                triggerCondition=(None if obj["triggerCondition"] is None else types.orderTriggerCondition.from_json(obj["triggerCondition"])),
+                triggerCondition=(None if obj["triggerCondition"] is None else orderTriggerCondition.from_json(obj["triggerCondition"])),
                 oraclePriceOffset=(None if obj["oraclePriceOffset"] is None else obj["oraclePriceOffset"]),
                 auctionDuration=(None if obj["auctionDuration"] is None else obj["auctionDuration"]),
                 auctionStartPrice=(None if obj["auctionStartPrice"] is None else obj["auctionStartPrice"]),

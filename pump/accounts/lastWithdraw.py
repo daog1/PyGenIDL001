@@ -77,8 +77,8 @@ class LastWithdraw:
             )
         dec = LastWithdraw.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
         return cls(
-           lastWithdrawTimestamp=dec.lastWithdrawTimestamp,
-        )
+                lastWithdrawTimestamp=dec.lastWithdrawTimestamp,
+                )
 
     def to_json(self) -> LastWithdrawJSON:
         return {

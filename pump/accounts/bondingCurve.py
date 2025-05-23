@@ -92,13 +92,13 @@ class BondingCurve:
             )
         dec = BondingCurve.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
         return cls(
-           virtualTokenReserves=dec.virtualTokenReserves,
-           virtualSolReserves=dec.virtualSolReserves,
-           realTokenReserves=dec.realTokenReserves,
-           realSolReserves=dec.realSolReserves,
-           tokenTotalSupply=dec.tokenTotalSupply,
-           complete=dec.complete,
-        )
+                virtualTokenReserves=dec.virtualTokenReserves,
+                virtualSolReserves=dec.virtualSolReserves,
+                realTokenReserves=dec.realTokenReserves,
+                realSolReserves=dec.realSolReserves,
+                tokenTotalSupply=dec.tokenTotalSupply,
+                complete=dec.complete,
+                )
 
     def to_json(self) -> BondingCurveJSON:
         return {

@@ -12,20 +12,21 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
+from . import priceDivergenceGuardRails, validityGuardRails;
 
 class OracleGuardRailsJSON(typing.TypedDict):
-    priceDivergence: types.priceDivergenceGuardRails.PriceDivergenceGuardRailsJSON
-    validity: types.validityGuardRails.ValidityGuardRailsJSON
+    priceDivergence: priceDivergenceGuardRails.PriceDivergenceGuardRailsJSON
+    validity: validityGuardRails.ValidityGuardRailsJSON
 
 @dataclass
 class OracleGuardRails:
     layout: typing.ClassVar = borsh.CStruct(
-        "priceDivergence" /types.priceDivergenceGuardRails.PriceDivergenceGuardRails.layout,
-        "validity" /types.validityGuardRails.ValidityGuardRails.layout,
+        "priceDivergence" /priceDivergenceGuardRails.PriceDivergenceGuardRails.layout,
+        "validity" /validityGuardRails.ValidityGuardRails.layout,
         )
     #fields
-    priceDivergence: types.priceDivergenceGuardRails.PriceDivergenceGuardRails
-    validity: types.validityGuardRails.ValidityGuardRails
+    priceDivergence: priceDivergenceGuardRails.PriceDivergenceGuardRails
+    validity: validityGuardRails.ValidityGuardRails
     
     @classmethod
     def from_decoded(cls, obj: Container) -> "OracleGuardRails":
@@ -46,8 +47,8 @@ class OracleGuardRails:
     @classmethod
     def from_json(cls, obj: OracleGuardRailsJSON) -> "OracleGuardRails":
         return cls(
-                priceDivergence=types.priceDivergenceGuardRails.PriceDivergenceGuardRails.from_json(obj["priceDivergence"]),
-                validity=types.validityGuardRails.ValidityGuardRails.from_json(obj["validity"]),
+                priceDivergence=priceDivergenceGuardRails.PriceDivergenceGuardRails.from_json(obj["priceDivergence"]),
+                validity=validityGuardRails.ValidityGuardRails.from_json(obj["validity"]),
         )
 
 

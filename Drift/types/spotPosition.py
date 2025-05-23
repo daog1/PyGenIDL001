@@ -12,6 +12,7 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
+from . import spotBalanceType;
 
 class SpotPositionJSON(typing.TypedDict):
     scaledBalance: int
@@ -19,7 +20,7 @@ class SpotPositionJSON(typing.TypedDict):
     openAsks: int
     cumulativeDeposits: int
     marketIndex: int
-    balanceType: types.spotBalanceType.SpotBalanceTypeJSON
+    balanceType: 
     openOrders: int
     padding: list[int]
 
@@ -31,7 +32,7 @@ class SpotPosition:
         "openAsks" /borsh.I64,
         "cumulativeDeposits" /borsh.I64,
         "marketIndex" /borsh.U16,
-        "balanceType" /types.spotBalanceType.layout,
+        "balanceType" /spotBalanceType.layout,
         "openOrders" /borsh.U8,
         "padding" /borsh.U8[4],
         )
@@ -41,7 +42,7 @@ class SpotPosition:
     openAsks: int
     cumulativeDeposits: int
     marketIndex: int
-    balanceType: types.spotBalanceType.SpotBalanceTypeKind
+    balanceType: spotBalanceType.SpotBalanceTypeKind
     openOrders: int
     padding: list[int]
     
@@ -81,7 +82,7 @@ class SpotPosition:
                 openAsks=obj["openAsks"],
                 cumulativeDeposits=obj["cumulativeDeposits"],
                 marketIndex=obj["marketIndex"],
-                balanceType=types.spotBalanceType.from_json(obj["balanceType"]),
+                balanceType=spotBalanceType.from_json(obj["balanceType"]),
                 openOrders=obj["openOrders"],
                 padding=obj["padding"],
         )

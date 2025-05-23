@@ -12,16 +12,17 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
+from . import marketType, positionDirection;
 
 class RFQMakerOrderParamsJSON(typing.TypedDict):
     uuid: list[int]
     authority: str
     subAccountId: int
     marketIndex: int
-    marketType: types.marketType.MarketTypeJSON
+    marketType: 
     baseAssetAmount: int
     price: int
-    direction: types.positionDirection.PositionDirectionJSON
+    direction: 
     maxTs: int
 
 @dataclass
@@ -31,10 +32,10 @@ class RFQMakerOrderParams:
         "authority" /BorshPubkey,
         "subAccountId" /borsh.U16,
         "marketIndex" /borsh.U16,
-        "marketType" /types.marketType.layout,
+        "marketType" /marketType.layout,
         "baseAssetAmount" /borsh.U64,
         "price" /borsh.U64,
-        "direction" /types.positionDirection.layout,
+        "direction" /positionDirection.layout,
         "maxTs" /borsh.I64,
         )
     #fields
@@ -42,10 +43,10 @@ class RFQMakerOrderParams:
     authority: Pubkey
     subAccountId: int
     marketIndex: int
-    marketType: types.marketType.MarketTypeKind
+    marketType: marketType.MarketTypeKind
     baseAssetAmount: int
     price: int
-    direction: types.positionDirection.PositionDirectionKind
+    direction: positionDirection.PositionDirectionKind
     maxTs: int
     
     @classmethod
@@ -85,10 +86,10 @@ class RFQMakerOrderParams:
                 authority=Pubkey.from_string(obj["authority"]),
                 subAccountId=obj["subAccountId"],
                 marketIndex=obj["marketIndex"],
-                marketType=types.marketType.from_json(obj["marketType"]),
+                marketType=marketType.from_json(obj["marketType"]),
                 baseAssetAmount=obj["baseAssetAmount"],
                 price=obj["price"],
-                direction=types.positionDirection.from_json(obj["direction"]),
+                direction=positionDirection.from_json(obj["direction"]),
                 maxTs=obj["maxTs"],
         )
 

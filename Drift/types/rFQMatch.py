@@ -12,22 +12,23 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
+from . import rFQMakerOrderParams;
 
 class RFQMatchJSON(typing.TypedDict):
     baseAssetAmount: int
-    makerOrderParams: types.rFQMakerOrderParams.RFQMakerOrderParamsJSON
+    makerOrderParams: rFQMakerOrderParams.RFQMakerOrderParamsJSON
     makerSignature: list[int]
 
 @dataclass
 class RFQMatch:
     layout: typing.ClassVar = borsh.CStruct(
         "baseAssetAmount" /borsh.U64,
-        "makerOrderParams" /types.rFQMakerOrderParams.RFQMakerOrderParams.layout,
+        "makerOrderParams" /rFQMakerOrderParams.RFQMakerOrderParams.layout,
         "makerSignature" /borsh.U8[64],
         )
     #fields
     baseAssetAmount: int
-    makerOrderParams: types.rFQMakerOrderParams.RFQMakerOrderParams
+    makerOrderParams: rFQMakerOrderParams.RFQMakerOrderParams
     makerSignature: list[int]
     
     @classmethod
@@ -52,7 +53,7 @@ class RFQMatch:
     def from_json(cls, obj: RFQMatchJSON) -> "RFQMatch":
         return cls(
                 baseAssetAmount=obj["baseAssetAmount"],
-                makerOrderParams=types.rFQMakerOrderParams.RFQMakerOrderParams.from_json(obj["makerOrderParams"]),
+                makerOrderParams=rFQMakerOrderParams.RFQMakerOrderParams.from_json(obj["makerOrderParams"]),
                 makerSignature=obj["makerSignature"],
         )
 

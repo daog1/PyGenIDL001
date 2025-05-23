@@ -12,13 +12,14 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
+from . import historicalOracleData, oracleSource, poolBalance;
 
 class AMMJSON(typing.TypedDict):
     oracle: str
-    historicalOracleData: types.historicalOracleData.HistoricalOracleDataJSON
+    historicalOracleData: historicalOracleData.HistoricalOracleDataJSON
     baseAssetAmountPerLp: int
     quoteAssetAmountPerLp: int
-    feePool: types.poolBalance.PoolBalanceJSON
+    feePool: poolBalance.PoolBalanceJSON
     baseAssetReserve: int
     quoteAssetReserve: int
     concentrationCoef: int
@@ -87,7 +88,7 @@ class AMMJSON(typing.TypedDict):
     maxSlippageRatio: int
     curveUpdateIntensity: int
     ammJitIntensity: int
-    oracleSource: types.oracleSource.OracleSourceJSON
+    oracleSource: 
     lastOracleValid: bool
     targetBaseAssetAmountPerLp: int
     perLpBase: int
@@ -103,10 +104,10 @@ class AMMJSON(typing.TypedDict):
 class AMM:
     layout: typing.ClassVar = borsh.CStruct(
         "oracle" /BorshPubkey,
-        "historicalOracleData" /types.historicalOracleData.HistoricalOracleData.layout,
+        "historicalOracleData" /historicalOracleData.HistoricalOracleData.layout,
         "baseAssetAmountPerLp" /borsh.I128,
         "quoteAssetAmountPerLp" /borsh.I128,
-        "feePool" /types.poolBalance.PoolBalance.layout,
+        "feePool" /poolBalance.PoolBalance.layout,
         "baseAssetReserve" /borsh.U128,
         "quoteAssetReserve" /borsh.U128,
         "concentrationCoef" /borsh.U128,
@@ -175,7 +176,7 @@ class AMM:
         "maxSlippageRatio" /borsh.U16,
         "curveUpdateIntensity" /borsh.U8,
         "ammJitIntensity" /borsh.U8,
-        "oracleSource" /types.oracleSource.layout,
+        "oracleSource" /oracleSource.layout,
         "lastOracleValid" /borsh.U8,
         "targetBaseAssetAmountPerLp" /borsh.I32,
         "perLpBase" /borsh.I8,
@@ -189,10 +190,10 @@ class AMM:
         )
     #fields
     oracle: Pubkey
-    historicalOracleData: types.historicalOracleData.HistoricalOracleData
+    historicalOracleData: historicalOracleData.HistoricalOracleData
     baseAssetAmountPerLp: int
     quoteAssetAmountPerLp: int
-    feePool: types.poolBalance.PoolBalance
+    feePool: poolBalance.PoolBalance
     baseAssetReserve: int
     quoteAssetReserve: int
     concentrationCoef: int
@@ -261,7 +262,7 @@ class AMM:
     maxSlippageRatio: int
     curveUpdateIntensity: int
     ammJitIntensity: int
-    oracleSource: types.oracleSource.OracleSourceKind
+    oracleSource: oracleSource.OracleSourceKind
     lastOracleValid: bool
     targetBaseAssetAmountPerLp: int
     perLpBase: int
@@ -457,10 +458,10 @@ class AMM:
     def from_json(cls, obj: AMMJSON) -> "AMM":
         return cls(
                 oracle=Pubkey.from_string(obj["oracle"]),
-                historicalOracleData=types.historicalOracleData.HistoricalOracleData.from_json(obj["historicalOracleData"]),
+                historicalOracleData=historicalOracleData.HistoricalOracleData.from_json(obj["historicalOracleData"]),
                 baseAssetAmountPerLp=obj["baseAssetAmountPerLp"],
                 quoteAssetAmountPerLp=obj["quoteAssetAmountPerLp"],
-                feePool=types.poolBalance.PoolBalance.from_json(obj["feePool"]),
+                feePool=poolBalance.PoolBalance.from_json(obj["feePool"]),
                 baseAssetReserve=obj["baseAssetReserve"],
                 quoteAssetReserve=obj["quoteAssetReserve"],
                 concentrationCoef=obj["concentrationCoef"],
@@ -529,7 +530,7 @@ class AMM:
                 maxSlippageRatio=obj["maxSlippageRatio"],
                 curveUpdateIntensity=obj["curveUpdateIntensity"],
                 ammJitIntensity=obj["ammJitIntensity"],
-                oracleSource=types.oracleSource.from_json(obj["oracleSource"]),
+                oracleSource=oracleSource.from_json(obj["oracleSource"]),
                 lastOracleValid=obj["lastOracleValid"],
                 targetBaseAssetAmountPerLp=obj["targetBaseAssetAmountPerLp"],
                 perLpBase=obj["perLpBase"],
