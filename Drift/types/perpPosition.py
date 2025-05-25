@@ -69,7 +69,21 @@ class PerpPosition:
     @classmethod
     def from_decoded(cls, obj: Container) -> "PerpPosition":
         return cls(
-       lastCumulativeFundingRate=obj["lastCumulativeFundingRate"],baseAssetAmount=obj["baseAssetAmount"],quoteAssetAmount=obj["quoteAssetAmount"],quoteBreakEvenAmount=obj["quoteBreakEvenAmount"],quoteEntryAmount=obj["quoteEntryAmount"],openBids=obj["openBids"],openAsks=obj["openAsks"],settledPnl=obj["settledPnl"],lpShares=obj["lpShares"],lastBaseAssetAmountPerLp=obj["lastBaseAssetAmountPerLp"],lastQuoteAssetAmountPerLp=obj["lastQuoteAssetAmountPerLp"],remainderBaseAssetAmount=obj["remainderBaseAssetAmount"],marketIndex=obj["marketIndex"],openOrders=obj["openOrders"],perLpBase=obj["perLpBase"]
+        lastCumulativeFundingRate=obj["lastCumulativeFundingRate"],
+        baseAssetAmount=obj["baseAssetAmount"],
+        quoteAssetAmount=obj["quoteAssetAmount"],
+        quoteBreakEvenAmount=obj["quoteBreakEvenAmount"],
+        quoteEntryAmount=obj["quoteEntryAmount"],
+        openBids=obj["openBids"],
+        openAsks=obj["openAsks"],
+        settledPnl=obj["settledPnl"],
+        lpShares=obj["lpShares"],
+        lastBaseAssetAmountPerLp=obj["lastBaseAssetAmountPerLp"],
+        lastQuoteAssetAmountPerLp=obj["lastQuoteAssetAmountPerLp"],
+        remainderBaseAssetAmount=obj["remainderBaseAssetAmount"],
+        marketIndex=obj["marketIndex"],
+        openOrders=obj["openOrders"],
+        perLpBase=obj["perLpBase"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

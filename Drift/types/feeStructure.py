@@ -37,7 +37,10 @@ class FeeStructure:
     @classmethod
     def from_decoded(cls, obj: Container) -> "FeeStructure":
         return cls(
-       feeTiers=list(map(lambda item:feeTier.FeeTier.from_json(item),obj["feeTiers"])),fillerRewardStructure=orderFillerRewardStructure.OrderFillerRewardStructure.from_decoded(obj["fillerRewardStructure"]),referrerRewardEpochUpperBound=obj["referrerRewardEpochUpperBound"],flatFillerFee=obj["flatFillerFee"]
+        feeTiers=list(map(lambda item:feeTier.FeeTier.from_json(item),obj["feeTiers"])),
+        fillerRewardStructure=orderFillerRewardStructure.OrderFillerRewardStructure.from_decoded(obj["fillerRewardStructure"]),
+        referrerRewardEpochUpperBound=obj["referrerRewardEpochUpperBound"],
+        flatFillerFee=obj["flatFillerFee"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

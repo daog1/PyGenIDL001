@@ -49,7 +49,14 @@ class SpotPosition:
     @classmethod
     def from_decoded(cls, obj: Container) -> "SpotPosition":
         return cls(
-       scaledBalance=obj["scaledBalance"],openBids=obj["openBids"],openAsks=obj["openAsks"],cumulativeDeposits=obj["cumulativeDeposits"],marketIndex=obj["marketIndex"],balanceType=spotBalanceType.from_decoded(obj["balanceType"]),openOrders=obj["openOrders"],padding=obj["padding"]
+        scaledBalance=obj["scaledBalance"],
+        openBids=obj["openBids"],
+        openAsks=obj["openAsks"],
+        cumulativeDeposits=obj["cumulativeDeposits"],
+        marketIndex=obj["marketIndex"],
+        balanceType=spotBalanceType.from_decoded(obj["balanceType"]),
+        openOrders=obj["openOrders"],
+        padding=obj["padding"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

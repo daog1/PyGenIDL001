@@ -39,7 +39,11 @@ class HistoricalIndexData:
     @classmethod
     def from_decoded(cls, obj: Container) -> "HistoricalIndexData":
         return cls(
-       lastIndexBidPrice=obj["lastIndexBidPrice"],lastIndexAskPrice=obj["lastIndexAskPrice"],lastIndexPriceTwap=obj["lastIndexPriceTwap"],lastIndexPriceTwap5min=obj["lastIndexPriceTwap5min"],lastIndexPriceTwapTs=obj["lastIndexPriceTwapTs"]
+        lastIndexBidPrice=obj["lastIndexBidPrice"],
+        lastIndexAskPrice=obj["lastIndexAskPrice"],
+        lastIndexPriceTwap=obj["lastIndexPriceTwap"],
+        lastIndexPriceTwap5min=obj["lastIndexPriceTwap5min"],
+        lastIndexPriceTwapTs=obj["lastIndexPriceTwapTs"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

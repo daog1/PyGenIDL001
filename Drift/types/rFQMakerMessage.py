@@ -31,7 +31,8 @@ class RFQMakerMessage:
     @classmethod
     def from_decoded(cls, obj: Container) -> "RFQMakerMessage":
         return cls(
-       orderParams=rFQMakerOrderParams.RFQMakerOrderParams.from_decoded(obj["orderParams"]),signature=obj["signature"]
+        orderParams=rFQMakerOrderParams.RFQMakerOrderParams.from_decoded(obj["orderParams"]),
+        signature=obj["signature"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

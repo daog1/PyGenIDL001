@@ -48,7 +48,14 @@ class AmmFees:
     @classmethod
     def from_decoded(cls, obj: Container) -> "AmmFees":
         return cls(
-       tradeFeeNumerator=obj["tradeFeeNumerator"],tradeFeeDenominator=obj["tradeFeeDenominator"],ownerTradeFeeNumerator=obj["ownerTradeFeeNumerator"],ownerTradeFeeDenominator=obj["ownerTradeFeeDenominator"],ownerWithdrawFeeNumerator=obj["ownerWithdrawFeeNumerator"],ownerWithdrawFeeDenominator=obj["ownerWithdrawFeeDenominator"],hostFeeNumerator=obj["hostFeeNumerator"],hostFeeDenominator=obj["hostFeeDenominator"]
+        tradeFeeNumerator=obj["tradeFeeNumerator"],
+        tradeFeeDenominator=obj["tradeFeeDenominator"],
+        ownerTradeFeeNumerator=obj["ownerTradeFeeNumerator"],
+        ownerTradeFeeDenominator=obj["ownerTradeFeeDenominator"],
+        ownerWithdrawFeeNumerator=obj["ownerWithdrawFeeNumerator"],
+        ownerWithdrawFeeDenominator=obj["ownerWithdrawFeeDenominator"],
+        hostFeeNumerator=obj["hostFeeNumerator"],
+        hostFeeDenominator=obj["hostFeeDenominator"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

@@ -42,7 +42,12 @@ class HistoricalOracleData:
     @classmethod
     def from_decoded(cls, obj: Container) -> "HistoricalOracleData":
         return cls(
-       lastOraclePrice=obj["lastOraclePrice"],lastOracleConf=obj["lastOracleConf"],lastOracleDelay=obj["lastOracleDelay"],lastOraclePriceTwap=obj["lastOraclePriceTwap"],lastOraclePriceTwap5min=obj["lastOraclePriceTwap5min"],lastOraclePriceTwapTs=obj["lastOraclePriceTwapTs"]
+        lastOraclePrice=obj["lastOraclePrice"],
+        lastOracleConf=obj["lastOracleConf"],
+        lastOracleDelay=obj["lastOracleDelay"],
+        lastOraclePriceTwap=obj["lastOraclePriceTwap"],
+        lastOraclePriceTwap5min=obj["lastOraclePriceTwap5min"],
+        lastOraclePriceTwapTs=obj["lastOraclePriceTwapTs"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

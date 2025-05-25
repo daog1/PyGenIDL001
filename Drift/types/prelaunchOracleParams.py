@@ -33,7 +33,9 @@ class PrelaunchOracleParams:
     @classmethod
     def from_decoded(cls, obj: Container) -> "PrelaunchOracleParams":
         return cls(
-       perpMarketIndex=obj["perpMarketIndex"],price=(None if obj["price"] is None else obj["price"]),maxPrice=(None if obj["maxPrice"] is None else obj["maxPrice"])
+        perpMarketIndex=obj["perpMarketIndex"],
+        price=(None if obj["price"] is None else obj["price"]),
+        maxPrice=(None if obj["maxPrice"] is None else obj["maxPrice"]),
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

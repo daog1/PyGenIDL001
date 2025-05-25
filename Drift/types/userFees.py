@@ -42,7 +42,12 @@ class UserFees:
     @classmethod
     def from_decoded(cls, obj: Container) -> "UserFees":
         return cls(
-       totalFeePaid=obj["totalFeePaid"],totalFeeRebate=obj["totalFeeRebate"],totalTokenDiscount=obj["totalTokenDiscount"],totalRefereeDiscount=obj["totalRefereeDiscount"],totalReferrerReward=obj["totalReferrerReward"],currentEpochReferrerReward=obj["currentEpochReferrerReward"]
+        totalFeePaid=obj["totalFeePaid"],
+        totalFeeRebate=obj["totalFeeRebate"],
+        totalTokenDiscount=obj["totalTokenDiscount"],
+        totalRefereeDiscount=obj["totalRefereeDiscount"],
+        totalReferrerReward=obj["totalReferrerReward"],
+        currentEpochReferrerReward=obj["currentEpochReferrerReward"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

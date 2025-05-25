@@ -30,7 +30,8 @@ class PriceDivergenceGuardRails:
     @classmethod
     def from_decoded(cls, obj: Container) -> "PriceDivergenceGuardRails":
         return cls(
-       markOraclePercentDivergence=obj["markOraclePercentDivergence"],oracleTwap5minPercentDivergence=obj["oracleTwap5minPercentDivergence"]
+        markOraclePercentDivergence=obj["markOraclePercentDivergence"],
+        oracleTwap5minPercentDivergence=obj["oracleTwap5minPercentDivergence"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

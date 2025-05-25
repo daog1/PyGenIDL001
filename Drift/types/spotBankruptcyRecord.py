@@ -36,7 +36,10 @@ class SpotBankruptcyRecord:
     @classmethod
     def from_decoded(cls, obj: Container) -> "SpotBankruptcyRecord":
         return cls(
-       marketIndex=obj["marketIndex"],borrowAmount=obj["borrowAmount"],ifPayment=obj["ifPayment"],cumulativeDepositInterestDelta=obj["cumulativeDepositInterestDelta"]
+        marketIndex=obj["marketIndex"],
+        borrowAmount=obj["borrowAmount"],
+        ifPayment=obj["ifPayment"],
+        cumulativeDepositInterestDelta=obj["cumulativeDepositInterestDelta"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

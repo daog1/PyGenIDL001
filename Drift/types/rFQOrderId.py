@@ -30,7 +30,8 @@ class RFQOrderId:
     @classmethod
     def from_decoded(cls, obj: Container) -> "RFQOrderId":
         return cls(
-       uuid=obj["uuid"],maxTs=obj["maxTs"]
+        uuid=obj["uuid"],
+        maxTs=obj["maxTs"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

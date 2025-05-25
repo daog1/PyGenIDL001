@@ -76,7 +76,23 @@ class OrderParams:
     @classmethod
     def from_decoded(cls, obj: Container) -> "OrderParams":
         return cls(
-       orderType=orderType.from_decoded(obj["orderType"]),marketType=marketType.from_decoded(obj["marketType"]),direction=positionDirection.from_decoded(obj["direction"]),userOrderId=obj["userOrderId"],baseAssetAmount=obj["baseAssetAmount"],price=obj["price"],marketIndex=obj["marketIndex"],reduceOnly=obj["reduceOnly"],postOnly=postOnlyParam.from_decoded(obj["postOnly"]),immediateOrCancel=obj["immediateOrCancel"],maxTs=(None if obj["maxTs"] is None else obj["maxTs"]),triggerPrice=(None if obj["triggerPrice"] is None else obj["triggerPrice"]),triggerCondition=orderTriggerCondition.from_decoded(obj["triggerCondition"]),oraclePriceOffset=(None if obj["oraclePriceOffset"] is None else obj["oraclePriceOffset"]),auctionDuration=(None if obj["auctionDuration"] is None else obj["auctionDuration"]),auctionStartPrice=(None if obj["auctionStartPrice"] is None else obj["auctionStartPrice"]),auctionEndPrice=(None if obj["auctionEndPrice"] is None else obj["auctionEndPrice"])
+        orderType=orderType.from_decoded(obj["orderType"]),
+        marketType=marketType.from_decoded(obj["marketType"]),
+        direction=positionDirection.from_decoded(obj["direction"]),
+        userOrderId=obj["userOrderId"],
+        baseAssetAmount=obj["baseAssetAmount"],
+        price=obj["price"],
+        marketIndex=obj["marketIndex"],
+        reduceOnly=obj["reduceOnly"],
+        postOnly=postOnlyParam.from_decoded(obj["postOnly"]),
+        immediateOrCancel=obj["immediateOrCancel"],
+        maxTs=(None if obj["maxTs"] is None else obj["maxTs"]),
+        triggerPrice=(None if obj["triggerPrice"] is None else obj["triggerPrice"]),
+        triggerCondition=orderTriggerCondition.from_decoded(obj["triggerCondition"]),
+        oraclePriceOffset=(None if obj["oraclePriceOffset"] is None else obj["oraclePriceOffset"]),
+        auctionDuration=(None if obj["auctionDuration"] is None else obj["auctionDuration"]),
+        auctionStartPrice=(None if obj["auctionStartPrice"] is None else obj["auctionStartPrice"]),
+        auctionEndPrice=(None if obj["auctionEndPrice"] is None else obj["auctionEndPrice"]),
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

@@ -97,7 +97,30 @@ class Order:
     @classmethod
     def from_decoded(cls, obj: Container) -> "Order":
         return cls(
-       slot=obj["slot"],price=obj["price"],baseAssetAmount=obj["baseAssetAmount"],baseAssetAmountFilled=obj["baseAssetAmountFilled"],quoteAssetAmountFilled=obj["quoteAssetAmountFilled"],triggerPrice=obj["triggerPrice"],auctionStartPrice=obj["auctionStartPrice"],auctionEndPrice=obj["auctionEndPrice"],maxTs=obj["maxTs"],oraclePriceOffset=obj["oraclePriceOffset"],orderId=obj["orderId"],marketIndex=obj["marketIndex"],status=orderStatus.from_decoded(obj["status"]),orderType=orderType.from_decoded(obj["orderType"]),marketType=marketType.from_decoded(obj["marketType"]),userOrderId=obj["userOrderId"],existingPositionDirection=positionDirection.from_decoded(obj["existingPositionDirection"]),direction=positionDirection.from_decoded(obj["direction"]),reduceOnly=obj["reduceOnly"],postOnly=obj["postOnly"],immediateOrCancel=obj["immediateOrCancel"],triggerCondition=orderTriggerCondition.from_decoded(obj["triggerCondition"]),auctionDuration=obj["auctionDuration"],padding=obj["padding"]
+        slot=obj["slot"],
+        price=obj["price"],
+        baseAssetAmount=obj["baseAssetAmount"],
+        baseAssetAmountFilled=obj["baseAssetAmountFilled"],
+        quoteAssetAmountFilled=obj["quoteAssetAmountFilled"],
+        triggerPrice=obj["triggerPrice"],
+        auctionStartPrice=obj["auctionStartPrice"],
+        auctionEndPrice=obj["auctionEndPrice"],
+        maxTs=obj["maxTs"],
+        oraclePriceOffset=obj["oraclePriceOffset"],
+        orderId=obj["orderId"],
+        marketIndex=obj["marketIndex"],
+        status=orderStatus.from_decoded(obj["status"]),
+        orderType=orderType.from_decoded(obj["orderType"]),
+        marketType=marketType.from_decoded(obj["marketType"]),
+        userOrderId=obj["userOrderId"],
+        existingPositionDirection=positionDirection.from_decoded(obj["existingPositionDirection"]),
+        direction=positionDirection.from_decoded(obj["direction"]),
+        reduceOnly=obj["reduceOnly"],
+        postOnly=obj["postOnly"],
+        immediateOrCancel=obj["immediateOrCancel"],
+        triggerCondition=orderTriggerCondition.from_decoded(obj["triggerCondition"]),
+        auctionDuration=obj["auctionDuration"],
+        padding=obj["padding"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

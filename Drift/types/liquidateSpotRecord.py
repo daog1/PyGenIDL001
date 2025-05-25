@@ -45,7 +45,13 @@ class LiquidateSpotRecord:
     @classmethod
     def from_decoded(cls, obj: Container) -> "LiquidateSpotRecord":
         return cls(
-       assetMarketIndex=obj["assetMarketIndex"],assetPrice=obj["assetPrice"],assetTransfer=obj["assetTransfer"],liabilityMarketIndex=obj["liabilityMarketIndex"],liabilityPrice=obj["liabilityPrice"],liabilityTransfer=obj["liabilityTransfer"],ifFee=obj["ifFee"]
+        assetMarketIndex=obj["assetMarketIndex"],
+        assetPrice=obj["assetPrice"],
+        assetTransfer=obj["assetTransfer"],
+        liabilityMarketIndex=obj["liabilityMarketIndex"],
+        liabilityPrice=obj["liabilityPrice"],
+        liabilityTransfer=obj["liabilityTransfer"],
+        ifFee=obj["ifFee"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

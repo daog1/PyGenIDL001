@@ -36,7 +36,10 @@ class SwiftOrderId:
     @classmethod
     def from_decoded(cls, obj: Container) -> "SwiftOrderId":
         return cls(
-       uuid=obj["uuid"],maxSlot=obj["maxSlot"],orderId=obj["orderId"],padding=obj["padding"]
+        uuid=obj["uuid"],
+        maxSlot=obj["maxSlot"],
+        orderId=obj["orderId"],
+        padding=obj["padding"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

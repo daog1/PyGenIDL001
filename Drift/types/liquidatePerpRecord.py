@@ -54,7 +54,16 @@ class LiquidatePerpRecord:
     @classmethod
     def from_decoded(cls, obj: Container) -> "LiquidatePerpRecord":
         return cls(
-       marketIndex=obj["marketIndex"],oraclePrice=obj["oraclePrice"],baseAssetAmount=obj["baseAssetAmount"],quoteAssetAmount=obj["quoteAssetAmount"],lpShares=obj["lpShares"],fillRecordId=obj["fillRecordId"],userOrderId=obj["userOrderId"],liquidatorOrderId=obj["liquidatorOrderId"],liquidatorFee=obj["liquidatorFee"],ifFee=obj["ifFee"]
+        marketIndex=obj["marketIndex"],
+        oraclePrice=obj["oraclePrice"],
+        baseAssetAmount=obj["baseAssetAmount"],
+        quoteAssetAmount=obj["quoteAssetAmount"],
+        lpShares=obj["lpShares"],
+        fillRecordId=obj["fillRecordId"],
+        userOrderId=obj["userOrderId"],
+        liquidatorOrderId=obj["liquidatorOrderId"],
+        liquidatorFee=obj["liquidatorFee"],
+        ifFee=obj["ifFee"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

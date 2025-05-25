@@ -31,7 +31,8 @@ class MarketIdentifier:
     @classmethod
     def from_decoded(cls, obj: Container) -> "MarketIdentifier":
         return cls(
-       marketType=marketType.from_decoded(obj["marketType"]),marketIndex=obj["marketIndex"]
+        marketType=marketType.from_decoded(obj["marketType"]),
+        marketIndex=obj["marketIndex"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

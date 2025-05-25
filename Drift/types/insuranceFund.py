@@ -51,7 +51,15 @@ class InsuranceFund:
     @classmethod
     def from_decoded(cls, obj: Container) -> "InsuranceFund":
         return cls(
-       vault=Pubkey.from_string(obj["vault"]),totalShares=obj["totalShares"],userShares=obj["userShares"],sharesBase=obj["sharesBase"],unstakingPeriod=obj["unstakingPeriod"],lastRevenueSettleTs=obj["lastRevenueSettleTs"],revenueSettlePeriod=obj["revenueSettlePeriod"],totalFactor=obj["totalFactor"],userFactor=obj["userFactor"]
+        vault=Pubkey.from_string(obj["vault"]),
+        totalShares=obj["totalShares"],
+        userShares=obj["userShares"],
+        sharesBase=obj["sharesBase"],
+        unstakingPeriod=obj["unstakingPeriod"],
+        lastRevenueSettleTs=obj["lastRevenueSettleTs"],
+        revenueSettlePeriod=obj["revenueSettlePeriod"],
+        totalFactor=obj["totalFactor"],
+        userFactor=obj["userFactor"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

@@ -42,7 +42,12 @@ class LiquidatePerpPnlForDepositRecord:
     @classmethod
     def from_decoded(cls, obj: Container) -> "LiquidatePerpPnlForDepositRecord":
         return cls(
-       perpMarketIndex=obj["perpMarketIndex"],marketOraclePrice=obj["marketOraclePrice"],pnlTransfer=obj["pnlTransfer"],assetMarketIndex=obj["assetMarketIndex"],assetPrice=obj["assetPrice"],assetTransfer=obj["assetTransfer"]
+        perpMarketIndex=obj["perpMarketIndex"],
+        marketOraclePrice=obj["marketOraclePrice"],
+        pnlTransfer=obj["pnlTransfer"],
+        assetMarketIndex=obj["assetMarketIndex"],
+        assetPrice=obj["assetPrice"],
+        assetTransfer=obj["assetTransfer"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

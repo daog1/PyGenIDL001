@@ -43,7 +43,12 @@ class SwiftOrderParamsMessage:
     @classmethod
     def from_decoded(cls, obj: Container) -> "SwiftOrderParamsMessage":
         return cls(
-       swiftOrderParams=orderParams.OrderParams.from_decoded(obj["swiftOrderParams"]),subAccountId=obj["subAccountId"],slot=obj["slot"],uuid=obj["uuid"],takeProfitOrderParams=(None if obj["takeProfitOrderParams"] is None else swiftTriggerOrderParams.SwiftTriggerOrderParams.from_decoded(obj["takeProfitOrderParams"])),stopLossOrderParams=(None if obj["stopLossOrderParams"] is None else swiftTriggerOrderParams.SwiftTriggerOrderParams.from_decoded(obj["stopLossOrderParams"]))
+        swiftOrderParams=orderParams.OrderParams.from_decoded(obj["swiftOrderParams"]),
+        subAccountId=obj["subAccountId"],
+        slot=obj["slot"],
+        uuid=obj["uuid"],
+        takeProfitOrderParams=(None if obj["takeProfitOrderParams"] is None else swiftTriggerOrderParams.SwiftTriggerOrderParams.from_decoded(obj["takeProfitOrderParams"])),
+        stopLossOrderParams=(None if obj["stopLossOrderParams"] is None else swiftTriggerOrderParams.SwiftTriggerOrderParams.from_decoded(obj["stopLossOrderParams"])),
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

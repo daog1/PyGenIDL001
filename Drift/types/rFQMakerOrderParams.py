@@ -52,7 +52,15 @@ class RFQMakerOrderParams:
     @classmethod
     def from_decoded(cls, obj: Container) -> "RFQMakerOrderParams":
         return cls(
-       uuid=obj["uuid"],authority=Pubkey.from_string(obj["authority"]),subAccountId=obj["subAccountId"],marketIndex=obj["marketIndex"],marketType=marketType.from_decoded(obj["marketType"]),baseAssetAmount=obj["baseAssetAmount"],price=obj["price"],direction=positionDirection.from_decoded(obj["direction"]),maxTs=obj["maxTs"]
+        uuid=obj["uuid"],
+        authority=Pubkey.from_string(obj["authority"]),
+        subAccountId=obj["subAccountId"],
+        marketIndex=obj["marketIndex"],
+        marketType=marketType.from_decoded(obj["marketType"]),
+        baseAssetAmount=obj["baseAssetAmount"],
+        price=obj["price"],
+        direction=positionDirection.from_decoded(obj["direction"]),
+        maxTs=obj["maxTs"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

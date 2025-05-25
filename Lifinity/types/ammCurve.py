@@ -30,7 +30,8 @@ class AmmCurve:
     @classmethod
     def from_decoded(cls, obj: Container) -> "AmmCurve":
         return cls(
-       curveType=obj["curveType"],curveParameters=obj["curveParameters"]
+        curveType=obj["curveType"],
+        curveParameters=obj["curveParameters"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

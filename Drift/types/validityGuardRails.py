@@ -36,7 +36,10 @@ class ValidityGuardRails:
     @classmethod
     def from_decoded(cls, obj: Container) -> "ValidityGuardRails":
         return cls(
-       slotsBeforeStaleForAmm=obj["slotsBeforeStaleForAmm"],slotsBeforeStaleForMargin=obj["slotsBeforeStaleForMargin"],confidenceIntervalMaxSize=obj["confidenceIntervalMaxSize"],tooVolatileRatio=obj["tooVolatileRatio"]
+        slotsBeforeStaleForAmm=obj["slotsBeforeStaleForAmm"],
+        slotsBeforeStaleForMargin=obj["slotsBeforeStaleForMargin"],
+        confidenceIntervalMaxSize=obj["confidenceIntervalMaxSize"],
+        tooVolatileRatio=obj["tooVolatileRatio"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

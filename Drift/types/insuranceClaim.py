@@ -39,7 +39,11 @@ class InsuranceClaim:
     @classmethod
     def from_decoded(cls, obj: Container) -> "InsuranceClaim":
         return cls(
-       revenueWithdrawSinceLastSettle=obj["revenueWithdrawSinceLastSettle"],maxRevenueWithdrawPerPeriod=obj["maxRevenueWithdrawPerPeriod"],quoteMaxInsurance=obj["quoteMaxInsurance"],quoteSettledInsurance=obj["quoteSettledInsurance"],lastRevenueWithdrawTs=obj["lastRevenueWithdrawTs"]
+        revenueWithdrawSinceLastSettle=obj["revenueWithdrawSinceLastSettle"],
+        maxRevenueWithdrawPerPeriod=obj["maxRevenueWithdrawPerPeriod"],
+        quoteMaxInsurance=obj["quoteMaxInsurance"],
+        quoteSettledInsurance=obj["quoteSettledInsurance"],
+        lastRevenueWithdrawTs=obj["lastRevenueWithdrawTs"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

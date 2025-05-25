@@ -48,7 +48,14 @@ class FeeTier:
     @classmethod
     def from_decoded(cls, obj: Container) -> "FeeTier":
         return cls(
-       feeNumerator=obj["feeNumerator"],feeDenominator=obj["feeDenominator"],makerRebateNumerator=obj["makerRebateNumerator"],makerRebateDenominator=obj["makerRebateDenominator"],referrerRewardNumerator=obj["referrerRewardNumerator"],referrerRewardDenominator=obj["referrerRewardDenominator"],refereeFeeNumerator=obj["refereeFeeNumerator"],refereeFeeDenominator=obj["refereeFeeDenominator"]
+        feeNumerator=obj["feeNumerator"],
+        feeDenominator=obj["feeDenominator"],
+        makerRebateNumerator=obj["makerRebateNumerator"],
+        makerRebateDenominator=obj["makerRebateDenominator"],
+        referrerRewardNumerator=obj["referrerRewardNumerator"],
+        referrerRewardDenominator=obj["referrerRewardDenominator"],
+        refereeFeeNumerator=obj["refereeFeeNumerator"],
+        refereeFeeDenominator=obj["refereeFeeDenominator"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

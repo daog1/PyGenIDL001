@@ -42,7 +42,12 @@ class LiquidateBorrowForPerpPnlRecord:
     @classmethod
     def from_decoded(cls, obj: Container) -> "LiquidateBorrowForPerpPnlRecord":
         return cls(
-       perpMarketIndex=obj["perpMarketIndex"],marketOraclePrice=obj["marketOraclePrice"],pnlTransfer=obj["pnlTransfer"],liabilityMarketIndex=obj["liabilityMarketIndex"],liabilityPrice=obj["liabilityPrice"],liabilityTransfer=obj["liabilityTransfer"]
+        perpMarketIndex=obj["perpMarketIndex"],
+        marketOraclePrice=obj["marketOraclePrice"],
+        pnlTransfer=obj["pnlTransfer"],
+        liabilityMarketIndex=obj["liabilityMarketIndex"],
+        liabilityPrice=obj["liabilityPrice"],
+        liabilityTransfer=obj["liabilityTransfer"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

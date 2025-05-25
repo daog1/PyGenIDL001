@@ -33,7 +33,9 @@ class SwiftUserOrdersFixed:
     @classmethod
     def from_decoded(cls, obj: Container) -> "SwiftUserOrdersFixed":
         return cls(
-       userPubkey=Pubkey.from_string(obj["userPubkey"]),padding=obj["padding"],len=obj["len"]
+        userPubkey=Pubkey.from_string(obj["userPubkey"]),
+        padding=obj["padding"],
+        len=obj["len"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

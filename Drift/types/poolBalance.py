@@ -33,7 +33,9 @@ class PoolBalance:
     @classmethod
     def from_decoded(cls, obj: Container) -> "PoolBalance":
         return cls(
-       scaledBalance=obj["scaledBalance"],marketIndex=obj["marketIndex"],padding=obj["padding"]
+        scaledBalance=obj["scaledBalance"],
+        marketIndex=obj["marketIndex"],
+        padding=obj["padding"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

@@ -34,7 +34,9 @@ class RFQMatch:
     @classmethod
     def from_decoded(cls, obj: Container) -> "RFQMatch":
         return cls(
-       baseAssetAmount=obj["baseAssetAmount"],makerOrderParams=rFQMakerOrderParams.RFQMakerOrderParams.from_decoded(obj["makerOrderParams"]),makerSignature=obj["makerSignature"]
+        baseAssetAmount=obj["baseAssetAmount"],
+        makerOrderParams=rFQMakerOrderParams.RFQMakerOrderParams.from_decoded(obj["makerOrderParams"]),
+        makerSignature=obj["makerSignature"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

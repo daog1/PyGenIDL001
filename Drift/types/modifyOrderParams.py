@@ -67,7 +67,20 @@ class ModifyOrderParams:
     @classmethod
     def from_decoded(cls, obj: Container) -> "ModifyOrderParams":
         return cls(
-       direction=(None if obj["direction"] is None else positionDirection.from_decoded(obj["direction"])),baseAssetAmount=(None if obj["baseAssetAmount"] is None else obj["baseAssetAmount"]),price=(None if obj["price"] is None else obj["price"]),reduceOnly=(None if obj["reduceOnly"] is None else obj["reduceOnly"]),postOnly=(None if obj["postOnly"] is None else postOnlyParam.from_decoded(obj["postOnly"])),immediateOrCancel=(None if obj["immediateOrCancel"] is None else obj["immediateOrCancel"]),maxTs=(None if obj["maxTs"] is None else obj["maxTs"]),triggerPrice=(None if obj["triggerPrice"] is None else obj["triggerPrice"]),triggerCondition=(None if obj["triggerCondition"] is None else orderTriggerCondition.from_decoded(obj["triggerCondition"])),oraclePriceOffset=(None if obj["oraclePriceOffset"] is None else obj["oraclePriceOffset"]),auctionDuration=(None if obj["auctionDuration"] is None else obj["auctionDuration"]),auctionStartPrice=(None if obj["auctionStartPrice"] is None else obj["auctionStartPrice"]),auctionEndPrice=(None if obj["auctionEndPrice"] is None else obj["auctionEndPrice"]),policy=(None if obj["policy"] is None else obj["policy"])
+        direction=(None if obj["direction"] is None else positionDirection.from_decoded(obj["direction"])),
+        baseAssetAmount=(None if obj["baseAssetAmount"] is None else obj["baseAssetAmount"]),
+        price=(None if obj["price"] is None else obj["price"]),
+        reduceOnly=(None if obj["reduceOnly"] is None else obj["reduceOnly"]),
+        postOnly=(None if obj["postOnly"] is None else postOnlyParam.from_decoded(obj["postOnly"])),
+        immediateOrCancel=(None if obj["immediateOrCancel"] is None else obj["immediateOrCancel"]),
+        maxTs=(None if obj["maxTs"] is None else obj["maxTs"]),
+        triggerPrice=(None if obj["triggerPrice"] is None else obj["triggerPrice"]),
+        triggerCondition=(None if obj["triggerCondition"] is None else orderTriggerCondition.from_decoded(obj["triggerCondition"])),
+        oraclePriceOffset=(None if obj["oraclePriceOffset"] is None else obj["oraclePriceOffset"]),
+        auctionDuration=(None if obj["auctionDuration"] is None else obj["auctionDuration"]),
+        auctionStartPrice=(None if obj["auctionStartPrice"] is None else obj["auctionStartPrice"]),
+        auctionEndPrice=(None if obj["auctionEndPrice"] is None else obj["auctionEndPrice"]),
+        policy=(None if obj["policy"] is None else obj["policy"]),
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

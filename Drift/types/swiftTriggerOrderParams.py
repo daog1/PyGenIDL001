@@ -30,7 +30,8 @@ class SwiftTriggerOrderParams:
     @classmethod
     def from_decoded(cls, obj: Container) -> "SwiftTriggerOrderParams":
         return cls(
-       triggerPrice=obj["triggerPrice"],baseAssetAmount=obj["baseAssetAmount"]
+        triggerPrice=obj["triggerPrice"],
+        baseAssetAmount=obj["baseAssetAmount"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

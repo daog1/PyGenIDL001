@@ -33,7 +33,9 @@ class OrderFillerRewardStructure:
     @classmethod
     def from_decoded(cls, obj: Container) -> "OrderFillerRewardStructure":
         return cls(
-       rewardNumerator=obj["rewardNumerator"],rewardDenominator=obj["rewardDenominator"],timeBasedRewardLowerBound=obj["timeBasedRewardLowerBound"]
+        rewardNumerator=obj["rewardNumerator"],
+        rewardDenominator=obj["rewardDenominator"],
+        timeBasedRewardLowerBound=obj["timeBasedRewardLowerBound"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

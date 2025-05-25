@@ -42,7 +42,12 @@ class PerpBankruptcyRecord:
     @classmethod
     def from_decoded(cls, obj: Container) -> "PerpBankruptcyRecord":
         return cls(
-       marketIndex=obj["marketIndex"],pnl=obj["pnl"],ifPayment=obj["ifPayment"],clawbackUser=(None if obj["clawbackUser"] is None else Pubkey.from_string(obj["clawbackUser"])),clawbackUserPayment=(None if obj["clawbackUserPayment"] is None else obj["clawbackUserPayment"]),cumulativeFundingRateDelta=obj["cumulativeFundingRateDelta"]
+        marketIndex=obj["marketIndex"],
+        pnl=obj["pnl"],
+        ifPayment=obj["ifPayment"],
+        clawbackUser=(None if obj["clawbackUser"] is None else Pubkey.from_string(obj["clawbackUser"])),
+        clawbackUserPayment=(None if obj["clawbackUserPayment"] is None else obj["clawbackUserPayment"]),
+        cumulativeFundingRateDelta=obj["cumulativeFundingRateDelta"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:
