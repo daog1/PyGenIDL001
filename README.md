@@ -1,6 +1,6 @@
 # pygenidl001
 
-The data structure is primarily based on AnchorPy, with function naming and functionality consistent with AnchorPy. Basic types have already been implemented, but enum types are not yet supported. This is an example generated using the Pump IDL (https://github.com/daog1/PyGenIDL001). The specific code can be viewed in my branch (https://github.com/daog1/codama/commits/renderers-py).
+The data structure is primarily based on AnchorPy, with function naming and functionality consistent with AnchorPy. Already supports basic types, enums, and complex types like structs. Support for errors and constants is still needed. This is an example generated using the Pump IDL (https://github.com/daog1/PyGenIDL001). The specific code can be viewed in my branch (https://github.com/daog1/codama/commits/renderers-py).
 
 The IDL file originates from solana-idl-lib.
 
