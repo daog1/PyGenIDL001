@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class ProtocolOwnedJSON(typing.TypedDict):
     kind: typing.Literal["ProtocolOwned"]
 
@@ -20,17 +21,16 @@ class ProtocolOwnedJSON(typing.TypedDict):
 @dataclass
 class ProtocolOwned:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> ProtocolOwnedJSON:
+    def to_json(self) -> ProtocolOwnedJSON:
         return ProtocolOwnedJSON(
             kind="ProtocolOwned",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "ProtocolOwned": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class LPOwnedJSON(typing.TypedDict):
 @dataclass
 class LPOwned:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> LPOwnedJSON:
+    def to_json(self) -> LPOwnedJSON:
         return LPOwnedJSON(
             kind="LPOwned",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "LPOwned": {},
         }
+
 
 
 
@@ -62,14 +61,12 @@ class SharedJSON(typing.TypedDict):
 @dataclass
 class Shared:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> SharedJSON:
+    def to_json(self) -> SharedJSON:
         return SharedJSON(
             kind="Shared",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Shared": {},
         }
@@ -103,10 +100,13 @@ def from_decoded(obj: dict) -> AMMLiquiditySplitKind:
 def from_json(obj: AMMLiquiditySplitJSON) -> AMMLiquiditySplitKind:
     if obj["kind"] == "ProtocolOwned":
         return ProtocolOwned()
+
     if obj["kind"] == "LPOwned":
         return LPOwned()
+
     if obj["kind"] == "Shared":
         return Shared()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

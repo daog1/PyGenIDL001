@@ -42,16 +42,18 @@ class HistoricalOracleData:
     @classmethod
     def from_decoded(cls, obj: Container) -> "HistoricalOracleData":
         return cls(
-                   lastOraclePrice=obj.lastOraclePrice,
-                   lastOracleConf=obj.lastOracleConf,
-                   lastOracleDelay=obj.lastOracleDelay,
-                   lastOraclePriceTwap=obj.lastOraclePriceTwap,
-                   lastOraclePriceTwap5min=obj.lastOraclePriceTwap5min,
-                   lastOraclePriceTwapTs=obj.lastOraclePriceTwapTs,
-                )
+       lastOraclePrice=obj["lastOraclePrice"],lastOracleConf=obj["lastOracleConf"],lastOracleDelay=obj["lastOracleDelay"],lastOraclePriceTwap=obj["lastOraclePriceTwap"],lastOraclePriceTwap5min=obj["lastOraclePriceTwap5min"],lastOraclePriceTwapTs=obj["lastOraclePriceTwapTs"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "lastOraclePrice": self.lastOraclePrice,
+                "lastOracleConf": self.lastOracleConf,
+                "lastOracleDelay": self.lastOracleDelay,
+                "lastOraclePriceTwap": self.lastOraclePriceTwap,
+                "lastOraclePriceTwap5min": self.lastOraclePriceTwap5min,
+                "lastOraclePriceTwapTs": self.lastOraclePriceTwapTs,
+                }
 
     def to_json(self) -> HistoricalOracleDataJSON:
         return {
@@ -61,7 +63,7 @@ class HistoricalOracleData:
                 "lastOraclePriceTwap": self.lastOraclePriceTwap,
                 "lastOraclePriceTwap5min": self.lastOraclePriceTwap5min,
                 "lastOraclePriceTwapTs": self.lastOraclePriceTwapTs,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: HistoricalOracleDataJSON) -> "HistoricalOracleData":

@@ -34,20 +34,22 @@ class RFQMatch:
     @classmethod
     def from_decoded(cls, obj: Container) -> "RFQMatch":
         return cls(
-                   baseAssetAmount=obj.baseAssetAmount,
-                   makerOrderParams=obj.makerOrderParams,
-                   makerSignature=obj.makerSignature,
-                )
+       baseAssetAmount=obj["baseAssetAmount"],makerOrderParams=rFQMakerOrderParams.RFQMakerOrderParams.from_decoded(obj["makerOrderParams"]),makerSignature=obj["makerSignature"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "baseAssetAmount": self.baseAssetAmount,
+                "makerOrderParams": self.makerOrderParams.to_encodable(),
+                "makerSignature": self.makerSignature,
+                }
 
     def to_json(self) -> RFQMatchJSON:
         return {
                 "baseAssetAmount": self.baseAssetAmount,
                 "makerOrderParams": self.makerOrderParams.to_json(),
                 "makerSignature": self.makerSignature,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: RFQMatchJSON) -> "RFQMatch":

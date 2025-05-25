@@ -33,20 +33,22 @@ class PrelaunchOracleParams:
     @classmethod
     def from_decoded(cls, obj: Container) -> "PrelaunchOracleParams":
         return cls(
-                   perpMarketIndex=obj.perpMarketIndex,
-                   price=obj.price,
-                   maxPrice=obj.maxPrice,
-                )
+       perpMarketIndex=obj["perpMarketIndex"],price=(None if obj["price"] is None else obj["price"]),maxPrice=(None if obj["maxPrice"] is None else obj["maxPrice"])
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "perpMarketIndex": self.perpMarketIndex,
+                "price": self.price,
+                "maxPrice": self.maxPrice,
+                }
 
     def to_json(self) -> PrelaunchOracleParamsJSON:
         return {
                 "perpMarketIndex": self.perpMarketIndex,
                 "price": (None if self.price is None else self.price),
                 "maxPrice": (None if self.maxPrice is None else self.maxPrice),
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: PrelaunchOracleParamsJSON) -> "PrelaunchOracleParams":

@@ -37,22 +37,24 @@ class SwiftOrderParamsMessage:
     subAccountId: int
     slot: int
     uuid: list[int]
-    takeProfitOrderParams: typing.Optional[swiftTriggerOrderParams.SwiftTriggerOrderParamsJSON]
-    stopLossOrderParams: typing.Optional[swiftTriggerOrderParams.SwiftTriggerOrderParamsJSON]
+    takeProfitOrderParams: typing.Optional[swiftTriggerOrderParams.SwiftTriggerOrderParams]
+    stopLossOrderParams: typing.Optional[swiftTriggerOrderParams.SwiftTriggerOrderParams]
     
     @classmethod
     def from_decoded(cls, obj: Container) -> "SwiftOrderParamsMessage":
         return cls(
-                   swiftOrderParams=obj.swiftOrderParams,
-                   subAccountId=obj.subAccountId,
-                   slot=obj.slot,
-                   uuid=obj.uuid,
-                   takeProfitOrderParams=obj.takeProfitOrderParams,
-                   stopLossOrderParams=obj.stopLossOrderParams,
-                )
+       swiftOrderParams=orderParams.OrderParams.from_decoded(obj["swiftOrderParams"]),subAccountId=obj["subAccountId"],slot=obj["slot"],uuid=obj["uuid"],takeProfitOrderParams=(None if obj["takeProfitOrderParams"] is None else swiftTriggerOrderParams.SwiftTriggerOrderParams.from_decoded(obj["takeProfitOrderParams"])),stopLossOrderParams=(None if obj["stopLossOrderParams"] is None else swiftTriggerOrderParams.SwiftTriggerOrderParams.from_decoded(obj["stopLossOrderParams"]))
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "swiftOrderParams": self.swiftOrderParams.to_encodable(),
+                "subAccountId": self.subAccountId,
+                "slot": self.slot,
+                "uuid": self.uuid,
+                "takeProfitOrderParams": self.takeProfitOrderParams,
+                "stopLossOrderParams": self.stopLossOrderParams,
+                }
 
     def to_json(self) -> SwiftOrderParamsMessageJSON:
         return {
@@ -62,7 +64,7 @@ class SwiftOrderParamsMessage:
                 "uuid": self.uuid,
                 "takeProfitOrderParams": (None if self.takeProfitOrderParams is None else self.takeProfitOrderParams.to_json()),
                 "stopLossOrderParams": (None if self.stopLossOrderParams is None else self.stopLossOrderParams.to_json()),
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: SwiftOrderParamsMessageJSON) -> "SwiftOrderParamsMessage":

@@ -42,16 +42,18 @@ class UserFees:
     @classmethod
     def from_decoded(cls, obj: Container) -> "UserFees":
         return cls(
-                   totalFeePaid=obj.totalFeePaid,
-                   totalFeeRebate=obj.totalFeeRebate,
-                   totalTokenDiscount=obj.totalTokenDiscount,
-                   totalRefereeDiscount=obj.totalRefereeDiscount,
-                   totalReferrerReward=obj.totalReferrerReward,
-                   currentEpochReferrerReward=obj.currentEpochReferrerReward,
-                )
+       totalFeePaid=obj["totalFeePaid"],totalFeeRebate=obj["totalFeeRebate"],totalTokenDiscount=obj["totalTokenDiscount"],totalRefereeDiscount=obj["totalRefereeDiscount"],totalReferrerReward=obj["totalReferrerReward"],currentEpochReferrerReward=obj["currentEpochReferrerReward"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "totalFeePaid": self.totalFeePaid,
+                "totalFeeRebate": self.totalFeeRebate,
+                "totalTokenDiscount": self.totalTokenDiscount,
+                "totalRefereeDiscount": self.totalRefereeDiscount,
+                "totalReferrerReward": self.totalReferrerReward,
+                "currentEpochReferrerReward": self.currentEpochReferrerReward,
+                }
 
     def to_json(self) -> UserFeesJSON:
         return {
@@ -61,7 +63,7 @@ class UserFees:
                 "totalRefereeDiscount": self.totalRefereeDiscount,
                 "totalReferrerReward": self.totalReferrerReward,
                 "currentEpochReferrerReward": self.currentEpochReferrerReward,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: UserFeesJSON) -> "UserFees":

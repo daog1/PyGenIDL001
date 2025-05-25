@@ -48,18 +48,20 @@ class AmmFees:
     @classmethod
     def from_decoded(cls, obj: Container) -> "AmmFees":
         return cls(
-                   tradeFeeNumerator=obj.tradeFeeNumerator,
-                   tradeFeeDenominator=obj.tradeFeeDenominator,
-                   ownerTradeFeeNumerator=obj.ownerTradeFeeNumerator,
-                   ownerTradeFeeDenominator=obj.ownerTradeFeeDenominator,
-                   ownerWithdrawFeeNumerator=obj.ownerWithdrawFeeNumerator,
-                   ownerWithdrawFeeDenominator=obj.ownerWithdrawFeeDenominator,
-                   hostFeeNumerator=obj.hostFeeNumerator,
-                   hostFeeDenominator=obj.hostFeeDenominator,
-                )
+       tradeFeeNumerator=obj["tradeFeeNumerator"],tradeFeeDenominator=obj["tradeFeeDenominator"],ownerTradeFeeNumerator=obj["ownerTradeFeeNumerator"],ownerTradeFeeDenominator=obj["ownerTradeFeeDenominator"],ownerWithdrawFeeNumerator=obj["ownerWithdrawFeeNumerator"],ownerWithdrawFeeDenominator=obj["ownerWithdrawFeeDenominator"],hostFeeNumerator=obj["hostFeeNumerator"],hostFeeDenominator=obj["hostFeeDenominator"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "tradeFeeNumerator": self.tradeFeeNumerator,
+                "tradeFeeDenominator": self.tradeFeeDenominator,
+                "ownerTradeFeeNumerator": self.ownerTradeFeeNumerator,
+                "ownerTradeFeeDenominator": self.ownerTradeFeeDenominator,
+                "ownerWithdrawFeeNumerator": self.ownerWithdrawFeeNumerator,
+                "ownerWithdrawFeeDenominator": self.ownerWithdrawFeeDenominator,
+                "hostFeeNumerator": self.hostFeeNumerator,
+                "hostFeeDenominator": self.hostFeeDenominator,
+                }
 
     def to_json(self) -> AmmFeesJSON:
         return {
@@ -71,7 +73,7 @@ class AmmFees:
                 "ownerWithdrawFeeDenominator": self.ownerWithdrawFeeDenominator,
                 "hostFeeNumerator": self.hostFeeNumerator,
                 "hostFeeDenominator": self.hostFeeDenominator,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: AmmFeesJSON) -> "AmmFees":

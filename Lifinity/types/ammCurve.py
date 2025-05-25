@@ -30,18 +30,20 @@ class AmmCurve:
     @classmethod
     def from_decoded(cls, obj: Container) -> "AmmCurve":
         return cls(
-                   curveType=obj.curveType,
-                   curveParameters=obj.curveParameters,
-                )
+       curveType=obj["curveType"],curveParameters=obj["curveParameters"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "curveType": self.curveType,
+                "curveParameters": self.curveParameters,
+                }
 
     def to_json(self) -> AmmCurveJSON:
         return {
                 "curveType": self.curveType,
                 "curveParameters": self.curveParameters,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: AmmCurveJSON) -> "AmmCurve":

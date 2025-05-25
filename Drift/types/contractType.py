@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class PerpetualJSON(typing.TypedDict):
     kind: typing.Literal["Perpetual"]
 
@@ -20,17 +21,16 @@ class PerpetualJSON(typing.TypedDict):
 @dataclass
 class Perpetual:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> PerpetualJSON:
+    def to_json(self) -> PerpetualJSON:
         return PerpetualJSON(
             kind="Perpetual",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Perpetual": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class FutureJSON(typing.TypedDict):
 @dataclass
 class Future:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> FutureJSON:
+    def to_json(self) -> FutureJSON:
         return FutureJSON(
             kind="Future",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Future": {},
         }
+
 
 
 
@@ -62,14 +61,12 @@ class PredictionJSON(typing.TypedDict):
 @dataclass
 class Prediction:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> PredictionJSON:
+    def to_json(self) -> PredictionJSON:
         return PredictionJSON(
             kind="Prediction",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Prediction": {},
         }
@@ -103,10 +100,13 @@ def from_decoded(obj: dict) -> ContractTypeKind:
 def from_json(obj: ContractTypeJSON) -> ContractTypeKind:
     if obj["kind"] == "Perpetual":
         return Perpetual()
+
     if obj["kind"] == "Future":
         return Future()
+
     if obj["kind"] == "Prediction":
         return Prediction()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

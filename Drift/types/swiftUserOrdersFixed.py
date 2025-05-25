@@ -33,20 +33,22 @@ class SwiftUserOrdersFixed:
     @classmethod
     def from_decoded(cls, obj: Container) -> "SwiftUserOrdersFixed":
         return cls(
-                   userPubkey=obj.userPubkey,
-                   padding=obj.padding,
-                   len=obj.len,
-                )
+       userPubkey=Pubkey.from_string(obj["userPubkey"]),padding=obj["padding"],len=obj["len"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "userPubkey": self.userPubkey,
+                "padding": self.padding,
+                "len": self.len,
+                }
 
     def to_json(self) -> SwiftUserOrdersFixedJSON:
         return {
                 "userPubkey": str(self.userPubkey),
                 "padding": self.padding,
                 "len": self.len,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: SwiftUserOrdersFixedJSON) -> "SwiftUserOrdersFixed":

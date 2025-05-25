@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class CollateralJSON(typing.TypedDict):
     kind: typing.Literal["Collateral"]
 
@@ -20,17 +21,16 @@ class CollateralJSON(typing.TypedDict):
 @dataclass
 class Collateral:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> CollateralJSON:
+    def to_json(self) -> CollateralJSON:
         return CollateralJSON(
             kind="Collateral",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Collateral": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class ProtectedJSON(typing.TypedDict):
 @dataclass
 class Protected:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> ProtectedJSON:
+    def to_json(self) -> ProtectedJSON:
         return ProtectedJSON(
             kind="Protected",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Protected": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class CrossJSON(typing.TypedDict):
 @dataclass
 class Cross:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> CrossJSON:
+    def to_json(self) -> CrossJSON:
         return CrossJSON(
             kind="Cross",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Cross": {},
         }
+
 
 
 
@@ -83,17 +81,16 @@ class IsolatedJSON(typing.TypedDict):
 @dataclass
 class Isolated:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> IsolatedJSON:
+    def to_json(self) -> IsolatedJSON:
         return IsolatedJSON(
             kind="Isolated",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Isolated": {},
         }
+
 
 
 
@@ -104,14 +101,12 @@ class UnlistedJSON(typing.TypedDict):
 @dataclass
 class Unlisted:
     discriminator: typing.ClassVar = 4
-    @classmethod
-    def to_json(cls) -> UnlistedJSON:
+    def to_json(self) -> UnlistedJSON:
         return UnlistedJSON(
             kind="Unlisted",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Unlisted": {},
         }
@@ -153,14 +148,19 @@ def from_decoded(obj: dict) -> AssetTierKind:
 def from_json(obj: AssetTierJSON) -> AssetTierKind:
     if obj["kind"] == "Collateral":
         return Collateral()
+
     if obj["kind"] == "Protected":
         return Protected()
+
     if obj["kind"] == "Cross":
         return Cross()
+
     if obj["kind"] == "Isolated":
         return Isolated()
+
     if obj["kind"] == "Unlisted":
         return Unlisted()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

@@ -20,7 +20,7 @@ class SpotPositionJSON(typing.TypedDict):
     openAsks: int
     cumulativeDeposits: int
     marketIndex: int
-    balanceType: 
+    balanceType: spotBalanceType.SpotBalanceTypeJSON
     openOrders: int
     padding: list[int]
 
@@ -49,18 +49,20 @@ class SpotPosition:
     @classmethod
     def from_decoded(cls, obj: Container) -> "SpotPosition":
         return cls(
-                   scaledBalance=obj.scaledBalance,
-                   openBids=obj.openBids,
-                   openAsks=obj.openAsks,
-                   cumulativeDeposits=obj.cumulativeDeposits,
-                   marketIndex=obj.marketIndex,
-                   balanceType=obj.balanceType,
-                   openOrders=obj.openOrders,
-                   padding=obj.padding,
-                )
+       scaledBalance=obj["scaledBalance"],openBids=obj["openBids"],openAsks=obj["openAsks"],cumulativeDeposits=obj["cumulativeDeposits"],marketIndex=obj["marketIndex"],balanceType=spotBalanceType.from_decoded(obj["balanceType"]),openOrders=obj["openOrders"],padding=obj["padding"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "scaledBalance": self.scaledBalance,
+                "openBids": self.openBids,
+                "openAsks": self.openAsks,
+                "cumulativeDeposits": self.cumulativeDeposits,
+                "marketIndex": self.marketIndex,
+                "balanceType": self.balanceType.to_encodable(),
+                "openOrders": self.openOrders,
+                "padding": self.padding,
+                }
 
     def to_json(self) -> SpotPositionJSON:
         return {
@@ -72,7 +74,7 @@ class SpotPosition:
                 "balanceType": self.balanceType.to_json(),
                 "openOrders": self.openOrders,
                 "padding": self.padding,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: SpotPositionJSON) -> "SpotPosition":

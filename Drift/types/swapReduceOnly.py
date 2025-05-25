@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class InJSON(typing.TypedDict):
     kind: typing.Literal["In"]
 
@@ -20,17 +21,16 @@ class InJSON(typing.TypedDict):
 @dataclass
 class In:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> InJSON:
+    def to_json(self) -> InJSON:
         return InJSON(
             kind="In",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "In": {},
         }
+
 
 
 
@@ -41,14 +41,12 @@ class OutJSON(typing.TypedDict):
 @dataclass
 class Out:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> OutJSON:
+    def to_json(self) -> OutJSON:
         return OutJSON(
             kind="Out",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Out": {},
         }
@@ -78,8 +76,10 @@ def from_decoded(obj: dict) -> SwapReduceOnlyKind:
 def from_json(obj: SwapReduceOnlyJSON) -> SwapReduceOnlyKind:
     if obj["kind"] == "In":
         return In()
+
     if obj["kind"] == "Out":
         return Out()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

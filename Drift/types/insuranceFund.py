@@ -51,19 +51,21 @@ class InsuranceFund:
     @classmethod
     def from_decoded(cls, obj: Container) -> "InsuranceFund":
         return cls(
-                   vault=obj.vault,
-                   totalShares=obj.totalShares,
-                   userShares=obj.userShares,
-                   sharesBase=obj.sharesBase,
-                   unstakingPeriod=obj.unstakingPeriod,
-                   lastRevenueSettleTs=obj.lastRevenueSettleTs,
-                   revenueSettlePeriod=obj.revenueSettlePeriod,
-                   totalFactor=obj.totalFactor,
-                   userFactor=obj.userFactor,
-                )
+       vault=Pubkey.from_string(obj["vault"]),totalShares=obj["totalShares"],userShares=obj["userShares"],sharesBase=obj["sharesBase"],unstakingPeriod=obj["unstakingPeriod"],lastRevenueSettleTs=obj["lastRevenueSettleTs"],revenueSettlePeriod=obj["revenueSettlePeriod"],totalFactor=obj["totalFactor"],userFactor=obj["userFactor"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "vault": self.vault,
+                "totalShares": self.totalShares,
+                "userShares": self.userShares,
+                "sharesBase": self.sharesBase,
+                "unstakingPeriod": self.unstakingPeriod,
+                "lastRevenueSettleTs": self.lastRevenueSettleTs,
+                "revenueSettlePeriod": self.revenueSettlePeriod,
+                "totalFactor": self.totalFactor,
+                "userFactor": self.userFactor,
+                }
 
     def to_json(self) -> InsuranceFundJSON:
         return {
@@ -76,7 +78,7 @@ class InsuranceFund:
                 "revenueSettlePeriod": self.revenueSettlePeriod,
                 "totalFactor": self.totalFactor,
                 "userFactor": self.userFactor,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: InsuranceFundJSON) -> "InsuranceFund":

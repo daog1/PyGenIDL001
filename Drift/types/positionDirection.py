@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class LongJSON(typing.TypedDict):
     kind: typing.Literal["Long"]
 
@@ -20,17 +21,16 @@ class LongJSON(typing.TypedDict):
 @dataclass
 class Long:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> LongJSON:
+    def to_json(self) -> LongJSON:
         return LongJSON(
             kind="Long",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Long": {},
         }
+
 
 
 
@@ -41,14 +41,12 @@ class ShortJSON(typing.TypedDict):
 @dataclass
 class Short:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> ShortJSON:
+    def to_json(self) -> ShortJSON:
         return ShortJSON(
             kind="Short",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Short": {},
         }
@@ -78,8 +76,10 @@ def from_decoded(obj: dict) -> PositionDirectionKind:
 def from_json(obj: PositionDirectionJSON) -> PositionDirectionKind:
     if obj["kind"] == "Long":
         return Long()
+
     if obj["kind"] == "Short":
         return Short()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

@@ -111,39 +111,41 @@ class AmmConfig:
     @classmethod
     def from_decoded(cls, obj: Container) -> "AmmConfig":
         return cls(
-                   lastPrice=obj.lastPrice,
-                   lastBalancedPrice=obj.lastBalancedPrice,
-                   configDenominator=obj.configDenominator,
-                   volumeX=obj.volumeX,
-                   volumeY=obj.volumeY,
-                   volumeXInY=obj.volumeXInY,
-                   depositCap=obj.depositCap,
-                   regressionTarget=obj.regressionTarget,
-                   oracleType=obj.oracleType,
-                   oracleStatus=obj.oracleStatus,
-                   oracleMainSlotLimit=obj.oracleMainSlotLimit,
-                   oracleSubConfidenceLimit=obj.oracleSubConfidenceLimit,
-                   oracleSubSlotLimit=obj.oracleSubSlotLimit,
-                   oraclePcConfidenceLimit=obj.oraclePcConfidenceLimit,
-                   oraclePcSlotLimit=obj.oraclePcSlotLimit,
-                   stdSpread=obj.stdSpread,
-                   stdSpreadBuffer=obj.stdSpreadBuffer,
-                   spreadCoefficient=obj.spreadCoefficient,
-                   priceBufferCoin=obj.priceBufferCoin,
-                   priceBufferPc=obj.priceBufferPc,
-                   rebalanceRatio=obj.rebalanceRatio,
-                   feeTrade=obj.feeTrade,
-                   feePlatform=obj.feePlatform,
-                   configTemp3=obj.configTemp3,
-                   configTemp4=obj.configTemp4,
-                   configTemp5=obj.configTemp5,
-                   configTemp6=obj.configTemp6,
-                   configTemp7=obj.configTemp7,
-                   configTemp8=obj.configTemp8,
-                )
+       lastPrice=obj["lastPrice"],lastBalancedPrice=obj["lastBalancedPrice"],configDenominator=obj["configDenominator"],volumeX=obj["volumeX"],volumeY=obj["volumeY"],volumeXInY=obj["volumeXInY"],depositCap=obj["depositCap"],regressionTarget=obj["regressionTarget"],oracleType=obj["oracleType"],oracleStatus=obj["oracleStatus"],oracleMainSlotLimit=obj["oracleMainSlotLimit"],oracleSubConfidenceLimit=obj["oracleSubConfidenceLimit"],oracleSubSlotLimit=obj["oracleSubSlotLimit"],oraclePcConfidenceLimit=obj["oraclePcConfidenceLimit"],oraclePcSlotLimit=obj["oraclePcSlotLimit"],stdSpread=obj["stdSpread"],stdSpreadBuffer=obj["stdSpreadBuffer"],spreadCoefficient=obj["spreadCoefficient"],priceBufferCoin=obj["priceBufferCoin"],priceBufferPc=obj["priceBufferPc"],rebalanceRatio=obj["rebalanceRatio"],feeTrade=obj["feeTrade"],feePlatform=obj["feePlatform"],configTemp3=obj["configTemp3"],configTemp4=obj["configTemp4"],configTemp5=obj["configTemp5"],configTemp6=obj["configTemp6"],configTemp7=obj["configTemp7"],configTemp8=obj["configTemp8"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "lastPrice": self.lastPrice,
+                "lastBalancedPrice": self.lastBalancedPrice,
+                "configDenominator": self.configDenominator,
+                "volumeX": self.volumeX,
+                "volumeY": self.volumeY,
+                "volumeXInY": self.volumeXInY,
+                "depositCap": self.depositCap,
+                "regressionTarget": self.regressionTarget,
+                "oracleType": self.oracleType,
+                "oracleStatus": self.oracleStatus,
+                "oracleMainSlotLimit": self.oracleMainSlotLimit,
+                "oracleSubConfidenceLimit": self.oracleSubConfidenceLimit,
+                "oracleSubSlotLimit": self.oracleSubSlotLimit,
+                "oraclePcConfidenceLimit": self.oraclePcConfidenceLimit,
+                "oraclePcSlotLimit": self.oraclePcSlotLimit,
+                "stdSpread": self.stdSpread,
+                "stdSpreadBuffer": self.stdSpreadBuffer,
+                "spreadCoefficient": self.spreadCoefficient,
+                "priceBufferCoin": self.priceBufferCoin,
+                "priceBufferPc": self.priceBufferPc,
+                "rebalanceRatio": self.rebalanceRatio,
+                "feeTrade": self.feeTrade,
+                "feePlatform": self.feePlatform,
+                "configTemp3": self.configTemp3,
+                "configTemp4": self.configTemp4,
+                "configTemp5": self.configTemp5,
+                "configTemp6": self.configTemp6,
+                "configTemp7": self.configTemp7,
+                "configTemp8": self.configTemp8,
+                }
 
     def to_json(self) -> AmmConfigJSON:
         return {
@@ -176,7 +178,7 @@ class AmmConfig:
                 "configTemp6": self.configTemp6,
                 "configTemp7": self.configTemp7,
                 "configTemp8": self.configTemp8,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: AmmConfigJSON) -> "AmmConfig":

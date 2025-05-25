@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class OpenJSON(typing.TypedDict):
     kind: typing.Literal["Open"]
 
@@ -20,17 +21,16 @@ class OpenJSON(typing.TypedDict):
 @dataclass
 class Open:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> OpenJSON:
+    def to_json(self) -> OpenJSON:
         return OpenJSON(
             kind="Open",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Open": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class IncreaseJSON(typing.TypedDict):
 @dataclass
 class Increase:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> IncreaseJSON:
+    def to_json(self) -> IncreaseJSON:
         return IncreaseJSON(
             kind="Increase",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Increase": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class ReduceJSON(typing.TypedDict):
 @dataclass
 class Reduce:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> ReduceJSON:
+    def to_json(self) -> ReduceJSON:
         return ReduceJSON(
             kind="Reduce",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Reduce": {},
         }
+
 
 
 
@@ -83,17 +81,16 @@ class CloseJSON(typing.TypedDict):
 @dataclass
 class Close:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> CloseJSON:
+    def to_json(self) -> CloseJSON:
         return CloseJSON(
             kind="Close",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Close": {},
         }
+
 
 
 
@@ -104,14 +101,12 @@ class FlipJSON(typing.TypedDict):
 @dataclass
 class Flip:
     discriminator: typing.ClassVar = 4
-    @classmethod
-    def to_json(cls) -> FlipJSON:
+    def to_json(self) -> FlipJSON:
         return FlipJSON(
             kind="Flip",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Flip": {},
         }
@@ -153,14 +148,19 @@ def from_decoded(obj: dict) -> PositionUpdateTypeKind:
 def from_json(obj: PositionUpdateTypeJSON) -> PositionUpdateTypeKind:
     if obj["kind"] == "Open":
         return Open()
+
     if obj["kind"] == "Increase":
         return Increase()
+
     if obj["kind"] == "Reduce":
         return Reduce()
+
     if obj["kind"] == "Close":
         return Close()
+
     if obj["kind"] == "Flip":
         return Flip()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

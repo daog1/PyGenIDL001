@@ -134,7 +134,7 @@ class SpotMarket:
         "maxBorrowRate" /borsh.U32,
         "decimals" /borsh.U32,
         "marketIndex" /borsh.U16,
-        "ordersEnabled" /borsh.U8,
+        "ordersEnabled" /borsh.Bool,
         "oracleSource" /types.oracleSource.layout,
         "status" /types.marketStatus.layout,
         "assetTier" /types.assetTier.layout,

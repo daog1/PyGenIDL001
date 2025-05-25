@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class AJSON(typing.TypedDict):
     kind: typing.Literal["A"]
 
@@ -20,17 +21,16 @@ class AJSON(typing.TypedDict):
 @dataclass
 class A:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> AJSON:
+    def to_json(self) -> AJSON:
         return AJSON(
             kind="A",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "A": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class BJSON(typing.TypedDict):
 @dataclass
 class B:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> BJSON:
+    def to_json(self) -> BJSON:
         return BJSON(
             kind="B",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "B": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class CJSON(typing.TypedDict):
 @dataclass
 class C:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> CJSON:
+    def to_json(self) -> CJSON:
         return CJSON(
             kind="C",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "C": {},
         }
+
 
 
 
@@ -83,17 +81,16 @@ class SpeculativeJSON(typing.TypedDict):
 @dataclass
 class Speculative:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> SpeculativeJSON:
+    def to_json(self) -> SpeculativeJSON:
         return SpeculativeJSON(
             kind="Speculative",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Speculative": {},
         }
+
 
 
 
@@ -104,17 +101,16 @@ class HighlySpeculativeJSON(typing.TypedDict):
 @dataclass
 class HighlySpeculative:
     discriminator: typing.ClassVar = 4
-    @classmethod
-    def to_json(cls) -> HighlySpeculativeJSON:
+    def to_json(self) -> HighlySpeculativeJSON:
         return HighlySpeculativeJSON(
             kind="HighlySpeculative",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "HighlySpeculative": {},
         }
+
 
 
 
@@ -125,14 +121,12 @@ class IsolatedJSON(typing.TypedDict):
 @dataclass
 class Isolated:
     discriminator: typing.ClassVar = 5
-    @classmethod
-    def to_json(cls) -> IsolatedJSON:
+    def to_json(self) -> IsolatedJSON:
         return IsolatedJSON(
             kind="Isolated",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Isolated": {},
         }
@@ -178,16 +172,22 @@ def from_decoded(obj: dict) -> ContractTierKind:
 def from_json(obj: ContractTierJSON) -> ContractTierKind:
     if obj["kind"] == "A":
         return A()
+
     if obj["kind"] == "B":
         return B()
+
     if obj["kind"] == "C":
         return C()
+
     if obj["kind"] == "Speculative":
         return Speculative()
+
     if obj["kind"] == "HighlySpeculative":
         return HighlySpeculative()
+
     if obj["kind"] == "Isolated":
         return Isolated()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class PlaceJSON(typing.TypedDict):
     kind: typing.Literal["Place"]
 
@@ -20,17 +21,16 @@ class PlaceJSON(typing.TypedDict):
 @dataclass
 class Place:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> PlaceJSON:
+    def to_json(self) -> PlaceJSON:
         return PlaceJSON(
             kind="Place",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Place": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class CancelJSON(typing.TypedDict):
 @dataclass
 class Cancel:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> CancelJSON:
+    def to_json(self) -> CancelJSON:
         return CancelJSON(
             kind="Cancel",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Cancel": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class FillJSON(typing.TypedDict):
 @dataclass
 class Fill:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> FillJSON:
+    def to_json(self) -> FillJSON:
         return FillJSON(
             kind="Fill",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Fill": {},
         }
+
 
 
 
@@ -83,17 +81,16 @@ class TriggerJSON(typing.TypedDict):
 @dataclass
 class Trigger:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> TriggerJSON:
+    def to_json(self) -> TriggerJSON:
         return TriggerJSON(
             kind="Trigger",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Trigger": {},
         }
+
 
 
 
@@ -104,14 +101,12 @@ class ExpireJSON(typing.TypedDict):
 @dataclass
 class Expire:
     discriminator: typing.ClassVar = 4
-    @classmethod
-    def to_json(cls) -> ExpireJSON:
+    def to_json(self) -> ExpireJSON:
         return ExpireJSON(
             kind="Expire",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Expire": {},
         }
@@ -153,14 +148,19 @@ def from_decoded(obj: dict) -> OrderActionKind:
 def from_json(obj: OrderActionJSON) -> OrderActionKind:
     if obj["kind"] == "Place":
         return Place()
+
     if obj["kind"] == "Cancel":
         return Cancel()
+
     if obj["kind"] == "Fill":
         return Fill()
+
     if obj["kind"] == "Trigger":
         return Trigger()
+
     if obj["kind"] == "Expire":
         return Expire()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

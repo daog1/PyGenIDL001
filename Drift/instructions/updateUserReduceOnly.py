@@ -20,7 +20,7 @@ class UpdateUserReduceOnlyArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "subAccountId" /borsh.U16,
-    "reduceOnly" /borsh.U8,
+    "reduceOnly" /borsh.Bool,
     )
 
 

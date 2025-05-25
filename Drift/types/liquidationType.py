@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class LiquidatePerpJSON(typing.TypedDict):
     kind: typing.Literal["LiquidatePerp"]
 
@@ -20,17 +21,16 @@ class LiquidatePerpJSON(typing.TypedDict):
 @dataclass
 class LiquidatePerp:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> LiquidatePerpJSON:
+    def to_json(self) -> LiquidatePerpJSON:
         return LiquidatePerpJSON(
             kind="LiquidatePerp",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "LiquidatePerp": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class LiquidateSpotJSON(typing.TypedDict):
 @dataclass
 class LiquidateSpot:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> LiquidateSpotJSON:
+    def to_json(self) -> LiquidateSpotJSON:
         return LiquidateSpotJSON(
             kind="LiquidateSpot",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "LiquidateSpot": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class LiquidateBorrowForPerpPnlJSON(typing.TypedDict):
 @dataclass
 class LiquidateBorrowForPerpPnl:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> LiquidateBorrowForPerpPnlJSON:
+    def to_json(self) -> LiquidateBorrowForPerpPnlJSON:
         return LiquidateBorrowForPerpPnlJSON(
             kind="LiquidateBorrowForPerpPnl",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "LiquidateBorrowForPerpPnl": {},
         }
+
 
 
 
@@ -83,17 +81,16 @@ class LiquidatePerpPnlForDepositJSON(typing.TypedDict):
 @dataclass
 class LiquidatePerpPnlForDeposit:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> LiquidatePerpPnlForDepositJSON:
+    def to_json(self) -> LiquidatePerpPnlForDepositJSON:
         return LiquidatePerpPnlForDepositJSON(
             kind="LiquidatePerpPnlForDeposit",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "LiquidatePerpPnlForDeposit": {},
         }
+
 
 
 
@@ -104,17 +101,16 @@ class PerpBankruptcyJSON(typing.TypedDict):
 @dataclass
 class PerpBankruptcy:
     discriminator: typing.ClassVar = 4
-    @classmethod
-    def to_json(cls) -> PerpBankruptcyJSON:
+    def to_json(self) -> PerpBankruptcyJSON:
         return PerpBankruptcyJSON(
             kind="PerpBankruptcy",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "PerpBankruptcy": {},
         }
+
 
 
 
@@ -125,14 +121,12 @@ class SpotBankruptcyJSON(typing.TypedDict):
 @dataclass
 class SpotBankruptcy:
     discriminator: typing.ClassVar = 5
-    @classmethod
-    def to_json(cls) -> SpotBankruptcyJSON:
+    def to_json(self) -> SpotBankruptcyJSON:
         return SpotBankruptcyJSON(
             kind="SpotBankruptcy",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "SpotBankruptcy": {},
         }
@@ -178,16 +172,22 @@ def from_decoded(obj: dict) -> LiquidationTypeKind:
 def from_json(obj: LiquidationTypeJSON) -> LiquidationTypeKind:
     if obj["kind"] == "LiquidatePerp":
         return LiquidatePerp()
+
     if obj["kind"] == "LiquidateSpot":
         return LiquidateSpot()
+
     if obj["kind"] == "LiquidateBorrowForPerpPnl":
         return LiquidateBorrowForPerpPnl()
+
     if obj["kind"] == "LiquidatePerpPnlForDeposit":
         return LiquidatePerpPnlForDeposit()
+
     if obj["kind"] == "PerpBankruptcy":
         return PerpBankruptcy()
+
     if obj["kind"] == "SpotBankruptcy":
         return SpotBankruptcy()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

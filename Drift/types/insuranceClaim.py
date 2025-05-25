@@ -39,15 +39,17 @@ class InsuranceClaim:
     @classmethod
     def from_decoded(cls, obj: Container) -> "InsuranceClaim":
         return cls(
-                   revenueWithdrawSinceLastSettle=obj.revenueWithdrawSinceLastSettle,
-                   maxRevenueWithdrawPerPeriod=obj.maxRevenueWithdrawPerPeriod,
-                   quoteMaxInsurance=obj.quoteMaxInsurance,
-                   quoteSettledInsurance=obj.quoteSettledInsurance,
-                   lastRevenueWithdrawTs=obj.lastRevenueWithdrawTs,
-                )
+       revenueWithdrawSinceLastSettle=obj["revenueWithdrawSinceLastSettle"],maxRevenueWithdrawPerPeriod=obj["maxRevenueWithdrawPerPeriod"],quoteMaxInsurance=obj["quoteMaxInsurance"],quoteSettledInsurance=obj["quoteSettledInsurance"],lastRevenueWithdrawTs=obj["lastRevenueWithdrawTs"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "revenueWithdrawSinceLastSettle": self.revenueWithdrawSinceLastSettle,
+                "maxRevenueWithdrawPerPeriod": self.maxRevenueWithdrawPerPeriod,
+                "quoteMaxInsurance": self.quoteMaxInsurance,
+                "quoteSettledInsurance": self.quoteSettledInsurance,
+                "lastRevenueWithdrawTs": self.lastRevenueWithdrawTs,
+                }
 
     def to_json(self) -> InsuranceClaimJSON:
         return {
@@ -56,7 +58,7 @@ class InsuranceClaim:
                 "quoteMaxInsurance": self.quoteMaxInsurance,
                 "quoteSettledInsurance": self.quoteSettledInsurance,
                 "lastRevenueWithdrawTs": self.lastRevenueWithdrawTs,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: InsuranceClaimJSON) -> "InsuranceClaim":

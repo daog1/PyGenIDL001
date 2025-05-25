@@ -22,7 +22,7 @@ class DepositArgs(typing.TypedDict):
 layout = borsh.CStruct(
     "marketIndex" /borsh.U16,
     "amount" /borsh.U64,
-    "reduceOnly" /borsh.U8,
+    "reduceOnly" /borsh.Bool,
     )
 
 

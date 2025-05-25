@@ -55,7 +55,7 @@ layout = borsh.CStruct(
     "liquidatorFee" /borsh.U32,
     "ifLiquidationFee" /borsh.U32,
     "imfFactor" /borsh.U32,
-    "activeStatus" /borsh.U8,
+    "activeStatus" /borsh.Bool,
     "baseSpread" /borsh.U32,
     "maxSpread" /borsh.U32,
     "maxOpenInterest" /borsh.U128,

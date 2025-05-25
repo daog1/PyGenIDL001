@@ -31,18 +31,20 @@ class OracleGuardRails:
     @classmethod
     def from_decoded(cls, obj: Container) -> "OracleGuardRails":
         return cls(
-                   priceDivergence=obj.priceDivergence,
-                   validity=obj.validity,
-                )
+       priceDivergence=priceDivergenceGuardRails.PriceDivergenceGuardRails.from_decoded(obj["priceDivergence"]),validity=validityGuardRails.ValidityGuardRails.from_decoded(obj["validity"])
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "priceDivergence": self.priceDivergence.to_encodable(),
+                "validity": self.validity.to_encodable(),
+                }
 
     def to_json(self) -> OracleGuardRailsJSON:
         return {
                 "priceDivergence": self.priceDivergence.to_json(),
                 "validity": self.validity.to_json(),
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: OracleGuardRailsJSON) -> "OracleGuardRails":

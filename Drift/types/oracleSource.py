@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class PythJSON(typing.TypedDict):
     kind: typing.Literal["Pyth"]
 
@@ -20,17 +21,16 @@ class PythJSON(typing.TypedDict):
 @dataclass
 class Pyth:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> PythJSON:
+    def to_json(self) -> PythJSON:
         return PythJSON(
             kind="Pyth",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Pyth": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class SwitchboardJSON(typing.TypedDict):
 @dataclass
 class Switchboard:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> SwitchboardJSON:
+    def to_json(self) -> SwitchboardJSON:
         return SwitchboardJSON(
             kind="Switchboard",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Switchboard": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class QuoteAssetJSON(typing.TypedDict):
 @dataclass
 class QuoteAsset:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> QuoteAssetJSON:
+    def to_json(self) -> QuoteAssetJSON:
         return QuoteAssetJSON(
             kind="QuoteAsset",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "QuoteAsset": {},
         }
+
 
 
 
@@ -83,17 +81,16 @@ class Pyth1KJSON(typing.TypedDict):
 @dataclass
 class Pyth1K:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> Pyth1KJSON:
+    def to_json(self) -> Pyth1KJSON:
         return Pyth1KJSON(
             kind="Pyth1K",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Pyth1K": {},
         }
+
 
 
 
@@ -104,17 +101,16 @@ class Pyth1MJSON(typing.TypedDict):
 @dataclass
 class Pyth1M:
     discriminator: typing.ClassVar = 4
-    @classmethod
-    def to_json(cls) -> Pyth1MJSON:
+    def to_json(self) -> Pyth1MJSON:
         return Pyth1MJSON(
             kind="Pyth1M",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Pyth1M": {},
         }
+
 
 
 
@@ -125,17 +121,16 @@ class PythStableCoinJSON(typing.TypedDict):
 @dataclass
 class PythStableCoin:
     discriminator: typing.ClassVar = 5
-    @classmethod
-    def to_json(cls) -> PythStableCoinJSON:
+    def to_json(self) -> PythStableCoinJSON:
         return PythStableCoinJSON(
             kind="PythStableCoin",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "PythStableCoin": {},
         }
+
 
 
 
@@ -146,17 +141,16 @@ class PrelaunchJSON(typing.TypedDict):
 @dataclass
 class Prelaunch:
     discriminator: typing.ClassVar = 6
-    @classmethod
-    def to_json(cls) -> PrelaunchJSON:
+    def to_json(self) -> PrelaunchJSON:
         return PrelaunchJSON(
             kind="Prelaunch",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Prelaunch": {},
         }
+
 
 
 
@@ -167,17 +161,16 @@ class PythPullJSON(typing.TypedDict):
 @dataclass
 class PythPull:
     discriminator: typing.ClassVar = 7
-    @classmethod
-    def to_json(cls) -> PythPullJSON:
+    def to_json(self) -> PythPullJSON:
         return PythPullJSON(
             kind="PythPull",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "PythPull": {},
         }
+
 
 
 
@@ -188,17 +181,16 @@ class Pyth1KPullJSON(typing.TypedDict):
 @dataclass
 class Pyth1KPull:
     discriminator: typing.ClassVar = 8
-    @classmethod
-    def to_json(cls) -> Pyth1KPullJSON:
+    def to_json(self) -> Pyth1KPullJSON:
         return Pyth1KPullJSON(
             kind="Pyth1KPull",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Pyth1KPull": {},
         }
+
 
 
 
@@ -209,17 +201,16 @@ class Pyth1MPullJSON(typing.TypedDict):
 @dataclass
 class Pyth1MPull:
     discriminator: typing.ClassVar = 9
-    @classmethod
-    def to_json(cls) -> Pyth1MPullJSON:
+    def to_json(self) -> Pyth1MPullJSON:
         return Pyth1MPullJSON(
             kind="Pyth1MPull",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Pyth1MPull": {},
         }
+
 
 
 
@@ -230,17 +221,16 @@ class PythStableCoinPullJSON(typing.TypedDict):
 @dataclass
 class PythStableCoinPull:
     discriminator: typing.ClassVar = 10
-    @classmethod
-    def to_json(cls) -> PythStableCoinPullJSON:
+    def to_json(self) -> PythStableCoinPullJSON:
         return PythStableCoinPullJSON(
             kind="PythStableCoinPull",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "PythStableCoinPull": {},
         }
+
 
 
 
@@ -251,17 +241,16 @@ class SwitchboardOnDemandJSON(typing.TypedDict):
 @dataclass
 class SwitchboardOnDemand:
     discriminator: typing.ClassVar = 11
-    @classmethod
-    def to_json(cls) -> SwitchboardOnDemandJSON:
+    def to_json(self) -> SwitchboardOnDemandJSON:
         return SwitchboardOnDemandJSON(
             kind="SwitchboardOnDemand",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "SwitchboardOnDemand": {},
         }
+
 
 
 
@@ -272,14 +261,12 @@ class PythLazerJSON(typing.TypedDict):
 @dataclass
 class PythLazer:
     discriminator: typing.ClassVar = 12
-    @classmethod
-    def to_json(cls) -> PythLazerJSON:
+    def to_json(self) -> PythLazerJSON:
         return PythLazerJSON(
             kind="PythLazer",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "PythLazer": {},
         }
@@ -353,30 +340,43 @@ def from_decoded(obj: dict) -> OracleSourceKind:
 def from_json(obj: OracleSourceJSON) -> OracleSourceKind:
     if obj["kind"] == "Pyth":
         return Pyth()
+
     if obj["kind"] == "Switchboard":
         return Switchboard()
+
     if obj["kind"] == "QuoteAsset":
         return QuoteAsset()
+
     if obj["kind"] == "Pyth1K":
         return Pyth1K()
+
     if obj["kind"] == "Pyth1M":
         return Pyth1M()
+
     if obj["kind"] == "PythStableCoin":
         return PythStableCoin()
+
     if obj["kind"] == "Prelaunch":
         return Prelaunch()
+
     if obj["kind"] == "PythPull":
         return PythPull()
+
     if obj["kind"] == "Pyth1KPull":
         return Pyth1KPull()
+
     if obj["kind"] == "Pyth1MPull":
         return Pyth1MPull()
+
     if obj["kind"] == "PythStableCoinPull":
         return PythStableCoinPull()
+
     if obj["kind"] == "SwitchboardOnDemand":
         return SwitchboardOnDemand()
+
     if obj["kind"] == "PythLazer":
         return PythLazer()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

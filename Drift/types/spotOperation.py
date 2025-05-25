@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class UpdateCumulativeInterestJSON(typing.TypedDict):
     kind: typing.Literal["UpdateCumulativeInterest"]
 
@@ -20,17 +21,16 @@ class UpdateCumulativeInterestJSON(typing.TypedDict):
 @dataclass
 class UpdateCumulativeInterest:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> UpdateCumulativeInterestJSON:
+    def to_json(self) -> UpdateCumulativeInterestJSON:
         return UpdateCumulativeInterestJSON(
             kind="UpdateCumulativeInterest",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "UpdateCumulativeInterest": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class FillJSON(typing.TypedDict):
 @dataclass
 class Fill:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> FillJSON:
+    def to_json(self) -> FillJSON:
         return FillJSON(
             kind="Fill",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Fill": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class DepositJSON(typing.TypedDict):
 @dataclass
 class Deposit:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> DepositJSON:
+    def to_json(self) -> DepositJSON:
         return DepositJSON(
             kind="Deposit",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Deposit": {},
         }
+
 
 
 
@@ -83,17 +81,16 @@ class WithdrawJSON(typing.TypedDict):
 @dataclass
 class Withdraw:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> WithdrawJSON:
+    def to_json(self) -> WithdrawJSON:
         return WithdrawJSON(
             kind="Withdraw",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Withdraw": {},
         }
+
 
 
 
@@ -104,14 +101,12 @@ class LiquidationJSON(typing.TypedDict):
 @dataclass
 class Liquidation:
     discriminator: typing.ClassVar = 4
-    @classmethod
-    def to_json(cls) -> LiquidationJSON:
+    def to_json(self) -> LiquidationJSON:
         return LiquidationJSON(
             kind="Liquidation",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Liquidation": {},
         }
@@ -153,14 +148,19 @@ def from_decoded(obj: dict) -> SpotOperationKind:
 def from_json(obj: SpotOperationJSON) -> SpotOperationKind:
     if obj["kind"] == "UpdateCumulativeInterest":
         return UpdateCumulativeInterest()
+
     if obj["kind"] == "Fill":
         return Fill()
+
     if obj["kind"] == "Deposit":
         return Deposit()
+
     if obj["kind"] == "Withdraw":
         return Withdraw()
+
     if obj["kind"] == "Liquidation":
         return Liquidation()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

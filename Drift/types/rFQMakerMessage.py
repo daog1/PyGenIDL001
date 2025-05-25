@@ -31,18 +31,20 @@ class RFQMakerMessage:
     @classmethod
     def from_decoded(cls, obj: Container) -> "RFQMakerMessage":
         return cls(
-                   orderParams=obj.orderParams,
-                   signature=obj.signature,
-                )
+       orderParams=rFQMakerOrderParams.RFQMakerOrderParams.from_decoded(obj["orderParams"]),signature=obj["signature"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "orderParams": self.orderParams.to_encodable(),
+                "signature": self.signature,
+                }
 
     def to_json(self) -> RFQMakerMessageJSON:
         return {
                 "orderParams": self.orderParams.to_json(),
                 "signature": self.signature,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: RFQMakerMessageJSON) -> "RFQMakerMessage":

@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class FillJSON(typing.TypedDict):
     kind: typing.Literal["Fill"]
 
@@ -20,17 +21,16 @@ class FillJSON(typing.TypedDict):
 @dataclass
 class Fill:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> FillJSON:
+    def to_json(self) -> FillJSON:
         return FillJSON(
             kind="Fill",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Fill": {},
         }
+
 
 
 
@@ -41,38 +41,41 @@ class PlaceAndMakeJSON(typing.TypedDict):
 @dataclass
 class PlaceAndMake:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> PlaceAndMakeJSON:
+    def to_json(self) -> PlaceAndMakeJSON:
         return PlaceAndMakeJSON(
             kind="PlaceAndMake",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "PlaceAndMake": {},
         }
 
 
 
+PlaceAndTakeJSONValue = tuple[bool,int]
+PlaceAndTakeValue = tuple[bool,int]
+
 class PlaceAndTakeJSON(typing.TypedDict):
     kind: typing.Literal["PlaceAndTake"]
+    value: PlaceAndTakeJSONValue
 
 
 @dataclass
 class PlaceAndTake:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> PlaceAndTakeJSON:
+    value : PlaceAndTakeValue
+    def to_json(self) -> PlaceAndTakeJSON:
         return PlaceAndTakeJSON(
             kind="PlaceAndTake",
+            value = (self.value[0],self.value[1])
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "PlaceAndTake": {},
         }
+
 
 
 
@@ -83,17 +86,16 @@ class LiquidationJSON(typing.TypedDict):
 @dataclass
 class Liquidation:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> LiquidationJSON:
+    def to_json(self) -> LiquidationJSON:
         return LiquidationJSON(
             kind="Liquidation",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Liquidation": {},
         }
+
 
 
 
@@ -104,14 +106,12 @@ class RFQJSON(typing.TypedDict):
 @dataclass
 class RFQ:
     discriminator: typing.ClassVar = 4
-    @classmethod
-    def to_json(cls) -> RFQJSON:
+    def to_json(self) -> RFQJSON:
         return RFQJSON(
             kind="RFQ",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "RFQ": {},
         }
@@ -143,7 +143,10 @@ def from_decoded(obj: dict) -> FillModeKind:
     if "PlaceAndMake" in obj:
       return PlaceAndMake()
     if "PlaceAndTake" in obj:
-      return PlaceAndTake()
+      val = obj["PlaceAndTake"]
+      return PlaceAndTake((
+      val["item_0"],val["item_1"]
+      )) #todo Tuple
     if "Liquidation" in obj:
       return Liquidation()
     if "RFQ" in obj:
@@ -153,21 +156,29 @@ def from_decoded(obj: dict) -> FillModeKind:
 def from_json(obj: FillModeJSON) -> FillModeKind:
     if obj["kind"] == "Fill":
         return Fill()
+
     if obj["kind"] == "PlaceAndMake":
         return PlaceAndMake()
+
     if obj["kind"] == "PlaceAndTake":
-        return PlaceAndTake()
+        placeAndTakeJSONValue = typing.cast(PlaceAndTakeJSONValue, obj["value"])
+        return PlaceAndTake(
+        (placeAndTakeJSONValue[0],placeAndTakeJSONValue[1])
+        )
+
     if obj["kind"] == "Liquidation":
         return Liquidation()
+
     if obj["kind"] == "RFQ":
         return RFQ()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 
 layout = EnumForCodegen(
 "Fill" / borsh.CStruct(),
 "PlaceAndMake" / borsh.CStruct(),
-"PlaceAndTake" / borsh.CStruct(),
+"PlaceAndTake" / borsh.CStruct("item_0" / borsh.Bool,"item_1" / borsh.U8),
 "Liquidation" / borsh.CStruct(),
 "RFQ" / borsh.CStruct(),
 )

@@ -13,42 +13,50 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+UserOrderIdJSONValue = tuple[int]
+UserOrderIdValue = tuple[int]
+
 class UserOrderIdJSON(typing.TypedDict):
     kind: typing.Literal["UserOrderId"]
+    value: UserOrderIdJSONValue
 
 
 @dataclass
 class UserOrderId:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> UserOrderIdJSON:
+    value : UserOrderIdValue
+    def to_json(self) -> UserOrderIdJSON:
         return UserOrderIdJSON(
             kind="UserOrderId",
+            value = (self.value[0])
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "UserOrderId": {},
         }
 
 
 
+OrderIdJSONValue = tuple[int]
+OrderIdValue = tuple[int]
+
 class OrderIdJSON(typing.TypedDict):
     kind: typing.Literal["OrderId"]
+    value: OrderIdJSONValue
 
 
 @dataclass
 class OrderId:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> OrderIdJSON:
+    value : OrderIdValue
+    def to_json(self) -> OrderIdJSON:
         return OrderIdJSON(
             kind="OrderId",
+            value = (self.value[0])
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "OrderId": {},
         }
@@ -70,20 +78,34 @@ def from_decoded(obj: dict) -> ModifyOrderIdKind:
     if not isinstance(obj, dict):
         raise ValueError("Invalid enum object")
     if "UserOrderId" in obj:
-      return UserOrderId()
+      val = obj["UserOrderId"]
+      return UserOrderId((
+      val["item_0"]
+      )) #todo Tuple
     if "OrderId" in obj:
-      return OrderId()
+      val = obj["OrderId"]
+      return OrderId((
+      val["item_0"]
+      )) #todo Tuple
     raise ValueError("Invalid enum object")
 
 def from_json(obj: ModifyOrderIdJSON) -> ModifyOrderIdKind:
     if obj["kind"] == "UserOrderId":
-        return UserOrderId()
+        userOrderIdJSONValue = typing.cast(UserOrderIdJSONValue, obj["value"])
+        return UserOrderId(
+        (userOrderIdJSONValue[0])
+        )
+
     if obj["kind"] == "OrderId":
-        return OrderId()
+        orderIdJSONValue = typing.cast(OrderIdJSONValue, obj["value"])
+        return OrderId(
+        (orderIdJSONValue[0])
+        )
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 
 layout = EnumForCodegen(
-"UserOrderId" / borsh.CStruct(),
-"OrderId" / borsh.CStruct(),
+"UserOrderId" / borsh.CStruct("item_0" / borsh.U8),
+"OrderId" / borsh.CStruct("item_0" / borsh.U32),
 )

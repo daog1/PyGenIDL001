@@ -13,24 +13,24 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class NoneJSON(typing.TypedDict):
     kind: typing.Literal["None"]
 
 
 @dataclass
-class None:
+class None_:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> NoneJSON:
+    def to_json(self) -> NoneJSON:
         return NoneJSON(
             kind="None",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "None": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class MustPostOnlyJSON(typing.TypedDict):
 @dataclass
 class MustPostOnly:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> MustPostOnlyJSON:
+    def to_json(self) -> MustPostOnlyJSON:
         return MustPostOnlyJSON(
             kind="MustPostOnly",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "MustPostOnly": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class TryPostOnlyJSON(typing.TypedDict):
 @dataclass
 class TryPostOnly:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> TryPostOnlyJSON:
+    def to_json(self) -> TryPostOnlyJSON:
         return TryPostOnlyJSON(
             kind="TryPostOnly",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "TryPostOnly": {},
         }
+
 
 
 
@@ -83,14 +81,12 @@ class SlideJSON(typing.TypedDict):
 @dataclass
 class Slide:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> SlideJSON:
+    def to_json(self) -> SlideJSON:
         return SlideJSON(
             kind="Slide",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Slide": {},
         }
@@ -100,7 +96,7 @@ class Slide:
 
 
 PostOnlyParamKind = typing.Union[
-None,
+None_,
 MustPostOnly,
 TryPostOnly,
 Slide,
@@ -116,7 +112,7 @@ def from_decoded(obj: dict) -> PostOnlyParamKind:
     if not isinstance(obj, dict):
         raise ValueError("Invalid enum object")
     if "None" in obj:
-      return None()
+      return None_()
     if "MustPostOnly" in obj:
       return MustPostOnly()
     if "TryPostOnly" in obj:
@@ -127,13 +123,17 @@ def from_decoded(obj: dict) -> PostOnlyParamKind:
 
 def from_json(obj: PostOnlyParamJSON) -> PostOnlyParamKind:
     if obj["kind"] == "None":
-        return None()
+        return None_()
+
     if obj["kind"] == "MustPostOnly":
         return MustPostOnly()
+
     if obj["kind"] == "TryPostOnly":
         return TryPostOnly()
+
     if obj["kind"] == "Slide":
         return Slide()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

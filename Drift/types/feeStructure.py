@@ -37,14 +37,16 @@ class FeeStructure:
     @classmethod
     def from_decoded(cls, obj: Container) -> "FeeStructure":
         return cls(
-                   feeTiers=obj.feeTiers,
-                   fillerRewardStructure=obj.fillerRewardStructure,
-                   referrerRewardEpochUpperBound=obj.referrerRewardEpochUpperBound,
-                   flatFillerFee=obj.flatFillerFee,
-                )
+       feeTiers=list(map(lambda item:feeTier.FeeTier.from_json(item),obj["feeTiers"])),fillerRewardStructure=orderFillerRewardStructure.OrderFillerRewardStructure.from_decoded(obj["fillerRewardStructure"]),referrerRewardEpochUpperBound=obj["referrerRewardEpochUpperBound"],flatFillerFee=obj["flatFillerFee"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "feeTiers": self.feeTiers,
+                "fillerRewardStructure": self.fillerRewardStructure.to_encodable(),
+                "referrerRewardEpochUpperBound": self.referrerRewardEpochUpperBound,
+                "flatFillerFee": self.flatFillerFee,
+                }
 
     def to_json(self) -> FeeStructureJSON:
         return {
@@ -52,7 +54,7 @@ class FeeStructure:
                 "fillerRewardStructure": self.fillerRewardStructure.to_json(),
                 "referrerRewardEpochUpperBound": self.referrerRewardEpochUpperBound,
                 "flatFillerFee": self.flatFillerFee,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: FeeStructureJSON) -> "FeeStructure":

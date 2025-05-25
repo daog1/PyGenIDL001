@@ -13,24 +13,24 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class NoneJSON(typing.TypedDict):
     kind: typing.Literal["None"]
 
 
 @dataclass
-class None:
+class None_:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> NoneJSON:
+    def to_json(self) -> NoneJSON:
         return NoneJSON(
             kind="None",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "None": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class InsufficientFreeCollateralJSON(typing.TypedDict):
 @dataclass
 class InsufficientFreeCollateral:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> InsufficientFreeCollateralJSON:
+    def to_json(self) -> InsufficientFreeCollateralJSON:
         return InsufficientFreeCollateralJSON(
             kind="InsufficientFreeCollateral",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "InsufficientFreeCollateral": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class OraclePriceBreachedLimitPriceJSON(typing.TypedDict):
 @dataclass
 class OraclePriceBreachedLimitPrice:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> OraclePriceBreachedLimitPriceJSON:
+    def to_json(self) -> OraclePriceBreachedLimitPriceJSON:
         return OraclePriceBreachedLimitPriceJSON(
             kind="OraclePriceBreachedLimitPrice",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "OraclePriceBreachedLimitPrice": {},
         }
+
 
 
 
@@ -83,17 +81,16 @@ class MarketOrderFilledToLimitPriceJSON(typing.TypedDict):
 @dataclass
 class MarketOrderFilledToLimitPrice:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> MarketOrderFilledToLimitPriceJSON:
+    def to_json(self) -> MarketOrderFilledToLimitPriceJSON:
         return MarketOrderFilledToLimitPriceJSON(
             kind="MarketOrderFilledToLimitPrice",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "MarketOrderFilledToLimitPrice": {},
         }
+
 
 
 
@@ -104,17 +101,16 @@ class OrderExpiredJSON(typing.TypedDict):
 @dataclass
 class OrderExpired:
     discriminator: typing.ClassVar = 4
-    @classmethod
-    def to_json(cls) -> OrderExpiredJSON:
+    def to_json(self) -> OrderExpiredJSON:
         return OrderExpiredJSON(
             kind="OrderExpired",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "OrderExpired": {},
         }
+
 
 
 
@@ -125,17 +121,16 @@ class LiquidationJSON(typing.TypedDict):
 @dataclass
 class Liquidation:
     discriminator: typing.ClassVar = 5
-    @classmethod
-    def to_json(cls) -> LiquidationJSON:
+    def to_json(self) -> LiquidationJSON:
         return LiquidationJSON(
             kind="Liquidation",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Liquidation": {},
         }
+
 
 
 
@@ -146,17 +141,16 @@ class OrderFilledWithAMMJSON(typing.TypedDict):
 @dataclass
 class OrderFilledWithAMM:
     discriminator: typing.ClassVar = 6
-    @classmethod
-    def to_json(cls) -> OrderFilledWithAMMJSON:
+    def to_json(self) -> OrderFilledWithAMMJSON:
         return OrderFilledWithAMMJSON(
             kind="OrderFilledWithAMM",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "OrderFilledWithAMM": {},
         }
+
 
 
 
@@ -167,17 +161,16 @@ class OrderFilledWithAMMJitJSON(typing.TypedDict):
 @dataclass
 class OrderFilledWithAMMJit:
     discriminator: typing.ClassVar = 7
-    @classmethod
-    def to_json(cls) -> OrderFilledWithAMMJitJSON:
+    def to_json(self) -> OrderFilledWithAMMJitJSON:
         return OrderFilledWithAMMJitJSON(
             kind="OrderFilledWithAMMJit",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "OrderFilledWithAMMJit": {},
         }
+
 
 
 
@@ -188,17 +181,16 @@ class OrderFilledWithMatchJSON(typing.TypedDict):
 @dataclass
 class OrderFilledWithMatch:
     discriminator: typing.ClassVar = 8
-    @classmethod
-    def to_json(cls) -> OrderFilledWithMatchJSON:
+    def to_json(self) -> OrderFilledWithMatchJSON:
         return OrderFilledWithMatchJSON(
             kind="OrderFilledWithMatch",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "OrderFilledWithMatch": {},
         }
+
 
 
 
@@ -209,17 +201,16 @@ class OrderFilledWithMatchJitJSON(typing.TypedDict):
 @dataclass
 class OrderFilledWithMatchJit:
     discriminator: typing.ClassVar = 9
-    @classmethod
-    def to_json(cls) -> OrderFilledWithMatchJitJSON:
+    def to_json(self) -> OrderFilledWithMatchJitJSON:
         return OrderFilledWithMatchJitJSON(
             kind="OrderFilledWithMatchJit",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "OrderFilledWithMatchJit": {},
         }
+
 
 
 
@@ -230,17 +221,16 @@ class MarketExpiredJSON(typing.TypedDict):
 @dataclass
 class MarketExpired:
     discriminator: typing.ClassVar = 10
-    @classmethod
-    def to_json(cls) -> MarketExpiredJSON:
+    def to_json(self) -> MarketExpiredJSON:
         return MarketExpiredJSON(
             kind="MarketExpired",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "MarketExpired": {},
         }
+
 
 
 
@@ -251,17 +241,16 @@ class RiskingIncreasingOrderJSON(typing.TypedDict):
 @dataclass
 class RiskingIncreasingOrder:
     discriminator: typing.ClassVar = 11
-    @classmethod
-    def to_json(cls) -> RiskingIncreasingOrderJSON:
+    def to_json(self) -> RiskingIncreasingOrderJSON:
         return RiskingIncreasingOrderJSON(
             kind="RiskingIncreasingOrder",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "RiskingIncreasingOrder": {},
         }
+
 
 
 
@@ -272,17 +261,16 @@ class ReduceOnlyOrderIncreasedPositionJSON(typing.TypedDict):
 @dataclass
 class ReduceOnlyOrderIncreasedPosition:
     discriminator: typing.ClassVar = 12
-    @classmethod
-    def to_json(cls) -> ReduceOnlyOrderIncreasedPositionJSON:
+    def to_json(self) -> ReduceOnlyOrderIncreasedPositionJSON:
         return ReduceOnlyOrderIncreasedPositionJSON(
             kind="ReduceOnlyOrderIncreasedPosition",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "ReduceOnlyOrderIncreasedPosition": {},
         }
+
 
 
 
@@ -293,17 +281,16 @@ class OrderFillWithSerumJSON(typing.TypedDict):
 @dataclass
 class OrderFillWithSerum:
     discriminator: typing.ClassVar = 13
-    @classmethod
-    def to_json(cls) -> OrderFillWithSerumJSON:
+    def to_json(self) -> OrderFillWithSerumJSON:
         return OrderFillWithSerumJSON(
             kind="OrderFillWithSerum",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "OrderFillWithSerum": {},
         }
+
 
 
 
@@ -314,17 +301,16 @@ class NoBorrowLiquidityJSON(typing.TypedDict):
 @dataclass
 class NoBorrowLiquidity:
     discriminator: typing.ClassVar = 14
-    @classmethod
-    def to_json(cls) -> NoBorrowLiquidityJSON:
+    def to_json(self) -> NoBorrowLiquidityJSON:
         return NoBorrowLiquidityJSON(
             kind="NoBorrowLiquidity",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "NoBorrowLiquidity": {},
         }
+
 
 
 
@@ -335,17 +321,16 @@ class OrderFillWithPhoenixJSON(typing.TypedDict):
 @dataclass
 class OrderFillWithPhoenix:
     discriminator: typing.ClassVar = 15
-    @classmethod
-    def to_json(cls) -> OrderFillWithPhoenixJSON:
+    def to_json(self) -> OrderFillWithPhoenixJSON:
         return OrderFillWithPhoenixJSON(
             kind="OrderFillWithPhoenix",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "OrderFillWithPhoenix": {},
         }
+
 
 
 
@@ -356,17 +341,16 @@ class OrderFilledWithAMMJitLPSplitJSON(typing.TypedDict):
 @dataclass
 class OrderFilledWithAMMJitLPSplit:
     discriminator: typing.ClassVar = 16
-    @classmethod
-    def to_json(cls) -> OrderFilledWithAMMJitLPSplitJSON:
+    def to_json(self) -> OrderFilledWithAMMJitLPSplitJSON:
         return OrderFilledWithAMMJitLPSplitJSON(
             kind="OrderFilledWithAMMJitLPSplit",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "OrderFilledWithAMMJitLPSplit": {},
         }
+
 
 
 
@@ -377,17 +361,16 @@ class OrderFilledWithLPJitJSON(typing.TypedDict):
 @dataclass
 class OrderFilledWithLPJit:
     discriminator: typing.ClassVar = 17
-    @classmethod
-    def to_json(cls) -> OrderFilledWithLPJitJSON:
+    def to_json(self) -> OrderFilledWithLPJitJSON:
         return OrderFilledWithLPJitJSON(
             kind="OrderFilledWithLPJit",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "OrderFilledWithLPJit": {},
         }
+
 
 
 
@@ -398,17 +381,16 @@ class DeriskLpJSON(typing.TypedDict):
 @dataclass
 class DeriskLp:
     discriminator: typing.ClassVar = 18
-    @classmethod
-    def to_json(cls) -> DeriskLpJSON:
+    def to_json(self) -> DeriskLpJSON:
         return DeriskLpJSON(
             kind="DeriskLp",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "DeriskLp": {},
         }
+
 
 
 
@@ -419,14 +401,12 @@ class OrderFilledWithOpenbookV2JSON(typing.TypedDict):
 @dataclass
 class OrderFilledWithOpenbookV2:
     discriminator: typing.ClassVar = 19
-    @classmethod
-    def to_json(cls) -> OrderFilledWithOpenbookV2JSON:
+    def to_json(self) -> OrderFilledWithOpenbookV2JSON:
         return OrderFilledWithOpenbookV2JSON(
             kind="OrderFilledWithOpenbookV2",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "OrderFilledWithOpenbookV2": {},
         }
@@ -436,7 +416,7 @@ class OrderFilledWithOpenbookV2:
 
 
 OrderActionExplanationKind = typing.Union[
-None,
+None_,
 InsufficientFreeCollateral,
 OraclePriceBreachedLimitPrice,
 MarketOrderFilledToLimitPrice,
@@ -484,7 +464,7 @@ def from_decoded(obj: dict) -> OrderActionExplanationKind:
     if not isinstance(obj, dict):
         raise ValueError("Invalid enum object")
     if "None" in obj:
-      return None()
+      return None_()
     if "InsufficientFreeCollateral" in obj:
       return InsufficientFreeCollateral()
     if "OraclePriceBreachedLimitPrice" in obj:
@@ -527,45 +507,65 @@ def from_decoded(obj: dict) -> OrderActionExplanationKind:
 
 def from_json(obj: OrderActionExplanationJSON) -> OrderActionExplanationKind:
     if obj["kind"] == "None":
-        return None()
+        return None_()
+
     if obj["kind"] == "InsufficientFreeCollateral":
         return InsufficientFreeCollateral()
+
     if obj["kind"] == "OraclePriceBreachedLimitPrice":
         return OraclePriceBreachedLimitPrice()
+
     if obj["kind"] == "MarketOrderFilledToLimitPrice":
         return MarketOrderFilledToLimitPrice()
+
     if obj["kind"] == "OrderExpired":
         return OrderExpired()
+
     if obj["kind"] == "Liquidation":
         return Liquidation()
+
     if obj["kind"] == "OrderFilledWithAMM":
         return OrderFilledWithAMM()
+
     if obj["kind"] == "OrderFilledWithAMMJit":
         return OrderFilledWithAMMJit()
+
     if obj["kind"] == "OrderFilledWithMatch":
         return OrderFilledWithMatch()
+
     if obj["kind"] == "OrderFilledWithMatchJit":
         return OrderFilledWithMatchJit()
+
     if obj["kind"] == "MarketExpired":
         return MarketExpired()
+
     if obj["kind"] == "RiskingIncreasingOrder":
         return RiskingIncreasingOrder()
+
     if obj["kind"] == "ReduceOnlyOrderIncreasedPosition":
         return ReduceOnlyOrderIncreasedPosition()
+
     if obj["kind"] == "OrderFillWithSerum":
         return OrderFillWithSerum()
+
     if obj["kind"] == "NoBorrowLiquidity":
         return NoBorrowLiquidity()
+
     if obj["kind"] == "OrderFillWithPhoenix":
         return OrderFillWithPhoenix()
+
     if obj["kind"] == "OrderFilledWithAMMJitLPSplit":
         return OrderFilledWithAMMJitLPSplit()
+
     if obj["kind"] == "OrderFilledWithLPJit":
         return OrderFilledWithLPJit()
+
     if obj["kind"] == "DeriskLp":
         return DeriskLp()
+
     if obj["kind"] == "OrderFilledWithOpenbookV2":
         return OrderFilledWithOpenbookV2()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

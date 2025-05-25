@@ -16,7 +16,7 @@ from .. import types;
 from ..program_id import PROGRAM_ID;
 class FillSpotOrderArgs(typing.TypedDict):
     orderId:typing.Optional[int]
-    fulfillmentType:typing.Optional[types.spotFulfillmentType.SpotFulfillmentTypeJSON]
+    fulfillmentType:typing.Optional[types.spotFulfillmentType.SpotFulfillmentTypeKind]
     makerOrderId:typing.Optional[int]
 
 

@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class SpotJSON(typing.TypedDict):
     kind: typing.Literal["Spot"]
 
@@ -20,17 +21,16 @@ class SpotJSON(typing.TypedDict):
 @dataclass
 class Spot:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> SpotJSON:
+    def to_json(self) -> SpotJSON:
         return SpotJSON(
             kind="Spot",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Spot": {},
         }
+
 
 
 
@@ -41,14 +41,12 @@ class PerpJSON(typing.TypedDict):
 @dataclass
 class Perp:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> PerpJSON:
+    def to_json(self) -> PerpJSON:
         return PerpJSON(
             kind="Perp",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Perp": {},
         }
@@ -78,8 +76,10 @@ def from_decoded(obj: dict) -> MarketTypeKind:
 def from_json(obj: MarketTypeJSON) -> MarketTypeKind:
     if obj["kind"] == "Spot":
         return Spot()
+
     if obj["kind"] == "Perp":
         return Perp()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

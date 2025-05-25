@@ -35,23 +35,25 @@ class PerpBankruptcyRecord:
     marketIndex: int
     pnl: int
     ifPayment: int
-    clawbackUser: typing.Optional[str]
+    clawbackUser: typing.Optional[Pubkey]
     clawbackUserPayment: typing.Optional[int]
     cumulativeFundingRateDelta: int
     
     @classmethod
     def from_decoded(cls, obj: Container) -> "PerpBankruptcyRecord":
         return cls(
-                   marketIndex=obj.marketIndex,
-                   pnl=obj.pnl,
-                   ifPayment=obj.ifPayment,
-                   clawbackUser=obj.clawbackUser,
-                   clawbackUserPayment=obj.clawbackUserPayment,
-                   cumulativeFundingRateDelta=obj.cumulativeFundingRateDelta,
-                )
+       marketIndex=obj["marketIndex"],pnl=obj["pnl"],ifPayment=obj["ifPayment"],clawbackUser=(None if obj["clawbackUser"] is None else Pubkey.from_string(obj["clawbackUser"])),clawbackUserPayment=(None if obj["clawbackUserPayment"] is None else obj["clawbackUserPayment"]),cumulativeFundingRateDelta=obj["cumulativeFundingRateDelta"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "marketIndex": self.marketIndex,
+                "pnl": self.pnl,
+                "ifPayment": self.ifPayment,
+                "clawbackUser": self.clawbackUser,
+                "clawbackUserPayment": self.clawbackUserPayment,
+                "cumulativeFundingRateDelta": self.cumulativeFundingRateDelta,
+                }
 
     def to_json(self) -> PerpBankruptcyRecordJSON:
         return {
@@ -61,7 +63,7 @@ class PerpBankruptcyRecord:
                 "clawbackUser": (None if self.clawbackUser is None else str(self.clawbackUser)),
                 "clawbackUserPayment": (None if self.clawbackUserPayment is None else self.clawbackUserPayment),
                 "cumulativeFundingRateDelta": self.cumulativeFundingRateDelta,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: PerpBankruptcyRecordJSON) -> "PerpBankruptcyRecord":

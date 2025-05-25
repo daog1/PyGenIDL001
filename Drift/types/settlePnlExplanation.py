@@ -13,24 +13,24 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class NoneJSON(typing.TypedDict):
     kind: typing.Literal["None"]
 
 
 @dataclass
-class None:
+class None_:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> NoneJSON:
+    def to_json(self) -> NoneJSON:
         return NoneJSON(
             kind="None",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "None": {},
         }
+
 
 
 
@@ -41,14 +41,12 @@ class ExpiredPositionJSON(typing.TypedDict):
 @dataclass
 class ExpiredPosition:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> ExpiredPositionJSON:
+    def to_json(self) -> ExpiredPositionJSON:
         return ExpiredPositionJSON(
             kind="ExpiredPosition",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "ExpiredPosition": {},
         }
@@ -58,7 +56,7 @@ class ExpiredPosition:
 
 
 SettlePnlExplanationKind = typing.Union[
-None,
+None_,
 ExpiredPosition,
 ]
 SettlePnlExplanationJSON = typing.Union[
@@ -70,16 +68,18 @@ def from_decoded(obj: dict) -> SettlePnlExplanationKind:
     if not isinstance(obj, dict):
         raise ValueError("Invalid enum object")
     if "None" in obj:
-      return None()
+      return None_()
     if "ExpiredPosition" in obj:
       return ExpiredPosition()
     raise ValueError("Invalid enum object")
 
 def from_json(obj: SettlePnlExplanationJSON) -> SettlePnlExplanationKind:
     if obj["kind"] == "None":
-        return None()
+        return None_()
+
     if obj["kind"] == "ExpiredPosition":
         return ExpiredPosition()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

@@ -22,7 +22,7 @@ class UpdatePerpMarketAmmSummaryStatsArgs(typing.TypedDict):
 layout = borsh.CStruct(
     "quoteAssetAmountWithUnsettledLp" /borsh.Option(borsh.I64),
     "netUnsettledFundingPnl" /borsh.Option(borsh.I64),
-    "updateAmmSummaryStats" /borsh.Option(borsh.U8),
+    "updateAmmSummaryStats" /borsh.Option(borsh.Bool),
     )
 
 

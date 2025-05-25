@@ -15,9 +15,9 @@ from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 class CancelOrdersArgs(typing.TypedDict):
-    marketType:typing.Optional[types.marketType.MarketTypeJSON]
+    marketType:typing.Optional[types.marketType.MarketTypeKind]
     marketIndex:typing.Optional[int]
-    direction:typing.Optional[types.positionDirection.PositionDirectionJSON]
+    direction:typing.Optional[types.positionDirection.PositionDirectionKind]
 
 
 layout = borsh.CStruct(

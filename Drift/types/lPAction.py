@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class AddLiquidityJSON(typing.TypedDict):
     kind: typing.Literal["AddLiquidity"]
 
@@ -20,17 +21,16 @@ class AddLiquidityJSON(typing.TypedDict):
 @dataclass
 class AddLiquidity:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> AddLiquidityJSON:
+    def to_json(self) -> AddLiquidityJSON:
         return AddLiquidityJSON(
             kind="AddLiquidity",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "AddLiquidity": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class RemoveLiquidityJSON(typing.TypedDict):
 @dataclass
 class RemoveLiquidity:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> RemoveLiquidityJSON:
+    def to_json(self) -> RemoveLiquidityJSON:
         return RemoveLiquidityJSON(
             kind="RemoveLiquidity",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "RemoveLiquidity": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class SettleLiquidityJSON(typing.TypedDict):
 @dataclass
 class SettleLiquidity:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> SettleLiquidityJSON:
+    def to_json(self) -> SettleLiquidityJSON:
         return SettleLiquidityJSON(
             kind="SettleLiquidity",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "SettleLiquidity": {},
         }
+
 
 
 
@@ -83,14 +81,12 @@ class RemoveLiquidityDeriskJSON(typing.TypedDict):
 @dataclass
 class RemoveLiquidityDerisk:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> RemoveLiquidityDeriskJSON:
+    def to_json(self) -> RemoveLiquidityDeriskJSON:
         return RemoveLiquidityDeriskJSON(
             kind="RemoveLiquidityDerisk",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "RemoveLiquidityDerisk": {},
         }
@@ -128,12 +124,16 @@ def from_decoded(obj: dict) -> LPActionKind:
 def from_json(obj: LPActionJSON) -> LPActionKind:
     if obj["kind"] == "AddLiquidity":
         return AddLiquidity()
+
     if obj["kind"] == "RemoveLiquidity":
         return RemoveLiquidity()
+
     if obj["kind"] == "SettleLiquidity":
         return SettleLiquidity()
+
     if obj["kind"] == "RemoveLiquidityDerisk":
         return RemoveLiquidityDerisk()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

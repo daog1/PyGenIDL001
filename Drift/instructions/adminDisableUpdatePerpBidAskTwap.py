@@ -18,7 +18,7 @@ class AdminDisableUpdatePerpBidAskTwapArgs(typing.TypedDict):
 
 
 layout = borsh.CStruct(
-    "disable" /borsh.U8,
+    "disable" /borsh.Bool,
     )
 
 

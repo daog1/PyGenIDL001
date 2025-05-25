@@ -12,6 +12,12 @@ function GenIdl(file: String, dirPath: String) {
   const codama = createFromRoot(rootNode);
   codama.accept(renderPythonVisitor(dirPath));
 }
+function GenIdlJs(file: String, dirPath: String) {
+  let anchorIdl = require(file);
+  const rootNode = rootNodeFromAnchor(anchorIdl as AnchorIdl);
+  const codama = createFromRoot(rootNode);
+  codama.accept(renderJavaScriptVisitor(dirPath));
+}
 
 GenIdl("./idls/pump.json", "pump");
 GenIdl("./idls/idl-0.1.2.json", "Lifinity");

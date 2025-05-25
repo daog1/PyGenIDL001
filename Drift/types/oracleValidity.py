@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class NonPositiveJSON(typing.TypedDict):
     kind: typing.Literal["NonPositive"]
 
@@ -20,17 +21,16 @@ class NonPositiveJSON(typing.TypedDict):
 @dataclass
 class NonPositive:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> NonPositiveJSON:
+    def to_json(self) -> NonPositiveJSON:
         return NonPositiveJSON(
             kind="NonPositive",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "NonPositive": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class TooVolatileJSON(typing.TypedDict):
 @dataclass
 class TooVolatile:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> TooVolatileJSON:
+    def to_json(self) -> TooVolatileJSON:
         return TooVolatileJSON(
             kind="TooVolatile",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "TooVolatile": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class TooUncertainJSON(typing.TypedDict):
 @dataclass
 class TooUncertain:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> TooUncertainJSON:
+    def to_json(self) -> TooUncertainJSON:
         return TooUncertainJSON(
             kind="TooUncertain",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "TooUncertain": {},
         }
+
 
 
 
@@ -83,17 +81,16 @@ class StaleForMarginJSON(typing.TypedDict):
 @dataclass
 class StaleForMargin:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> StaleForMarginJSON:
+    def to_json(self) -> StaleForMarginJSON:
         return StaleForMarginJSON(
             kind="StaleForMargin",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "StaleForMargin": {},
         }
+
 
 
 
@@ -104,17 +101,16 @@ class InsufficientDataPointsJSON(typing.TypedDict):
 @dataclass
 class InsufficientDataPoints:
     discriminator: typing.ClassVar = 4
-    @classmethod
-    def to_json(cls) -> InsufficientDataPointsJSON:
+    def to_json(self) -> InsufficientDataPointsJSON:
         return InsufficientDataPointsJSON(
             kind="InsufficientDataPoints",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "InsufficientDataPoints": {},
         }
+
 
 
 
@@ -125,17 +121,16 @@ class StaleForAMMJSON(typing.TypedDict):
 @dataclass
 class StaleForAMM:
     discriminator: typing.ClassVar = 5
-    @classmethod
-    def to_json(cls) -> StaleForAMMJSON:
+    def to_json(self) -> StaleForAMMJSON:
         return StaleForAMMJSON(
             kind="StaleForAMM",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "StaleForAMM": {},
         }
+
 
 
 
@@ -146,14 +141,12 @@ class ValidJSON(typing.TypedDict):
 @dataclass
 class Valid:
     discriminator: typing.ClassVar = 6
-    @classmethod
-    def to_json(cls) -> ValidJSON:
+    def to_json(self) -> ValidJSON:
         return ValidJSON(
             kind="Valid",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Valid": {},
         }
@@ -203,18 +196,25 @@ def from_decoded(obj: dict) -> OracleValidityKind:
 def from_json(obj: OracleValidityJSON) -> OracleValidityKind:
     if obj["kind"] == "NonPositive":
         return NonPositive()
+
     if obj["kind"] == "TooVolatile":
         return TooVolatile()
+
     if obj["kind"] == "TooUncertain":
         return TooUncertain()
+
     if obj["kind"] == "StaleForMargin":
         return StaleForMargin()
+
     if obj["kind"] == "InsufficientDataPoints":
         return InsufficientDataPoints()
+
     if obj["kind"] == "StaleForAMM":
         return StaleForAMM()
+
     if obj["kind"] == "Valid":
         return Valid()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

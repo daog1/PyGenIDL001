@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class InitJSON(typing.TypedDict):
     kind: typing.Literal["Init"]
 
@@ -20,17 +21,16 @@ class InitJSON(typing.TypedDict):
 @dataclass
 class Init:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> InitJSON:
+    def to_json(self) -> InitJSON:
         return InitJSON(
             kind="Init",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Init": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class AddJSON(typing.TypedDict):
 @dataclass
 class Add:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> AddJSON:
+    def to_json(self) -> AddJSON:
         return AddJSON(
             kind="Add",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Add": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class RequestRemoveJSON(typing.TypedDict):
 @dataclass
 class RequestRemove:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> RequestRemoveJSON:
+    def to_json(self) -> RequestRemoveJSON:
         return RequestRemoveJSON(
             kind="RequestRemove",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "RequestRemove": {},
         }
+
 
 
 
@@ -83,14 +81,12 @@ class RemoveJSON(typing.TypedDict):
 @dataclass
 class Remove:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> RemoveJSON:
+    def to_json(self) -> RemoveJSON:
         return RemoveJSON(
             kind="Remove",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Remove": {},
         }
@@ -128,12 +124,16 @@ def from_decoded(obj: dict) -> InsuranceFundOperationKind:
 def from_json(obj: InsuranceFundOperationJSON) -> InsuranceFundOperationKind:
     if obj["kind"] == "Init":
         return Init()
+
     if obj["kind"] == "Add":
         return Add()
+
     if obj["kind"] == "RequestRemove":
         return RequestRemove()
+
     if obj["kind"] == "Remove":
         return Remove()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

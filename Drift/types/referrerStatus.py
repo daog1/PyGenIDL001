@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class IsReferrerJSON(typing.TypedDict):
     kind: typing.Literal["IsReferrer"]
 
@@ -20,17 +21,16 @@ class IsReferrerJSON(typing.TypedDict):
 @dataclass
 class IsReferrer:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> IsReferrerJSON:
+    def to_json(self) -> IsReferrerJSON:
         return IsReferrerJSON(
             kind="IsReferrer",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "IsReferrer": {},
         }
+
 
 
 
@@ -41,14 +41,12 @@ class IsReferredJSON(typing.TypedDict):
 @dataclass
 class IsReferred:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> IsReferredJSON:
+    def to_json(self) -> IsReferredJSON:
         return IsReferredJSON(
             kind="IsReferred",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "IsReferred": {},
         }
@@ -78,8 +76,10 @@ def from_decoded(obj: dict) -> ReferrerStatusKind:
 def from_json(obj: ReferrerStatusJSON) -> ReferrerStatusKind:
     if obj["kind"] == "IsReferrer":
         return IsReferrer()
+
     if obj["kind"] == "IsReferred":
         return IsReferred()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

@@ -36,14 +36,16 @@ class ValidityGuardRails:
     @classmethod
     def from_decoded(cls, obj: Container) -> "ValidityGuardRails":
         return cls(
-                   slotsBeforeStaleForAmm=obj.slotsBeforeStaleForAmm,
-                   slotsBeforeStaleForMargin=obj.slotsBeforeStaleForMargin,
-                   confidenceIntervalMaxSize=obj.confidenceIntervalMaxSize,
-                   tooVolatileRatio=obj.tooVolatileRatio,
-                )
+       slotsBeforeStaleForAmm=obj["slotsBeforeStaleForAmm"],slotsBeforeStaleForMargin=obj["slotsBeforeStaleForMargin"],confidenceIntervalMaxSize=obj["confidenceIntervalMaxSize"],tooVolatileRatio=obj["tooVolatileRatio"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "slotsBeforeStaleForAmm": self.slotsBeforeStaleForAmm,
+                "slotsBeforeStaleForMargin": self.slotsBeforeStaleForMargin,
+                "confidenceIntervalMaxSize": self.confidenceIntervalMaxSize,
+                "tooVolatileRatio": self.tooVolatileRatio,
+                }
 
     def to_json(self) -> ValidityGuardRailsJSON:
         return {
@@ -51,7 +53,7 @@ class ValidityGuardRails:
                 "slotsBeforeStaleForMargin": self.slotsBeforeStaleForMargin,
                 "confidenceIntervalMaxSize": self.confidenceIntervalMaxSize,
                 "tooVolatileRatio": self.tooVolatileRatio,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: ValidityGuardRailsJSON) -> "ValidityGuardRails":

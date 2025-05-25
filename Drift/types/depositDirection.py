@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class DepositJSON(typing.TypedDict):
     kind: typing.Literal["Deposit"]
 
@@ -20,17 +21,16 @@ class DepositJSON(typing.TypedDict):
 @dataclass
 class Deposit:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> DepositJSON:
+    def to_json(self) -> DepositJSON:
         return DepositJSON(
             kind="Deposit",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Deposit": {},
         }
+
 
 
 
@@ -41,14 +41,12 @@ class WithdrawJSON(typing.TypedDict):
 @dataclass
 class Withdraw:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> WithdrawJSON:
+    def to_json(self) -> WithdrawJSON:
         return WithdrawJSON(
             kind="Withdraw",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Withdraw": {},
         }
@@ -78,8 +76,10 @@ def from_decoded(obj: dict) -> DepositDirectionKind:
 def from_json(obj: DepositDirectionJSON) -> DepositDirectionKind:
     if obj["kind"] == "Deposit":
         return Deposit()
+
     if obj["kind"] == "Withdraw":
         return Withdraw()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

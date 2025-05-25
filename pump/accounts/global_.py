@@ -34,7 +34,7 @@ class Global:
     discriminator: typing.ClassVar = b"\xa7\xe8\xe8\xb1\xc8\x6c\x72\x7f";
 
     layout: typing.ClassVar = borsh.CStruct(
-        "initialized" /borsh.U8,
+        "initialized" /borsh.Bool,
         "authority" /BorshPubkey,
         "feeRecipient" /BorshPubkey,
         "initialVirtualTokenReserves" /borsh.U64,

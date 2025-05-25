@@ -30,18 +30,20 @@ class RFQOrderId:
     @classmethod
     def from_decoded(cls, obj: Container) -> "RFQOrderId":
         return cls(
-                   uuid=obj.uuid,
-                   maxTs=obj.maxTs,
-                )
+       uuid=obj["uuid"],maxTs=obj["maxTs"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "uuid": self.uuid,
+                "maxTs": self.maxTs,
+                }
 
     def to_json(self) -> RFQOrderIdJSON:
         return {
                 "uuid": self.uuid,
                 "maxTs": self.maxTs,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: RFQOrderIdJSON) -> "RFQOrderId":

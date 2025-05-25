@@ -18,7 +18,7 @@ class UpdateSpotMarketOrdersEnabledArgs(typing.TypedDict):
 
 
 layout = borsh.CStruct(
-    "ordersEnabled" /borsh.U8,
+    "ordersEnabled" /borsh.Bool,
     )
 
 

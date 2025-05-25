@@ -54,20 +54,22 @@ class LiquidatePerpRecord:
     @classmethod
     def from_decoded(cls, obj: Container) -> "LiquidatePerpRecord":
         return cls(
-                   marketIndex=obj.marketIndex,
-                   oraclePrice=obj.oraclePrice,
-                   baseAssetAmount=obj.baseAssetAmount,
-                   quoteAssetAmount=obj.quoteAssetAmount,
-                   lpShares=obj.lpShares,
-                   fillRecordId=obj.fillRecordId,
-                   userOrderId=obj.userOrderId,
-                   liquidatorOrderId=obj.liquidatorOrderId,
-                   liquidatorFee=obj.liquidatorFee,
-                   ifFee=obj.ifFee,
-                )
+       marketIndex=obj["marketIndex"],oraclePrice=obj["oraclePrice"],baseAssetAmount=obj["baseAssetAmount"],quoteAssetAmount=obj["quoteAssetAmount"],lpShares=obj["lpShares"],fillRecordId=obj["fillRecordId"],userOrderId=obj["userOrderId"],liquidatorOrderId=obj["liquidatorOrderId"],liquidatorFee=obj["liquidatorFee"],ifFee=obj["ifFee"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "marketIndex": self.marketIndex,
+                "oraclePrice": self.oraclePrice,
+                "baseAssetAmount": self.baseAssetAmount,
+                "quoteAssetAmount": self.quoteAssetAmount,
+                "lpShares": self.lpShares,
+                "fillRecordId": self.fillRecordId,
+                "userOrderId": self.userOrderId,
+                "liquidatorOrderId": self.liquidatorOrderId,
+                "liquidatorFee": self.liquidatorFee,
+                "ifFee": self.ifFee,
+                }
 
     def to_json(self) -> LiquidatePerpRecordJSON:
         return {
@@ -81,7 +83,7 @@ class LiquidatePerpRecord:
                 "liquidatorOrderId": self.liquidatorOrderId,
                 "liquidatorFee": self.liquidatorFee,
                 "ifFee": self.ifFee,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: LiquidatePerpRecordJSON) -> "LiquidatePerpRecord":

@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class StakeJSON(typing.TypedDict):
     kind: typing.Literal["Stake"]
 
@@ -20,17 +21,16 @@ class StakeJSON(typing.TypedDict):
 @dataclass
 class Stake:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> StakeJSON:
+    def to_json(self) -> StakeJSON:
         return StakeJSON(
             kind="Stake",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Stake": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class UnstakeRequestJSON(typing.TypedDict):
 @dataclass
 class UnstakeRequest:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> UnstakeRequestJSON:
+    def to_json(self) -> UnstakeRequestJSON:
         return UnstakeRequestJSON(
             kind="UnstakeRequest",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "UnstakeRequest": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class UnstakeCancelRequestJSON(typing.TypedDict):
 @dataclass
 class UnstakeCancelRequest:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> UnstakeCancelRequestJSON:
+    def to_json(self) -> UnstakeCancelRequestJSON:
         return UnstakeCancelRequestJSON(
             kind="UnstakeCancelRequest",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "UnstakeCancelRequest": {},
         }
+
 
 
 
@@ -83,17 +81,16 @@ class UnstakeJSON(typing.TypedDict):
 @dataclass
 class Unstake:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> UnstakeJSON:
+    def to_json(self) -> UnstakeJSON:
         return UnstakeJSON(
             kind="Unstake",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Unstake": {},
         }
+
 
 
 
@@ -104,17 +101,16 @@ class UnstakeTransferJSON(typing.TypedDict):
 @dataclass
 class UnstakeTransfer:
     discriminator: typing.ClassVar = 4
-    @classmethod
-    def to_json(cls) -> UnstakeTransferJSON:
+    def to_json(self) -> UnstakeTransferJSON:
         return UnstakeTransferJSON(
             kind="UnstakeTransfer",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "UnstakeTransfer": {},
         }
+
 
 
 
@@ -125,14 +121,12 @@ class StakeTransferJSON(typing.TypedDict):
 @dataclass
 class StakeTransfer:
     discriminator: typing.ClassVar = 5
-    @classmethod
-    def to_json(cls) -> StakeTransferJSON:
+    def to_json(self) -> StakeTransferJSON:
         return StakeTransferJSON(
             kind="StakeTransfer",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "StakeTransfer": {},
         }
@@ -178,16 +172,22 @@ def from_decoded(obj: dict) -> StakeActionKind:
 def from_json(obj: StakeActionJSON) -> StakeActionKind:
     if obj["kind"] == "Stake":
         return Stake()
+
     if obj["kind"] == "UnstakeRequest":
         return UnstakeRequest()
+
     if obj["kind"] == "UnstakeCancelRequest":
         return UnstakeCancelRequest()
+
     if obj["kind"] == "Unstake":
         return Unstake()
+
     if obj["kind"] == "UnstakeTransfer":
         return UnstakeTransfer()
+
     if obj["kind"] == "StakeTransfer":
         return StakeTransfer()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

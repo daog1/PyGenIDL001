@@ -42,16 +42,18 @@ class LiquidateBorrowForPerpPnlRecord:
     @classmethod
     def from_decoded(cls, obj: Container) -> "LiquidateBorrowForPerpPnlRecord":
         return cls(
-                   perpMarketIndex=obj.perpMarketIndex,
-                   marketOraclePrice=obj.marketOraclePrice,
-                   pnlTransfer=obj.pnlTransfer,
-                   liabilityMarketIndex=obj.liabilityMarketIndex,
-                   liabilityPrice=obj.liabilityPrice,
-                   liabilityTransfer=obj.liabilityTransfer,
-                )
+       perpMarketIndex=obj["perpMarketIndex"],marketOraclePrice=obj["marketOraclePrice"],pnlTransfer=obj["pnlTransfer"],liabilityMarketIndex=obj["liabilityMarketIndex"],liabilityPrice=obj["liabilityPrice"],liabilityTransfer=obj["liabilityTransfer"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "perpMarketIndex": self.perpMarketIndex,
+                "marketOraclePrice": self.marketOraclePrice,
+                "pnlTransfer": self.pnlTransfer,
+                "liabilityMarketIndex": self.liabilityMarketIndex,
+                "liabilityPrice": self.liabilityPrice,
+                "liabilityTransfer": self.liabilityTransfer,
+                }
 
     def to_json(self) -> LiquidateBorrowForPerpPnlRecordJSON:
         return {
@@ -61,7 +63,7 @@ class LiquidateBorrowForPerpPnlRecord:
                 "liabilityMarketIndex": self.liabilityMarketIndex,
                 "liabilityPrice": self.liabilityPrice,
                 "liabilityTransfer": self.liabilityTransfer,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: LiquidateBorrowForPerpPnlRecordJSON) -> "LiquidateBorrowForPerpPnlRecord":

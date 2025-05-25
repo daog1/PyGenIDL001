@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class BaseJSON(typing.TypedDict):
     kind: typing.Literal["Base"]
 
@@ -20,17 +21,16 @@ class BaseJSON(typing.TypedDict):
 @dataclass
 class Base:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> BaseJSON:
+    def to_json(self) -> BaseJSON:
         return BaseJSON(
             kind="Base",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Base": {},
         }
+
 
 
 
@@ -41,14 +41,12 @@ class QuoteJSON(typing.TypedDict):
 @dataclass
 class Quote:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> QuoteJSON:
+    def to_json(self) -> QuoteJSON:
         return QuoteJSON(
             kind="Quote",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Quote": {},
         }
@@ -78,8 +76,10 @@ def from_decoded(obj: dict) -> AssetTypeKind:
 def from_json(obj: AssetTypeJSON) -> AssetTypeKind:
     if obj["kind"] == "Base":
         return Base()
+
     if obj["kind"] == "Quote":
         return Quote()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

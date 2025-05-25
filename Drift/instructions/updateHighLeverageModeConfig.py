@@ -20,7 +20,7 @@ class UpdateHighLeverageModeConfigArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "maxUsers" /borsh.U32,
-    "reduceOnly" /borsh.U8,
+    "reduceOnly" /borsh.Bool,
     )
 
 

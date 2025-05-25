@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class MustSettleJSON(typing.TypedDict):
     kind: typing.Literal["MustSettle"]
 
@@ -20,17 +21,16 @@ class MustSettleJSON(typing.TypedDict):
 @dataclass
 class MustSettle:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> MustSettleJSON:
+    def to_json(self) -> MustSettleJSON:
         return MustSettleJSON(
             kind="MustSettle",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "MustSettle": {},
         }
+
 
 
 
@@ -41,14 +41,12 @@ class TrySettleJSON(typing.TypedDict):
 @dataclass
 class TrySettle:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> TrySettleJSON:
+    def to_json(self) -> TrySettleJSON:
         return TrySettleJSON(
             kind="TrySettle",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "TrySettle": {},
         }
@@ -78,8 +76,10 @@ def from_decoded(obj: dict) -> SettlePnlModeKind:
 def from_json(obj: SettlePnlModeJSON) -> SettlePnlModeKind:
     if obj["kind"] == "MustSettle":
         return MustSettle()
+
     if obj["kind"] == "TrySettle":
         return TrySettle()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

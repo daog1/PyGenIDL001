@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class FundingPeriodJSON(typing.TypedDict):
     kind: typing.Literal["FundingPeriod"]
 
@@ -20,17 +21,16 @@ class FundingPeriodJSON(typing.TypedDict):
 @dataclass
 class FundingPeriod:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> FundingPeriodJSON:
+    def to_json(self) -> FundingPeriodJSON:
         return FundingPeriodJSON(
             kind="FundingPeriod",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "FundingPeriod": {},
         }
+
 
 
 
@@ -41,14 +41,12 @@ class FiveMinJSON(typing.TypedDict):
 @dataclass
 class FiveMin:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> FiveMinJSON:
+    def to_json(self) -> FiveMinJSON:
         return FiveMinJSON(
             kind="FiveMin",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "FiveMin": {},
         }
@@ -78,8 +76,10 @@ def from_decoded(obj: dict) -> TwapPeriodKind:
 def from_json(obj: TwapPeriodJSON) -> TwapPeriodKind:
     if obj["kind"] == "FundingPeriod":
         return FundingPeriod()
+
     if obj["kind"] == "FiveMin":
         return FiveMin()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

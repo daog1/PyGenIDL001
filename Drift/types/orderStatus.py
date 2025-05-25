@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class InitJSON(typing.TypedDict):
     kind: typing.Literal["Init"]
 
@@ -20,17 +21,16 @@ class InitJSON(typing.TypedDict):
 @dataclass
 class Init:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> InitJSON:
+    def to_json(self) -> InitJSON:
         return InitJSON(
             kind="Init",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Init": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class OpenJSON(typing.TypedDict):
 @dataclass
 class Open:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> OpenJSON:
+    def to_json(self) -> OpenJSON:
         return OpenJSON(
             kind="Open",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Open": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class FilledJSON(typing.TypedDict):
 @dataclass
 class Filled:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> FilledJSON:
+    def to_json(self) -> FilledJSON:
         return FilledJSON(
             kind="Filled",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Filled": {},
         }
+
 
 
 
@@ -83,14 +81,12 @@ class CanceledJSON(typing.TypedDict):
 @dataclass
 class Canceled:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> CanceledJSON:
+    def to_json(self) -> CanceledJSON:
         return CanceledJSON(
             kind="Canceled",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Canceled": {},
         }
@@ -128,12 +124,16 @@ def from_decoded(obj: dict) -> OrderStatusKind:
 def from_json(obj: OrderStatusJSON) -> OrderStatusKind:
     if obj["kind"] == "Init":
         return Init()
+
     if obj["kind"] == "Open":
         return Open()
+
     if obj["kind"] == "Filled":
         return Filled()
+
     if obj["kind"] == "Canceled":
         return Canceled()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

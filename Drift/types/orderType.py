@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class MarketJSON(typing.TypedDict):
     kind: typing.Literal["Market"]
 
@@ -20,17 +21,16 @@ class MarketJSON(typing.TypedDict):
 @dataclass
 class Market:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> MarketJSON:
+    def to_json(self) -> MarketJSON:
         return MarketJSON(
             kind="Market",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Market": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class LimitJSON(typing.TypedDict):
 @dataclass
 class Limit:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> LimitJSON:
+    def to_json(self) -> LimitJSON:
         return LimitJSON(
             kind="Limit",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Limit": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class TriggerMarketJSON(typing.TypedDict):
 @dataclass
 class TriggerMarket:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> TriggerMarketJSON:
+    def to_json(self) -> TriggerMarketJSON:
         return TriggerMarketJSON(
             kind="TriggerMarket",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "TriggerMarket": {},
         }
+
 
 
 
@@ -83,17 +81,16 @@ class TriggerLimitJSON(typing.TypedDict):
 @dataclass
 class TriggerLimit:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> TriggerLimitJSON:
+    def to_json(self) -> TriggerLimitJSON:
         return TriggerLimitJSON(
             kind="TriggerLimit",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "TriggerLimit": {},
         }
+
 
 
 
@@ -104,14 +101,12 @@ class OracleJSON(typing.TypedDict):
 @dataclass
 class Oracle:
     discriminator: typing.ClassVar = 4
-    @classmethod
-    def to_json(cls) -> OracleJSON:
+    def to_json(self) -> OracleJSON:
         return OracleJSON(
             kind="Oracle",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Oracle": {},
         }
@@ -153,14 +148,19 @@ def from_decoded(obj: dict) -> OrderTypeKind:
 def from_json(obj: OrderTypeJSON) -> OrderTypeKind:
     if obj["kind"] == "Market":
         return Market()
+
     if obj["kind"] == "Limit":
         return Limit()
+
     if obj["kind"] == "TriggerMarket":
         return TriggerMarket()
+
     if obj["kind"] == "TriggerLimit":
         return TriggerLimit()
+
     if obj["kind"] == "Oracle":
         return Oracle()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

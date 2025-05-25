@@ -61,7 +61,7 @@ class Amm:
         "initializerReceiveTokenAccount" /BorshPubkey,
         "initializerAmount" /borsh.U64,
         "takerAmount" /borsh.U64,
-        "isInitialized" /borsh.U8,
+        "isInitialized" /borsh.Bool,
         "bumpSeed" /borsh.U8,
         "freezeTrade" /borsh.U8,
         "freezeDeposit" /borsh.U8,

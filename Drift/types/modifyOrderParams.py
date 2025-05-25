@@ -15,15 +15,15 @@ from solders.sysvar import RENT;
 from . import orderTriggerCondition, positionDirection, postOnlyParam;
 
 class ModifyOrderParamsJSON(typing.TypedDict):
-    direction: typing.Optional[]
+    direction: typing.Optional[positionDirection.PositionDirectionJSON]
     baseAssetAmount: typing.Optional[int]
     price: typing.Optional[int]
     reduceOnly: typing.Optional[bool]
-    postOnly: typing.Optional[]
+    postOnly: typing.Optional[postOnlyParam.PostOnlyParamJSON]
     immediateOrCancel: typing.Optional[bool]
     maxTs: typing.Optional[int]
     triggerPrice: typing.Optional[int]
-    triggerCondition: typing.Optional[]
+    triggerCondition: typing.Optional[orderTriggerCondition.OrderTriggerConditionJSON]
     oraclePriceOffset: typing.Optional[int]
     auctionDuration: typing.Optional[int]
     auctionStartPrice: typing.Optional[int]
@@ -36,9 +36,9 @@ class ModifyOrderParams:
         "direction" /borsh.Option(positionDirection.layout),
         "baseAssetAmount" /borsh.Option(borsh.U64),
         "price" /borsh.Option(borsh.U64),
-        "reduceOnly" /borsh.Option(borsh.U8),
+        "reduceOnly" /borsh.Option(borsh.Bool),
         "postOnly" /borsh.Option(postOnlyParam.layout),
-        "immediateOrCancel" /borsh.Option(borsh.U8),
+        "immediateOrCancel" /borsh.Option(borsh.Bool),
         "maxTs" /borsh.Option(borsh.I64),
         "triggerPrice" /borsh.Option(borsh.U64),
         "triggerCondition" /borsh.Option(orderTriggerCondition.layout),
@@ -49,15 +49,15 @@ class ModifyOrderParams:
         "policy" /borsh.Option(borsh.U8),
         )
     #fields
-    direction: typing.Optional[]
+    direction: typing.Optional[positionDirection.PositionDirectionKind]
     baseAssetAmount: typing.Optional[int]
     price: typing.Optional[int]
     reduceOnly: typing.Optional[bool]
-    postOnly: typing.Optional[]
+    postOnly: typing.Optional[postOnlyParam.PostOnlyParamKind]
     immediateOrCancel: typing.Optional[bool]
     maxTs: typing.Optional[int]
     triggerPrice: typing.Optional[int]
-    triggerCondition: typing.Optional[]
+    triggerCondition: typing.Optional[orderTriggerCondition.OrderTriggerConditionKind]
     oraclePriceOffset: typing.Optional[int]
     auctionDuration: typing.Optional[int]
     auctionStartPrice: typing.Optional[int]
@@ -67,24 +67,26 @@ class ModifyOrderParams:
     @classmethod
     def from_decoded(cls, obj: Container) -> "ModifyOrderParams":
         return cls(
-                   direction=obj.direction,
-                   baseAssetAmount=obj.baseAssetAmount,
-                   price=obj.price,
-                   reduceOnly=obj.reduceOnly,
-                   postOnly=obj.postOnly,
-                   immediateOrCancel=obj.immediateOrCancel,
-                   maxTs=obj.maxTs,
-                   triggerPrice=obj.triggerPrice,
-                   triggerCondition=obj.triggerCondition,
-                   oraclePriceOffset=obj.oraclePriceOffset,
-                   auctionDuration=obj.auctionDuration,
-                   auctionStartPrice=obj.auctionStartPrice,
-                   auctionEndPrice=obj.auctionEndPrice,
-                   policy=obj.policy,
-                )
+       direction=(None if obj["direction"] is None else positionDirection.from_decoded(obj["direction"])),baseAssetAmount=(None if obj["baseAssetAmount"] is None else obj["baseAssetAmount"]),price=(None if obj["price"] is None else obj["price"]),reduceOnly=(None if obj["reduceOnly"] is None else obj["reduceOnly"]),postOnly=(None if obj["postOnly"] is None else postOnlyParam.from_decoded(obj["postOnly"])),immediateOrCancel=(None if obj["immediateOrCancel"] is None else obj["immediateOrCancel"]),maxTs=(None if obj["maxTs"] is None else obj["maxTs"]),triggerPrice=(None if obj["triggerPrice"] is None else obj["triggerPrice"]),triggerCondition=(None if obj["triggerCondition"] is None else orderTriggerCondition.from_decoded(obj["triggerCondition"])),oraclePriceOffset=(None if obj["oraclePriceOffset"] is None else obj["oraclePriceOffset"]),auctionDuration=(None if obj["auctionDuration"] is None else obj["auctionDuration"]),auctionStartPrice=(None if obj["auctionStartPrice"] is None else obj["auctionStartPrice"]),auctionEndPrice=(None if obj["auctionEndPrice"] is None else obj["auctionEndPrice"]),policy=(None if obj["policy"] is None else obj["policy"])
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "direction": self.direction,
+                "baseAssetAmount": self.baseAssetAmount,
+                "price": self.price,
+                "reduceOnly": self.reduceOnly,
+                "postOnly": self.postOnly,
+                "immediateOrCancel": self.immediateOrCancel,
+                "maxTs": self.maxTs,
+                "triggerPrice": self.triggerPrice,
+                "triggerCondition": self.triggerCondition,
+                "oraclePriceOffset": self.oraclePriceOffset,
+                "auctionDuration": self.auctionDuration,
+                "auctionStartPrice": self.auctionStartPrice,
+                "auctionEndPrice": self.auctionEndPrice,
+                "policy": self.policy,
+                }
 
     def to_json(self) -> ModifyOrderParamsJSON:
         return {
@@ -102,7 +104,7 @@ class ModifyOrderParams:
                 "auctionStartPrice": (None if self.auctionStartPrice is None else self.auctionStartPrice),
                 "auctionEndPrice": (None if self.auctionEndPrice is None else self.auctionEndPrice),
                 "policy": (None if self.policy is None else self.policy),
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: ModifyOrderParamsJSON) -> "ModifyOrderParams":

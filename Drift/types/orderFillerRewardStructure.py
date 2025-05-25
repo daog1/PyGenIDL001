@@ -33,20 +33,22 @@ class OrderFillerRewardStructure:
     @classmethod
     def from_decoded(cls, obj: Container) -> "OrderFillerRewardStructure":
         return cls(
-                   rewardNumerator=obj.rewardNumerator,
-                   rewardDenominator=obj.rewardDenominator,
-                   timeBasedRewardLowerBound=obj.timeBasedRewardLowerBound,
-                )
+       rewardNumerator=obj["rewardNumerator"],rewardDenominator=obj["rewardDenominator"],timeBasedRewardLowerBound=obj["timeBasedRewardLowerBound"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "rewardNumerator": self.rewardNumerator,
+                "rewardDenominator": self.rewardDenominator,
+                "timeBasedRewardLowerBound": self.timeBasedRewardLowerBound,
+                }
 
     def to_json(self) -> OrderFillerRewardStructureJSON:
         return {
                 "rewardNumerator": self.rewardNumerator,
                 "rewardDenominator": self.rewardDenominator,
                 "timeBasedRewardLowerBound": self.timeBasedRewardLowerBound,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: OrderFillerRewardStructureJSON) -> "OrderFillerRewardStructure":

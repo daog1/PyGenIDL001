@@ -13,42 +13,50 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+AMMJSONValue = tuple[typing.Optional[int]]
+AMMValue = tuple[typing.Optional[int]]
+
 class AMMJSON(typing.TypedDict):
     kind: typing.Literal["AMM"]
+    value: AMMJSONValue
 
 
 @dataclass
 class AMM:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> AMMJSON:
+    value : AMMValue
+    def to_json(self) -> AMMJSON:
         return AMMJSON(
             kind="AMM",
+            value = (self.value[0])
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "AMM": {},
         }
 
 
 
+MatchJSONValue = tuple[str,int]
+MatchValue = tuple[Pubkey,int]
+
 class MatchJSON(typing.TypedDict):
     kind: typing.Literal["Match"]
+    value: MatchJSONValue
 
 
 @dataclass
 class Match:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> MatchJSON:
+    value : MatchValue
+    def to_json(self) -> MatchJSON:
         return MatchJSON(
             kind="Match",
+            value = (self.value[0],self.value[1])
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Match": {},
         }
@@ -70,20 +78,34 @@ def from_decoded(obj: dict) -> PerpFulfillmentMethodKind:
     if not isinstance(obj, dict):
         raise ValueError("Invalid enum object")
     if "AMM" in obj:
-      return AMM()
+      val = obj["AMM"]
+      return AMM((
+      val["item_0"]
+      )) #todo Tuple
     if "Match" in obj:
-      return Match()
+      val = obj["Match"]
+      return Match((
+      val["item_0"],val["item_1"]
+      )) #todo Tuple
     raise ValueError("Invalid enum object")
 
 def from_json(obj: PerpFulfillmentMethodJSON) -> PerpFulfillmentMethodKind:
     if obj["kind"] == "AMM":
-        return AMM()
+        aMMJSONValue = typing.cast(AMMJSONValue, obj["value"])
+        return AMM(
+        (aMMJSONValue[0])
+        )
+
     if obj["kind"] == "Match":
-        return Match()
+        matchJSONValue = typing.cast(MatchJSONValue, obj["value"])
+        return Match(
+        (matchJSONValue[0],matchJSONValue[1])
+        )
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 
 layout = EnumForCodegen(
-"AMM" / borsh.CStruct(),
-"Match" / borsh.CStruct(),
+"AMM" / borsh.CStruct("item_0" / borsh.Option(borsh.U64)),
+"Match" / borsh.CStruct("item_0" / BorshPubkey,"item_1" / borsh.U16),
 )

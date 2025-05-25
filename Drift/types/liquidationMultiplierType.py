@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class DiscountJSON(typing.TypedDict):
     kind: typing.Literal["Discount"]
 
@@ -20,17 +21,16 @@ class DiscountJSON(typing.TypedDict):
 @dataclass
 class Discount:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> DiscountJSON:
+    def to_json(self) -> DiscountJSON:
         return DiscountJSON(
             kind="Discount",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Discount": {},
         }
+
 
 
 
@@ -41,14 +41,12 @@ class PremiumJSON(typing.TypedDict):
 @dataclass
 class Premium:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> PremiumJSON:
+    def to_json(self) -> PremiumJSON:
         return PremiumJSON(
             kind="Premium",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Premium": {},
         }
@@ -78,8 +76,10 @@ def from_decoded(obj: dict) -> LiquidationMultiplierTypeKind:
 def from_json(obj: LiquidationMultiplierTypeJSON) -> LiquidationMultiplierTypeKind:
     if obj["kind"] == "Discount":
         return Discount()
+
     if obj["kind"] == "Premium":
         return Premium()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

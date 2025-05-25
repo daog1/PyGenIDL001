@@ -37,7 +37,7 @@ class BondingCurve:
         "realTokenReserves" /borsh.U64,
         "realSolReserves" /borsh.U64,
         "tokenTotalSupply" /borsh.U64,
-        "complete" /borsh.U8,
+        "complete" /borsh.Bool,
         )
     #fields
     virtualTokenReserves: int

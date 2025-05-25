@@ -19,10 +19,10 @@ class RFQMakerOrderParamsJSON(typing.TypedDict):
     authority: str
     subAccountId: int
     marketIndex: int
-    marketType: 
+    marketType: marketType.MarketTypeJSON
     baseAssetAmount: int
     price: int
-    direction: 
+    direction: positionDirection.PositionDirectionJSON
     maxTs: int
 
 @dataclass
@@ -52,19 +52,21 @@ class RFQMakerOrderParams:
     @classmethod
     def from_decoded(cls, obj: Container) -> "RFQMakerOrderParams":
         return cls(
-                   uuid=obj.uuid,
-                   authority=obj.authority,
-                   subAccountId=obj.subAccountId,
-                   marketIndex=obj.marketIndex,
-                   marketType=obj.marketType,
-                   baseAssetAmount=obj.baseAssetAmount,
-                   price=obj.price,
-                   direction=obj.direction,
-                   maxTs=obj.maxTs,
-                )
+       uuid=obj["uuid"],authority=Pubkey.from_string(obj["authority"]),subAccountId=obj["subAccountId"],marketIndex=obj["marketIndex"],marketType=marketType.from_decoded(obj["marketType"]),baseAssetAmount=obj["baseAssetAmount"],price=obj["price"],direction=positionDirection.from_decoded(obj["direction"]),maxTs=obj["maxTs"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "uuid": self.uuid,
+                "authority": self.authority,
+                "subAccountId": self.subAccountId,
+                "marketIndex": self.marketIndex,
+                "marketType": self.marketType.to_encodable(),
+                "baseAssetAmount": self.baseAssetAmount,
+                "price": self.price,
+                "direction": self.direction.to_encodable(),
+                "maxTs": self.maxTs,
+                }
 
     def to_json(self) -> RFQMakerOrderParamsJSON:
         return {
@@ -77,7 +79,7 @@ class RFQMakerOrderParams:
                 "price": self.price,
                 "direction": self.direction.to_json(),
                 "maxTs": self.maxTs,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: RFQMakerOrderParamsJSON) -> "RFQMakerOrderParams":

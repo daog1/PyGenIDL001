@@ -66,7 +66,7 @@ class UserStats:
         "numberOfSubAccounts" /borsh.U16,
         "numberOfSubAccountsCreated" /borsh.U16,
         "referrerStatus" /borsh.U8,
-        "disableUpdatePerpBidAskTwap" /borsh.U8,
+        "disableUpdatePerpBidAskTwap" /borsh.Bool,
         "padding1" /borsh.U8[2],
         "fuelInsurance" /borsh.U32,
         "fuelDeposits" /borsh.U32,

@@ -45,17 +45,19 @@ class LiquidateSpotRecord:
     @classmethod
     def from_decoded(cls, obj: Container) -> "LiquidateSpotRecord":
         return cls(
-                   assetMarketIndex=obj.assetMarketIndex,
-                   assetPrice=obj.assetPrice,
-                   assetTransfer=obj.assetTransfer,
-                   liabilityMarketIndex=obj.liabilityMarketIndex,
-                   liabilityPrice=obj.liabilityPrice,
-                   liabilityTransfer=obj.liabilityTransfer,
-                   ifFee=obj.ifFee,
-                )
+       assetMarketIndex=obj["assetMarketIndex"],assetPrice=obj["assetPrice"],assetTransfer=obj["assetTransfer"],liabilityMarketIndex=obj["liabilityMarketIndex"],liabilityPrice=obj["liabilityPrice"],liabilityTransfer=obj["liabilityTransfer"],ifFee=obj["ifFee"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "assetMarketIndex": self.assetMarketIndex,
+                "assetPrice": self.assetPrice,
+                "assetTransfer": self.assetTransfer,
+                "liabilityMarketIndex": self.liabilityMarketIndex,
+                "liabilityPrice": self.liabilityPrice,
+                "liabilityTransfer": self.liabilityTransfer,
+                "ifFee": self.ifFee,
+                }
 
     def to_json(self) -> LiquidateSpotRecordJSON:
         return {
@@ -66,7 +68,7 @@ class LiquidateSpotRecord:
                 "liabilityPrice": self.liabilityPrice,
                 "liabilityTransfer": self.liabilityTransfer,
                 "ifFee": self.ifFee,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: LiquidateSpotRecordJSON) -> "LiquidateSpotRecord":

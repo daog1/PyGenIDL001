@@ -36,14 +36,16 @@ class SpotBankruptcyRecord:
     @classmethod
     def from_decoded(cls, obj: Container) -> "SpotBankruptcyRecord":
         return cls(
-                   marketIndex=obj.marketIndex,
-                   borrowAmount=obj.borrowAmount,
-                   ifPayment=obj.ifPayment,
-                   cumulativeDepositInterestDelta=obj.cumulativeDepositInterestDelta,
-                )
+       marketIndex=obj["marketIndex"],borrowAmount=obj["borrowAmount"],ifPayment=obj["ifPayment"],cumulativeDepositInterestDelta=obj["cumulativeDepositInterestDelta"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "marketIndex": self.marketIndex,
+                "borrowAmount": self.borrowAmount,
+                "ifPayment": self.ifPayment,
+                "cumulativeDepositInterestDelta": self.cumulativeDepositInterestDelta,
+                }
 
     def to_json(self) -> SpotBankruptcyRecordJSON:
         return {
@@ -51,7 +53,7 @@ class SpotBankruptcyRecord:
                 "borrowAmount": self.borrowAmount,
                 "ifPayment": self.ifPayment,
                 "cumulativeDepositInterestDelta": self.cumulativeDepositInterestDelta,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: SpotBankruptcyRecordJSON) -> "SpotBankruptcyRecord":

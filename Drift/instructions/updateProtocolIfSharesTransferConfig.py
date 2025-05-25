@@ -14,7 +14,7 @@ from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class UpdateProtocolIfSharesTransferConfigArgs(typing.TypedDict):
-    whitelistedSigners:typing.Optional[list[str]]
+    whitelistedSigners:typing.Optional[list[Pubkey]]
     maxTransferPerEpoch:typing.Optional[int]
 
 

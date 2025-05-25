@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class MustModifyJSON(typing.TypedDict):
     kind: typing.Literal["MustModify"]
 
@@ -20,17 +21,16 @@ class MustModifyJSON(typing.TypedDict):
 @dataclass
 class MustModify:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> MustModifyJSON:
+    def to_json(self) -> MustModifyJSON:
         return MustModifyJSON(
             kind="MustModify",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "MustModify": {},
         }
+
 
 
 
@@ -41,14 +41,12 @@ class ExcludePreviousFillJSON(typing.TypedDict):
 @dataclass
 class ExcludePreviousFill:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> ExcludePreviousFillJSON:
+    def to_json(self) -> ExcludePreviousFillJSON:
         return ExcludePreviousFillJSON(
             kind="ExcludePreviousFill",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "ExcludePreviousFill": {},
         }
@@ -78,8 +76,10 @@ def from_decoded(obj: dict) -> ModifyOrderPolicyKind:
 def from_json(obj: ModifyOrderPolicyJSON) -> ModifyOrderPolicyKind:
     if obj["kind"] == "MustModify":
         return MustModify()
+
     if obj["kind"] == "ExcludePreviousFill":
         return ExcludePreviousFill()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

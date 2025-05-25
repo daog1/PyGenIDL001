@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class ImmediateJSON(typing.TypedDict):
     kind: typing.Literal["Immediate"]
 
@@ -20,17 +21,16 @@ class ImmediateJSON(typing.TypedDict):
 @dataclass
 class Immediate:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> ImmediateJSON:
+    def to_json(self) -> ImmediateJSON:
         return ImmediateJSON(
             kind="Immediate",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Immediate": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class AfterMinDurationJSON(typing.TypedDict):
 @dataclass
 class AfterMinDuration:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> AfterMinDurationJSON:
+    def to_json(self) -> AfterMinDurationJSON:
         return AfterMinDurationJSON(
             kind="AfterMinDuration",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "AfterMinDuration": {},
         }
+
 
 
 
@@ -62,14 +61,12 @@ class UnavailableJSON(typing.TypedDict):
 @dataclass
 class Unavailable:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> UnavailableJSON:
+    def to_json(self) -> UnavailableJSON:
         return UnavailableJSON(
             kind="Unavailable",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Unavailable": {},
         }
@@ -103,10 +100,13 @@ def from_decoded(obj: dict) -> AMMAvailabilityKind:
 def from_json(obj: AMMAvailabilityJSON) -> AMMAvailabilityKind:
     if obj["kind"] == "Immediate":
         return Immediate()
+
     if obj["kind"] == "AfterMinDuration":
         return AfterMinDuration()
+
     if obj["kind"] == "Unavailable":
         return Unavailable()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class DefaultJSON(typing.TypedDict):
     kind: typing.Literal["Default"]
 
@@ -20,17 +21,16 @@ class DefaultJSON(typing.TypedDict):
 @dataclass
 class Default:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> DefaultJSON:
+    def to_json(self) -> DefaultJSON:
         return DefaultJSON(
             kind="Default",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Default": {},
         }
+
 
 
 
@@ -41,14 +41,12 @@ class HighLeverageJSON(typing.TypedDict):
 @dataclass
 class HighLeverage:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> HighLeverageJSON:
+    def to_json(self) -> HighLeverageJSON:
         return HighLeverageJSON(
             kind="HighLeverage",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "HighLeverage": {},
         }
@@ -78,8 +76,10 @@ def from_decoded(obj: dict) -> MarginModeKind:
 def from_json(obj: MarginModeJSON) -> MarginModeKind:
     if obj["kind"] == "Default":
         return Default()
+
     if obj["kind"] == "HighLeverage":
         return HighLeverage()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

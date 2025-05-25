@@ -20,7 +20,7 @@ class UpdateUserAdvancedLpArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "subAccountId" /borsh.U16,
-    "advancedLp" /borsh.U8,
+    "advancedLp" /borsh.Bool,
     )
 
 

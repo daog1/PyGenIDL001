@@ -18,7 +18,7 @@ class EndSwapArgs(typing.TypedDict):
     inMarketIndex:int
     outMarketIndex:int
     limitPrice:typing.Optional[int]
-    reduceOnly:typing.Optional[types.swapReduceOnly.SwapReduceOnlyJSON]
+    reduceOnly:typing.Optional[types.swapReduceOnly.SwapReduceOnlyKind]
 
 
 layout = borsh.CStruct(

@@ -48,7 +48,7 @@ layout = borsh.CStruct(
     "imfFactor" /borsh.U32,
     "liquidatorFee" /borsh.U32,
     "ifLiquidationFee" /borsh.U32,
-    "activeStatus" /borsh.U8,
+    "activeStatus" /borsh.Bool,
     "assetTier" /types.assetTier.layout,
     "scaleInitialAssetWeightStart" /borsh.U64,
     "withdrawGuardThreshold" /borsh.U64,

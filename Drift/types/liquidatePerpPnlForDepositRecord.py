@@ -42,16 +42,18 @@ class LiquidatePerpPnlForDepositRecord:
     @classmethod
     def from_decoded(cls, obj: Container) -> "LiquidatePerpPnlForDepositRecord":
         return cls(
-                   perpMarketIndex=obj.perpMarketIndex,
-                   marketOraclePrice=obj.marketOraclePrice,
-                   pnlTransfer=obj.pnlTransfer,
-                   assetMarketIndex=obj.assetMarketIndex,
-                   assetPrice=obj.assetPrice,
-                   assetTransfer=obj.assetTransfer,
-                )
+       perpMarketIndex=obj["perpMarketIndex"],marketOraclePrice=obj["marketOraclePrice"],pnlTransfer=obj["pnlTransfer"],assetMarketIndex=obj["assetMarketIndex"],assetPrice=obj["assetPrice"],assetTransfer=obj["assetTransfer"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "perpMarketIndex": self.perpMarketIndex,
+                "marketOraclePrice": self.marketOraclePrice,
+                "pnlTransfer": self.pnlTransfer,
+                "assetMarketIndex": self.assetMarketIndex,
+                "assetPrice": self.assetPrice,
+                "assetTransfer": self.assetTransfer,
+                }
 
     def to_json(self) -> LiquidatePerpPnlForDepositRecordJSON:
         return {
@@ -61,7 +63,7 @@ class LiquidatePerpPnlForDepositRecord:
                 "assetMarketIndex": self.assetMarketIndex,
                 "assetPrice": self.assetPrice,
                 "assetTransfer": self.assetTransfer,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: LiquidatePerpPnlForDepositRecordJSON) -> "LiquidatePerpPnlForDepositRecord":

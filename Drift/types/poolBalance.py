@@ -33,20 +33,22 @@ class PoolBalance:
     @classmethod
     def from_decoded(cls, obj: Container) -> "PoolBalance":
         return cls(
-                   scaledBalance=obj.scaledBalance,
-                   marketIndex=obj.marketIndex,
-                   padding=obj.padding,
-                )
+       scaledBalance=obj["scaledBalance"],marketIndex=obj["marketIndex"],padding=obj["padding"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "scaledBalance": self.scaledBalance,
+                "marketIndex": self.marketIndex,
+                "padding": self.padding,
+                }
 
     def to_json(self) -> PoolBalanceJSON:
         return {
                 "scaledBalance": self.scaledBalance,
                 "marketIndex": self.marketIndex,
                 "padding": self.padding,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: PoolBalanceJSON) -> "PoolBalance":

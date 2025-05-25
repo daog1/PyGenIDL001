@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class UpdateFundingJSON(typing.TypedDict):
     kind: typing.Literal["UpdateFunding"]
 
@@ -20,17 +21,16 @@ class UpdateFundingJSON(typing.TypedDict):
 @dataclass
 class UpdateFunding:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> UpdateFundingJSON:
+    def to_json(self) -> UpdateFundingJSON:
         return UpdateFundingJSON(
             kind="UpdateFunding",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "UpdateFunding": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class SettlePnlJSON(typing.TypedDict):
 @dataclass
 class SettlePnl:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> SettlePnlJSON:
+    def to_json(self) -> SettlePnlJSON:
         return SettlePnlJSON(
             kind="SettlePnl",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "SettlePnl": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class TriggerOrderJSON(typing.TypedDict):
 @dataclass
 class TriggerOrder:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> TriggerOrderJSON:
+    def to_json(self) -> TriggerOrderJSON:
         return TriggerOrderJSON(
             kind="TriggerOrder",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "TriggerOrder": {},
         }
+
 
 
 
@@ -83,17 +81,16 @@ class FillOrderMatchJSON(typing.TypedDict):
 @dataclass
 class FillOrderMatch:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> FillOrderMatchJSON:
+    def to_json(self) -> FillOrderMatchJSON:
         return FillOrderMatchJSON(
             kind="FillOrderMatch",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "FillOrderMatch": {},
         }
+
 
 
 
@@ -104,17 +101,16 @@ class FillOrderAmmJSON(typing.TypedDict):
 @dataclass
 class FillOrderAmm:
     discriminator: typing.ClassVar = 4
-    @classmethod
-    def to_json(cls) -> FillOrderAmmJSON:
+    def to_json(self) -> FillOrderAmmJSON:
         return FillOrderAmmJSON(
             kind="FillOrderAmm",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "FillOrderAmm": {},
         }
+
 
 
 
@@ -125,17 +121,16 @@ class LiquidateJSON(typing.TypedDict):
 @dataclass
 class Liquidate:
     discriminator: typing.ClassVar = 5
-    @classmethod
-    def to_json(cls) -> LiquidateJSON:
+    def to_json(self) -> LiquidateJSON:
         return LiquidateJSON(
             kind="Liquidate",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Liquidate": {},
         }
+
 
 
 
@@ -146,17 +141,16 @@ class MarginCalcJSON(typing.TypedDict):
 @dataclass
 class MarginCalc:
     discriminator: typing.ClassVar = 6
-    @classmethod
-    def to_json(cls) -> MarginCalcJSON:
+    def to_json(self) -> MarginCalcJSON:
         return MarginCalcJSON(
             kind="MarginCalc",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "MarginCalc": {},
         }
+
 
 
 
@@ -167,17 +161,16 @@ class UpdateTwapJSON(typing.TypedDict):
 @dataclass
 class UpdateTwap:
     discriminator: typing.ClassVar = 7
-    @classmethod
-    def to_json(cls) -> UpdateTwapJSON:
+    def to_json(self) -> UpdateTwapJSON:
         return UpdateTwapJSON(
             kind="UpdateTwap",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "UpdateTwap": {},
         }
+
 
 
 
@@ -188,17 +181,16 @@ class UpdateAMMCurveJSON(typing.TypedDict):
 @dataclass
 class UpdateAMMCurve:
     discriminator: typing.ClassVar = 8
-    @classmethod
-    def to_json(cls) -> UpdateAMMCurveJSON:
+    def to_json(self) -> UpdateAMMCurveJSON:
         return UpdateAMMCurveJSON(
             kind="UpdateAMMCurve",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "UpdateAMMCurve": {},
         }
+
 
 
 
@@ -209,14 +201,12 @@ class OracleOrderPriceJSON(typing.TypedDict):
 @dataclass
 class OracleOrderPrice:
     discriminator: typing.ClassVar = 9
-    @classmethod
-    def to_json(cls) -> OracleOrderPriceJSON:
+    def to_json(self) -> OracleOrderPriceJSON:
         return OracleOrderPriceJSON(
             kind="OracleOrderPrice",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "OracleOrderPrice": {},
         }
@@ -278,24 +268,34 @@ def from_decoded(obj: dict) -> DriftActionKind:
 def from_json(obj: DriftActionJSON) -> DriftActionKind:
     if obj["kind"] == "UpdateFunding":
         return UpdateFunding()
+
     if obj["kind"] == "SettlePnl":
         return SettlePnl()
+
     if obj["kind"] == "TriggerOrder":
         return TriggerOrder()
+
     if obj["kind"] == "FillOrderMatch":
         return FillOrderMatch()
+
     if obj["kind"] == "FillOrderAmm":
         return FillOrderAmm()
+
     if obj["kind"] == "Liquidate":
         return Liquidate()
+
     if obj["kind"] == "MarginCalc":
         return MarginCalc()
+
     if obj["kind"] == "UpdateTwap":
         return UpdateTwap()
+
     if obj["kind"] == "UpdateAMMCurve":
         return UpdateAMMCurve()
+
     if obj["kind"] == "OracleOrderPrice":
         return OracleOrderPrice()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class InvalidEd25519InstructionProgramIdJSON(typing.TypedDict):
     kind: typing.Literal["InvalidEd25519InstructionProgramId"]
 
@@ -20,17 +21,16 @@ class InvalidEd25519InstructionProgramIdJSON(typing.TypedDict):
 @dataclass
 class InvalidEd25519InstructionProgramId:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> InvalidEd25519InstructionProgramIdJSON:
+    def to_json(self) -> InvalidEd25519InstructionProgramIdJSON:
         return InvalidEd25519InstructionProgramIdJSON(
             kind="InvalidEd25519InstructionProgramId",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "InvalidEd25519InstructionProgramId": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class InvalidEd25519InstructionDataLengthJSON(typing.TypedDict):
 @dataclass
 class InvalidEd25519InstructionDataLength:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> InvalidEd25519InstructionDataLengthJSON:
+    def to_json(self) -> InvalidEd25519InstructionDataLengthJSON:
         return InvalidEd25519InstructionDataLengthJSON(
             kind="InvalidEd25519InstructionDataLength",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "InvalidEd25519InstructionDataLength": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class InvalidSignatureIndexJSON(typing.TypedDict):
 @dataclass
 class InvalidSignatureIndex:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> InvalidSignatureIndexJSON:
+    def to_json(self) -> InvalidSignatureIndexJSON:
         return InvalidSignatureIndexJSON(
             kind="InvalidSignatureIndex",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "InvalidSignatureIndex": {},
         }
+
 
 
 
@@ -83,17 +81,16 @@ class InvalidSignatureOffsetJSON(typing.TypedDict):
 @dataclass
 class InvalidSignatureOffset:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> InvalidSignatureOffsetJSON:
+    def to_json(self) -> InvalidSignatureOffsetJSON:
         return InvalidSignatureOffsetJSON(
             kind="InvalidSignatureOffset",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "InvalidSignatureOffset": {},
         }
+
 
 
 
@@ -104,17 +101,16 @@ class InvalidPublicKeyOffsetJSON(typing.TypedDict):
 @dataclass
 class InvalidPublicKeyOffset:
     discriminator: typing.ClassVar = 4
-    @classmethod
-    def to_json(cls) -> InvalidPublicKeyOffsetJSON:
+    def to_json(self) -> InvalidPublicKeyOffsetJSON:
         return InvalidPublicKeyOffsetJSON(
             kind="InvalidPublicKeyOffset",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "InvalidPublicKeyOffset": {},
         }
+
 
 
 
@@ -125,17 +121,16 @@ class InvalidMessageOffsetJSON(typing.TypedDict):
 @dataclass
 class InvalidMessageOffset:
     discriminator: typing.ClassVar = 5
-    @classmethod
-    def to_json(cls) -> InvalidMessageOffsetJSON:
+    def to_json(self) -> InvalidMessageOffsetJSON:
         return InvalidMessageOffsetJSON(
             kind="InvalidMessageOffset",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "InvalidMessageOffset": {},
         }
+
 
 
 
@@ -146,17 +141,16 @@ class InvalidMessageDataSizeJSON(typing.TypedDict):
 @dataclass
 class InvalidMessageDataSize:
     discriminator: typing.ClassVar = 6
-    @classmethod
-    def to_json(cls) -> InvalidMessageDataSizeJSON:
+    def to_json(self) -> InvalidMessageDataSizeJSON:
         return InvalidMessageDataSizeJSON(
             kind="InvalidMessageDataSize",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "InvalidMessageDataSize": {},
         }
+
 
 
 
@@ -167,17 +161,16 @@ class InvalidInstructionIndexJSON(typing.TypedDict):
 @dataclass
 class InvalidInstructionIndex:
     discriminator: typing.ClassVar = 7
-    @classmethod
-    def to_json(cls) -> InvalidInstructionIndexJSON:
+    def to_json(self) -> InvalidInstructionIndexJSON:
         return InvalidInstructionIndexJSON(
             kind="InvalidInstructionIndex",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "InvalidInstructionIndex": {},
         }
+
 
 
 
@@ -188,17 +181,16 @@ class MessageOffsetOverflowJSON(typing.TypedDict):
 @dataclass
 class MessageOffsetOverflow:
     discriminator: typing.ClassVar = 8
-    @classmethod
-    def to_json(cls) -> MessageOffsetOverflowJSON:
+    def to_json(self) -> MessageOffsetOverflowJSON:
         return MessageOffsetOverflowJSON(
             kind="MessageOffsetOverflow",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "MessageOffsetOverflow": {},
         }
+
 
 
 
@@ -209,14 +201,12 @@ class InvalidMessageHexJSON(typing.TypedDict):
 @dataclass
 class InvalidMessageHex:
     discriminator: typing.ClassVar = 9
-    @classmethod
-    def to_json(cls) -> InvalidMessageHexJSON:
+    def to_json(self) -> InvalidMessageHexJSON:
         return InvalidMessageHexJSON(
             kind="InvalidMessageHex",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "InvalidMessageHex": {},
         }
@@ -278,24 +268,34 @@ def from_decoded(obj: dict) -> SignatureVerificationErrorKind:
 def from_json(obj: SignatureVerificationErrorJSON) -> SignatureVerificationErrorKind:
     if obj["kind"] == "InvalidEd25519InstructionProgramId":
         return InvalidEd25519InstructionProgramId()
+
     if obj["kind"] == "InvalidEd25519InstructionDataLength":
         return InvalidEd25519InstructionDataLength()
+
     if obj["kind"] == "InvalidSignatureIndex":
         return InvalidSignatureIndex()
+
     if obj["kind"] == "InvalidSignatureOffset":
         return InvalidSignatureOffset()
+
     if obj["kind"] == "InvalidPublicKeyOffset":
         return InvalidPublicKeyOffset()
+
     if obj["kind"] == "InvalidMessageOffset":
         return InvalidMessageOffset()
+
     if obj["kind"] == "InvalidMessageDataSize":
         return InvalidMessageDataSize()
+
     if obj["kind"] == "InvalidInstructionIndex":
         return InvalidInstructionIndex()
+
     if obj["kind"] == "MessageOffsetOverflow":
         return MessageOffsetOverflow()
+
     if obj["kind"] == "InvalidMessageHex":
         return InvalidMessageHex()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

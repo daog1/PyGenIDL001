@@ -48,18 +48,20 @@ class FeeTier:
     @classmethod
     def from_decoded(cls, obj: Container) -> "FeeTier":
         return cls(
-                   feeNumerator=obj.feeNumerator,
-                   feeDenominator=obj.feeDenominator,
-                   makerRebateNumerator=obj.makerRebateNumerator,
-                   makerRebateDenominator=obj.makerRebateDenominator,
-                   referrerRewardNumerator=obj.referrerRewardNumerator,
-                   referrerRewardDenominator=obj.referrerRewardDenominator,
-                   refereeFeeNumerator=obj.refereeFeeNumerator,
-                   refereeFeeDenominator=obj.refereeFeeDenominator,
-                )
+       feeNumerator=obj["feeNumerator"],feeDenominator=obj["feeDenominator"],makerRebateNumerator=obj["makerRebateNumerator"],makerRebateDenominator=obj["makerRebateDenominator"],referrerRewardNumerator=obj["referrerRewardNumerator"],referrerRewardDenominator=obj["referrerRewardDenominator"],refereeFeeNumerator=obj["refereeFeeNumerator"],refereeFeeDenominator=obj["refereeFeeDenominator"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "feeNumerator": self.feeNumerator,
+                "feeDenominator": self.feeDenominator,
+                "makerRebateNumerator": self.makerRebateNumerator,
+                "makerRebateDenominator": self.makerRebateDenominator,
+                "referrerRewardNumerator": self.referrerRewardNumerator,
+                "referrerRewardDenominator": self.referrerRewardDenominator,
+                "refereeFeeNumerator": self.refereeFeeNumerator,
+                "refereeFeeDenominator": self.refereeFeeDenominator,
+                }
 
     def to_json(self) -> FeeTierJSON:
         return {
@@ -71,7 +73,7 @@ class FeeTier:
                 "referrerRewardDenominator": self.referrerRewardDenominator,
                 "refereeFeeNumerator": self.refereeFeeNumerator,
                 "refereeFeeDenominator": self.refereeFeeDenominator,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: FeeTierJSON) -> "FeeTier":

@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class SerumV3JSON(typing.TypedDict):
     kind: typing.Literal["SerumV3"]
 
@@ -20,17 +21,16 @@ class SerumV3JSON(typing.TypedDict):
 @dataclass
 class SerumV3:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> SerumV3JSON:
+    def to_json(self) -> SerumV3JSON:
         return SerumV3JSON(
             kind="SerumV3",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "SerumV3": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class MatchJSON(typing.TypedDict):
 @dataclass
 class Match:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> MatchJSON:
+    def to_json(self) -> MatchJSON:
         return MatchJSON(
             kind="Match",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Match": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class PhoenixV1JSON(typing.TypedDict):
 @dataclass
 class PhoenixV1:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> PhoenixV1JSON:
+    def to_json(self) -> PhoenixV1JSON:
         return PhoenixV1JSON(
             kind="PhoenixV1",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "PhoenixV1": {},
         }
+
 
 
 
@@ -83,14 +81,12 @@ class OpenbookV2JSON(typing.TypedDict):
 @dataclass
 class OpenbookV2:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> OpenbookV2JSON:
+    def to_json(self) -> OpenbookV2JSON:
         return OpenbookV2JSON(
             kind="OpenbookV2",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "OpenbookV2": {},
         }
@@ -128,12 +124,16 @@ def from_decoded(obj: dict) -> SpotFulfillmentTypeKind:
 def from_json(obj: SpotFulfillmentTypeJSON) -> SpotFulfillmentTypeKind:
     if obj["kind"] == "SerumV3":
         return SerumV3()
+
     if obj["kind"] == "Match":
         return Match()
+
     if obj["kind"] == "PhoenixV1":
         return PhoenixV1()
+
     if obj["kind"] == "OpenbookV2":
         return OpenbookV2()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

@@ -16,7 +16,7 @@ from .. import types;
 from ..program_id import PROGRAM_ID;
 class PlaceAndTakeSpotOrderArgs(typing.TypedDict):
     params:types.orderParams.OrderParams
-    fulfillmentType:typing.Optional[types.spotFulfillmentType.SpotFulfillmentTypeJSON]
+    fulfillmentType:typing.Optional[types.spotFulfillmentType.SpotFulfillmentTypeKind]
     makerOrderId:typing.Optional[int]
 
 

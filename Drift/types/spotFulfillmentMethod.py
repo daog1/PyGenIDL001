@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class ExternalMarketJSON(typing.TypedDict):
     kind: typing.Literal["ExternalMarket"]
 
@@ -20,35 +21,37 @@ class ExternalMarketJSON(typing.TypedDict):
 @dataclass
 class ExternalMarket:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> ExternalMarketJSON:
+    def to_json(self) -> ExternalMarketJSON:
         return ExternalMarketJSON(
             kind="ExternalMarket",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "ExternalMarket": {},
         }
 
 
 
+MatchJSONValue = tuple[str,int]
+MatchValue = tuple[Pubkey,int]
+
 class MatchJSON(typing.TypedDict):
     kind: typing.Literal["Match"]
+    value: MatchJSONValue
 
 
 @dataclass
 class Match:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> MatchJSON:
+    value : MatchValue
+    def to_json(self) -> MatchJSON:
         return MatchJSON(
             kind="Match",
+            value = (self.value[0],self.value[1])
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Match": {},
         }
@@ -72,18 +75,26 @@ def from_decoded(obj: dict) -> SpotFulfillmentMethodKind:
     if "ExternalMarket" in obj:
       return ExternalMarket()
     if "Match" in obj:
-      return Match()
+      val = obj["Match"]
+      return Match((
+      val["item_0"],val["item_1"]
+      )) #todo Tuple
     raise ValueError("Invalid enum object")
 
 def from_json(obj: SpotFulfillmentMethodJSON) -> SpotFulfillmentMethodKind:
     if obj["kind"] == "ExternalMarket":
         return ExternalMarket()
+
     if obj["kind"] == "Match":
-        return Match()
+        matchJSONValue = typing.cast(MatchJSONValue, obj["value"])
+        return Match(
+        (matchJSONValue[0],matchJSONValue[1])
+        )
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 
 layout = EnumForCodegen(
 "ExternalMarket" / borsh.CStruct(),
-"Match" / borsh.CStruct(),
+"Match" / borsh.CStruct("item_0" / BorshPubkey,"item_1" / borsh.U16),
 )

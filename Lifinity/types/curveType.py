@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class StandardJSON(typing.TypedDict):
     kind: typing.Literal["Standard"]
 
@@ -20,17 +21,16 @@ class StandardJSON(typing.TypedDict):
 @dataclass
 class Standard:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> StandardJSON:
+    def to_json(self) -> StandardJSON:
         return StandardJSON(
             kind="Standard",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Standard": {},
         }
+
 
 
 
@@ -41,14 +41,12 @@ class ConstantProductJSON(typing.TypedDict):
 @dataclass
 class ConstantProduct:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> ConstantProductJSON:
+    def to_json(self) -> ConstantProductJSON:
         return ConstantProductJSON(
             kind="ConstantProduct",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "ConstantProduct": {},
         }
@@ -78,8 +76,10 @@ def from_decoded(obj: dict) -> CurveTypeKind:
 def from_json(obj: CurveTypeJSON) -> CurveTypeKind:
     if obj["kind"] == "Standard":
         return Standard()
+
     if obj["kind"] == "ConstantProduct":
         return ConstantProduct()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

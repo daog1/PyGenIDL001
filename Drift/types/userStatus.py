@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class BeingLiquidatedJSON(typing.TypedDict):
     kind: typing.Literal["BeingLiquidated"]
 
@@ -20,17 +21,16 @@ class BeingLiquidatedJSON(typing.TypedDict):
 @dataclass
 class BeingLiquidated:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> BeingLiquidatedJSON:
+    def to_json(self) -> BeingLiquidatedJSON:
         return BeingLiquidatedJSON(
             kind="BeingLiquidated",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "BeingLiquidated": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class BankruptJSON(typing.TypedDict):
 @dataclass
 class Bankrupt:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> BankruptJSON:
+    def to_json(self) -> BankruptJSON:
         return BankruptJSON(
             kind="Bankrupt",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Bankrupt": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class ReduceOnlyJSON(typing.TypedDict):
 @dataclass
 class ReduceOnly:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> ReduceOnlyJSON:
+    def to_json(self) -> ReduceOnlyJSON:
         return ReduceOnlyJSON(
             kind="ReduceOnly",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "ReduceOnly": {},
         }
+
 
 
 
@@ -83,17 +81,16 @@ class AdvancedLpJSON(typing.TypedDict):
 @dataclass
 class AdvancedLp:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> AdvancedLpJSON:
+    def to_json(self) -> AdvancedLpJSON:
         return AdvancedLpJSON(
             kind="AdvancedLp",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "AdvancedLp": {},
         }
+
 
 
 
@@ -104,14 +101,12 @@ class ProtectedMakerOrdersJSON(typing.TypedDict):
 @dataclass
 class ProtectedMakerOrders:
     discriminator: typing.ClassVar = 4
-    @classmethod
-    def to_json(cls) -> ProtectedMakerOrdersJSON:
+    def to_json(self) -> ProtectedMakerOrdersJSON:
         return ProtectedMakerOrdersJSON(
             kind="ProtectedMakerOrders",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "ProtectedMakerOrders": {},
         }
@@ -153,14 +148,19 @@ def from_decoded(obj: dict) -> UserStatusKind:
 def from_json(obj: UserStatusJSON) -> UserStatusKind:
     if obj["kind"] == "BeingLiquidated":
         return BeingLiquidated()
+
     if obj["kind"] == "Bankrupt":
         return Bankrupt()
+
     if obj["kind"] == "ReduceOnly":
         return ReduceOnly()
+
     if obj["kind"] == "AdvancedLp":
         return AdvancedLp()
+
     if obj["kind"] == "ProtectedMakerOrders":
         return ProtectedMakerOrders()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class DepositPausedJSON(typing.TypedDict):
     kind: typing.Literal["DepositPaused"]
 
@@ -20,17 +21,16 @@ class DepositPausedJSON(typing.TypedDict):
 @dataclass
 class DepositPaused:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> DepositPausedJSON:
+    def to_json(self) -> DepositPausedJSON:
         return DepositPausedJSON(
             kind="DepositPaused",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "DepositPaused": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class WithdrawPausedJSON(typing.TypedDict):
 @dataclass
 class WithdrawPaused:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> WithdrawPausedJSON:
+    def to_json(self) -> WithdrawPausedJSON:
         return WithdrawPausedJSON(
             kind="WithdrawPaused",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "WithdrawPaused": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class AmmPausedJSON(typing.TypedDict):
 @dataclass
 class AmmPaused:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> AmmPausedJSON:
+    def to_json(self) -> AmmPausedJSON:
         return AmmPausedJSON(
             kind="AmmPaused",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "AmmPaused": {},
         }
+
 
 
 
@@ -83,17 +81,16 @@ class FillPausedJSON(typing.TypedDict):
 @dataclass
 class FillPaused:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> FillPausedJSON:
+    def to_json(self) -> FillPausedJSON:
         return FillPausedJSON(
             kind="FillPaused",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "FillPaused": {},
         }
+
 
 
 
@@ -104,17 +101,16 @@ class LiqPausedJSON(typing.TypedDict):
 @dataclass
 class LiqPaused:
     discriminator: typing.ClassVar = 4
-    @classmethod
-    def to_json(cls) -> LiqPausedJSON:
+    def to_json(self) -> LiqPausedJSON:
         return LiqPausedJSON(
             kind="LiqPaused",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "LiqPaused": {},
         }
+
 
 
 
@@ -125,17 +121,16 @@ class FundingPausedJSON(typing.TypedDict):
 @dataclass
 class FundingPaused:
     discriminator: typing.ClassVar = 5
-    @classmethod
-    def to_json(cls) -> FundingPausedJSON:
+    def to_json(self) -> FundingPausedJSON:
         return FundingPausedJSON(
             kind="FundingPaused",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "FundingPaused": {},
         }
+
 
 
 
@@ -146,17 +141,16 @@ class SettlePnlPausedJSON(typing.TypedDict):
 @dataclass
 class SettlePnlPaused:
     discriminator: typing.ClassVar = 6
-    @classmethod
-    def to_json(cls) -> SettlePnlPausedJSON:
+    def to_json(self) -> SettlePnlPausedJSON:
         return SettlePnlPausedJSON(
             kind="SettlePnlPaused",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "SettlePnlPaused": {},
         }
+
 
 
 
@@ -167,14 +161,12 @@ class AmmImmediateFillPausedJSON(typing.TypedDict):
 @dataclass
 class AmmImmediateFillPaused:
     discriminator: typing.ClassVar = 7
-    @classmethod
-    def to_json(cls) -> AmmImmediateFillPausedJSON:
+    def to_json(self) -> AmmImmediateFillPausedJSON:
         return AmmImmediateFillPausedJSON(
             kind="AmmImmediateFillPaused",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "AmmImmediateFillPaused": {},
         }
@@ -228,20 +220,28 @@ def from_decoded(obj: dict) -> ExchangeStatusKind:
 def from_json(obj: ExchangeStatusJSON) -> ExchangeStatusKind:
     if obj["kind"] == "DepositPaused":
         return DepositPaused()
+
     if obj["kind"] == "WithdrawPaused":
         return WithdrawPaused()
+
     if obj["kind"] == "AmmPaused":
         return AmmPaused()
+
     if obj["kind"] == "FillPaused":
         return FillPaused()
+
     if obj["kind"] == "LiqPaused":
         return LiqPaused()
+
     if obj["kind"] == "FundingPaused":
         return FundingPaused()
+
     if obj["kind"] == "SettlePnlPaused":
         return SettlePnlPaused()
+
     if obj["kind"] == "AmmImmediateFillPaused":
         return AmmImmediateFillPaused()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

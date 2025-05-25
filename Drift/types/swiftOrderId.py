@@ -36,14 +36,16 @@ class SwiftOrderId:
     @classmethod
     def from_decoded(cls, obj: Container) -> "SwiftOrderId":
         return cls(
-                   uuid=obj.uuid,
-                   maxSlot=obj.maxSlot,
-                   orderId=obj.orderId,
-                   padding=obj.padding,
-                )
+       uuid=obj["uuid"],maxSlot=obj["maxSlot"],orderId=obj["orderId"],padding=obj["padding"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "uuid": self.uuid,
+                "maxSlot": self.maxSlot,
+                "orderId": self.orderId,
+                "padding": self.padding,
+                }
 
     def to_json(self) -> SwiftOrderIdJSON:
         return {
@@ -51,7 +53,7 @@ class SwiftOrderId:
                 "maxSlot": self.maxSlot,
                 "orderId": self.orderId,
                 "padding": self.padding,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: SwiftOrderIdJSON) -> "SwiftOrderId":

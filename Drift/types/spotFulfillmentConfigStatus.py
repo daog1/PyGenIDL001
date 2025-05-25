@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class EnabledJSON(typing.TypedDict):
     kind: typing.Literal["Enabled"]
 
@@ -20,17 +21,16 @@ class EnabledJSON(typing.TypedDict):
 @dataclass
 class Enabled:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> EnabledJSON:
+    def to_json(self) -> EnabledJSON:
         return EnabledJSON(
             kind="Enabled",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Enabled": {},
         }
+
 
 
 
@@ -41,14 +41,12 @@ class DisabledJSON(typing.TypedDict):
 @dataclass
 class Disabled:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> DisabledJSON:
+    def to_json(self) -> DisabledJSON:
         return DisabledJSON(
             kind="Disabled",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Disabled": {},
         }
@@ -78,8 +76,10 @@ def from_decoded(obj: dict) -> SpotFulfillmentConfigStatusKind:
 def from_json(obj: SpotFulfillmentConfigStatusJSON) -> SpotFulfillmentConfigStatusKind:
     if obj["kind"] == "Enabled":
         return Enabled()
+
     if obj["kind"] == "Disabled":
         return Disabled()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

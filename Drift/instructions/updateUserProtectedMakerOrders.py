@@ -20,7 +20,7 @@ class UpdateUserProtectedMakerOrdersArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "subAccountId" /borsh.U16,
-    "protectedMakerOrders" /borsh.U8,
+    "protectedMakerOrders" /borsh.Bool,
     )
 
 

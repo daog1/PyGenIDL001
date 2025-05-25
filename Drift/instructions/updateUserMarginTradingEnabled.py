@@ -20,7 +20,7 @@ class UpdateUserMarginTradingEnabledArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "subAccountId" /borsh.U16,
-    "marginTradingEnabled" /borsh.U8,
+    "marginTradingEnabled" /borsh.Bool,
     )
 
 

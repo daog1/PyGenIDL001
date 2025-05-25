@@ -30,18 +30,20 @@ class SwiftTriggerOrderParams:
     @classmethod
     def from_decoded(cls, obj: Container) -> "SwiftTriggerOrderParams":
         return cls(
-                   triggerPrice=obj.triggerPrice,
-                   baseAssetAmount=obj.baseAssetAmount,
-                )
+       triggerPrice=obj["triggerPrice"],baseAssetAmount=obj["baseAssetAmount"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "triggerPrice": self.triggerPrice,
+                "baseAssetAmount": self.baseAssetAmount,
+                }
 
     def to_json(self) -> SwiftTriggerOrderParamsJSON:
         return {
                 "triggerPrice": self.triggerPrice,
                 "baseAssetAmount": self.baseAssetAmount,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: SwiftTriggerOrderParamsJSON) -> "SwiftTriggerOrderParams":

@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class UpdateFundingJSON(typing.TypedDict):
     kind: typing.Literal["UpdateFunding"]
 
@@ -20,17 +21,16 @@ class UpdateFundingJSON(typing.TypedDict):
 @dataclass
 class UpdateFunding:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> UpdateFundingJSON:
+    def to_json(self) -> UpdateFundingJSON:
         return UpdateFundingJSON(
             kind="UpdateFunding",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "UpdateFunding": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class AmmFillJSON(typing.TypedDict):
 @dataclass
 class AmmFill:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> AmmFillJSON:
+    def to_json(self) -> AmmFillJSON:
         return AmmFillJSON(
             kind="AmmFill",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "AmmFill": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class FillJSON(typing.TypedDict):
 @dataclass
 class Fill:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> FillJSON:
+    def to_json(self) -> FillJSON:
         return FillJSON(
             kind="Fill",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Fill": {},
         }
+
 
 
 
@@ -83,17 +81,16 @@ class SettlePnlJSON(typing.TypedDict):
 @dataclass
 class SettlePnl:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> SettlePnlJSON:
+    def to_json(self) -> SettlePnlJSON:
         return SettlePnlJSON(
             kind="SettlePnl",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "SettlePnl": {},
         }
+
 
 
 
@@ -104,17 +101,16 @@ class SettlePnlWithPositionJSON(typing.TypedDict):
 @dataclass
 class SettlePnlWithPosition:
     discriminator: typing.ClassVar = 4
-    @classmethod
-    def to_json(cls) -> SettlePnlWithPositionJSON:
+    def to_json(self) -> SettlePnlWithPositionJSON:
         return SettlePnlWithPositionJSON(
             kind="SettlePnlWithPosition",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "SettlePnlWithPosition": {},
         }
+
 
 
 
@@ -125,17 +121,16 @@ class LiquidationJSON(typing.TypedDict):
 @dataclass
 class Liquidation:
     discriminator: typing.ClassVar = 5
-    @classmethod
-    def to_json(cls) -> LiquidationJSON:
+    def to_json(self) -> LiquidationJSON:
         return LiquidationJSON(
             kind="Liquidation",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Liquidation": {},
         }
+
 
 
 
@@ -146,14 +141,12 @@ class AmmImmediateFillJSON(typing.TypedDict):
 @dataclass
 class AmmImmediateFill:
     discriminator: typing.ClassVar = 6
-    @classmethod
-    def to_json(cls) -> AmmImmediateFillJSON:
+    def to_json(self) -> AmmImmediateFillJSON:
         return AmmImmediateFillJSON(
             kind="AmmImmediateFill",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "AmmImmediateFill": {},
         }
@@ -203,18 +196,25 @@ def from_decoded(obj: dict) -> PerpOperationKind:
 def from_json(obj: PerpOperationJSON) -> PerpOperationKind:
     if obj["kind"] == "UpdateFunding":
         return UpdateFunding()
+
     if obj["kind"] == "AmmFill":
         return AmmFill()
+
     if obj["kind"] == "Fill":
         return Fill()
+
     if obj["kind"] == "SettlePnl":
         return SettlePnl()
+
     if obj["kind"] == "SettlePnlWithPosition":
         return SettlePnlWithPosition()
+
     if obj["kind"] == "Liquidation":
         return Liquidation()
+
     if obj["kind"] == "AmmImmediateFill":
         return AmmImmediateFill()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

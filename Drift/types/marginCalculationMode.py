@@ -12,43 +12,68 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
+from . import marketIdentifier;
+
+class StandardJSONValue(typing.TypedDict):
+    #kind: typing.Literal["Standard"]
+    trackOpenOrdersFraction: bool
+class StandardValue(typing.TypedDict):
+    trackOpenOrdersFraction: bool
+
+
+
 
 class StandardJSON(typing.TypedDict):
     kind: typing.Literal["Standard"]
+    value: StandardJSONValue
 
 
 @dataclass
 class Standard:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> StandardJSON:
+    value : StandardValue
+    def to_json(self) -> StandardJSON:
         return StandardJSON(
             kind="Standard",
+            value = {
+            "trackOpenOrdersFraction":self.value["trackOpenOrdersFraction"]
+            }
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Standard": {},
         }
 
 
 
+class LiquidationJSONValue(typing.TypedDict):
+    #kind: typing.Literal["Liquidation"]
+    marketToTrackMarginRequirement: typing.Optional[marketIdentifier.MarketIdentifierJSON]
+class LiquidationValue(typing.TypedDict):
+    marketToTrackMarginRequirement: typing.Optional[marketIdentifier.MarketIdentifier]
+
+
+
+
 class LiquidationJSON(typing.TypedDict):
     kind: typing.Literal["Liquidation"]
+    value: LiquidationJSONValue
 
 
 @dataclass
 class Liquidation:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> LiquidationJSON:
+    value : LiquidationValue
+    def to_json(self) -> LiquidationJSON:
         return LiquidationJSON(
             kind="Liquidation",
+            value = {
+            "marketToTrackMarginRequirement":(None if self.value["marketToTrackMarginRequirement"] is None else self.value["marketToTrackMarginRequirement"].to_json())
+            }
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Liquidation": {},
         }
@@ -70,20 +95,46 @@ def from_decoded(obj: dict) -> MarginCalculationModeKind:
     if not isinstance(obj, dict):
         raise ValueError("Invalid enum object")
     if "Standard" in obj:
-      return Standard()
+      val = obj["Standard"]
+      return Standard(
+            StandardValue(
+                trackOpenOrdersFraction= val["trackOpenOrdersFraction"]
+            )
+        )
+
     if "Liquidation" in obj:
-      return Liquidation()
+      val = obj["Liquidation"]
+      return Liquidation(
+            LiquidationValue(
+                marketToTrackMarginRequirement= (None if val["marketToTrackMarginRequirement"] is None else marketIdentifier.MarketIdentifier.from_decoded(val["marketToTrackMarginRequirement"]))
+            )
+        )
+
     raise ValueError("Invalid enum object")
 
 def from_json(obj: MarginCalculationModeJSON) -> MarginCalculationModeKind:
     if obj["kind"] == "Standard":
-        return Standard()
+        standardJSONValue = typing.cast(StandardJSONValue, obj["value"])
+        return Standard(
+            StandardValue(
+                trackOpenOrdersFraction=standardJSONValue["trackOpenOrdersFraction"]
+            )
+        )
+
+
     if obj["kind"] == "Liquidation":
-        return Liquidation()
+        liquidationJSONValue = typing.cast(LiquidationJSONValue, obj["value"])
+        return Liquidation(
+            LiquidationValue(
+                marketToTrackMarginRequirement=(None if liquidationJSONValue["marketToTrackMarginRequirement"] is None else marketIdentifier.MarketIdentifier.from_json(liquidationJSONValue["marketToTrackMarginRequirement"]))
+            )
+        )
+
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 
 layout = EnumForCodegen(
-"Standard" / borsh.CStruct(),
-"Liquidation" / borsh.CStruct(),
+"Standard" / borsh.CStruct("trackOpenOrdersFraction" /borsh.Bool),
+"Liquidation" / borsh.CStruct("marketToTrackMarginRequirement" /borsh.Option(marketIdentifier.MarketIdentifier.layout)),
 )

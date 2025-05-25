@@ -15,7 +15,7 @@ from solders.sysvar import RENT;
 from . import marketType;
 
 class MarketIdentifierJSON(typing.TypedDict):
-    marketType: 
+    marketType: marketType.MarketTypeJSON
     marketIndex: int
 
 @dataclass
@@ -31,18 +31,20 @@ class MarketIdentifier:
     @classmethod
     def from_decoded(cls, obj: Container) -> "MarketIdentifier":
         return cls(
-                   marketType=obj.marketType,
-                   marketIndex=obj.marketIndex,
-                )
+       marketType=marketType.from_decoded(obj["marketType"]),marketIndex=obj["marketIndex"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "marketType": self.marketType.to_encodable(),
+                "marketIndex": self.marketIndex,
+                }
 
     def to_json(self) -> MarketIdentifierJSON:
         return {
                 "marketType": self.marketType.to_json(),
                 "marketIndex": self.marketIndex,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: MarketIdentifierJSON) -> "MarketIdentifier":

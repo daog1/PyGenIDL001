@@ -39,15 +39,17 @@ class HistoricalIndexData:
     @classmethod
     def from_decoded(cls, obj: Container) -> "HistoricalIndexData":
         return cls(
-                   lastIndexBidPrice=obj.lastIndexBidPrice,
-                   lastIndexAskPrice=obj.lastIndexAskPrice,
-                   lastIndexPriceTwap=obj.lastIndexPriceTwap,
-                   lastIndexPriceTwap5min=obj.lastIndexPriceTwap5min,
-                   lastIndexPriceTwapTs=obj.lastIndexPriceTwapTs,
-                )
+       lastIndexBidPrice=obj["lastIndexBidPrice"],lastIndexAskPrice=obj["lastIndexAskPrice"],lastIndexPriceTwap=obj["lastIndexPriceTwap"],lastIndexPriceTwap5min=obj["lastIndexPriceTwap5min"],lastIndexPriceTwapTs=obj["lastIndexPriceTwapTs"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "lastIndexBidPrice": self.lastIndexBidPrice,
+                "lastIndexAskPrice": self.lastIndexAskPrice,
+                "lastIndexPriceTwap": self.lastIndexPriceTwap,
+                "lastIndexPriceTwap5min": self.lastIndexPriceTwap5min,
+                "lastIndexPriceTwapTs": self.lastIndexPriceTwapTs,
+                }
 
     def to_json(self) -> HistoricalIndexDataJSON:
         return {
@@ -56,7 +58,7 @@ class HistoricalIndexData:
                 "lastIndexPriceTwap": self.lastIndexPriceTwap,
                 "lastIndexPriceTwap5min": self.lastIndexPriceTwap5min,
                 "lastIndexPriceTwapTs": self.lastIndexPriceTwapTs,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: HistoricalIndexDataJSON) -> "HistoricalIndexData":

@@ -17,7 +17,7 @@ from ..program_id import PROGRAM_ID;
 class PlaceAndMakeSpotOrderArgs(typing.TypedDict):
     params:types.orderParams.OrderParams
     takerOrderId:int
-    fulfillmentType:typing.Optional[types.spotFulfillmentType.SpotFulfillmentTypeJSON]
+    fulfillmentType:typing.Optional[types.spotFulfillmentType.SpotFulfillmentTypeKind]
 
 
 layout = borsh.CStruct(

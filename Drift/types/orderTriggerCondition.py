@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class AboveJSON(typing.TypedDict):
     kind: typing.Literal["Above"]
 
@@ -20,17 +21,16 @@ class AboveJSON(typing.TypedDict):
 @dataclass
 class Above:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> AboveJSON:
+    def to_json(self) -> AboveJSON:
         return AboveJSON(
             kind="Above",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Above": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class BelowJSON(typing.TypedDict):
 @dataclass
 class Below:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> BelowJSON:
+    def to_json(self) -> BelowJSON:
         return BelowJSON(
             kind="Below",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Below": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class TriggeredAboveJSON(typing.TypedDict):
 @dataclass
 class TriggeredAbove:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> TriggeredAboveJSON:
+    def to_json(self) -> TriggeredAboveJSON:
         return TriggeredAboveJSON(
             kind="TriggeredAbove",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "TriggeredAbove": {},
         }
+
 
 
 
@@ -83,14 +81,12 @@ class TriggeredBelowJSON(typing.TypedDict):
 @dataclass
 class TriggeredBelow:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> TriggeredBelowJSON:
+    def to_json(self) -> TriggeredBelowJSON:
         return TriggeredBelowJSON(
             kind="TriggeredBelow",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "TriggeredBelow": {},
         }
@@ -128,12 +124,16 @@ def from_decoded(obj: dict) -> OrderTriggerConditionKind:
 def from_json(obj: OrderTriggerConditionJSON) -> OrderTriggerConditionKind:
     if obj["kind"] == "Above":
         return Above()
+
     if obj["kind"] == "Below":
         return Below()
+
     if obj["kind"] == "TriggeredAbove":
         return TriggeredAbove()
+
     if obj["kind"] == "TriggeredBelow":
         return TriggeredBelow()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class InitialJSON(typing.TypedDict):
     kind: typing.Literal["Initial"]
 
@@ -20,17 +21,16 @@ class InitialJSON(typing.TypedDict):
 @dataclass
 class Initial:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> InitialJSON:
+    def to_json(self) -> InitialJSON:
         return InitialJSON(
             kind="Initial",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Initial": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class FillJSON(typing.TypedDict):
 @dataclass
 class Fill:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> FillJSON:
+    def to_json(self) -> FillJSON:
         return FillJSON(
             kind="Fill",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Fill": {},
         }
+
 
 
 
@@ -62,14 +61,12 @@ class MaintenanceJSON(typing.TypedDict):
 @dataclass
 class Maintenance:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> MaintenanceJSON:
+    def to_json(self) -> MaintenanceJSON:
         return MaintenanceJSON(
             kind="Maintenance",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Maintenance": {},
         }
@@ -103,10 +100,13 @@ def from_decoded(obj: dict) -> MarginRequirementTypeKind:
 def from_json(obj: MarginRequirementTypeJSON) -> MarginRequirementTypeKind:
     if obj["kind"] == "Initial":
         return Initial()
+
     if obj["kind"] == "Fill":
         return Fill()
+
     if obj["kind"] == "Maintenance":
         return Maintenance()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

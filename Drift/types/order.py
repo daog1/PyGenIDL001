@@ -27,16 +27,16 @@ class OrderJSON(typing.TypedDict):
     oraclePriceOffset: int
     orderId: int
     marketIndex: int
-    status: 
-    orderType: 
-    marketType: 
+    status: orderStatus.OrderStatusJSON
+    orderType: orderType.OrderTypeJSON
+    marketType: marketType.MarketTypeJSON
     userOrderId: int
-    existingPositionDirection: 
-    direction: 
+    existingPositionDirection: positionDirection.PositionDirectionJSON
+    direction: positionDirection.PositionDirectionJSON
     reduceOnly: bool
     postOnly: bool
     immediateOrCancel: bool
-    triggerCondition: 
+    triggerCondition: orderTriggerCondition.OrderTriggerConditionJSON
     auctionDuration: int
     padding: list[int]
 
@@ -61,9 +61,9 @@ class Order:
         "userOrderId" /borsh.U8,
         "existingPositionDirection" /positionDirection.layout,
         "direction" /positionDirection.layout,
-        "reduceOnly" /borsh.U8,
-        "postOnly" /borsh.U8,
-        "immediateOrCancel" /borsh.U8,
+        "reduceOnly" /borsh.Bool,
+        "postOnly" /borsh.Bool,
+        "immediateOrCancel" /borsh.Bool,
         "triggerCondition" /orderTriggerCondition.layout,
         "auctionDuration" /borsh.U8,
         "padding" /borsh.U8[3],
@@ -97,34 +97,36 @@ class Order:
     @classmethod
     def from_decoded(cls, obj: Container) -> "Order":
         return cls(
-                   slot=obj.slot,
-                   price=obj.price,
-                   baseAssetAmount=obj.baseAssetAmount,
-                   baseAssetAmountFilled=obj.baseAssetAmountFilled,
-                   quoteAssetAmountFilled=obj.quoteAssetAmountFilled,
-                   triggerPrice=obj.triggerPrice,
-                   auctionStartPrice=obj.auctionStartPrice,
-                   auctionEndPrice=obj.auctionEndPrice,
-                   maxTs=obj.maxTs,
-                   oraclePriceOffset=obj.oraclePriceOffset,
-                   orderId=obj.orderId,
-                   marketIndex=obj.marketIndex,
-                   status=obj.status,
-                   orderType=obj.orderType,
-                   marketType=obj.marketType,
-                   userOrderId=obj.userOrderId,
-                   existingPositionDirection=obj.existingPositionDirection,
-                   direction=obj.direction,
-                   reduceOnly=obj.reduceOnly,
-                   postOnly=obj.postOnly,
-                   immediateOrCancel=obj.immediateOrCancel,
-                   triggerCondition=obj.triggerCondition,
-                   auctionDuration=obj.auctionDuration,
-                   padding=obj.padding,
-                )
+       slot=obj["slot"],price=obj["price"],baseAssetAmount=obj["baseAssetAmount"],baseAssetAmountFilled=obj["baseAssetAmountFilled"],quoteAssetAmountFilled=obj["quoteAssetAmountFilled"],triggerPrice=obj["triggerPrice"],auctionStartPrice=obj["auctionStartPrice"],auctionEndPrice=obj["auctionEndPrice"],maxTs=obj["maxTs"],oraclePriceOffset=obj["oraclePriceOffset"],orderId=obj["orderId"],marketIndex=obj["marketIndex"],status=orderStatus.from_decoded(obj["status"]),orderType=orderType.from_decoded(obj["orderType"]),marketType=marketType.from_decoded(obj["marketType"]),userOrderId=obj["userOrderId"],existingPositionDirection=positionDirection.from_decoded(obj["existingPositionDirection"]),direction=positionDirection.from_decoded(obj["direction"]),reduceOnly=obj["reduceOnly"],postOnly=obj["postOnly"],immediateOrCancel=obj["immediateOrCancel"],triggerCondition=orderTriggerCondition.from_decoded(obj["triggerCondition"]),auctionDuration=obj["auctionDuration"],padding=obj["padding"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "slot": self.slot,
+                "price": self.price,
+                "baseAssetAmount": self.baseAssetAmount,
+                "baseAssetAmountFilled": self.baseAssetAmountFilled,
+                "quoteAssetAmountFilled": self.quoteAssetAmountFilled,
+                "triggerPrice": self.triggerPrice,
+                "auctionStartPrice": self.auctionStartPrice,
+                "auctionEndPrice": self.auctionEndPrice,
+                "maxTs": self.maxTs,
+                "oraclePriceOffset": self.oraclePriceOffset,
+                "orderId": self.orderId,
+                "marketIndex": self.marketIndex,
+                "status": self.status.to_encodable(),
+                "orderType": self.orderType.to_encodable(),
+                "marketType": self.marketType.to_encodable(),
+                "userOrderId": self.userOrderId,
+                "existingPositionDirection": self.existingPositionDirection.to_encodable(),
+                "direction": self.direction.to_encodable(),
+                "reduceOnly": self.reduceOnly,
+                "postOnly": self.postOnly,
+                "immediateOrCancel": self.immediateOrCancel,
+                "triggerCondition": self.triggerCondition.to_encodable(),
+                "auctionDuration": self.auctionDuration,
+                "padding": self.padding,
+                }
 
     def to_json(self) -> OrderJSON:
         return {
@@ -152,7 +154,7 @@ class Order:
                 "triggerCondition": self.triggerCondition.to_json(),
                 "auctionDuration": self.auctionDuration,
                 "padding": self.padding,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: OrderJSON) -> "Order":

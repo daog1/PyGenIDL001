@@ -69,25 +69,27 @@ class PerpPosition:
     @classmethod
     def from_decoded(cls, obj: Container) -> "PerpPosition":
         return cls(
-                   lastCumulativeFundingRate=obj.lastCumulativeFundingRate,
-                   baseAssetAmount=obj.baseAssetAmount,
-                   quoteAssetAmount=obj.quoteAssetAmount,
-                   quoteBreakEvenAmount=obj.quoteBreakEvenAmount,
-                   quoteEntryAmount=obj.quoteEntryAmount,
-                   openBids=obj.openBids,
-                   openAsks=obj.openAsks,
-                   settledPnl=obj.settledPnl,
-                   lpShares=obj.lpShares,
-                   lastBaseAssetAmountPerLp=obj.lastBaseAssetAmountPerLp,
-                   lastQuoteAssetAmountPerLp=obj.lastQuoteAssetAmountPerLp,
-                   remainderBaseAssetAmount=obj.remainderBaseAssetAmount,
-                   marketIndex=obj.marketIndex,
-                   openOrders=obj.openOrders,
-                   perLpBase=obj.perLpBase,
-                )
+       lastCumulativeFundingRate=obj["lastCumulativeFundingRate"],baseAssetAmount=obj["baseAssetAmount"],quoteAssetAmount=obj["quoteAssetAmount"],quoteBreakEvenAmount=obj["quoteBreakEvenAmount"],quoteEntryAmount=obj["quoteEntryAmount"],openBids=obj["openBids"],openAsks=obj["openAsks"],settledPnl=obj["settledPnl"],lpShares=obj["lpShares"],lastBaseAssetAmountPerLp=obj["lastBaseAssetAmountPerLp"],lastQuoteAssetAmountPerLp=obj["lastQuoteAssetAmountPerLp"],remainderBaseAssetAmount=obj["remainderBaseAssetAmount"],marketIndex=obj["marketIndex"],openOrders=obj["openOrders"],perLpBase=obj["perLpBase"]
+        )
 
-    #def to_encodable(self) -> dict[str, typing.Any]:
-    #    return {"row": self.row, "column": self.column}
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "lastCumulativeFundingRate": self.lastCumulativeFundingRate,
+                "baseAssetAmount": self.baseAssetAmount,
+                "quoteAssetAmount": self.quoteAssetAmount,
+                "quoteBreakEvenAmount": self.quoteBreakEvenAmount,
+                "quoteEntryAmount": self.quoteEntryAmount,
+                "openBids": self.openBids,
+                "openAsks": self.openAsks,
+                "settledPnl": self.settledPnl,
+                "lpShares": self.lpShares,
+                "lastBaseAssetAmountPerLp": self.lastBaseAssetAmountPerLp,
+                "lastQuoteAssetAmountPerLp": self.lastQuoteAssetAmountPerLp,
+                "remainderBaseAssetAmount": self.remainderBaseAssetAmount,
+                "marketIndex": self.marketIndex,
+                "openOrders": self.openOrders,
+                "perLpBase": self.perLpBase,
+                }
 
     def to_json(self) -> PerpPositionJSON:
         return {
@@ -106,7 +108,7 @@ class PerpPosition:
                 "marketIndex": self.marketIndex,
                 "openOrders": self.openOrders,
                 "perLpBase": self.perLpBase,
-        }
+                }
 
     @classmethod
     def from_json(cls, obj: PerpPositionJSON) -> "PerpPosition":

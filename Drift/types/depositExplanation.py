@@ -13,24 +13,24 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class NoneJSON(typing.TypedDict):
     kind: typing.Literal["None"]
 
 
 @dataclass
-class None:
+class None_:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> NoneJSON:
+    def to_json(self) -> NoneJSON:
         return NoneJSON(
             kind="None",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "None": {},
         }
+
 
 
 
@@ -41,17 +41,16 @@ class TransferJSON(typing.TypedDict):
 @dataclass
 class Transfer:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> TransferJSON:
+    def to_json(self) -> TransferJSON:
         return TransferJSON(
             kind="Transfer",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Transfer": {},
         }
+
 
 
 
@@ -62,17 +61,16 @@ class BorrowJSON(typing.TypedDict):
 @dataclass
 class Borrow:
     discriminator: typing.ClassVar = 2
-    @classmethod
-    def to_json(cls) -> BorrowJSON:
+    def to_json(self) -> BorrowJSON:
         return BorrowJSON(
             kind="Borrow",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "Borrow": {},
         }
+
 
 
 
@@ -83,14 +81,12 @@ class RepayBorrowJSON(typing.TypedDict):
 @dataclass
 class RepayBorrow:
     discriminator: typing.ClassVar = 3
-    @classmethod
-    def to_json(cls) -> RepayBorrowJSON:
+    def to_json(self) -> RepayBorrowJSON:
         return RepayBorrowJSON(
             kind="RepayBorrow",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "RepayBorrow": {},
         }
@@ -100,7 +96,7 @@ class RepayBorrow:
 
 
 DepositExplanationKind = typing.Union[
-None,
+None_,
 Transfer,
 Borrow,
 RepayBorrow,
@@ -116,7 +112,7 @@ def from_decoded(obj: dict) -> DepositExplanationKind:
     if not isinstance(obj, dict):
         raise ValueError("Invalid enum object")
     if "None" in obj:
-      return None()
+      return None_()
     if "Transfer" in obj:
       return Transfer()
     if "Borrow" in obj:
@@ -127,13 +123,17 @@ def from_decoded(obj: dict) -> DepositExplanationKind:
 
 def from_json(obj: DepositExplanationJSON) -> DepositExplanationKind:
     if obj["kind"] == "None":
-        return None()
+        return None_()
+
     if obj["kind"] == "Transfer":
         return Transfer()
+
     if obj["kind"] == "Borrow":
         return Borrow()
+
     if obj["kind"] == "RepayBorrow":
         return RepayBorrow()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 

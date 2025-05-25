@@ -13,6 +13,7 @@ from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
+
 class PartialFillJSON(typing.TypedDict):
     kind: typing.Literal["PartialFill"]
 
@@ -20,17 +21,16 @@ class PartialFillJSON(typing.TypedDict):
 @dataclass
 class PartialFill:
     discriminator: typing.ClassVar = 0
-    @classmethod
-    def to_json(cls) -> PartialFillJSON:
+    def to_json(self) -> PartialFillJSON:
         return PartialFillJSON(
             kind="PartialFill",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "PartialFill": {},
         }
+
 
 
 
@@ -41,14 +41,12 @@ class FullFillJSON(typing.TypedDict):
 @dataclass
 class FullFill:
     discriminator: typing.ClassVar = 1
-    @classmethod
-    def to_json(cls) -> FullFillJSON:
+    def to_json(self) -> FullFillJSON:
         return FullFillJSON(
             kind="FullFill",
         )
 
-    @classmethod
-    def to_encodable(cls) -> dict:
+    def to_encodable(self) -> dict:
         return {
             "FullFill": {},
         }
@@ -78,8 +76,10 @@ def from_decoded(obj: dict) -> PlaceAndTakeOrderSuccessConditionKind:
 def from_json(obj: PlaceAndTakeOrderSuccessConditionJSON) -> PlaceAndTakeOrderSuccessConditionKind:
     if obj["kind"] == "PartialFill":
         return PartialFill()
+
     if obj["kind"] == "FullFill":
         return FullFill()
+
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
 
