@@ -12,7 +12,7 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
-from . import orderFillerRewardStructure;
+from . import feeTier, orderFillerRewardStructure;
 
 class FeeStructureJSON(typing.TypedDict):
     feeTiers: list[feeTier.FeeTierJSON]

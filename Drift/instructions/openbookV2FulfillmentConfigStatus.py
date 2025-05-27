@@ -50,3 +50,4 @@ def OpenbookV2FulfillmentConfigStatus(
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
 
+

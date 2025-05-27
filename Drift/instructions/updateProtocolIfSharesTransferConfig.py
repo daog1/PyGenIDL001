@@ -7,6 +7,7 @@
 
 import borsh_construct as borsh;
 import typing;
+from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
@@ -51,4 +52,5 @@ def UpdateProtocolIfSharesTransferConfig(
 
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 

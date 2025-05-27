@@ -16,6 +16,7 @@ from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
 from solana.rpc.types import MemcmpOpts;
 from solders.pubkey import Pubkey;
+from .. import types;
 from ..program_id import PROGRAM_ID;
 
 
