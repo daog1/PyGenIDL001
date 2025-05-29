@@ -39,8 +39,8 @@ class ExtendAccountEvent:
     @classmethod
     def from_decoded(cls, obj: Container) -> "ExtendAccountEvent":
         return cls(
-        account=Pubkey.from_string(obj["account"]),
-        user=Pubkey.from_string(obj["user"]),
+        account=obj["account"],
+        user=obj["user"],
         currentSize=obj["currentSize"],
         newSize=obj["newSize"],
         timestamp=obj["timestamp"],

@@ -34,7 +34,7 @@ class CollectCreatorFeeEvent:
     def from_decoded(cls, obj: Container) -> "CollectCreatorFeeEvent":
         return cls(
         timestamp=obj["timestamp"],
-        creator=Pubkey.from_string(obj["creator"]),
+        creator=obj["creator"],
         creatorFee=obj["creatorFee"],
         )
 

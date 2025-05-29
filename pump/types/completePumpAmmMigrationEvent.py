@@ -48,14 +48,14 @@ class CompletePumpAmmMigrationEvent:
     @classmethod
     def from_decoded(cls, obj: Container) -> "CompletePumpAmmMigrationEvent":
         return cls(
-        user=Pubkey.from_string(obj["user"]),
-        mint=Pubkey.from_string(obj["mint"]),
+        user=obj["user"],
+        mint=obj["mint"],
         mintAmount=obj["mintAmount"],
         solAmount=obj["solAmount"],
         poolMigrationFee=obj["poolMigrationFee"],
-        bondingCurve=Pubkey.from_string(obj["bondingCurve"]),
+        bondingCurve=obj["bondingCurve"],
         timestamp=obj["timestamp"],
-        pool=Pubkey.from_string(obj["pool"]),
+        pool=obj["pool"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

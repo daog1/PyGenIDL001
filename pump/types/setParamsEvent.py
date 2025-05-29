@@ -69,13 +69,13 @@ class SetParamsEvent:
         finalRealSolReserves=obj["finalRealSolReserves"],
         tokenTotalSupply=obj["tokenTotalSupply"],
         feeBasisPoints=obj["feeBasisPoints"],
-        withdrawAuthority=Pubkey.from_string(obj["withdrawAuthority"]),
+        withdrawAuthority=obj["withdrawAuthority"],
         enableMigrate=obj["enableMigrate"],
         poolMigrationFee=obj["poolMigrationFee"],
         creatorFeeBasisPoints=obj["creatorFeeBasisPoints"],
         feeRecipients=list(map(lambda item:Pubkey.from_string(item),obj["feeRecipients"])),
         timestamp=obj["timestamp"],
-        setCreatorAuthority=Pubkey.from_string(obj["setCreatorAuthority"]),
+        setCreatorAuthority=obj["setCreatorAuthority"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

@@ -37,9 +37,9 @@ class SetCreatorEvent:
     def from_decoded(cls, obj: Container) -> "SetCreatorEvent":
         return cls(
         timestamp=obj["timestamp"],
-        mint=Pubkey.from_string(obj["mint"]),
-        bondingCurve=Pubkey.from_string(obj["bondingCurve"]),
-        creator=Pubkey.from_string(obj["creator"]),
+        mint=obj["mint"],
+        bondingCurve=obj["bondingCurve"],
+        creator=obj["creator"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

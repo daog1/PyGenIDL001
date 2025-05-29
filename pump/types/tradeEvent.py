@@ -72,20 +72,20 @@ class TradeEvent:
     @classmethod
     def from_decoded(cls, obj: Container) -> "TradeEvent":
         return cls(
-        mint=Pubkey.from_string(obj["mint"]),
+        mint=obj["mint"],
         solAmount=obj["solAmount"],
         tokenAmount=obj["tokenAmount"],
         isBuy=obj["isBuy"],
-        user=Pubkey.from_string(obj["user"]),
+        user=obj["user"],
         timestamp=obj["timestamp"],
         virtualSolReserves=obj["virtualSolReserves"],
         virtualTokenReserves=obj["virtualTokenReserves"],
         realSolReserves=obj["realSolReserves"],
         realTokenReserves=obj["realTokenReserves"],
-        feeRecipient=Pubkey.from_string(obj["feeRecipient"]),
+        feeRecipient=obj["feeRecipient"],
         feeBasisPoints=obj["feeBasisPoints"],
         fee=obj["fee"],
-        creator=Pubkey.from_string(obj["creator"]),
+        creator=obj["creator"],
         creatorFeeBasisPoints=obj["creatorFeeBasisPoints"],
         creatorFee=obj["creatorFee"],
         )

@@ -14,7 +14,7 @@ from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 
 class UpdateGlobalAuthorityEventJSON(typing.TypedDict):
-    global: str
+    global_: str
     authority: str
     newAuthority: str
     timestamp: int
@@ -28,7 +28,7 @@ class UpdateGlobalAuthorityEvent:
         "timestamp" /borsh.I64,
         )
     #fields
-    global: Pubkey
+    global_: Pubkey
     authority: Pubkey
     newAuthority: Pubkey
     timestamp: int
@@ -36,15 +36,15 @@ class UpdateGlobalAuthorityEvent:
     @classmethod
     def from_decoded(cls, obj: Container) -> "UpdateGlobalAuthorityEvent":
         return cls(
-        global=Pubkey.from_string(obj["global"]),
-        authority=Pubkey.from_string(obj["authority"]),
-        newAuthority=Pubkey.from_string(obj["newAuthority"]),
+        global_=obj["global"],
+        authority=obj["authority"],
+        newAuthority=obj["newAuthority"],
         timestamp=obj["timestamp"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:
         return {
-                "global": self.global,
+                "global": self.global_,
                 "authority": self.authority,
                 "newAuthority": self.newAuthority,
                 "timestamp": self.timestamp,
@@ -52,7 +52,7 @@ class UpdateGlobalAuthorityEvent:
 
     def to_json(self) -> UpdateGlobalAuthorityEventJSON:
         return {
-                "global": str(self.global),
+                "global_": str(self.global_),
                 "authority": str(self.authority),
                 "newAuthority": str(self.newAuthority),
                 "timestamp": self.timestamp,
@@ -61,7 +61,7 @@ class UpdateGlobalAuthorityEvent:
     @classmethod
     def from_json(cls, obj: UpdateGlobalAuthorityEventJSON) -> "UpdateGlobalAuthorityEvent":
         return cls(
-                global=Pubkey.from_string(obj["global"]),
+                global_=Pubkey.from_string(obj["global_"]),
                 authority=Pubkey.from_string(obj["authority"]),
                 newAuthority=Pubkey.from_string(obj["newAuthority"]),
                 timestamp=obj["timestamp"],

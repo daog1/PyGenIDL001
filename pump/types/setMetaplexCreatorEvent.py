@@ -40,10 +40,10 @@ class SetMetaplexCreatorEvent:
     def from_decoded(cls, obj: Container) -> "SetMetaplexCreatorEvent":
         return cls(
         timestamp=obj["timestamp"],
-        mint=Pubkey.from_string(obj["mint"]),
-        bondingCurve=Pubkey.from_string(obj["bondingCurve"]),
-        metadata=Pubkey.from_string(obj["metadata"]),
-        creator=Pubkey.from_string(obj["creator"]),
+        mint=obj["mint"],
+        bondingCurve=obj["bondingCurve"],
+        metadata=obj["metadata"],
+        creator=obj["creator"],
         )
 
     def to_encodable(self) -> dict[str, typing.Any]:

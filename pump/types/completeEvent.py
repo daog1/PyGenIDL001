@@ -36,9 +36,9 @@ class CompleteEvent:
     @classmethod
     def from_decoded(cls, obj: Container) -> "CompleteEvent":
         return cls(
-        user=Pubkey.from_string(obj["user"]),
-        mint=Pubkey.from_string(obj["mint"]),
-        bondingCurve=Pubkey.from_string(obj["bondingCurve"]),
+        user=obj["user"],
+        mint=obj["mint"],
+        bondingCurve=obj["bondingCurve"],
         timestamp=obj["timestamp"],
         )
 
