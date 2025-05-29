@@ -9,5 +9,3 @@ from . import bondingCurve
 from .bondingCurve import BondingCurve, BondingCurveJSON
 from . import global_
 from .global_ import Global, GlobalJSON
-from . import lastWithdraw
-from .lastWithdraw import LastWithdraw, LastWithdrawJSON

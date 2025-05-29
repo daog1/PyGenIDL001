@@ -13,70 +13,44 @@ from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
-class BuyArgs(typing.TypedDict):
-    amount:int
-    maxSolCost:int
 
-
-layout = borsh.CStruct(
-    "amount" /borsh.U64,
-    "maxSolCost" /borsh.U64,
-    )
-
-
-class BuyAccounts(typing.TypedDict):
-    global_:Pubkey
-    feeRecipient:Pubkey
+class SetMetaplexCreatorAccounts(typing.TypedDict):
     mint:Pubkey
+    metadata:Pubkey
     bondingCurve:Pubkey
-    associatedBondingCurve:Pubkey
-    associatedUser:Pubkey
-    user:Pubkey
-    systemProgram:Pubkey
-    tokenProgram:Pubkey
-    creatorVault:Pubkey
     eventAuthority:Pubkey
     program:Pubkey
 
-def Buy(
-    args: BuyArgs,
-    accounts: BuyAccounts,
+def SetMetaplexCreator(
+    accounts: SetMetaplexCreatorAccounts,
     program_id: Pubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
-    AccountMeta(pubkey=accounts["global_"], is_signer=False, is_writable=False),
-    AccountMeta(pubkey=accounts["feeRecipient"], is_signer=False, is_writable=True),
     AccountMeta(pubkey=accounts["mint"], is_signer=False, is_writable=False),
+    AccountMeta(pubkey=accounts["metadata"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["bondingCurve"], is_signer=False, is_writable=True),
-    AccountMeta(pubkey=accounts["associatedBondingCurve"], is_signer=False, is_writable=True),
-    AccountMeta(pubkey=accounts["associatedUser"], is_signer=False, is_writable=True),
-    AccountMeta(pubkey=accounts["user"], is_signer=True, is_writable=True),
-    AccountMeta(pubkey=accounts["systemProgram"], is_signer=False, is_writable=False),
-    AccountMeta(pubkey=accounts["tokenProgram"], is_signer=False, is_writable=False),
-    AccountMeta(pubkey=accounts["creatorVault"], is_signer=False, is_writable=True),
     AccountMeta(pubkey=accounts["eventAuthority"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["program"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=RENT, is_signer=False, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts
-    identifier = b"\x66\x06\x3d\x12\x01\xda\xeb\xea"
-    encoded_args = layout.build({
-    "amount":args["amount"],
-    "maxSolCost":args["maxSolCost"],
-       })
+    identifier = b"\x8a\x60\xae\xd9\x30\x55\xc5\xf6"
+    encoded_args = b""
 
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
 
-def find_Global() -> typing.Tuple[Pubkey, int]:
+def find_Metadata(mint: Pubkey) -> typing.Tuple[Pubkey, int]:
     seeds = [
-       b"\x67\x6c\x6f\x62\x61\x6c",
+       b"\x6d\x65\x74\x61\x64\x61\x74\x61",
+       b"\x0b\x70\x65\xb1\xe3\xd1\x7c\x45\x38\x9d\x52\x7f\x6b\x04\xc3\xcd\x58\xb8\x6c\x73\x1a\xa0\xfd\xb5\x49\xb6\xd1\xbc\x03\xf8\x29\x46",
+       bytes(mint),
     ]
 
     address, bump = Pubkey.find_program_address(seeds,
-        PROGRAM_ID
+            program_id=Pubkey.from_string('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s')
             ) # Using solana.publickey
 
     return address, bump
@@ -94,25 +68,6 @@ def find_BondingCurve(mint: Pubkey) -> typing.Tuple[Pubkey, int]:
             ) # Using solana.publickey
 
     return address, bump
-
-
-
-def find_AssociatedBondingCurve(bondingCurve: Pubkey, mint: Pubkey) -> typing.Tuple[Pubkey, int]:
-    seeds = [
-       bytes(bondingCurve),
-       b"\x06\xdd\xf6\xe1\xd7\x65\xa1\x93\xd9\xcb\xe1\x46\xce\xeb\x79\xac\x1c\xb4\x85\xed\x5f\x5b\x37\x91\x3a\x8c\xf5\x85\x7e\xff\x00\xa9",
-       bytes(mint),
-    ]
-
-    address, bump = Pubkey.find_program_address(seeds,
-            program_id=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
-            ) # Using solana.publickey
-
-    return address, bump
-
-
-
-
 
 
 

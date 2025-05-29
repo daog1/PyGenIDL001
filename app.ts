@@ -26,7 +26,7 @@ GenIdl("./idls/drift.json", "Drift");
 // GenIdlJs("./idls/idl-0.1.2.json", "Lifinityjs");
 // GenIdlJs("./idls/drift.json", "Driftjs");
 // GenIdlJs("./idls/pump_amm.json", "pump_amm");
-GenIdl("./idls/pump_amm.json", "pump_amm");
+//GenIdl("./idls/pump_amm.json", "pump_amm");
 //GenIdl("./idls/reward_pool.json", "reward_pool");
 
 //GenIdl("./idls/okxrouter.json", "okxrouter");

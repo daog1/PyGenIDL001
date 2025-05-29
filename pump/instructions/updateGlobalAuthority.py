@@ -14,25 +14,29 @@ from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
-class InitializeAccounts(typing.TypedDict):
+class UpdateGlobalAuthorityAccounts(typing.TypedDict):
     global_:Pubkey
-    user:Pubkey
-    systemProgram:Pubkey
+    authority:Pubkey
+    newAuthority:Pubkey
+    eventAuthority:Pubkey
+    program:Pubkey
 
-def Initialize(
-    accounts: InitializeAccounts,
+def UpdateGlobalAuthority(
+    accounts: UpdateGlobalAuthorityAccounts,
     program_id: Pubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
     AccountMeta(pubkey=accounts["global_"], is_signer=False, is_writable=True),
-    AccountMeta(pubkey=accounts["user"], is_signer=True, is_writable=True),
-    AccountMeta(pubkey=accounts["systemProgram"], is_signer=False, is_writable=False),
+    AccountMeta(pubkey=accounts["authority"], is_signer=True, is_writable=False),
+    AccountMeta(pubkey=accounts["newAuthority"], is_signer=False, is_writable=False),
+    AccountMeta(pubkey=accounts["eventAuthority"], is_signer=False, is_writable=False),
+    AccountMeta(pubkey=accounts["program"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=RENT, is_signer=False, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts
-    identifier = b"\xaf\xaf\x6d\x1f\x0d\x98\x9b\xed"
+    identifier = b"\xe3\xb5\x4a\xc4\xd0\x15\x61\xd5"
     encoded_args = b""
 
     data = identifier + encoded_args
@@ -50,6 +54,19 @@ def find_Global() -> typing.Tuple[Pubkey, int]:
     return address, bump
 
 
+
+
+
+def find_EventAuthority() -> typing.Tuple[Pubkey, int]:
+    seeds = [
+       b"\x5f\x5f\x65\x76\x65\x6e\x74\x5f\x61\x75\x74\x68\x6f\x72\x69\x74\x79",
+    ]
+
+    address, bump = Pubkey.find_program_address(seeds,
+        PROGRAM_ID
+            ) # Using solana.publickey
+
+    return address, bump
 
 
 

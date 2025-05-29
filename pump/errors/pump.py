@@ -80,6 +80,213 @@ class NotInitialized(ProgramError):
     code = 6007
     name = "NotInitialized"
     msg = ""
+class WithdrawTooFrequent(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6008, ""
+        )
+
+    code = 6008
+    name = "WithdrawTooFrequent"
+    msg = ""
+class NewSizeShouldBeGreaterThanCurrentSize(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6009, ""
+        )
+
+    code = 6009
+    name = "NewSizeShouldBeGreaterThanCurrentSize"
+    msg = ""
+class AccountTypeNotSupported(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6010, ""
+        )
+
+    code = 6010
+    name = "AccountTypeNotSupported"
+    msg = ""
+class InitialRealTokenReservesShouldBeLessThanTokenTotalSupply(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6011, ""
+        )
+
+    code = 6011
+    name = "InitialRealTokenReservesShouldBeLessThanTokenTotalSupply"
+    msg = ""
+class InitialVirtualTokenReservesShouldBeGreaterThanInitialRealTokenReserves(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6012, ""
+        )
+
+    code = 6012
+    name = "InitialVirtualTokenReservesShouldBeGreaterThanInitialRealTokenReserves"
+    msg = ""
+class FeeBasisPointsGreaterThanMaximum(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6013, ""
+        )
+
+    code = 6013
+    name = "FeeBasisPointsGreaterThanMaximum"
+    msg = ""
+class AllZerosWithdrawAuthority(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6014, ""
+        )
+
+    code = 6014
+    name = "AllZerosWithdrawAuthority"
+    msg = ""
+class PoolMigrationFeeShouldBeLessThanFinalRealSolReserves(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6015, ""
+        )
+
+    code = 6015
+    name = "PoolMigrationFeeShouldBeLessThanFinalRealSolReserves"
+    msg = ""
+class PoolMigrationFeeShouldBeGreaterThanCreatorFeePlusMaxMigrateFees(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6016, ""
+        )
+
+    code = 6016
+    name = "PoolMigrationFeeShouldBeGreaterThanCreatorFeePlusMaxMigrateFees"
+    msg = ""
+class DisabledWithdraw(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6017, ""
+        )
+
+    code = 6017
+    name = "DisabledWithdraw"
+    msg = ""
+class DisabledMigrate(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6018, ""
+        )
+
+    code = 6018
+    name = "DisabledMigrate"
+    msg = ""
+class InvalidCreator(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6019, ""
+        )
+
+    code = 6019
+    name = "InvalidCreator"
+    msg = ""
+class BuyZeroAmount(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6020, ""
+        )
+
+    code = 6020
+    name = "BuyZeroAmount"
+    msg = ""
+class NotEnoughTokensToBuy(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6021, ""
+        )
+
+    code = 6021
+    name = "NotEnoughTokensToBuy"
+    msg = ""
+class SellZeroAmount(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6022, ""
+        )
+
+    code = 6022
+    name = "SellZeroAmount"
+    msg = ""
+class NotEnoughTokensToSell(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6023, ""
+        )
+
+    code = 6023
+    name = "NotEnoughTokensToSell"
+    msg = ""
+class Overflow(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6024, ""
+        )
+
+    code = 6024
+    name = "Overflow"
+    msg = ""
+class Truncation(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6025, ""
+        )
+
+    code = 6025
+    name = "Truncation"
+    msg = ""
+class DivisionByZero(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6026, ""
+        )
+
+    code = 6026
+    name = "DivisionByZero"
+    msg = ""
+class NotEnoughRemainingAccounts(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6027, ""
+        )
+
+    code = 6027
+    name = "NotEnoughRemainingAccounts"
+    msg = ""
+class AllFeeRecipientsShouldBeNonZero(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6028, ""
+        )
+
+    code = 6028
+    name = "AllFeeRecipientsShouldBeNonZero"
+    msg = ""
+class UnsortedNotUniqueFeeRecipients(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6029, ""
+        )
+
+    code = 6029
+    name = "UnsortedNotUniqueFeeRecipients"
+    msg = ""
+class CreatorShouldNotBeZero(ProgramError):
+    def __init__(self) -> None:
+        super().__init__(
+            6030, ""
+        )
+
+    code = 6030
+    name = "CreatorShouldNotBeZero"
+    msg = ""
 
 CustomError = typing.Union[
     NotAuthorized,
@@ -90,6 +297,29 @@ CustomError = typing.Union[
     BondingCurveComplete,
     BondingCurveNotComplete,
     NotInitialized,
+    WithdrawTooFrequent,
+    NewSizeShouldBeGreaterThanCurrentSize,
+    AccountTypeNotSupported,
+    InitialRealTokenReservesShouldBeLessThanTokenTotalSupply,
+    InitialVirtualTokenReservesShouldBeGreaterThanInitialRealTokenReserves,
+    FeeBasisPointsGreaterThanMaximum,
+    AllZerosWithdrawAuthority,
+    PoolMigrationFeeShouldBeLessThanFinalRealSolReserves,
+    PoolMigrationFeeShouldBeGreaterThanCreatorFeePlusMaxMigrateFees,
+    DisabledWithdraw,
+    DisabledMigrate,
+    InvalidCreator,
+    BuyZeroAmount,
+    NotEnoughTokensToBuy,
+    SellZeroAmount,
+    NotEnoughTokensToSell,
+    Overflow,
+    Truncation,
+    DivisionByZero,
+    NotEnoughRemainingAccounts,
+    AllFeeRecipientsShouldBeNonZero,
+    UnsortedNotUniqueFeeRecipients,
+    CreatorShouldNotBeZero,
  ]
 CUSTOM_ERROR_MAP: dict[int, CustomError] = {
     6000: NotAuthorized(),
@@ -100,6 +330,29 @@ CUSTOM_ERROR_MAP: dict[int, CustomError] = {
     6005: BondingCurveComplete(),
     6006: BondingCurveNotComplete(),
     6007: NotInitialized(),
+    6008: WithdrawTooFrequent(),
+    6009: NewSizeShouldBeGreaterThanCurrentSize(),
+    6010: AccountTypeNotSupported(),
+    6011: InitialRealTokenReservesShouldBeLessThanTokenTotalSupply(),
+    6012: InitialVirtualTokenReservesShouldBeGreaterThanInitialRealTokenReserves(),
+    6013: FeeBasisPointsGreaterThanMaximum(),
+    6014: AllZerosWithdrawAuthority(),
+    6015: PoolMigrationFeeShouldBeLessThanFinalRealSolReserves(),
+    6016: PoolMigrationFeeShouldBeGreaterThanCreatorFeePlusMaxMigrateFees(),
+    6017: DisabledWithdraw(),
+    6018: DisabledMigrate(),
+    6019: InvalidCreator(),
+    6020: BuyZeroAmount(),
+    6021: NotEnoughTokensToBuy(),
+    6022: SellZeroAmount(),
+    6023: NotEnoughTokensToSell(),
+    6024: Overflow(),
+    6025: Truncation(),
+    6026: DivisionByZero(),
+    6027: NotEnoughRemainingAccounts(),
+    6028: AllFeeRecipientsShouldBeNonZero(),
+    6029: UnsortedNotUniqueFeeRecipients(),
+    6030: CreatorShouldNotBeZero(),
 }
 
 def from_code(code: int) -> typing.Optional[CustomError]:

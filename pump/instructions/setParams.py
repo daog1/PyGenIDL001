@@ -15,28 +15,35 @@ from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class SetParamsArgs(typing.TypedDict):
-    feeRecipient:Pubkey
     initialVirtualTokenReserves:int
     initialVirtualSolReserves:int
     initialRealTokenReserves:int
     tokenTotalSupply:int
     feeBasisPoints:int
+    withdrawAuthority:Pubkey
+    enableMigrate:bool
+    poolMigrationFee:int
+    creatorFeeBasisPoints:int
+    setCreatorAuthority:Pubkey
 
 
 layout = borsh.CStruct(
-    "feeRecipient" /BorshPubkey,
     "initialVirtualTokenReserves" /borsh.U64,
     "initialVirtualSolReserves" /borsh.U64,
     "initialRealTokenReserves" /borsh.U64,
     "tokenTotalSupply" /borsh.U64,
     "feeBasisPoints" /borsh.U64,
+    "withdrawAuthority" /BorshPubkey,
+    "enableMigrate" /borsh.Bool,
+    "poolMigrationFee" /borsh.U64,
+    "creatorFeeBasisPoints" /borsh.U64,
+    "setCreatorAuthority" /BorshPubkey,
     )
 
 
 class SetParamsAccounts(typing.TypedDict):
     global_:Pubkey
-    user:Pubkey
-    systemProgram:Pubkey
+    authority:Pubkey
     eventAuthority:Pubkey
     program:Pubkey
 
@@ -48,8 +55,7 @@ def SetParams(
 ) ->Instruction:
     keys: list[AccountMeta] = [
     AccountMeta(pubkey=accounts["global_"], is_signer=False, is_writable=True),
-    AccountMeta(pubkey=accounts["user"], is_signer=True, is_writable=True),
-    AccountMeta(pubkey=accounts["systemProgram"], is_signer=False, is_writable=False),
+    AccountMeta(pubkey=accounts["authority"], is_signer=True, is_writable=True),
     AccountMeta(pubkey=accounts["eventAuthority"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["program"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=RENT, is_signer=False, is_writable=False),
@@ -58,16 +64,46 @@ def SetParams(
         keys += remaining_accounts
     identifier = b"\x1b\xea\xb2\x34\x93\x02\xbb\x8d"
     encoded_args = layout.build({
-    "feeRecipient":args["feeRecipient"],
     "initialVirtualTokenReserves":args["initialVirtualTokenReserves"],
     "initialVirtualSolReserves":args["initialVirtualSolReserves"],
     "initialRealTokenReserves":args["initialRealTokenReserves"],
     "tokenTotalSupply":args["tokenTotalSupply"],
     "feeBasisPoints":args["feeBasisPoints"],
+    "withdrawAuthority":args["withdrawAuthority"],
+    "enableMigrate":args["enableMigrate"],
+    "poolMigrationFee":args["poolMigrationFee"],
+    "creatorFeeBasisPoints":args["creatorFeeBasisPoints"],
+    "setCreatorAuthority":args["setCreatorAuthority"],
        })
 
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
+def find_Global() -> typing.Tuple[Pubkey, int]:
+    seeds = [
+       b"\x67\x6c\x6f\x62\x61\x6c",
+    ]
+
+    address, bump = Pubkey.find_program_address(seeds,
+        PROGRAM_ID
+            ) # Using solana.publickey
+
+    return address, bump
+
+
+
+
+
+def find_EventAuthority() -> typing.Tuple[Pubkey, int]:
+    seeds = [
+       b"\x5f\x5f\x65\x76\x65\x6e\x74\x5f\x61\x75\x74\x68\x6f\x72\x69\x74\x79",
+    ]
+
+    address, bump = Pubkey.find_program_address(seeds,
+        PROGRAM_ID
+            ) # Using solana.publickey
+
+    return address, bump
 
 
 

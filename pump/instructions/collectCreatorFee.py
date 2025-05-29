@@ -14,51 +14,60 @@ from solders.pubkey import Pubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
-class WithdrawAccounts(typing.TypedDict):
-    global_:Pubkey
-    lastWithdraw:Pubkey
-    mint:Pubkey
-    bondingCurve:Pubkey
-    associatedBondingCurve:Pubkey
-    associatedUser:Pubkey
-    user:Pubkey
+class CollectCreatorFeeAccounts(typing.TypedDict):
+    creator:Pubkey
+    creatorVault:Pubkey
     systemProgram:Pubkey
-    tokenProgram:Pubkey
-    rent:Pubkey
     eventAuthority:Pubkey
     program:Pubkey
 
-def Withdraw(
-    accounts: WithdrawAccounts,
+def CollectCreatorFee(
+    accounts: CollectCreatorFeeAccounts,
     program_id: Pubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
-    AccountMeta(pubkey=accounts["global_"], is_signer=False, is_writable=False),
-    AccountMeta(pubkey=accounts["lastWithdraw"], is_signer=False, is_writable=True),
-    AccountMeta(pubkey=accounts["mint"], is_signer=False, is_writable=False),
-    AccountMeta(pubkey=accounts["bondingCurve"], is_signer=False, is_writable=True),
-    AccountMeta(pubkey=accounts["associatedBondingCurve"], is_signer=False, is_writable=True),
-    AccountMeta(pubkey=accounts["associatedUser"], is_signer=False, is_writable=True),
-    AccountMeta(pubkey=accounts["user"], is_signer=True, is_writable=True),
+    AccountMeta(pubkey=accounts["creator"], is_signer=True, is_writable=True),
+    AccountMeta(pubkey=accounts["creatorVault"], is_signer=False, is_writable=True),
     AccountMeta(pubkey=accounts["systemProgram"], is_signer=False, is_writable=False),
-    AccountMeta(pubkey=accounts["tokenProgram"], is_signer=False, is_writable=False),
-    AccountMeta(pubkey=accounts["rent"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["eventAuthority"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["program"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=RENT, is_signer=False, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts
-    identifier = b"\xb7\x12\x46\x9c\x94\x6d\xa1\x22"
+    identifier = b"\x14\x16\x56\x7b\xc6\x1c\xdb\x84"
     encoded_args = b""
 
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
 
+def find_CreatorVault(creator: Pubkey) -> typing.Tuple[Pubkey, int]:
+    seeds = [
+       b"\x63\x72\x65\x61\x74\x6f\x72\x2d\x76\x61\x75\x6c\x74",
+       bytes(creator),
+    ]
+
+    address, bump = Pubkey.find_program_address(seeds,
+        PROGRAM_ID
+            ) # Using solana.publickey
+
+    return address, bump
 
 
 
+
+
+def find_EventAuthority() -> typing.Tuple[Pubkey, int]:
+    seeds = [
+       b"\x5f\x5f\x65\x76\x65\x6e\x74\x5f\x61\x75\x74\x68\x6f\x72\x69\x74\x79",
+    ]
+
+    address, bump = Pubkey.find_program_address(seeds,
+        PROGRAM_ID
+            ) # Using solana.publickey
+
+    return address, bump
 
 
 

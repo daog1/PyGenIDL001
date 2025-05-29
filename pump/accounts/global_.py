@@ -28,6 +28,12 @@ class GlobalJSON(typing.TypedDict):
     initialRealTokenReserves: int
     tokenTotalSupply: int
     feeBasisPoints: int
+    withdrawAuthority: str
+    enableMigrate: bool
+    poolMigrationFee: int
+    creatorFeeBasisPoints: int
+    feeRecipients: list[str]
+    setCreatorAuthority: str
 
 @dataclass
 class Global:
@@ -42,6 +48,12 @@ class Global:
         "initialRealTokenReserves" /borsh.U64,
         "tokenTotalSupply" /borsh.U64,
         "feeBasisPoints" /borsh.U64,
+        "withdrawAuthority" /BorshPubkey,
+        "enableMigrate" /borsh.Bool,
+        "poolMigrationFee" /borsh.U64,
+        "creatorFeeBasisPoints" /borsh.U64,
+        "feeRecipients" /BorshPubkey[7],
+        "setCreatorAuthority" /BorshPubkey,
         )
     #fields
     initialized: bool
@@ -52,6 +64,12 @@ class Global:
     initialRealTokenReserves: int
     tokenTotalSupply: int
     feeBasisPoints: int
+    withdrawAuthority: Pubkey
+    enableMigrate: bool
+    poolMigrationFee: int
+    creatorFeeBasisPoints: int
+    feeRecipients: list[Pubkey]
+    setCreatorAuthority: Pubkey
     
 
     @classmethod
@@ -106,6 +124,12 @@ class Global:
                 initialRealTokenReserves=dec.initialRealTokenReserves,
                 tokenTotalSupply=dec.tokenTotalSupply,
                 feeBasisPoints=dec.feeBasisPoints,
+                withdrawAuthority=dec.withdrawAuthority,
+                enableMigrate=dec.enableMigrate,
+                poolMigrationFee=dec.poolMigrationFee,
+                creatorFeeBasisPoints=dec.creatorFeeBasisPoints,
+                feeRecipients=dec.feeRecipients,
+                setCreatorAuthority=dec.setCreatorAuthority,
                 )
 
     def to_json(self) -> GlobalJSON:
@@ -118,6 +142,12 @@ class Global:
                 "initialRealTokenReserves": self.initialRealTokenReserves,
                 "tokenTotalSupply": self.tokenTotalSupply,
                 "feeBasisPoints": self.feeBasisPoints,
+                "withdrawAuthority": str(self.withdrawAuthority),
+                "enableMigrate": self.enableMigrate,
+                "poolMigrationFee": self.poolMigrationFee,
+                "creatorFeeBasisPoints": self.creatorFeeBasisPoints,
+                "feeRecipients": list(map(lambda item:str(item),self.feeRecipients)),
+                "setCreatorAuthority": str(self.setCreatorAuthority),
                 }
 
     @classmethod
@@ -131,6 +161,12 @@ class Global:
                 initialRealTokenReserves=obj["initialRealTokenReserves"],
                 tokenTotalSupply=obj["tokenTotalSupply"],
                 feeBasisPoints=obj["feeBasisPoints"],
+                withdrawAuthority=Pubkey.from_string(obj["withdrawAuthority"]),
+                enableMigrate=obj["enableMigrate"],
+                poolMigrationFee=obj["poolMigrationFee"],
+                creatorFeeBasisPoints=obj["creatorFeeBasisPoints"],
+                feeRecipients=list(map(lambda item:Pubkey.from_string(item),obj["feeRecipients"])),
+                setCreatorAuthority=Pubkey.from_string(obj["setCreatorAuthority"]),
                 )
 
 

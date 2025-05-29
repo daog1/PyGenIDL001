@@ -1,2 +1,3 @@
 overrides:
-  "@codama/renderers": link:../../jsrc/codama-py/packages/renderers
+  '@codama/renderers': link:../../jsrc/codama-py/packages/renderers
+  '@codama/nodes-from-anchor': link:../../jsrc/codama/packages/nodes-from-anchor

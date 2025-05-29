@@ -26,6 +26,7 @@ class BondingCurveJSON(typing.TypedDict):
     realSolReserves: int
     tokenTotalSupply: int
     complete: bool
+    creator: str
 
 @dataclass
 class BondingCurve:
@@ -38,6 +39,7 @@ class BondingCurve:
         "realSolReserves" /borsh.U64,
         "tokenTotalSupply" /borsh.U64,
         "complete" /borsh.Bool,
+        "creator" /BorshPubkey,
         )
     #fields
     virtualTokenReserves: int
@@ -46,6 +48,7 @@ class BondingCurve:
     realSolReserves: int
     tokenTotalSupply: int
     complete: bool
+    creator: Pubkey
     
 
     @classmethod
@@ -98,6 +101,7 @@ class BondingCurve:
                 realSolReserves=dec.realSolReserves,
                 tokenTotalSupply=dec.tokenTotalSupply,
                 complete=dec.complete,
+                creator=dec.creator,
                 )
 
     def to_json(self) -> BondingCurveJSON:
@@ -108,6 +112,7 @@ class BondingCurve:
                 "realSolReserves": self.realSolReserves,
                 "tokenTotalSupply": self.tokenTotalSupply,
                 "complete": self.complete,
+                "creator": str(self.creator),
                 }
 
     @classmethod
@@ -119,6 +124,7 @@ class BondingCurve:
                 realSolReserves=obj["realSolReserves"],
                 tokenTotalSupply=obj["tokenTotalSupply"],
                 complete=obj["complete"],
+                creator=Pubkey.from_string(obj["creator"]),
                 )
 
 

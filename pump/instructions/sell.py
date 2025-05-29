@@ -33,7 +33,7 @@ class SellAccounts(typing.TypedDict):
     associatedUser:Pubkey
     user:Pubkey
     systemProgram:Pubkey
-    associatedTokenProgram:Pubkey
+    creatorVault:Pubkey
     tokenProgram:Pubkey
     eventAuthority:Pubkey
     program:Pubkey
@@ -53,7 +53,7 @@ def Sell(
     AccountMeta(pubkey=accounts["associatedUser"], is_signer=False, is_writable=True),
     AccountMeta(pubkey=accounts["user"], is_signer=True, is_writable=True),
     AccountMeta(pubkey=accounts["systemProgram"], is_signer=False, is_writable=False),
-    AccountMeta(pubkey=accounts["associatedTokenProgram"], is_signer=False, is_writable=False),
+    AccountMeta(pubkey=accounts["creatorVault"], is_signer=False, is_writable=True),
     AccountMeta(pubkey=accounts["tokenProgram"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["eventAuthority"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["program"], is_signer=False, is_writable=False),
@@ -70,7 +70,62 @@ def Sell(
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
 
+def find_Global() -> typing.Tuple[Pubkey, int]:
+    seeds = [
+       b"\x67\x6c\x6f\x62\x61\x6c",
+    ]
 
+    address, bump = Pubkey.find_program_address(seeds,
+        PROGRAM_ID
+            ) # Using solana.publickey
+
+    return address, bump
+
+
+
+def find_BondingCurve(mint: Pubkey) -> typing.Tuple[Pubkey, int]:
+    seeds = [
+       b"\x62\x6f\x6e\x64\x69\x6e\x67\x2d\x63\x75\x72\x76\x65",
+       bytes(mint),
+    ]
+
+    address, bump = Pubkey.find_program_address(seeds,
+        PROGRAM_ID
+            ) # Using solana.publickey
+
+    return address, bump
+
+
+
+def find_AssociatedBondingCurve(bondingCurve: Pubkey, mint: Pubkey) -> typing.Tuple[Pubkey, int]:
+    seeds = [
+       bytes(bondingCurve),
+       b"\x06\xdd\xf6\xe1\xd7\x65\xa1\x93\xd9\xcb\xe1\x46\xce\xeb\x79\xac\x1c\xb4\x85\xed\x5f\x5b\x37\x91\x3a\x8c\xf5\x85\x7e\xff\x00\xa9",
+       bytes(mint),
+    ]
+
+    address, bump = Pubkey.find_program_address(seeds,
+            program_id=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
+            ) # Using solana.publickey
+
+    return address, bump
+
+
+
+
+
+
+
+def find_EventAuthority() -> typing.Tuple[Pubkey, int]:
+    seeds = [
+       b"\x5f\x5f\x65\x76\x65\x6e\x74\x5f\x61\x75\x74\x68\x6f\x72\x69\x74\x79",
+    ]
+
+    address, bump = Pubkey.find_program_address(seeds,
+        PROGRAM_ID
+            ) # Using solana.publickey
+
+    return address, bump
 
 
 
