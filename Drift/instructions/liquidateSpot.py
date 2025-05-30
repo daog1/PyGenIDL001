@@ -55,10 +55,10 @@ def LiquidateSpot(
         keys += remaining_accounts
     identifier = b"\x6b\x00\x80\x29\x23\xe5\xfb\x12"
     encoded_args = layout.build({
-    "assetMarketIndex":args["assetMarketIndex"],
-    "liabilityMarketIndex":args["liabilityMarketIndex"],
-    "liquidatorMaxLiabilityTransfer":args["liquidatorMaxLiabilityTransfer"],
-    "limitPrice":args["limitPrice"],
+        "assetMarketIndex":args["assetMarketIndex"],
+        "liabilityMarketIndex":args["liabilityMarketIndex"],
+        "liquidatorMaxLiabilityTransfer":args["liquidatorMaxLiabilityTransfer"],
+        "limitPrice":args["limitPrice"],
        })
 
     data = identifier + encoded_args

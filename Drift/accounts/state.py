@@ -203,7 +203,7 @@ class State:
                 "initialPctToLiquidate": self.initialPctToLiquidate,
                 "maxNumberOfSubAccounts": self.maxNumberOfSubAccounts,
                 "maxInitializeUserFee": self.maxInitializeUserFee,
-                "padding": self.padding,
+                "padding": self.padding.to_json(),
                 }
 
     @classmethod

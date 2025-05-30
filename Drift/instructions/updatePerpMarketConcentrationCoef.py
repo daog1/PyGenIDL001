@@ -43,7 +43,7 @@ def UpdatePerpMarketConcentrationCoef(
         keys += remaining_accounts
     identifier = b"\x18\x4e\xe8\x7e\xa9\xb0\xe6\x10"
     encoded_args = layout.build({
-    "concentrationScale":args["concentrationScale"],
+        "concentrationScale":args["concentrationScale"],
        })
 
     data = identifier + encoded_args

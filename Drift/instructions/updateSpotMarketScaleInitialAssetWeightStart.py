@@ -43,7 +43,7 @@ def UpdateSpotMarketScaleInitialAssetWeightStart(
         keys += remaining_accounts
     identifier = b"\xd9\xcc\xcc\x76\xcc\x82\xe1\x93"
     encoded_args = layout.build({
-    "scaleInitialAssetWeightStart":args["scaleInitialAssetWeightStart"],
+        "scaleInitialAssetWeightStart":args["scaleInitialAssetWeightStart"],
        })
 
     data = identifier + encoded_args

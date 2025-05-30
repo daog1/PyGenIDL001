@@ -42,7 +42,7 @@ def UpdateDiscountMint(
         keys += remaining_accounts
     identifier = b"\x20\xfc\x7a\xd3\x42\x1f\x2f\xf1"
     encoded_args = layout.build({
-    "discountMint":args["discountMint"],
+        "discountMint":args["discountMint"],
        })
 
     data = identifier + encoded_args

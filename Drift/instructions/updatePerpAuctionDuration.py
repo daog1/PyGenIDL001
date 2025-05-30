@@ -41,7 +41,7 @@ def UpdatePerpAuctionDuration(
         keys += remaining_accounts
     identifier = b"\x7e\x6e\x34\xae\x1e\xce\xd7\x5a"
     encoded_args = layout.build({
-    "minPerpAuctionDuration":args["minPerpAuctionDuration"],
+        "minPerpAuctionDuration":args["minPerpAuctionDuration"],
        })
 
     data = identifier + encoded_args

@@ -194,7 +194,7 @@ class UserStats:
                 "numberOfSubAccountsCreated": self.numberOfSubAccountsCreated,
                 "referrerStatus": self.referrerStatus,
                 "disableUpdatePerpBidAskTwap": self.disableUpdatePerpBidAskTwap,
-                "padding1": self.padding1,
+                "padding1": self.padding1.to_json(),
                 "fuelInsurance": self.fuelInsurance,
                 "fuelDeposits": self.fuelDeposits,
                 "fuelBorrows": self.fuelBorrows,
@@ -203,7 +203,7 @@ class UserStats:
                 "fuelMaker": self.fuelMaker,
                 "ifStakedGovTokenAmount": self.ifStakedGovTokenAmount,
                 "lastFuelIfBonusUpdateTs": self.lastFuelIfBonusUpdateTs,
-                "padding": self.padding,
+                "padding": self.padding.to_json(),
                 }
 
     @classmethod

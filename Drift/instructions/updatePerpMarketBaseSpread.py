@@ -43,7 +43,7 @@ def UpdatePerpMarketBaseSpread(
         keys += remaining_accounts
     identifier = b"\x47\x5f\x54\xa8\x09\x9d\xc6\x41"
     encoded_args = layout.build({
-    "baseSpread":args["baseSpread"],
+        "baseSpread":args["baseSpread"],
        })
 
     data = identifier + encoded_args

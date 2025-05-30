@@ -41,7 +41,7 @@ def UpdateSpotAuctionDuration(
         keys += remaining_accounts
     identifier = b"\xb6\xb2\xcb\x48\xbb\x8f\x9d\x6b"
     encoded_args = layout.build({
-    "defaultSpotAuctionDuration":args["defaultSpotAuctionDuration"],
+        "defaultSpotAuctionDuration":args["defaultSpotAuctionDuration"],
        })
 
     data = identifier + encoded_args

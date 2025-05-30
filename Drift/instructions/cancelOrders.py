@@ -48,9 +48,9 @@ def CancelOrders(
         keys += remaining_accounts
     identifier = b"\xee\xe1\x5f\x9e\xe3\x67\x08\xc2"
     encoded_args = layout.build({
-    "marketType":args["marketType"],
-    "marketIndex":args["marketIndex"],
-    "direction":args["direction"],
+        "marketType":(None if args["marketType"] is None else args["marketType"].to_encodable()),
+        "marketIndex":args["marketIndex"],
+        "direction":(None if args["direction"] is None else args["direction"].to_encodable()),
        })
 
     data = identifier + encoded_args

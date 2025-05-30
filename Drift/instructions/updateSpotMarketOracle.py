@@ -49,8 +49,8 @@ def UpdateSpotMarketOracle(
         keys += remaining_accounts
     identifier = b"\x72\xb8\x66\x25\xf6\xba\xb4\x63"
     encoded_args = layout.build({
-    "oracle":args["oracle"],
-    "oracleSource":args["oracleSource"],
+        "oracle":args["oracle"],
+        "oracleSource":args["oracleSource"].to_encodable(),
        })
 
     data = identifier + encoded_args

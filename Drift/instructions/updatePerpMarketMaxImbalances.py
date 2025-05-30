@@ -47,9 +47,9 @@ def UpdatePerpMarketMaxImbalances(
         keys += remaining_accounts
     identifier = b"\x0f\xce\x49\x85\x3c\x08\x56\x59"
     encoded_args = layout.build({
-    "unrealizedMaxImbalance":args["unrealizedMaxImbalance"],
-    "maxRevenueWithdrawPerPeriod":args["maxRevenueWithdrawPerPeriod"],
-    "quoteMaxInsurance":args["quoteMaxInsurance"],
+        "unrealizedMaxImbalance":args["unrealizedMaxImbalance"],
+        "maxRevenueWithdrawPerPeriod":args["maxRevenueWithdrawPerPeriod"],
+        "quoteMaxInsurance":args["quoteMaxInsurance"],
        })
 
     data = identifier + encoded_args

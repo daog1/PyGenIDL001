@@ -49,7 +49,7 @@ def SettleRevenueToInsuranceFund(
         keys += remaining_accounts
     identifier = b"\xc8\x78\x5d\x88\x45\x26\xc7\x9f"
     encoded_args = layout.build({
-    "spotMarketIndex":args["spotMarketIndex"],
+        "spotMarketIndex":args["spotMarketIndex"],
        })
 
     data = identifier + encoded_args

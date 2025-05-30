@@ -49,7 +49,7 @@ class PoolBalance:
         return {
                 "scaledBalance": self.scaledBalance,
                 "marketIndex": self.marketIndex,
-                "padding": self.padding,
+                "padding": self.padding.to_json(),
                 }
 
     @classmethod

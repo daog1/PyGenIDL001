@@ -44,7 +44,7 @@ def UpdatePerpMarketContractTier(
         keys += remaining_accounts
     identifier = b"\xec\x80\x0f\x5f\xcb\xd6\x44\x75"
     encoded_args = layout.build({
-    "contractTier":args["contractTier"],
+        "contractTier":args["contractTier"].to_encodable(),
        })
 
     data = identifier + encoded_args

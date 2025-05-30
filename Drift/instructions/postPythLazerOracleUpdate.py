@@ -43,7 +43,7 @@ def PostPythLazerOracleUpdate(
         keys += remaining_accounts
     identifier = b"\xda\xed\xaa\xf5\x27\x8f\xa6\x21"
     encoded_args = layout.build({
-    "pythMessage":args["pythMessage"],
+        "pythMessage":args["pythMessage"],
        })
 
     data = identifier + encoded_args

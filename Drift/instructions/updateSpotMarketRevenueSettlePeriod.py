@@ -43,7 +43,7 @@ def UpdateSpotMarketRevenueSettlePeriod(
         keys += remaining_accounts
     identifier = b"\x51\x5c\x7e\x29\xfa\xe1\x9c\xdb"
     encoded_args = layout.build({
-    "revenueSettlePeriod":args["revenueSettlePeriod"],
+        "revenueSettlePeriod":args["revenueSettlePeriod"],
        })
 
     data = identifier + encoded_args

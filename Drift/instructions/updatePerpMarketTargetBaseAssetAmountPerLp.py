@@ -43,7 +43,7 @@ def UpdatePerpMarketTargetBaseAssetAmountPerLp(
         keys += remaining_accounts
     identifier = b"\x3e\x57\x44\x73\x1d\x96\x96\xa5"
     encoded_args = layout.build({
-    "targetBaseAssetAmountPerLp":args["targetBaseAssetAmountPerLp"],
+        "targetBaseAssetAmountPerLp":args["targetBaseAssetAmountPerLp"],
        })
 
     data = identifier + encoded_args

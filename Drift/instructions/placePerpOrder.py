@@ -44,7 +44,7 @@ def PlacePerpOrder(
         keys += remaining_accounts
     identifier = b"\x45\xa1\x5d\xca\x78\x7e\x4c\xb9"
     encoded_args = layout.build({
-    "params":args["params"],
+        "params":args["params"].to_encodable(),
        })
 
     data = identifier + encoded_args

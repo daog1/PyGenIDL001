@@ -43,7 +43,7 @@ def UpdateSpotMarketMaxTokenBorrows(
         keys += remaining_accounts
     identifier = b"\x39\x66\xcc\xd4\xfd\x5f\x0d\xc7"
     encoded_args = layout.build({
-    "maxTokenBorrowsFraction":args["maxTokenBorrowsFraction"],
+        "maxTokenBorrowsFraction":args["maxTokenBorrowsFraction"],
        })
 
     data = identifier + encoded_args

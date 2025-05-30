@@ -44,7 +44,7 @@ def PhoenixFulfillmentConfigStatus(
         keys += remaining_accounts
     identifier = b"\x60\x1f\x71\x20\x0c\xcb\x07\x9a"
     encoded_args = layout.build({
-    "status":args["status"],
+        "status":args["status"].to_encodable(),
        })
 
     data = identifier + encoded_args

@@ -43,7 +43,7 @@ def UpdatePerpMarketExpiry(
         keys += remaining_accounts
     identifier = b"\x2c\xdd\xe3\x97\x83\x8c\x16\x6e"
     encoded_args = layout.build({
-    "expiryTs":args["expiryTs"],
+        "expiryTs":args["expiryTs"],
        })
 
     data = identifier + encoded_args

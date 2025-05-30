@@ -45,8 +45,8 @@ def UpdatePerpMarketStepSizeAndTickSize(
         keys += remaining_accounts
     identifier = b"\xe7\xff\x61\x19\x92\x8b\xae\x04"
     encoded_args = layout.build({
-    "stepSize":args["stepSize"],
-    "tickSize":args["tickSize"],
+        "stepSize":args["stepSize"],
+        "tickSize":args["tickSize"],
        })
 
     data = identifier + encoded_args

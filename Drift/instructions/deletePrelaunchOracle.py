@@ -45,7 +45,7 @@ def DeletePrelaunchOracle(
         keys += remaining_accounts
     identifier = b"\x3b\xa9\x64\x31\x45\x11\xad\xfd"
     encoded_args = layout.build({
-    "perpMarketIndex":args["perpMarketIndex"],
+        "perpMarketIndex":args["perpMarketIndex"],
        })
 
     data = identifier + encoded_args

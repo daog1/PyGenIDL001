@@ -49,7 +49,7 @@ def InitializeSwiftUserOrders(
         keys += remaining_accounts
     identifier = b"\x1a\x5b\x02\xf6\x60\x99\x75\xc2"
     encoded_args = layout.build({
-    "numOrders":args["numOrders"],
+        "numOrders":args["numOrders"],
        })
 
     data = identifier + encoded_args

@@ -43,7 +43,7 @@ def UpdateSpotMarketFeeAdjustment(
         keys += remaining_accounts
     identifier = b"\x94\xb6\x03\x7e\x9d\x72\xdc\x63"
     encoded_args = layout.build({
-    "feeAdjustment":args["feeAdjustment"],
+        "feeAdjustment":args["feeAdjustment"],
        })
 
     data = identifier + encoded_args

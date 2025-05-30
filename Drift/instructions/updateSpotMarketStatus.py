@@ -44,7 +44,7 @@ def UpdateSpotMarketStatus(
         keys += remaining_accounts
     identifier = b"\x4e\x5e\x10\xbc\xc1\x6e\xe7\x1f"
     encoded_args = layout.build({
-    "status":args["status"],
+        "status":args["status"].to_encodable(),
        })
 
     data = identifier + encoded_args

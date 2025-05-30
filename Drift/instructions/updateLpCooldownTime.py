@@ -41,7 +41,7 @@ def UpdateLpCooldownTime(
         keys += remaining_accounts
     identifier = b"\xc6\x85\x58\x29\xf1\x77\x3d\x0e"
     encoded_args = layout.build({
-    "lpCooldownTime":args["lpCooldownTime"],
+        "lpCooldownTime":args["lpCooldownTime"],
        })
 
     data = identifier + encoded_args

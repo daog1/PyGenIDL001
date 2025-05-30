@@ -43,7 +43,7 @@ def UpdatePerpMarketMaxOpenInterest(
         keys += remaining_accounts
     identifier = b"\xc2\x4f\x95\xe0\xf6\x66\xba\x8c"
     encoded_args = layout.build({
-    "maxOpenInterest":args["maxOpenInterest"],
+        "maxOpenInterest":args["maxOpenInterest"],
        })
 
     data = identifier + encoded_args

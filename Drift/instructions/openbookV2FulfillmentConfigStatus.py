@@ -44,7 +44,7 @@ def OpenbookV2FulfillmentConfigStatus(
         keys += remaining_accounts
     identifier = b"\x19\xad\x13\xbd\x04\xd3\x40\xee"
     encoded_args = layout.build({
-    "status":args["status"],
+        "status":args["status"].to_encodable(),
        })
 
     data = identifier + encoded_args

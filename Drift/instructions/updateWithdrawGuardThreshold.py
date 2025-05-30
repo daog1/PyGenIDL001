@@ -43,7 +43,7 @@ def UpdateWithdrawGuardThreshold(
         keys += remaining_accounts
     identifier = b"\x38\x12\x27\x3d\x9b\xd3\x2c\x85"
     encoded_args = layout.build({
-    "withdrawGuardThreshold":args["withdrawGuardThreshold"],
+        "withdrawGuardThreshold":args["withdrawGuardThreshold"],
        })
 
     data = identifier + encoded_args

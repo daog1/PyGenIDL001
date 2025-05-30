@@ -52,8 +52,8 @@ def PlaceAndMakePerpOrder(
         keys += remaining_accounts
     identifier = b"\x95\x75\x0b\xed\x2f\x5f\x59\xed"
     encoded_args = layout.build({
-    "params":args["params"],
-    "takerOrderId":args["takerOrderId"],
+        "params":args["params"].to_encodable(),
+        "takerOrderId":args["takerOrderId"],
        })
 
     data = identifier + encoded_args

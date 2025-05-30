@@ -205,7 +205,7 @@ class User:
         return {
                 "authority": str(self.authority),
                 "delegate": str(self.delegate),
-                "name": self.name,
+                "name": self.name.to_json(),
                 "spotPositions": list(map(lambda item:item.to_json(),self.spotPositions)),
                 "perpPositions": list(map(lambda item:item.to_json(),self.perpPositions)),
                 "orders": list(map(lambda item:item.to_json(),self.orders)),
@@ -231,9 +231,9 @@ class User:
                 "hasOpenAuction": self.hasOpenAuction,
                 "marginMode": self.marginMode.to_json(),
                 "poolId": self.poolId,
-                "padding1": self.padding1,
+                "padding1": self.padding1.to_json(),
                 "lastFuelBonusUpdateTs": self.lastFuelBonusUpdateTs,
-                "padding": self.padding,
+                "padding": self.padding.to_json(),
                 }
 
     @classmethod

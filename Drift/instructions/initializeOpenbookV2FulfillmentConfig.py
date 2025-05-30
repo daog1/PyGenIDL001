@@ -57,7 +57,7 @@ def InitializeOpenbookV2FulfillmentConfig(
         keys += remaining_accounts
     identifier = b"\x07\xdd\x67\x99\x6b\x39\x1b\xc5"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
+        "marketIndex":args["marketIndex"],
        })
 
     data = identifier + encoded_args

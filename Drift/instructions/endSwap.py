@@ -66,10 +66,10 @@ def EndSwap(
         keys += remaining_accounts
     identifier = b"\xb1\xb8\x1b\xc1\x22\x0d\xd2\x91"
     encoded_args = layout.build({
-    "inMarketIndex":args["inMarketIndex"],
-    "outMarketIndex":args["outMarketIndex"],
-    "limitPrice":args["limitPrice"],
-    "reduceOnly":args["reduceOnly"],
+        "inMarketIndex":args["inMarketIndex"],
+        "outMarketIndex":args["outMarketIndex"],
+        "limitPrice":args["limitPrice"],
+        "reduceOnly":(None if args["reduceOnly"] is None else args["reduceOnly"].to_encodable()),
        })
 
     data = identifier + encoded_args

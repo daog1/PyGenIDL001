@@ -66,7 +66,7 @@ class SwiftOrderParamsMessage:
                 "swiftOrderParams": self.swiftOrderParams.to_json(),
                 "subAccountId": self.subAccountId,
                 "slot": self.slot,
-                "uuid": self.uuid,
+                "uuid": self.uuid.to_json(),
                 "takeProfitOrderParams": (None if self.takeProfitOrderParams is None else self.takeProfitOrderParams.to_json()),
                 "stopLossOrderParams": (None if self.stopLossOrderParams is None else self.stopLossOrderParams.to_json()),
                 }

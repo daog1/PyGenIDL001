@@ -7,7 +7,7 @@
 
 import borsh_construct as borsh;
 import typing;
-from construct import Container;
+from construct import Construct, Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey;
@@ -20,7 +20,7 @@ class SettleMultiplePnlsArgs(typing.TypedDict):
 
 
 layout = borsh.CStruct(
-    "marketIndexes" /borsh.U16[0],
+    "marketIndexes" /borsh.Vec(typing.cast(Construct, borsh.U16)),
     "mode" /types.settlePnlMode.layout,
     )
 
@@ -48,8 +48,8 @@ def SettleMultiplePnls(
         keys += remaining_accounts
     identifier = b"\x7f\x42\x75\x39\x28\x32\x98\x7f"
     encoded_args = layout.build({
-    "marketIndexes":args["marketIndexes"],
-    "mode":args["mode"],
+        "marketIndexes":args["marketIndexes"],
+        "mode":args["mode"].to_encodable(),
        })
 
     data = identifier + encoded_args

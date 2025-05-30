@@ -46,7 +46,7 @@ def UpdatePrelaunchOracleParams(
         keys += remaining_accounts
     identifier = b"\x62\xcd\x93\xf3\x12\x4b\x53\xcf"
     encoded_args = layout.build({
-    "params":args["params"],
+        "params":args["params"].to_encodable(),
        })
 
     data = identifier + encoded_args

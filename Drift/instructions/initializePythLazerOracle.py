@@ -47,7 +47,7 @@ def InitializePythLazerOracle(
         keys += remaining_accounts
     identifier = b"\x8c\x6b\x21\xd6\xeb\xdb\x67\x14"
     encoded_args = layout.build({
-    "feedId":args["feedId"],
+        "feedId":args["feedId"],
        })
 
     data = identifier + encoded_args

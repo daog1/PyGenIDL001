@@ -43,7 +43,7 @@ def UpdateSpotMarketPoolId(
         keys += remaining_accounts
     identifier = b"\x16\xd5\xc5\xa0\x8b\xc1\x51\x95"
     encoded_args = layout.build({
-    "poolId":args["poolId"],
+        "poolId":args["poolId"],
        })
 
     data = identifier + encoded_args

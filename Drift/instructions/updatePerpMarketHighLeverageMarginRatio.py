@@ -45,8 +45,8 @@ def UpdatePerpMarketHighLeverageMarginRatio(
         keys += remaining_accounts
     identifier = b"\x58\x70\x56\x31\x18\x74\x4a\x9d"
     encoded_args = layout.build({
-    "marginRatioInitial":args["marginRatioInitial"],
-    "marginRatioMaintenance":args["marginRatioMaintenance"],
+        "marginRatioInitial":args["marginRatioInitial"],
+        "marginRatioMaintenance":args["marginRatioMaintenance"],
        })
 
     data = identifier + encoded_args

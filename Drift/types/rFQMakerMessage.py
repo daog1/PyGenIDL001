@@ -44,7 +44,7 @@ class RFQMakerMessage:
     def to_json(self) -> RFQMakerMessageJSON:
         return {
                 "orderParams": self.orderParams.to_json(),
-                "signature": self.signature,
+                "signature": self.signature.to_json(),
                 }
 
     @classmethod

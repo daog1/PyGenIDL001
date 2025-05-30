@@ -43,8 +43,8 @@ def UpdateUserCustomMarginRatio(
         keys += remaining_accounts
     identifier = b"\x15\xdd\x8c\xbb\x20\x81\x0b\x7b"
     encoded_args = layout.build({
-    "subAccountId":args["subAccountId"],
-    "marginRatio":args["marginRatio"],
+        "subAccountId":args["subAccountId"],
+        "marginRatio":args["marginRatio"],
        })
 
     data = identifier + encoded_args

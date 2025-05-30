@@ -43,7 +43,7 @@ def UpdateAmmJitIntensity(
         keys += remaining_accounts
     identifier = b"\xb5\xbf\x35\x6d\xa6\xf9\x37\x8e"
     encoded_args = layout.build({
-    "ammJitIntensity":args["ammJitIntensity"],
+        "ammJitIntensity":args["ammJitIntensity"],
        })
 
     data = identifier + encoded_args

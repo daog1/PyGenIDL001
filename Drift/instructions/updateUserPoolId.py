@@ -43,8 +43,8 @@ def UpdateUserPoolId(
         keys += remaining_accounts
     identifier = b"\xdb\x56\x49\x6a\x38\xda\x80\x6d"
     encoded_args = layout.build({
-    "subAccountId":args["subAccountId"],
-    "poolId":args["poolId"],
+        "subAccountId":args["subAccountId"],
+        "poolId":args["poolId"],
        })
 
     data = identifier + encoded_args

@@ -63,9 +63,9 @@ def BeginSwap(
         keys += remaining_accounts
     identifier = b"\xae\x6d\xe4\x01\xf2\x69\xe8\x69"
     encoded_args = layout.build({
-    "inMarketIndex":args["inMarketIndex"],
-    "outMarketIndex":args["outMarketIndex"],
-    "amountIn":args["amountIn"],
+        "inMarketIndex":args["inMarketIndex"],
+        "outMarketIndex":args["outMarketIndex"],
+        "amountIn":args["amountIn"],
        })
 
     data = identifier + encoded_args

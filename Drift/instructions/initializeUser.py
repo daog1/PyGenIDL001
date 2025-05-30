@@ -53,8 +53,8 @@ def InitializeUser(
         keys += remaining_accounts
     identifier = b"\x6f\x11\xb9\xfa\x3c\x7a\x26\xfe"
     encoded_args = layout.build({
-    "subAccountId":args["subAccountId"],
-    "name":args["name"],
+        "subAccountId":args["subAccountId"],
+        "name":args["name"],
        })
 
     data = identifier + encoded_args

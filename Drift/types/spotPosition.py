@@ -80,7 +80,7 @@ class SpotPosition:
                 "marketIndex": self.marketIndex,
                 "balanceType": self.balanceType.to_json(),
                 "openOrders": self.openOrders,
-                "padding": self.padding,
+                "padding": self.padding.to_json(),
                 }
 
     @classmethod

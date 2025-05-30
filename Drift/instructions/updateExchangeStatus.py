@@ -41,7 +41,7 @@ def UpdateExchangeStatus(
         keys += remaining_accounts
     identifier = b"\x53\xa0\xfc\xfa\x81\x74\x31\xdf"
     encoded_args = layout.build({
-    "exchangeStatus":args["exchangeStatus"],
+        "exchangeStatus":args["exchangeStatus"],
        })
 
     data = identifier + encoded_args

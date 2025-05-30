@@ -51,7 +51,7 @@ def InitializeReferrerName(
         keys += remaining_accounts
     identifier = b"\xeb\x7e\xe7\x0a\x2a\xa4\x1a\x3d"
     encoded_args = layout.build({
-    "name":args["name"],
+        "name":args["name"],
        })
 
     data = identifier + encoded_args

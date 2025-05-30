@@ -222,7 +222,7 @@ class PerpMarket:
                 "pubkey": str(self.pubkey),
                 "amm": self.amm.to_json(),
                 "pnlPool": self.pnlPool.to_json(),
-                "name": self.name,
+                "name": self.name.to_json(),
                 "insuranceClaim": self.insuranceClaim.to_json(),
                 "unrealizedPnlMaxImbalance": self.unrealizedPnlMaxImbalance,
                 "expiryTs": self.expiryTs,
@@ -253,7 +253,7 @@ class PerpMarket:
                 "poolId": self.poolId,
                 "highLeverageMarginRatioInitial": self.highLeverageMarginRatioInitial,
                 "highLeverageMarginRatioMaintenance": self.highLeverageMarginRatioMaintenance,
-                "padding": self.padding,
+                "padding": self.padding.to_json(),
                 }
 
     @classmethod

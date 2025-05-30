@@ -42,7 +42,7 @@ class RFQOrderId:
 
     def to_json(self) -> RFQOrderIdJSON:
         return {
-                "uuid": self.uuid,
+                "uuid": self.uuid.to_json(),
                 "maxTs": self.maxTs,
                 }
 

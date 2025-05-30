@@ -49,8 +49,8 @@ def RequestRemoveInsuranceFundStake(
         keys += remaining_accounts
     identifier = b"\x8e\x46\xcc\x5c\x49\x6a\xb4\x34"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
-    "amount":args["amount"],
+        "marketIndex":args["marketIndex"],
+        "amount":args["amount"],
        })
 
     data = identifier + encoded_args

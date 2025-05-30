@@ -41,7 +41,7 @@ def UpdateLiquidationDuration(
         keys += remaining_accounts
     identifier = b"\x1c\x9a\x14\xf9\x66\xc0\x49\x47"
     encoded_args = layout.build({
-    "liquidationDuration":args["liquidationDuration"],
+        "liquidationDuration":args["liquidationDuration"],
        })
 
     data = identifier + encoded_args

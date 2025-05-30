@@ -277,7 +277,7 @@ class AMM:
     @classmethod
     def from_decoded(cls, obj: Container) -> "AMM":
         return cls(
-        oracle=Pubkey.from_string(obj["oracle"]),
+        oracle=obj["oracle"],
         historicalOracleData=historicalOracleData.HistoricalOracleData.from_decoded(obj["historicalOracleData"]),
         baseAssetAmountPerLp=obj["baseAssetAmountPerLp"],
         quoteAssetAmountPerLp=obj["quoteAssetAmountPerLp"],
@@ -536,7 +536,7 @@ class AMM:
                 "netUnsettledFundingPnl": self.netUnsettledFundingPnl,
                 "quoteAssetAmountWithUnsettledLp": self.quoteAssetAmountWithUnsettledLp,
                 "referencePriceOffset": self.referencePriceOffset,
-                "padding": self.padding,
+                "padding": self.padding.to_json(),
                 }
 
     @classmethod

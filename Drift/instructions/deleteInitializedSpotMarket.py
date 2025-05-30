@@ -51,7 +51,7 @@ def DeleteInitializedSpotMarket(
         keys += remaining_accounts
     identifier = b"\x1f\x8c\x43\xbf\xbd\x14\x65\xdd"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
+        "marketIndex":args["marketIndex"],
        })
 
     data = identifier + encoded_args

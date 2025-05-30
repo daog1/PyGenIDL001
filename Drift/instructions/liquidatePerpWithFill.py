@@ -49,7 +49,7 @@ def LiquidatePerpWithFill(
         keys += remaining_accounts
     identifier = b"\x5f\x6f\x7c\x69\x56\xa9\xbb\x22"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
+        "marketIndex":args["marketIndex"],
        })
 
     data = identifier + encoded_args

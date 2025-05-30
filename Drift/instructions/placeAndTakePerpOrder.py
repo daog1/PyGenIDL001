@@ -48,8 +48,8 @@ def PlaceAndTakePerpOrder(
         keys += remaining_accounts
     identifier = b"\xd5\x33\x01\xbb\x6c\xdc\xe6\xe0"
     encoded_args = layout.build({
-    "params":args["params"],
-    "successCondition":args["successCondition"],
+        "params":args["params"].to_encodable(),
+        "successCondition":args["successCondition"],
        })
 
     data = identifier + encoded_args

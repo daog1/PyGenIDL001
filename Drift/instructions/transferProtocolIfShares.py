@@ -55,8 +55,8 @@ def TransferProtocolIfShares(
         keys += remaining_accounts
     identifier = b"\x5e\x5d\xe2\xf0\xc3\xc9\xb8\x6d"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
-    "shares":args["shares"],
+        "marketIndex":args["marketIndex"],
+        "shares":args["shares"],
        })
 
     data = identifier + encoded_args

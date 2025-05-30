@@ -43,7 +43,7 @@ def UpdateSpotMarketMaxTokenDeposits(
         keys += remaining_accounts
     identifier = b"\x38\xbf\x4f\x12\x1a\x79\x50\xd0"
     encoded_args = layout.build({
-    "maxTokenDeposits":args["maxTokenDeposits"],
+        "maxTokenDeposits":args["maxTokenDeposits"],
        })
 
     data = identifier + encoded_args

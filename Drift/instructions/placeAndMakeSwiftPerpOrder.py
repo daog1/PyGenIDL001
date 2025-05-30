@@ -54,8 +54,8 @@ def PlaceAndMakeSwiftPerpOrder(
         keys += remaining_accounts
     identifier = b"\x00\xa0\x99\x4c\x88\xd4\xf8\x10"
     encoded_args = layout.build({
-    "params":args["params"],
-    "swiftOrderUuid":args["swiftOrderUuid"],
+        "params":args["params"].to_encodable(),
+        "swiftOrderUuid":args["swiftOrderUuid"],
        })
 
     data = identifier + encoded_args

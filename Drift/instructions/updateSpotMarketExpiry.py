@@ -43,7 +43,7 @@ def UpdateSpotMarketExpiry(
         keys += remaining_accounts
     identifier = b"\xd0\x0b\xd3\x9f\xe2\x18\x0b\xf7"
     encoded_args = layout.build({
-    "expiryTs":args["expiryTs"],
+        "expiryTs":args["expiryTs"],
        })
 
     data = identifier + encoded_args

@@ -41,7 +41,7 @@ def UpdateInitialPctToLiquidate(
         keys += remaining_accounts
     identifier = b"\xd2\x85\xe1\x80\xc2\x32\x0d\x6d"
     encoded_args = layout.build({
-    "initialPctToLiquidate":args["initialPctToLiquidate"],
+        "initialPctToLiquidate":args["initialPctToLiquidate"],
        })
 
     data = identifier + encoded_args

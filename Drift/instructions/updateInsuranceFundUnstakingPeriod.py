@@ -43,7 +43,7 @@ def UpdateInsuranceFundUnstakingPeriod(
         keys += remaining_accounts
     identifier = b"\x2c\x45\x2b\xe2\xcc\xdf\xca\x34"
     encoded_args = layout.build({
-    "insuranceFundUnstakingPeriod":args["insuranceFundUnstakingPeriod"],
+        "insuranceFundUnstakingPeriod":args["insuranceFundUnstakingPeriod"],
        })
 
     data = identifier + encoded_args

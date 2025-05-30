@@ -43,7 +43,7 @@ def UpdateSpotMarketOrdersEnabled(
         keys += remaining_accounts
     identifier = b"\xbe\x4f\xce\x0f\x1a\xe5\xe5\x2b"
     encoded_args = layout.build({
-    "ordersEnabled":args["ordersEnabled"],
+        "ordersEnabled":args["ordersEnabled"],
        })
 
     data = identifier + encoded_args

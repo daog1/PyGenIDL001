@@ -54,9 +54,9 @@ def FillSpotOrder(
         keys += remaining_accounts
     identifier = b"\xd4\xce\x82\xad\x15\x22\xc7\x28"
     encoded_args = layout.build({
-    "orderId":args["orderId"],
-    "fulfillmentType":args["fulfillmentType"],
-    "makerOrderId":args["makerOrderId"],
+        "orderId":args["orderId"],
+        "fulfillmentType":(None if args["fulfillmentType"] is None else args["fulfillmentType"].to_encodable()),
+        "makerOrderId":args["makerOrderId"],
        })
 
     data = identifier + encoded_args

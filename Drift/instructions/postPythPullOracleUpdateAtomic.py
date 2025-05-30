@@ -47,8 +47,8 @@ def PostPythPullOracleUpdateAtomic(
         keys += remaining_accounts
     identifier = b"\x74\x7a\x89\x9e\xe0\xc3\xad\x77"
     encoded_args = layout.build({
-    "feedId":args["feedId"],
-    "params":args["params"],
+        "feedId":args["feedId"],
+        "params":args["params"],
        })
 
     data = identifier + encoded_args

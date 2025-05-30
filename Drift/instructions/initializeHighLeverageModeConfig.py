@@ -47,7 +47,7 @@ def InitializeHighLeverageModeConfig(
         keys += remaining_accounts
     identifier = b"\xd5\xa7\x5d\xf6\xd0\x82\x5a\xf8"
     encoded_args = layout.build({
-    "maxUsers":args["maxUsers"],
+        "maxUsers":args["maxUsers"],
        })
 
     data = identifier + encoded_args

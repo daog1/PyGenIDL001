@@ -43,8 +43,8 @@ def UpdateUserAdvancedLp(
         keys += remaining_accounts
     identifier = b"\x42\x50\x6b\xba\x1b\xf2\x42\x5f"
     encoded_args = layout.build({
-    "subAccountId":args["subAccountId"],
-    "advancedLp":args["advancedLp"],
+        "subAccountId":args["subAccountId"],
+        "advancedLp":args["advancedLp"],
        })
 
     data = identifier + encoded_args

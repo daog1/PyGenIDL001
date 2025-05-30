@@ -43,7 +43,7 @@ def UpdatePerpMarketMinOrderSize(
         keys += remaining_accounts
     identifier = b"\xe2\x4a\x05\x59\x6c\xdf\x2e\x8d"
     encoded_args = layout.build({
-    "orderSize":args["orderSize"],
+        "orderSize":args["orderSize"],
        })
 
     data = identifier + encoded_args

@@ -7,7 +7,7 @@
 
 import borsh_construct as borsh;
 import typing;
-from construct import Container;
+from construct import Construct, Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey;
@@ -19,7 +19,7 @@ class PlaceAndMatchRfqOrdersArgs(typing.TypedDict):
 
 
 layout = borsh.CStruct(
-    "rfqMatches" /types.rFQMatch.RFQMatch.layout[0],
+    "rfqMatches" /borsh.Vec(typing.cast(Construct, types.rFQMatch.RFQMatch.layout)),
     )
 
 
@@ -48,7 +48,7 @@ def PlaceAndMatchRfqOrders(
         keys += remaining_accounts
     identifier = b"\x6f\x03\x33\xf3\xb2\xae\xdb\x64"
     encoded_args = layout.build({
-    "rfqMatches":args["rfqMatches"],
+        "rfqMatches":list(map(lambda item:item.to_encodable(),args["rfqMatches"])),
        })
 
     data = identifier + encoded_args

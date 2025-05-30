@@ -44,8 +44,8 @@ def UpdateUserDelegate(
         keys += remaining_accounts
     identifier = b"\x8b\xcd\x8d\x8d\x71\x24\x5e\xbb"
     encoded_args = layout.build({
-    "subAccountId":args["subAccountId"],
-    "delegate":args["delegate"],
+        "subAccountId":args["subAccountId"],
+        "delegate":args["delegate"],
        })
 
     data = identifier + encoded_args

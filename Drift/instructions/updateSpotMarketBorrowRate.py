@@ -49,10 +49,10 @@ def UpdateSpotMarketBorrowRate(
         keys += remaining_accounts
     identifier = b"\x47\xef\xec\x99\xd2\x3e\xfe\x4c"
     encoded_args = layout.build({
-    "optimalUtilization":args["optimalUtilization"],
-    "optimalBorrowRate":args["optimalBorrowRate"],
-    "maxBorrowRate":args["maxBorrowRate"],
-    "minBorrowRate":args["minBorrowRate"],
+        "optimalUtilization":args["optimalUtilization"],
+        "optimalBorrowRate":args["optimalBorrowRate"],
+        "maxBorrowRate":args["maxBorrowRate"],
+        "minBorrowRate":args["minBorrowRate"],
        })
 
     data = identifier + encoded_args

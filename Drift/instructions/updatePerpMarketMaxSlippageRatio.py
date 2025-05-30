@@ -43,7 +43,7 @@ def UpdatePerpMarketMaxSlippageRatio(
         keys += remaining_accounts
     identifier = b"\xeb\x25\x28\xc4\x46\x92\x36\xc9"
     encoded_args = layout.build({
-    "maxSlippageRatio":args["maxSlippageRatio"],
+        "maxSlippageRatio":args["maxSlippageRatio"],
        })
 
     data = identifier + encoded_args

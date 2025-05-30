@@ -97,7 +97,7 @@ class ProtectedMakerModeConfig:
                 "maxUsers": self.maxUsers,
                 "currentUsers": self.currentUsers,
                 "reduceOnly": self.reduceOnly,
-                "padding": self.padding,
+                "padding": self.padding.to_json(),
                 }
 
     @classmethod

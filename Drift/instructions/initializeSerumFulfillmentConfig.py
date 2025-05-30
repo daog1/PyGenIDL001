@@ -59,7 +59,7 @@ def InitializeSerumFulfillmentConfig(
         keys += remaining_accounts
     identifier = b"\xc1\xd3\x84\xac\x46\xab\x07\x5e"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
+        "marketIndex":args["marketIndex"],
        })
 
     data = identifier + encoded_args

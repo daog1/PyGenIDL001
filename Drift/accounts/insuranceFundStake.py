@@ -127,7 +127,7 @@ class InsuranceFundStake:
                 "lastWithdrawRequestTs": self.lastWithdrawRequestTs,
                 "costBasis": self.costBasis,
                 "marketIndex": self.marketIndex,
-                "padding": self.padding,
+                "padding": self.padding.to_json(),
                 }
 
     @classmethod

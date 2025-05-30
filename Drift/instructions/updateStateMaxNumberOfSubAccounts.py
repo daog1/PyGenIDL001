@@ -41,7 +41,7 @@ def UpdateStateMaxNumberOfSubAccounts(
         keys += remaining_accounts
     identifier = b"\x9b\x7b\xd6\x02\xdd\xa6\xcc\x55"
     encoded_args = layout.build({
-    "maxNumberOfSubAccounts":args["maxNumberOfSubAccounts"],
+        "maxNumberOfSubAccounts":args["maxNumberOfSubAccounts"],
        })
 
     data = identifier + encoded_args

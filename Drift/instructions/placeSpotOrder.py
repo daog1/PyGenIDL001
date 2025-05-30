@@ -44,7 +44,7 @@ def PlaceSpotOrder(
         keys += remaining_accounts
     identifier = b"\x2d\x4f\x51\xa0\xf8\x5a\x5b\xdc"
     encoded_args = layout.build({
-    "params":args["params"],
+        "params":args["params"].to_encodable(),
        })
 
     data = identifier + encoded_args

@@ -97,7 +97,7 @@ class ReferrerName:
                 "authority": str(self.authority),
                 "user": str(self.user),
                 "userStats": str(self.userStats),
-                "name": self.name,
+                "name": self.name.to_json(),
                 }
 
     @classmethod

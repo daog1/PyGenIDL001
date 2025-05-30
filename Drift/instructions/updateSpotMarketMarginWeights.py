@@ -51,11 +51,11 @@ def UpdateSpotMarketMarginWeights(
         keys += remaining_accounts
     identifier = b"\x6d\x21\x57\xc3\xff\x24\x06\x51"
     encoded_args = layout.build({
-    "initialAssetWeight":args["initialAssetWeight"],
-    "maintenanceAssetWeight":args["maintenanceAssetWeight"],
-    "initialLiabilityWeight":args["initialLiabilityWeight"],
-    "maintenanceLiabilityWeight":args["maintenanceLiabilityWeight"],
-    "imfFactor":args["imfFactor"],
+        "initialAssetWeight":args["initialAssetWeight"],
+        "maintenanceAssetWeight":args["maintenanceAssetWeight"],
+        "initialLiabilityWeight":args["initialLiabilityWeight"],
+        "maintenanceLiabilityWeight":args["maintenanceLiabilityWeight"],
+        "imfFactor":args["imfFactor"],
        })
 
     data = identifier + encoded_args

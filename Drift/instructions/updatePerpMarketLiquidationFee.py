@@ -45,8 +45,8 @@ def UpdatePerpMarketLiquidationFee(
         keys += remaining_accounts
     identifier = b"\x5a\x89\x09\x91\x29\x08\x94\x75"
     encoded_args = layout.build({
-    "liquidatorFee":args["liquidatorFee"],
-    "ifLiquidationFee":args["ifLiquidationFee"],
+        "liquidatorFee":args["liquidatorFee"],
+        "ifLiquidationFee":args["ifLiquidationFee"],
        })
 
     data = identifier + encoded_args

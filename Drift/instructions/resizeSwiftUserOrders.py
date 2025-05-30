@@ -45,7 +45,7 @@ def ResizeSwiftUserOrders(
         keys += remaining_accounts
     identifier = b"\x24\x39\x28\x5a\xc1\x96\xf9\x35"
     encoded_args = layout.build({
-    "numOrders":args["numOrders"],
+        "numOrders":args["numOrders"],
        })
 
     data = identifier + encoded_args

@@ -50,9 +50,9 @@ def PlaceAndTakeSpotOrder(
         keys += remaining_accounts
     identifier = b"\xbf\x03\x8a\x47\x72\xc6\xca\x64"
     encoded_args = layout.build({
-    "params":args["params"],
-    "fulfillmentType":args["fulfillmentType"],
-    "makerOrderId":args["makerOrderId"],
+        "params":args["params"].to_encodable(),
+        "fulfillmentType":(None if args["fulfillmentType"] is None else args["fulfillmentType"].to_encodable()),
+        "makerOrderId":args["makerOrderId"],
        })
 
     data = identifier + encoded_args

@@ -43,7 +43,7 @@ def UpdateSpotMarketMinOrderSize(
         keys += remaining_accounts
     identifier = b"\x5d\x80\x0b\x77\x1a\x14\xb5\x32"
     encoded_args = layout.build({
-    "orderSize":args["orderSize"],
+        "orderSize":args["orderSize"],
        })
 
     data = identifier + encoded_args

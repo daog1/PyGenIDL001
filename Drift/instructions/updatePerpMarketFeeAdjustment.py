@@ -43,7 +43,7 @@ def UpdatePerpMarketFeeAdjustment(
         keys += remaining_accounts
     identifier = b"\xc2\xae\x57\x66\x2b\x94\x20\x70"
     encoded_args = layout.build({
-    "feeAdjustment":args["feeAdjustment"],
+        "feeAdjustment":args["feeAdjustment"],
        })
 
     data = identifier + encoded_args

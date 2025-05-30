@@ -51,11 +51,11 @@ def UpdateSpotMarketFuel(
         keys += remaining_accounts
     identifier = b"\xe2\xfd\x4c\x47\x11\x02\xab\xa9"
     encoded_args = layout.build({
-    "fuelBoostDeposits":args["fuelBoostDeposits"],
-    "fuelBoostBorrows":args["fuelBoostBorrows"],
-    "fuelBoostTaker":args["fuelBoostTaker"],
-    "fuelBoostMaker":args["fuelBoostMaker"],
-    "fuelBoostInsurance":args["fuelBoostInsurance"],
+        "fuelBoostDeposits":args["fuelBoostDeposits"],
+        "fuelBoostBorrows":args["fuelBoostBorrows"],
+        "fuelBoostTaker":args["fuelBoostTaker"],
+        "fuelBoostMaker":args["fuelBoostMaker"],
+        "fuelBoostInsurance":args["fuelBoostInsurance"],
        })
 
     data = identifier + encoded_args

@@ -53,7 +53,7 @@ def DepositIntoPerpMarketFeePool(
         keys += remaining_accounts
     identifier = b"\x22\x3a\x39\x44\x61\x50\xf4\x06"
     encoded_args = layout.build({
-    "amount":args["amount"],
+        "amount":args["amount"],
        })
 
     data = identifier + encoded_args

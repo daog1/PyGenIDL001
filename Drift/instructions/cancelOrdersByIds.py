@@ -7,7 +7,7 @@
 
 import borsh_construct as borsh;
 import typing;
-from construct import Container;
+from construct import Construct, Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey;
@@ -18,7 +18,7 @@ class CancelOrdersByIdsArgs(typing.TypedDict):
 
 
 layout = borsh.CStruct(
-    "orderIds" /borsh.U32[0],
+    "orderIds" /borsh.Vec(typing.cast(Construct, borsh.U32)),
     )
 
 
@@ -43,7 +43,7 @@ def CancelOrdersByIds(
         keys += remaining_accounts
     identifier = b"\x86\x13\x90\xa5\x5e\xf0\xd2\x5e"
     encoded_args = layout.build({
-    "orderIds":args["orderIds"],
+        "orderIds":args["orderIds"],
        })
 
     data = identifier + encoded_args

@@ -41,7 +41,7 @@ def UpdateLiquidationMarginBufferRatio(
         keys += remaining_accounts
     identifier = b"\x84\xe0\xf3\xa0\x9a\x52\x61\xd7"
     encoded_args = layout.build({
-    "liquidationMarginBufferRatio":args["liquidationMarginBufferRatio"],
+        "liquidationMarginBufferRatio":args["liquidationMarginBufferRatio"],
        })
 
     data = identifier + encoded_args

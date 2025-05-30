@@ -46,8 +46,8 @@ def ModifyOrder(
         keys += remaining_accounts
     identifier = b"\x2f\x7c\x75\xff\xc9\xc5\x82\x5e"
     encoded_args = layout.build({
-    "orderId":args["orderId"],
-    "modifyOrderParams":args["modifyOrderParams"],
+        "orderId":args["orderId"],
+        "modifyOrderParams":args["modifyOrderParams"].to_encodable(),
        })
 
     data = identifier + encoded_args

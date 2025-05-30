@@ -45,8 +45,8 @@ def UpdatePerpMarketUnrealizedAssetWeight(
         keys += remaining_accounts
     identifier = b"\x87\x84\xcd\xa5\x6d\x96\xa6\x6a"
     encoded_args = layout.build({
-    "unrealizedInitialAssetWeight":args["unrealizedInitialAssetWeight"],
-    "unrealizedMaintenanceAssetWeight":args["unrealizedMaintenanceAssetWeight"],
+        "unrealizedInitialAssetWeight":args["unrealizedInitialAssetWeight"],
+        "unrealizedMaintenanceAssetWeight":args["unrealizedMaintenanceAssetWeight"],
        })
 
     data = identifier + encoded_args

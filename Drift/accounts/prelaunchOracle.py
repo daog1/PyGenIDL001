@@ -112,7 +112,7 @@ class PrelaunchOracle:
                 "lastUpdateSlot": self.lastUpdateSlot,
                 "ammLastUpdateSlot": self.ammLastUpdateSlot,
                 "perpMarketIndex": self.perpMarketIndex,
-                "padding": self.padding,
+                "padding": self.padding.to_json(),
                 }
 
     @classmethod

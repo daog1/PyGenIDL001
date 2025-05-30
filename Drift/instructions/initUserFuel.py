@@ -53,11 +53,11 @@ def InitUserFuel(
         keys += remaining_accounts
     identifier = b"\x84\xbf\xe4\x8d\xc9\x8a\x3c\x30"
     encoded_args = layout.build({
-    "fuelBoostDeposits":args["fuelBoostDeposits"],
-    "fuelBoostBorrows":args["fuelBoostBorrows"],
-    "fuelBoostTaker":args["fuelBoostTaker"],
-    "fuelBoostMaker":args["fuelBoostMaker"],
-    "fuelBoostInsurance":args["fuelBoostInsurance"],
+        "fuelBoostDeposits":args["fuelBoostDeposits"],
+        "fuelBoostBorrows":args["fuelBoostBorrows"],
+        "fuelBoostTaker":args["fuelBoostTaker"],
+        "fuelBoostMaker":args["fuelBoostMaker"],
+        "fuelBoostInsurance":args["fuelBoostInsurance"],
        })
 
     data = identifier + encoded_args

@@ -43,8 +43,8 @@ def UpdateUserReduceOnly(
         keys += remaining_accounts
     identifier = b"\xc7\x47\x2a\x43\x90\x13\x56\x6d"
     encoded_args = layout.build({
-    "subAccountId":args["subAccountId"],
-    "reduceOnly":args["reduceOnly"],
+        "subAccountId":args["subAccountId"],
+        "reduceOnly":args["reduceOnly"],
        })
 
     data = identifier + encoded_args

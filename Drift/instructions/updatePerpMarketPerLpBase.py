@@ -43,7 +43,7 @@ def UpdatePerpMarketPerLpBase(
         keys += remaining_accounts
     identifier = b"\x67\x98\x67\x66\x59\x90\xc1\x47"
     encoded_args = layout.build({
-    "perLpBase":args["perLpBase"],
+        "perLpBase":args["perLpBase"],
        })
 
     data = identifier + encoded_args

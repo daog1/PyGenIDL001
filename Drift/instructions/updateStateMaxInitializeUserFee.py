@@ -41,7 +41,7 @@ def UpdateStateMaxInitializeUserFee(
         keys += remaining_accounts
     identifier = b"\xed\xe1\x19\xed\xc1\x2d\x4d\x61"
     encoded_args = layout.build({
-    "maxInitializeUserFee":args["maxInitializeUserFee"],
+        "maxInitializeUserFee":args["maxInitializeUserFee"],
        })
 
     data = identifier + encoded_args

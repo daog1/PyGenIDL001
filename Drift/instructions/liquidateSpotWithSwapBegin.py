@@ -67,9 +67,9 @@ def LiquidateSpotWithSwapBegin(
         keys += remaining_accounts
     identifier = b"\x0c\x2b\xb0\x53\x9c\xfb\x75\x0d"
     encoded_args = layout.build({
-    "assetMarketIndex":args["assetMarketIndex"],
-    "liabilityMarketIndex":args["liabilityMarketIndex"],
-    "swapAmount":args["swapAmount"],
+        "assetMarketIndex":args["assetMarketIndex"],
+        "liabilityMarketIndex":args["liabilityMarketIndex"],
+        "swapAmount":args["swapAmount"],
        })
 
     data = identifier + encoded_args

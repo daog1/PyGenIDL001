@@ -50,7 +50,7 @@ class RFQMatch:
         return {
                 "baseAssetAmount": self.baseAssetAmount,
                 "makerOrderParams": self.makerOrderParams.to_json(),
-                "makerSignature": self.makerSignature,
+                "makerSignature": self.makerSignature.to_json(),
                 }
 
     @classmethod

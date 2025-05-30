@@ -43,8 +43,8 @@ def UpdateUserName(
         keys += remaining_accounts
     identifier = b"\x87\x19\xb9\x38\xa5\x35\x22\x88"
     encoded_args = layout.build({
-    "subAccountId":args["subAccountId"],
-    "name":args["name"],
+        "subAccountId":args["subAccountId"],
+        "name":args["name"],
        })
 
     data = identifier + encoded_args

@@ -42,7 +42,7 @@ def UpdateWhitelistMint(
         keys += remaining_accounts
     identifier = b"\xa1\x0f\xa2\x13\x94\x78\x90\x97"
     encoded_args = layout.build({
-    "whitelistMint":args["whitelistMint"],
+        "whitelistMint":args["whitelistMint"],
        })
 
     data = identifier + encoded_args

@@ -51,7 +51,7 @@ class InsuranceFund:
     @classmethod
     def from_decoded(cls, obj: Container) -> "InsuranceFund":
         return cls(
-        vault=Pubkey.from_string(obj["vault"]),
+        vault=obj["vault"],
         totalShares=obj["totalShares"],
         userShares=obj["userShares"],
         sharesBase=obj["sharesBase"],

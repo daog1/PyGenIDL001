@@ -59,8 +59,8 @@ def ResolvePerpBankruptcy(
         keys += remaining_accounts
     identifier = b"\xe0\x10\xb0\xd6\xa2\xd5\xb7\xde"
     encoded_args = layout.build({
-    "quoteSpotMarketIndex":args["quoteSpotMarketIndex"],
-    "marketIndex":args["marketIndex"],
+        "quoteSpotMarketIndex":args["quoteSpotMarketIndex"],
+        "marketIndex":args["marketIndex"],
        })
 
     data = identifier + encoded_args

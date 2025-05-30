@@ -45,8 +45,8 @@ def UpdatePerpMarketImfFactor(
         keys += remaining_accounts
     identifier = b"\xcf\xc2\x38\x84\x23\x43\x47\xf4"
     encoded_args = layout.build({
-    "imfFactor":args["imfFactor"],
-    "unrealizedPnlImfFactor":args["unrealizedPnlImfFactor"],
+        "imfFactor":args["imfFactor"],
+        "unrealizedPnlImfFactor":args["unrealizedPnlImfFactor"],
        })
 
     data = identifier + encoded_args

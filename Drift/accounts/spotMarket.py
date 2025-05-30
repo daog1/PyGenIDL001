@@ -339,7 +339,7 @@ class SpotMarket:
                 "oracle": str(self.oracle),
                 "mint": str(self.mint),
                 "vault": str(self.vault),
-                "name": self.name,
+                "name": self.name.to_json(),
                 "historicalOracleData": self.historicalOracleData.to_json(),
                 "historicalIndexData": self.historicalIndexData.to_json(),
                 "revenuePool": self.revenuePool.to_json(),
@@ -398,7 +398,7 @@ class SpotMarket:
                 "fuelBoostInsurance": self.fuelBoostInsurance,
                 "tokenProgram": self.tokenProgram,
                 "poolId": self.poolId,
-                "padding": self.padding,
+                "padding": self.padding.to_json(),
                 }
 
     @classmethod

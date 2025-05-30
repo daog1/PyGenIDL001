@@ -55,9 +55,9 @@ def Deposit(
         keys += remaining_accounts
     identifier = b"\xf2\x23\xc6\x89\x52\xe1\xf2\xb6"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
-    "amount":args["amount"],
-    "reduceOnly":args["reduceOnly"],
+        "marketIndex":args["marketIndex"],
+        "amount":args["amount"],
+        "reduceOnly":args["reduceOnly"],
        })
 
     data = identifier + encoded_args

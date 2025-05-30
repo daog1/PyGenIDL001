@@ -45,8 +45,8 @@ def RecenterPerpMarketAmm(
         keys += remaining_accounts
     identifier = b"\x18\x57\x0a\x73\xa5\xbe\x50\x8b"
     encoded_args = layout.build({
-    "pegMultiplier":args["pegMultiplier"],
-    "sqrtK":args["sqrtK"],
+        "pegMultiplier":args["pegMultiplier"],
+        "sqrtK":args["sqrtK"],
        })
 
     data = identifier + encoded_args

@@ -42,7 +42,7 @@ def UpdateOracleGuardRails(
         keys += remaining_accounts
     identifier = b"\x83\x70\x0a\x3b\x20\x36\x28\xa4"
     encoded_args = layout.build({
-    "oracleGuardRails":args["oracleGuardRails"],
+        "oracleGuardRails":args["oracleGuardRails"].to_encodable(),
        })
 
     data = identifier + encoded_args

@@ -43,7 +43,7 @@ def UpdateSpotMarketIfPausedOperations(
         keys += remaining_accounts
     identifier = b"\x65\xd7\x4f\x4a\x3b\x29\x4f\x0c"
     encoded_args = layout.build({
-    "pausedOperations":args["pausedOperations"],
+        "pausedOperations":args["pausedOperations"],
        })
 
     data = identifier + encoded_args

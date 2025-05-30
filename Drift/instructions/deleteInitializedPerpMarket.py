@@ -43,7 +43,7 @@ def DeleteInitializedPerpMarket(
         keys += remaining_accounts
     identifier = b"\x5b\x9a\x18\x57\x6a\x3b\xbe\x42"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
+        "marketIndex":args["marketIndex"],
        })
 
     data = identifier + encoded_args

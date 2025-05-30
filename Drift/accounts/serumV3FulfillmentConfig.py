@@ -153,7 +153,7 @@ class SerumV3FulfillmentConfig:
                 "marketIndex": self.marketIndex,
                 "fulfillmentType": self.fulfillmentType.to_json(),
                 "status": self.status.to_json(),
-                "padding": self.padding,
+                "padding": self.padding.to_json(),
                 }
 
     @classmethod

@@ -43,7 +43,7 @@ def UpdatePerpMarketName(
         keys += remaining_accounts
     identifier = b"\xd3\x1f\x15\xd2\x40\x6c\x42\xc9"
     encoded_args = layout.build({
-    "name":args["name"],
+        "name":args["name"],
        })
 
     data = identifier + encoded_args

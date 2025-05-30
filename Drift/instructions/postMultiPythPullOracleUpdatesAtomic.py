@@ -43,7 +43,7 @@ def PostMultiPythPullOracleUpdatesAtomic(
         keys += remaining_accounts
     identifier = b"\xf3\x4f\xcc\xe4\xe3\xd0\x64\xf4"
     encoded_args = layout.build({
-    "params":args["params"],
+        "params":args["params"],
        })
 
     data = identifier + encoded_args

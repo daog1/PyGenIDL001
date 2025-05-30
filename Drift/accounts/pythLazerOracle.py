@@ -106,7 +106,7 @@ class PythLazerOracle:
                 "publishTime": self.publishTime,
                 "postedSlot": self.postedSlot,
                 "exponent": self.exponent,
-                "padding": self.padding,
+                "padding": self.padding.to_json(),
                 "conf": self.conf,
                 }
 

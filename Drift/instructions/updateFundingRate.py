@@ -43,7 +43,7 @@ def UpdateFundingRate(
         keys += remaining_accounts
     identifier = b"\xc9\xb2\x74\xd4\xa6\x90\x48\xee"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
+        "marketIndex":args["marketIndex"],
        })
 
     data = identifier + encoded_args

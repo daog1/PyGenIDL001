@@ -57,9 +57,9 @@ def Withdraw(
         keys += remaining_accounts
     identifier = b"\xb7\x12\x46\x9c\x94\x6d\xa1\x22"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
-    "amount":args["amount"],
-    "reduceOnly":args["reduceOnly"],
+        "marketIndex":args["marketIndex"],
+        "amount":args["amount"],
+        "reduceOnly":args["reduceOnly"],
        })
 
     data = identifier + encoded_args

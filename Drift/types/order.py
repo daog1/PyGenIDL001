@@ -176,7 +176,7 @@ class Order:
                 "immediateOrCancel": self.immediateOrCancel,
                 "triggerCondition": self.triggerCondition.to_json(),
                 "auctionDuration": self.auctionDuration,
-                "padding": self.padding,
+                "padding": self.padding.to_json(),
                 }
 
     @classmethod

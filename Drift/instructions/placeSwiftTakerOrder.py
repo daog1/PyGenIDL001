@@ -49,7 +49,7 @@ def PlaceSwiftTakerOrder(
         keys += remaining_accounts
     identifier = b"\x32\x59\x78\x4e\xfe\x0f\x68\x8c"
     encoded_args = layout.build({
-    "swiftOrderParamsMessageBytes":args["swiftOrderParamsMessageBytes"],
+        "swiftOrderParamsMessageBytes":args["swiftOrderParamsMessageBytes"],
        })
 
     data = identifier + encoded_args

@@ -52,7 +52,7 @@ class SwiftOrderId:
 
     def to_json(self) -> SwiftOrderIdJSON:
         return {
-                "uuid": self.uuid,
+                "uuid": self.uuid.to_json(),
                 "maxSlot": self.maxSlot,
                 "orderId": self.orderId,
                 "padding": self.padding,

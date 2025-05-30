@@ -45,8 +45,8 @@ def UpdatePerpMarketNumberOfUsers(
         keys += remaining_accounts
     identifier = b"\x23\x3e\x90\xb1\xb4\x3e\xd7\xc4"
     encoded_args = layout.build({
-    "numberOfUsers":args["numberOfUsers"],
-    "numberOfUsersWithBase":args["numberOfUsersWithBase"],
+        "numberOfUsers":args["numberOfUsers"],
+        "numberOfUsersWithBase":args["numberOfUsersWithBase"],
        })
 
     data = identifier + encoded_args

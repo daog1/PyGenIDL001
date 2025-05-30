@@ -47,8 +47,8 @@ def UpdateUserProtectedMakerOrders(
         keys += remaining_accounts
     identifier = b"\x72\x27\x7b\xc6\xbb\x19\x5a\xdb"
     encoded_args = layout.build({
-    "subAccountId":args["subAccountId"],
-    "protectedMakerOrders":args["protectedMakerOrders"],
+        "subAccountId":args["subAccountId"],
+        "protectedMakerOrders":args["protectedMakerOrders"],
        })
 
     data = identifier + encoded_args

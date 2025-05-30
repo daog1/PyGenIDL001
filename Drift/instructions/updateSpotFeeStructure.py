@@ -42,7 +42,7 @@ def UpdateSpotFeeStructure(
         keys += remaining_accounts
     identifier = b"\x61\xd8\x69\x83\x71\xf6\x8e\x8d"
     encoded_args = layout.build({
-    "feeStructure":args["feeStructure"],
+        "feeStructure":args["feeStructure"].to_encodable(),
        })
 
     data = identifier + encoded_args

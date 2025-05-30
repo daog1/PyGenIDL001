@@ -43,7 +43,7 @@ def AdminDisableUpdatePerpBidAskTwap(
         keys += remaining_accounts
     identifier = b"\x11\xa4\x52\x2d\xb7\x56\xbf\xc7"
     encoded_args = layout.build({
-    "disable":args["disable"],
+        "disable":args["disable"],
        })
 
     data = identifier + encoded_args

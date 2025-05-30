@@ -47,9 +47,9 @@ def UpdateSpotMarketIfFactor(
         keys += remaining_accounts
     identifier = b"\x93\x1e\xe0\x22\x12\xe6\x69\x04"
     encoded_args = layout.build({
-    "spotMarketIndex":args["spotMarketIndex"],
-    "userIfFactor":args["userIfFactor"],
-    "totalIfFactor":args["totalIfFactor"],
+        "spotMarketIndex":args["spotMarketIndex"],
+        "userIfFactor":args["userIfFactor"],
+        "totalIfFactor":args["totalIfFactor"],
        })
 
     data = identifier + encoded_args

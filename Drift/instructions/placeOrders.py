@@ -7,7 +7,7 @@
 
 import borsh_construct as borsh;
 import typing;
-from construct import Container;
+from construct import Construct, Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey;
@@ -19,7 +19,7 @@ class PlaceOrdersArgs(typing.TypedDict):
 
 
 layout = borsh.CStruct(
-    "params" /types.orderParams.OrderParams.layout[0],
+    "params" /borsh.Vec(typing.cast(Construct, types.orderParams.OrderParams.layout)),
     )
 
 
@@ -44,7 +44,7 @@ def PlaceOrders(
         keys += remaining_accounts
     identifier = b"\x3c\x3f\x32\x7b\x0c\xc5\x3c\xbe"
     encoded_args = layout.build({
-    "params":args["params"],
+        "params":list(map(lambda item:item.to_encodable(),args["params"])),
        })
 
     data = identifier + encoded_args

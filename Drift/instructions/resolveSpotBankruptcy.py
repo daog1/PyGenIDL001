@@ -57,7 +57,7 @@ def ResolveSpotBankruptcy(
         keys += remaining_accounts
     identifier = b"\x7c\xc2\xf0\xfe\xc6\xd5\x34\x7a"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
+        "marketIndex":args["marketIndex"],
        })
 
     data = identifier + encoded_args

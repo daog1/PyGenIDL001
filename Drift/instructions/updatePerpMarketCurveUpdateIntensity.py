@@ -43,7 +43,7 @@ def UpdatePerpMarketCurveUpdateIntensity(
         keys += remaining_accounts
     identifier = b"\x32\x83\x06\x9c\xe2\xe7\xbd\x48"
     encoded_args = layout.build({
-    "curveUpdateIntensity":args["curveUpdateIntensity"],
+        "curveUpdateIntensity":args["curveUpdateIntensity"],
        })
 
     data = identifier + encoded_args

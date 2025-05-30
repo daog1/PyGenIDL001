@@ -49,8 +49,8 @@ def UpdatePerpMarketOracle(
         keys += remaining_accounts
     identifier = b"\xb6\x71\x6f\xa0\x43\xae\x59\xbf"
     encoded_args = layout.build({
-    "oracle":args["oracle"],
-    "oracleSource":args["oracleSource"],
+        "oracle":args["oracle"],
+        "oracleSource":args["oracleSource"].to_encodable(),
        })
 
     data = identifier + encoded_args

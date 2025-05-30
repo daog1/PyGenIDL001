@@ -53,9 +53,9 @@ def LiquidatePerp(
         keys += remaining_accounts
     identifier = b"\x4b\x23\x77\xf7\xbf\x12\x8b\x02"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
-    "liquidatorMaxBaseAssetAmount":args["liquidatorMaxBaseAssetAmount"],
-    "limitPrice":args["limitPrice"],
+        "marketIndex":args["marketIndex"],
+        "liquidatorMaxBaseAssetAmount":args["liquidatorMaxBaseAssetAmount"],
+        "limitPrice":args["limitPrice"],
        })
 
     data = identifier + encoded_args

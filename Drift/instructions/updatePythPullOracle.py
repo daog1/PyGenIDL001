@@ -47,8 +47,8 @@ def UpdatePythPullOracle(
         keys += remaining_accounts
     identifier = b"\xe6\xbf\xbd\x5e\x6c\x3b\x4a\xc5"
     encoded_args = layout.build({
-    "feedId":args["feedId"],
-    "params":args["params"],
+        "feedId":args["feedId"],
+        "params":args["params"],
        })
 
     data = identifier + encoded_args

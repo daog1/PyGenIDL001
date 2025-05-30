@@ -44,7 +44,7 @@ def UpdatePerpMarketStatus(
         keys += remaining_accounts
     identifier = b"\x47\xc9\xaf\x7a\xff\xcf\xc4\xcf"
     encoded_args = layout.build({
-    "status":args["status"],
+        "status":args["status"].to_encodable(),
        })
 
     data = identifier + encoded_args

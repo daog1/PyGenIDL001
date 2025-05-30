@@ -55,10 +55,10 @@ def LiquidateBorrowForPerpPnl(
         keys += remaining_accounts
     identifier = b"\xa9\x11\x20\x5a\xcf\x94\xd1\x1b"
     encoded_args = layout.build({
-    "perpMarketIndex":args["perpMarketIndex"],
-    "spotMarketIndex":args["spotMarketIndex"],
-    "liquidatorMaxLiabilityTransfer":args["liquidatorMaxLiabilityTransfer"],
-    "limitPrice":args["limitPrice"],
+        "perpMarketIndex":args["perpMarketIndex"],
+        "spotMarketIndex":args["spotMarketIndex"],
+        "liquidatorMaxLiabilityTransfer":args["liquidatorMaxLiabilityTransfer"],
+        "limitPrice":args["limitPrice"],
        })
 
     data = identifier + encoded_args

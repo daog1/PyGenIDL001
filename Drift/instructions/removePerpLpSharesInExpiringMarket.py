@@ -43,8 +43,8 @@ def RemovePerpLpSharesInExpiringMarket(
         keys += remaining_accounts
     identifier = b"\x53\xfe\xfd\x89\x3b\x7a\x44\x9c"
     encoded_args = layout.build({
-    "sharesToBurn":args["sharesToBurn"],
-    "marketIndex":args["marketIndex"],
+        "sharesToBurn":args["sharesToBurn"],
+        "marketIndex":args["marketIndex"],
        })
 
     data = identifier + encoded_args

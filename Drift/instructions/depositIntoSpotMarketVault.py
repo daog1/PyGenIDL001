@@ -49,7 +49,7 @@ def DepositIntoSpotMarketVault(
         keys += remaining_accounts
     identifier = b"\x30\xfc\x77\x49\xff\xcd\xae\xf7"
     encoded_args = layout.build({
-    "amount":args["amount"],
+        "amount":args["amount"],
        })
 
     data = identifier + encoded_args

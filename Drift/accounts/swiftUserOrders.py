@@ -11,6 +11,7 @@ from anchorpy.borsh_extension import BorshPubkey;
 from anchorpy.coder.accounts import ACCOUNT_DISCRIMINATOR_SIZE;
 from anchorpy.error import AccountInvalidDiscriminator;
 from anchorpy.utils.rpc import get_multiple_accounts;
+from construct import Construct;
 from dataclasses import dataclass;
 from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
@@ -32,7 +33,7 @@ class SwiftUserOrders:
     layout: typing.ClassVar = borsh.CStruct(
         "userPubkey" /BorshPubkey,
         "padding" /borsh.U32,
-        "swiftOrderData" /types.swiftOrderId.SwiftOrderId.layout[0],
+        "swiftOrderData" /borsh.Vec(typing.cast(Construct, types.swiftOrderId.SwiftOrderId.layout)),
         )
     #fields
     userPubkey: Pubkey

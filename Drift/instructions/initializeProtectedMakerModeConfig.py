@@ -47,7 +47,7 @@ def InitializeProtectedMakerModeConfig(
         keys += remaining_accounts
     identifier = b"\x43\x67\xdc\x43\x58\x20\xfc\x08"
     encoded_args = layout.build({
-    "maxUsers":args["maxUsers"],
+        "maxUsers":args["maxUsers"],
        })
 
     data = identifier + encoded_args

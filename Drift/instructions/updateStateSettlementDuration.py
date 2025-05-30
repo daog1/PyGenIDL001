@@ -41,7 +41,7 @@ def UpdateStateSettlementDuration(
         keys += remaining_accounts
     identifier = b"\x61\x44\xc7\xeb\x83\x50\x3d\xad"
     encoded_args = layout.build({
-    "settlementDuration":args["settlementDuration"],
+        "settlementDuration":args["settlementDuration"],
        })
 
     data = identifier + encoded_args

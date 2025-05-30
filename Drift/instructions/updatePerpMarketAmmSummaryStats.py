@@ -51,9 +51,9 @@ def UpdatePerpMarketAmmSummaryStats(
         keys += remaining_accounts
     identifier = b"\x7a\x65\xf9\xee\xd1\x09\xf1\xf5"
     encoded_args = layout.build({
-    "quoteAssetAmountWithUnsettledLp":args["quoteAssetAmountWithUnsettledLp"],
-    "netUnsettledFundingPnl":args["netUnsettledFundingPnl"],
-    "updateAmmSummaryStats":args["updateAmmSummaryStats"],
+        "quoteAssetAmountWithUnsettledLp":args["quoteAssetAmountWithUnsettledLp"],
+        "netUnsettledFundingPnl":args["netUnsettledFundingPnl"],
+        "updateAmmSummaryStats":args["updateAmmSummaryStats"],
        })
 
     data = identifier + encoded_args

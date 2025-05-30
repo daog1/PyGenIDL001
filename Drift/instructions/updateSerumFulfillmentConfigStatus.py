@@ -44,7 +44,7 @@ def UpdateSerumFulfillmentConfigStatus(
         keys += remaining_accounts
     identifier = b"\xab\x6d\xf0\xfb\x5f\x01\x95\x59"
     encoded_args = layout.build({
-    "status":args["status"],
+        "status":args["status"].to_encodable(),
        })
 
     data = identifier + encoded_args

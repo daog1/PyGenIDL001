@@ -43,8 +43,8 @@ def UpdateUserMarginTradingEnabled(
         keys += remaining_accounts
     identifier = b"\xc2\x5c\xcc\xdf\xf6\xbc\x1f\xcb"
     encoded_args = layout.build({
-    "subAccountId":args["subAccountId"],
-    "marginTradingEnabled":args["marginTradingEnabled"],
+        "subAccountId":args["subAccountId"],
+        "marginTradingEnabled":args["marginTradingEnabled"],
        })
 
     data = identifier + encoded_args

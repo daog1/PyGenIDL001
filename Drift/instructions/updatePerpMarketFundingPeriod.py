@@ -43,7 +43,7 @@ def UpdatePerpMarketFundingPeriod(
         keys += remaining_accounts
     identifier = b"\xab\xa1\x45\x5b\x81\x8b\xa1\x1c"
     encoded_args = layout.build({
-    "fundingPeriod":args["fundingPeriod"],
+        "fundingPeriod":args["fundingPeriod"],
        })
 
     data = identifier + encoded_args

@@ -45,7 +45,7 @@ def RepegAmmCurve(
         keys += remaining_accounts
     identifier = b"\x03\x24\x66\x59\xb4\x80\x78\xd5"
     encoded_args = layout.build({
-    "newPegCandidate":args["newPegCandidate"],
+        "newPegCandidate":args["newPegCandidate"],
        })
 
     data = identifier + encoded_args

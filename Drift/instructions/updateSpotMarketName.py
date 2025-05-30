@@ -43,7 +43,7 @@ def UpdateSpotMarketName(
         keys += remaining_accounts
     identifier = b"\x11\xd0\x01\x01\xa2\xd3\xbc\xe0"
     encoded_args = layout.build({
-    "name":args["name"],
+        "name":args["name"],
        })
 
     data = identifier + encoded_args

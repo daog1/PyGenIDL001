@@ -57,7 +57,7 @@ def InitializePhoenixFulfillmentConfig(
         keys += remaining_accounts
     identifier = b"\x87\x84\x6e\x6b\xb9\xa0\xa9\x9a"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
+        "marketIndex":args["marketIndex"],
        })
 
     data = identifier + encoded_args

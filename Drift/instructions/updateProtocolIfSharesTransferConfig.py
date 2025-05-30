@@ -46,8 +46,8 @@ def UpdateProtocolIfSharesTransferConfig(
         keys += remaining_accounts
     identifier = b"\x22\x87\x2f\x5b\xdc\x18\xd4\x35"
     encoded_args = layout.build({
-    "whitelistedSigners":args["whitelistedSigners"],
-    "maxTransferPerEpoch":args["maxTransferPerEpoch"],
+        "whitelistedSigners":args["whitelistedSigners"],
+        "maxTransferPerEpoch":args["maxTransferPerEpoch"],
        })
 
     data = identifier + encoded_args

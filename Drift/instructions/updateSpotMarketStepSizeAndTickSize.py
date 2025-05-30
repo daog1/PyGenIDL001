@@ -45,8 +45,8 @@ def UpdateSpotMarketStepSizeAndTickSize(
         keys += remaining_accounts
     identifier = b"\xee\x99\x89\x50\xce\x3b\xfa\x3d"
     encoded_args = layout.build({
-    "stepSize":args["stepSize"],
-    "tickSize":args["tickSize"],
+        "stepSize":args["stepSize"],
+        "tickSize":args["tickSize"],
        })
 
     data = identifier + encoded_args

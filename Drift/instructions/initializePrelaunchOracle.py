@@ -48,7 +48,7 @@ def InitializePrelaunchOracle(
         keys += remaining_accounts
     identifier = b"\xa9\xb2\x54\x19\xaf\x3e\x1d\xf7"
     encoded_args = layout.build({
-    "params":args["params"],
+        "params":args["params"].to_encodable(),
        })
 
     data = identifier + encoded_args

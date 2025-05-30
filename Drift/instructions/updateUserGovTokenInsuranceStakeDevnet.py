@@ -41,7 +41,7 @@ def UpdateUserGovTokenInsuranceStakeDevnet(
         keys += remaining_accounts
     identifier = b"\x81\xb9\xf3\xb7\xe4\x6f\x40\xaf"
     encoded_args = layout.build({
-    "govStakeAmount":args["govStakeAmount"],
+        "govStakeAmount":args["govStakeAmount"],
        })
 
     data = identifier + encoded_args

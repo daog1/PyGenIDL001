@@ -42,7 +42,7 @@ def UpdatePerpFeeStructure(
         keys += remaining_accounts
     identifier = b"\x17\xb2\x6f\xcb\x49\x16\x8c\x4b"
     encoded_args = layout.build({
-    "feeStructure":args["feeStructure"],
+        "feeStructure":args["feeStructure"].to_encodable(),
        })
 
     data = identifier + encoded_args

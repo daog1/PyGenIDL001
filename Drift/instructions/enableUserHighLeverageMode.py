@@ -45,7 +45,7 @@ def EnableUserHighLeverageMode(
         keys += remaining_accounts
     identifier = b"\xe7\x18\xe6\x70\xc9\xad\x49\xb8"
     encoded_args = layout.build({
-    "subAccountId":args["subAccountId"],
+        "subAccountId":args["subAccountId"],
        })
 
     data = identifier + encoded_args

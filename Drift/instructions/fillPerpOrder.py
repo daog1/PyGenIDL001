@@ -51,8 +51,8 @@ def FillPerpOrder(
         keys += remaining_accounts
     identifier = b"\x0d\xbc\xf8\x67\x86\xd9\x6a\xf0"
     encoded_args = layout.build({
-    "orderId":args["orderId"],
-    "makerOrderId":args["makerOrderId"],
+        "orderId":args["orderId"],
+        "makerOrderId":args["makerOrderId"],
        })
 
     data = identifier + encoded_args

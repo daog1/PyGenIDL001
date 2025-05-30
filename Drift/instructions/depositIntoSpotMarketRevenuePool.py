@@ -49,7 +49,7 @@ def DepositIntoSpotMarketRevenuePool(
         keys += remaining_accounts
     identifier = b"\x5c\x28\x97\x2a\x7a\xfe\x8b\xf6"
     encoded_args = layout.build({
-    "amount":args["amount"],
+        "amount":args["amount"],
        })
 
     data = identifier + encoded_args

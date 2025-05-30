@@ -51,8 +51,8 @@ def TransferDeposit(
         keys += remaining_accounts
     identifier = b"\x14\x14\x93\xdf\x29\x3f\xcc\x6f"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
-    "amount":args["amount"],
+        "marketIndex":args["marketIndex"],
+        "amount":args["amount"],
        })
 
     data = identifier + encoded_args

@@ -43,7 +43,7 @@ def SettleExpiredMarket(
         keys += remaining_accounts
     identifier = b"\x78\x59\x0b\x19\x7a\x4d\x48\xc1"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
+        "marketIndex":args["marketIndex"],
        })
 
     data = identifier + encoded_args

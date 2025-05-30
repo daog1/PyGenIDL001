@@ -45,7 +45,7 @@ def SettlePnl(
         keys += remaining_accounts
     identifier = b"\x2b\x3d\xea\x2d\x0f\x5f\x98\x99"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
+        "marketIndex":args["marketIndex"],
        })
 
     data = identifier + encoded_args

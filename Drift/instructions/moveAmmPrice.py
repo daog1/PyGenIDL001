@@ -47,9 +47,9 @@ def MoveAmmPrice(
         keys += remaining_accounts
     identifier = b"\xeb\x6d\x02\x52\xdb\x76\x06\x9f"
     encoded_args = layout.build({
-    "baseAssetReserve":args["baseAssetReserve"],
-    "quoteAssetReserve":args["quoteAssetReserve"],
-    "sqrtK":args["sqrtK"],
+        "baseAssetReserve":args["baseAssetReserve"],
+        "quoteAssetReserve":args["quoteAssetReserve"],
+        "sqrtK":args["sqrtK"],
        })
 
     data = identifier + encoded_args

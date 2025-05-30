@@ -41,7 +41,7 @@ def UpdateAmms(
         keys += remaining_accounts
     identifier = b"\xc9\x6a\xd9\xfd\x04\xaf\xe4\x61"
     encoded_args = layout.build({
-    "marketIndexes":args["marketIndexes"],
+        "marketIndexes":args["marketIndexes"],
        })
 
     data = identifier + encoded_args

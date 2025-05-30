@@ -45,8 +45,8 @@ def AddPerpLpShares(
         keys += remaining_accounts
     identifier = b"\x38\xd1\x38\xc5\x77\xfe\xbc\x75"
     encoded_args = layout.build({
-    "nShares":args["nShares"],
-    "marketIndex":args["marketIndex"],
+        "nShares":args["nShares"],
+        "marketIndex":args["marketIndex"],
        })
 
     data = identifier + encoded_args

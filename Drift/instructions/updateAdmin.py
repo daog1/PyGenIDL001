@@ -42,7 +42,7 @@ def UpdateAdmin(
         keys += remaining_accounts
     identifier = b"\xa1\xb0\x28\xd5\x3c\xb8\xb3\xe4"
     encoded_args = layout.build({
-    "admin":args["admin"],
+        "admin":args["admin"],
        })
 
     data = identifier + encoded_args

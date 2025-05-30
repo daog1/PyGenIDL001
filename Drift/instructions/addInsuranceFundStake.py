@@ -59,8 +59,8 @@ def AddInsuranceFundStake(
         keys += remaining_accounts
     identifier = b"\xfb\x90\x73\x0b\xde\x2f\x3e\xec"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
-    "amount":args["amount"],
+        "marketIndex":args["marketIndex"],
+        "amount":args["amount"],
        })
 
     data = identifier + encoded_args

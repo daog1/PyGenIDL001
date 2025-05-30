@@ -33,7 +33,7 @@ class SwiftUserOrdersFixed:
     @classmethod
     def from_decoded(cls, obj: Container) -> "SwiftUserOrdersFixed":
         return cls(
-        userPubkey=Pubkey.from_string(obj["userPubkey"]),
+        userPubkey=obj["userPubkey"],
         padding=obj["padding"],
         len=obj["len"],
         )

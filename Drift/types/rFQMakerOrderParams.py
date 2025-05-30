@@ -53,7 +53,7 @@ class RFQMakerOrderParams:
     def from_decoded(cls, obj: Container) -> "RFQMakerOrderParams":
         return cls(
         uuid=obj["uuid"],
-        authority=Pubkey.from_string(obj["authority"]),
+        authority=obj["authority"],
         subAccountId=obj["subAccountId"],
         marketIndex=obj["marketIndex"],
         marketType=marketType.from_decoded(obj["marketType"]),
@@ -78,7 +78,7 @@ class RFQMakerOrderParams:
 
     def to_json(self) -> RFQMakerOrderParamsJSON:
         return {
-                "uuid": self.uuid,
+                "uuid": self.uuid.to_json(),
                 "authority": str(self.authority),
                 "subAccountId": self.subAccountId,
                 "marketIndex": self.marketIndex,

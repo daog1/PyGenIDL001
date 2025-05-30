@@ -43,7 +43,7 @@ def UpdatePerpMarketPausedOperations(
         keys += remaining_accounts
     identifier = b"\x35\x10\x88\x84\x1e\xdc\x79\x55"
     encoded_args = layout.build({
-    "pausedOperations":args["pausedOperations"],
+        "pausedOperations":args["pausedOperations"],
        })
 
     data = identifier + encoded_args

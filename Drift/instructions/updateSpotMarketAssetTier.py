@@ -44,7 +44,7 @@ def UpdateSpotMarketAssetTier(
         keys += remaining_accounts
     identifier = b"\xfd\xd1\xe7\x0e\xf2\xd0\xf3\x82"
     encoded_args = layout.build({
-    "assetTier":args["assetTier"],
+        "assetTier":args["assetTier"].to_encodable(),
        })
 
     data = identifier + encoded_args

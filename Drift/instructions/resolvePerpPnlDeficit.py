@@ -51,8 +51,8 @@ def ResolvePerpPnlDeficit(
         keys += remaining_accounts
     identifier = b"\xa8\xcc\x44\x96\x9f\x7e\x5f\x94"
     encoded_args = layout.build({
-    "spotMarketIndex":args["spotMarketIndex"],
-    "perpMarketIndex":args["perpMarketIndex"],
+        "spotMarketIndex":args["spotMarketIndex"],
+        "perpMarketIndex":args["perpMarketIndex"],
        })
 
     data = identifier + encoded_args

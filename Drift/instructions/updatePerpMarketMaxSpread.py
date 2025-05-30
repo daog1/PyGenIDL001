@@ -43,7 +43,7 @@ def UpdatePerpMarketMaxSpread(
         keys += remaining_accounts
     identifier = b"\x50\xfc\x7a\x3e\x28\xda\x5b\x64"
     encoded_args = layout.build({
-    "maxSpread":args["maxSpread"],
+        "maxSpread":args["maxSpread"],
        })
 
     data = identifier + encoded_args

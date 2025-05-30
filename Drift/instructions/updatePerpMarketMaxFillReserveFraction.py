@@ -43,7 +43,7 @@ def UpdatePerpMarketMaxFillReserveFraction(
         keys += remaining_accounts
     identifier = b"\x13\xac\x72\x9a\x2a\x87\xa1\x85"
     encoded_args = layout.build({
-    "maxFillReserveFraction":args["maxFillReserveFraction"],
+        "maxFillReserveFraction":args["maxFillReserveFraction"],
        })
 
     data = identifier + encoded_args

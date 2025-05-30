@@ -41,7 +41,7 @@ def SettleLp(
         keys += remaining_accounts
     identifier = b"\x9b\xe7\x74\x71\x61\xe5\x8b\x8d"
     encoded_args = layout.build({
-    "marketIndex":args["marketIndex"],
+        "marketIndex":args["marketIndex"],
        })
 
     data = identifier + encoded_args

@@ -47,9 +47,9 @@ def UpdatePerpMarketFuel(
         keys += remaining_accounts
     identifier = b"\xfc\x8d\x6e\x65\x1b\x63\xb6\x15"
     encoded_args = layout.build({
-    "fuelBoostTaker":args["fuelBoostTaker"],
-    "fuelBoostMaker":args["fuelBoostMaker"],
-    "fuelBoostPosition":args["fuelBoostPosition"],
+        "fuelBoostTaker":args["fuelBoostTaker"],
+        "fuelBoostMaker":args["fuelBoostMaker"],
+        "fuelBoostPosition":args["fuelBoostPosition"],
        })
 
     data = identifier + encoded_args
