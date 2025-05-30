@@ -10,19 +10,19 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class DeleteSwiftUserOrdersAccounts(typing.TypedDict):
-    user:Pubkey
-    swiftUserOrders:Pubkey
-    state:Pubkey
-    authority:Pubkey
+    user:SolPubkey
+    swiftUserOrders:SolPubkey
+    state:SolPubkey
+    authority:SolPubkey
 
 def DeleteSwiftUserOrders(
     accounts: DeleteSwiftUserOrdersAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

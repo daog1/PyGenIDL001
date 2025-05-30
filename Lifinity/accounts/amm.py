@@ -15,7 +15,7 @@ from dataclasses import dataclass;
 from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
 from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 
@@ -87,9 +87,9 @@ class Amm:
         "ammPTemp5" /BorshPubkey,
         )
     #fields
-    initializerKey: Pubkey
-    initializerDepositTokenAccount: Pubkey
-    initializerReceiveTokenAccount: Pubkey
+    initializerKey: SolPubkey
+    initializerDepositTokenAccount: SolPubkey
+    initializerReceiveTokenAccount: SolPubkey
     initializerAmount: int
     takerAmount: int
     isInitialized: bool
@@ -98,33 +98,33 @@ class Amm:
     freezeDeposit: int
     freezeWithdraw: int
     baseDecimals: int
-    tokenProgramId: Pubkey
-    tokenAAccount: Pubkey
-    tokenBAccount: Pubkey
-    poolMint: Pubkey
-    tokenAMint: Pubkey
-    tokenBMint: Pubkey
-    feeAccount: Pubkey
-    oracleMainAccount: Pubkey
-    oracleSubAccount: Pubkey
-    oraclePcAccount: Pubkey
+    tokenProgramId: SolPubkey
+    tokenAAccount: SolPubkey
+    tokenBAccount: SolPubkey
+    poolMint: SolPubkey
+    tokenAMint: SolPubkey
+    tokenBMint: SolPubkey
+    feeAccount: SolPubkey
+    oracleMainAccount: SolPubkey
+    oracleSubAccount: SolPubkey
+    oraclePcAccount: SolPubkey
     fees: types.ammFees.AmmFees
     curve: types.ammCurve.AmmCurve
     config: types.ammConfig.AmmConfig
-    ammPTemp1: Pubkey
-    ammPTemp2: Pubkey
-    ammPTemp3: Pubkey
-    ammPTemp4: Pubkey
-    ammPTemp5: Pubkey
+    ammPTemp1: SolPubkey
+    ammPTemp2: SolPubkey
+    ammPTemp3: SolPubkey
+    ammPTemp4: SolPubkey
+    ammPTemp5: SolPubkey
     
 
     @classmethod
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["Amm"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -139,9 +139,9 @@ class Amm:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["Amm"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["Amm"]] = []
@@ -229,9 +229,9 @@ class Amm:
     @classmethod
     def from_json(cls, obj: AmmJSON) -> "Amm":
         return cls(
-                initializerKey=Pubkey.from_string(obj["initializerKey"]),
-                initializerDepositTokenAccount=Pubkey.from_string(obj["initializerDepositTokenAccount"]),
-                initializerReceiveTokenAccount=Pubkey.from_string(obj["initializerReceiveTokenAccount"]),
+                initializerKey=SolPubkey.from_string(obj["initializerKey"]),
+                initializerDepositTokenAccount=SolPubkey.from_string(obj["initializerDepositTokenAccount"]),
+                initializerReceiveTokenAccount=SolPubkey.from_string(obj["initializerReceiveTokenAccount"]),
                 initializerAmount=obj["initializerAmount"],
                 takerAmount=obj["takerAmount"],
                 isInitialized=obj["isInitialized"],
@@ -240,24 +240,24 @@ class Amm:
                 freezeDeposit=obj["freezeDeposit"],
                 freezeWithdraw=obj["freezeWithdraw"],
                 baseDecimals=obj["baseDecimals"],
-                tokenProgramId=Pubkey.from_string(obj["tokenProgramId"]),
-                tokenAAccount=Pubkey.from_string(obj["tokenAAccount"]),
-                tokenBAccount=Pubkey.from_string(obj["tokenBAccount"]),
-                poolMint=Pubkey.from_string(obj["poolMint"]),
-                tokenAMint=Pubkey.from_string(obj["tokenAMint"]),
-                tokenBMint=Pubkey.from_string(obj["tokenBMint"]),
-                feeAccount=Pubkey.from_string(obj["feeAccount"]),
-                oracleMainAccount=Pubkey.from_string(obj["oracleMainAccount"]),
-                oracleSubAccount=Pubkey.from_string(obj["oracleSubAccount"]),
-                oraclePcAccount=Pubkey.from_string(obj["oraclePcAccount"]),
+                tokenProgramId=SolPubkey.from_string(obj["tokenProgramId"]),
+                tokenAAccount=SolPubkey.from_string(obj["tokenAAccount"]),
+                tokenBAccount=SolPubkey.from_string(obj["tokenBAccount"]),
+                poolMint=SolPubkey.from_string(obj["poolMint"]),
+                tokenAMint=SolPubkey.from_string(obj["tokenAMint"]),
+                tokenBMint=SolPubkey.from_string(obj["tokenBMint"]),
+                feeAccount=SolPubkey.from_string(obj["feeAccount"]),
+                oracleMainAccount=SolPubkey.from_string(obj["oracleMainAccount"]),
+                oracleSubAccount=SolPubkey.from_string(obj["oracleSubAccount"]),
+                oraclePcAccount=SolPubkey.from_string(obj["oraclePcAccount"]),
                 fees=types.ammFees.AmmFees.from_json(obj["fees"]),
                 curve=types.ammCurve.AmmCurve.from_json(obj["curve"]),
                 config=types.ammConfig.AmmConfig.from_json(obj["config"]),
-                ammPTemp1=Pubkey.from_string(obj["ammPTemp1"]),
-                ammPTemp2=Pubkey.from_string(obj["ammPTemp2"]),
-                ammPTemp3=Pubkey.from_string(obj["ammPTemp3"]),
-                ammPTemp4=Pubkey.from_string(obj["ammPTemp4"]),
-                ammPTemp5=Pubkey.from_string(obj["ammPTemp5"]),
+                ammPTemp1=SolPubkey.from_string(obj["ammPTemp1"]),
+                ammPTemp2=SolPubkey.from_string(obj["ammPTemp2"]),
+                ammPTemp3=SolPubkey.from_string(obj["ammPTemp3"]),
+                ammPTemp4=SolPubkey.from_string(obj["ammPTemp4"]),
+                ammPTemp5=SolPubkey.from_string(obj["ammPTemp5"]),
                 )
 
 

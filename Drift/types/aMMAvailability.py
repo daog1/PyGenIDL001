@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Immediate:
             kind="Immediate",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Immediate": {},
         }
@@ -46,7 +46,7 @@ class AfterMinDuration:
             kind="AfterMinDuration",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "AfterMinDuration": {},
         }
@@ -66,7 +66,7 @@ class Unavailable:
             kind="Unavailable",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Unavailable": {},
         }
@@ -76,14 +76,14 @@ class Unavailable:
 
 
 AMMAvailabilityKind = typing.Union[
-Immediate,
-AfterMinDuration,
-Unavailable,
+    Immediate,
+    AfterMinDuration,
+    Unavailable,
 ]
 AMMAvailabilityJSON = typing.Union[
-ImmediateJSON,
-AfterMinDurationJSON,
-UnavailableJSON,
+    ImmediateJSON,
+    AfterMinDurationJSON,
+    UnavailableJSON,
 ]
 
 def from_decoded(obj: dict) -> AMMAvailabilityKind:

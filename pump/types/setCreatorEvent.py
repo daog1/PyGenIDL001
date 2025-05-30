@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 class SetCreatorEventJSON(typing.TypedDict):
@@ -29,9 +29,9 @@ class SetCreatorEvent:
         )
     #fields
     timestamp: int
-    mint: Pubkey
-    bondingCurve: Pubkey
-    creator: Pubkey
+    mint: SolPubkey
+    bondingCurve: SolPubkey
+    creator: SolPubkey
     
     @classmethod
     def from_decoded(cls, obj: Container) -> "SetCreatorEvent":
@@ -62,9 +62,9 @@ class SetCreatorEvent:
     def from_json(cls, obj: SetCreatorEventJSON) -> "SetCreatorEvent":
         return cls(
                 timestamp=obj["timestamp"],
-                mint=Pubkey.from_string(obj["mint"]),
-                bondingCurve=Pubkey.from_string(obj["bondingCurve"]),
-                creator=Pubkey.from_string(obj["creator"]),
+                mint=SolPubkey.from_string(obj["mint"]),
+                bondingCurve=SolPubkey.from_string(obj["bondingCurve"]),
+                creator=SolPubkey.from_string(obj["creator"]),
         )
 
 

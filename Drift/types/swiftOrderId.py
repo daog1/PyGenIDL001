@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 class SwiftOrderIdJSON(typing.TypedDict):
@@ -52,7 +52,7 @@ class SwiftOrderId:
 
     def to_json(self) -> SwiftOrderIdJSON:
         return {
-                "uuid": self.uuid.to_json(),
+                "uuid": self.uuid,
                 "maxSlot": self.maxSlot,
                 "orderId": self.orderId,
                 "padding": self.padding,

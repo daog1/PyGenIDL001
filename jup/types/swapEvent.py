@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 class SwapEventJSON(typing.TypedDict):
@@ -30,10 +30,10 @@ class SwapEvent:
         "outputAmount" /borsh.U64,
         )
     #fields
-    amm: Pubkey
-    inputMint: Pubkey
+    amm: SolPubkey
+    inputMint: SolPubkey
     inputAmount: int
-    outputMint: Pubkey
+    outputMint: SolPubkey
     outputAmount: int
     
     @classmethod
@@ -67,10 +67,10 @@ class SwapEvent:
     @classmethod
     def from_json(cls, obj: SwapEventJSON) -> "SwapEvent":
         return cls(
-                amm=Pubkey.from_string(obj["amm"]),
-                inputMint=Pubkey.from_string(obj["inputMint"]),
+                amm=SolPubkey.from_string(obj["amm"]),
+                inputMint=SolPubkey.from_string(obj["inputMint"]),
                 inputAmount=obj["inputAmount"],
-                outputMint=Pubkey.from_string(obj["outputMint"]),
+                outputMint=SolPubkey.from_string(obj["outputMint"]),
                 outputAmount=obj["outputAmount"],
         )
 

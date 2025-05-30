@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class RemovePerpLpSharesInExpiringMarketArgs(typing.TypedDict):
@@ -25,13 +25,13 @@ layout = borsh.CStruct(
 
 
 class RemovePerpLpSharesInExpiringMarketAccounts(typing.TypedDict):
-    state:Pubkey
-    user:Pubkey
+    state:SolPubkey
+    user:SolPubkey
 
 def RemovePerpLpSharesInExpiringMarket(
     args: RemovePerpLpSharesInExpiringMarketArgs,
     accounts: RemovePerpLpSharesInExpiringMarketAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

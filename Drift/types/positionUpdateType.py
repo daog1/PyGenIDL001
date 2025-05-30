@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Open:
             kind="Open",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Open": {},
         }
@@ -46,7 +46,7 @@ class Increase:
             kind="Increase",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Increase": {},
         }
@@ -66,7 +66,7 @@ class Reduce:
             kind="Reduce",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Reduce": {},
         }
@@ -86,7 +86,7 @@ class Close:
             kind="Close",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Close": {},
         }
@@ -106,7 +106,7 @@ class Flip:
             kind="Flip",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Flip": {},
         }
@@ -116,18 +116,18 @@ class Flip:
 
 
 PositionUpdateTypeKind = typing.Union[
-Open,
-Increase,
-Reduce,
-Close,
-Flip,
+    Open,
+    Increase,
+    Reduce,
+    Close,
+    Flip,
 ]
 PositionUpdateTypeJSON = typing.Union[
-OpenJSON,
-IncreaseJSON,
-ReduceJSON,
-CloseJSON,
-FlipJSON,
+    OpenJSON,
+    IncreaseJSON,
+    ReduceJSON,
+    CloseJSON,
+    FlipJSON,
 ]
 
 def from_decoded(obj: dict) -> PositionUpdateTypeKind:

@@ -11,7 +11,7 @@ from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class SetParamsArgs(typing.TypedDict):
@@ -20,11 +20,11 @@ class SetParamsArgs(typing.TypedDict):
     initialRealTokenReserves:int
     tokenTotalSupply:int
     feeBasisPoints:int
-    withdrawAuthority:Pubkey
+    withdrawAuthority:SolPubkey
     enableMigrate:bool
     poolMigrationFee:int
     creatorFeeBasisPoints:int
-    setCreatorAuthority:Pubkey
+    setCreatorAuthority:SolPubkey
 
 
 layout = borsh.CStruct(
@@ -42,15 +42,15 @@ layout = borsh.CStruct(
 
 
 class SetParamsAccounts(typing.TypedDict):
-    global_:Pubkey
-    authority:Pubkey
-    eventAuthority:Pubkey
-    program:Pubkey
+    global_:SolPubkey
+    authority:SolPubkey
+    eventAuthority:SolPubkey
+    program:SolPubkey
 
 def SetParams(
     args: SetParamsArgs,
     accounts: SetParamsAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
@@ -64,16 +64,16 @@ def SetParams(
         keys += remaining_accounts
     identifier = b"\x1b\xea\xb2\x34\x93\x02\xbb\x8d"
     encoded_args = layout.build({
-    "initialVirtualTokenReserves":args["initialVirtualTokenReserves"],
-    "initialVirtualSolReserves":args["initialVirtualSolReserves"],
-    "initialRealTokenReserves":args["initialRealTokenReserves"],
-    "tokenTotalSupply":args["tokenTotalSupply"],
-    "feeBasisPoints":args["feeBasisPoints"],
-    "withdrawAuthority":args["withdrawAuthority"],
-    "enableMigrate":args["enableMigrate"],
-    "poolMigrationFee":args["poolMigrationFee"],
-    "creatorFeeBasisPoints":args["creatorFeeBasisPoints"],
-    "setCreatorAuthority":args["setCreatorAuthority"],
+        "initialVirtualTokenReserves":args["initialVirtualTokenReserves"],
+        "initialVirtualSolReserves":args["initialVirtualSolReserves"],
+        "initialRealTokenReserves":args["initialRealTokenReserves"],
+        "tokenTotalSupply":args["tokenTotalSupply"],
+        "feeBasisPoints":args["feeBasisPoints"],
+        "withdrawAuthority":args["withdrawAuthority"],
+        "enableMigrate":args["enableMigrate"],
+        "poolMigrationFee":args["poolMigrationFee"],
+        "creatorFeeBasisPoints":args["creatorFeeBasisPoints"],
+        "setCreatorAuthority":args["setCreatorAuthority"],
        })
 
     data = identifier + encoded_args

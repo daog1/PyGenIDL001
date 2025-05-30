@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from . import rFQMakerOrderParams;
 
@@ -44,7 +44,7 @@ class RFQMakerMessage:
     def to_json(self) -> RFQMakerMessageJSON:
         return {
                 "orderParams": self.orderParams.to_json(),
-                "signature": self.signature.to_json(),
+                "signature": self.signature,
                 }
 
     @classmethod

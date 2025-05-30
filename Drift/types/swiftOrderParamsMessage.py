@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from . import orderParams, swiftTriggerOrderParams;
 
@@ -66,7 +66,7 @@ class SwiftOrderParamsMessage:
                 "swiftOrderParams": self.swiftOrderParams.to_json(),
                 "subAccountId": self.subAccountId,
                 "slot": self.slot,
-                "uuid": self.uuid.to_json(),
+                "uuid": self.uuid,
                 "takeProfitOrderParams": (None if self.takeProfitOrderParams is None else self.takeProfitOrderParams.to_json()),
                 "stopLossOrderParams": (None if self.stopLossOrderParams is None else self.stopLossOrderParams.to_json()),
                 }

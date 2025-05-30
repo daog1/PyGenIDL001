@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 class CreateEventJSON(typing.TypedDict):
@@ -47,10 +47,10 @@ class CreateEvent:
     name: str
     symbol: str
     uri: str
-    mint: Pubkey
-    bondingCurve: Pubkey
-    user: Pubkey
-    creator: Pubkey
+    mint: SolPubkey
+    bondingCurve: SolPubkey
+    user: SolPubkey
+    creator: SolPubkey
     timestamp: int
     virtualTokenReserves: int
     virtualSolReserves: int
@@ -112,10 +112,10 @@ class CreateEvent:
                 name=obj["name"],
                 symbol=obj["symbol"],
                 uri=obj["uri"],
-                mint=Pubkey.from_string(obj["mint"]),
-                bondingCurve=Pubkey.from_string(obj["bondingCurve"]),
-                user=Pubkey.from_string(obj["user"]),
-                creator=Pubkey.from_string(obj["creator"]),
+                mint=SolPubkey.from_string(obj["mint"]),
+                bondingCurve=SolPubkey.from_string(obj["bondingCurve"]),
+                user=SolPubkey.from_string(obj["user"]),
+                creator=SolPubkey.from_string(obj["creator"]),
                 timestamp=obj["timestamp"],
                 virtualTokenReserves=obj["virtualTokenReserves"],
                 virtualSolReserves=obj["virtualSolReserves"],

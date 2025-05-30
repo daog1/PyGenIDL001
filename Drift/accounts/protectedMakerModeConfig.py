@@ -46,9 +46,9 @@ class ProtectedMakerModeConfig:
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["ProtectedMakerModeConfig"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -63,9 +63,9 @@ class ProtectedMakerModeConfig:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["ProtectedMakerModeConfig"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["ProtectedMakerModeConfig"]] = []
@@ -97,7 +97,7 @@ class ProtectedMakerModeConfig:
                 "maxUsers": self.maxUsers,
                 "currentUsers": self.currentUsers,
                 "reduceOnly": self.reduceOnly,
-                "padding": self.padding.to_json(),
+                "padding": self.padding,
                 }
 
     @classmethod

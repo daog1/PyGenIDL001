@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from . import spotBalanceType;
 
@@ -80,7 +80,7 @@ class SpotPosition:
                 "marketIndex": self.marketIndex,
                 "balanceType": self.balanceType.to_json(),
                 "openOrders": self.openOrders,
-                "padding": self.padding.to_json(),
+                "padding": self.padding,
                 }
 
     @classmethod

@@ -15,7 +15,7 @@ from dataclasses import dataclass;
 from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
 from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from ..program_id import PROGRAM_ID;
 
 
@@ -36,9 +36,9 @@ class ReferrerName:
         "name" /borsh.U8[32],
         )
     #fields
-    authority: Pubkey
-    user: Pubkey
-    userStats: Pubkey
+    authority: SolPubkey
+    user: SolPubkey
+    userStats: SolPubkey
     name: list[int]
     
 
@@ -46,9 +46,9 @@ class ReferrerName:
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["ReferrerName"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -63,9 +63,9 @@ class ReferrerName:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["ReferrerName"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["ReferrerName"]] = []
@@ -97,15 +97,15 @@ class ReferrerName:
                 "authority": str(self.authority),
                 "user": str(self.user),
                 "userStats": str(self.userStats),
-                "name": self.name.to_json(),
+                "name": self.name,
                 }
 
     @classmethod
     def from_json(cls, obj: ReferrerNameJSON) -> "ReferrerName":
         return cls(
-                authority=Pubkey.from_string(obj["authority"]),
-                user=Pubkey.from_string(obj["user"]),
-                userStats=Pubkey.from_string(obj["userStats"]),
+                authority=SolPubkey.from_string(obj["authority"]),
+                user=SolPubkey.from_string(obj["user"]),
+                userStats=SolPubkey.from_string(obj["userStats"]),
                 name=obj["name"],
                 )
 

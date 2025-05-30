@@ -10,7 +10,7 @@ import typing;
 from construct import Construct, Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
@@ -34,24 +34,24 @@ layout = borsh.CStruct(
 
 
 class SharedAccountsRouteAccounts(typing.TypedDict):
-    tokenProgram:Pubkey
-    programAuthority:Pubkey
-    userTransferAuthority:Pubkey
-    sourceTokenAccount:Pubkey
-    programSourceTokenAccount:Pubkey
-    programDestinationTokenAccount:Pubkey
-    destinationTokenAccount:Pubkey
-    sourceMint:Pubkey
-    destinationMint:Pubkey
-    platformFeeAccount:Pubkey
-    token2022Program:Pubkey
-    eventAuthority:Pubkey
-    program:Pubkey
+    tokenProgram:SolPubkey
+    programAuthority:SolPubkey
+    userTransferAuthority:SolPubkey
+    sourceTokenAccount:SolPubkey
+    programSourceTokenAccount:SolPubkey
+    programDestinationTokenAccount:SolPubkey
+    destinationTokenAccount:SolPubkey
+    sourceMint:SolPubkey
+    destinationMint:SolPubkey
+    platformFeeAccount:SolPubkey
+    token2022Program:SolPubkey
+    eventAuthority:SolPubkey
+    program:SolPubkey
 
 def SharedAccountsRoute(
     args: SharedAccountsRouteArgs,
     accounts: SharedAccountsRouteAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
@@ -74,12 +74,12 @@ def SharedAccountsRoute(
         keys += remaining_accounts
     identifier = b"\xc1\x20\x9b\x33\x41\xd6\x9c\x81"
     encoded_args = layout.build({
-    "id":args["id"],
-    "routePlan":list(map(lambda item:item.to_encodable(),args["routePlan"])),
-    "inAmount":args["inAmount"],
-    "quotedOutAmount":args["quotedOutAmount"],
-    "slippageBps":args["slippageBps"],
-    "platformFeeBps":args["platformFeeBps"],
+        "id":args["id"],
+        "routePlan":list(map(lambda item:item.to_encodable(),args["routePlan"])),
+        "inAmount":args["inAmount"],
+        "quotedOutAmount":args["quotedOutAmount"],
+        "slippageBps":args["slippageBps"],
+        "platformFeeBps":args["platformFeeBps"],
        })
 
     data = identifier + encoded_args

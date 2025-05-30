@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 class CompleteEventJSON(typing.TypedDict):
@@ -28,9 +28,9 @@ class CompleteEvent:
         "timestamp" /borsh.I64,
         )
     #fields
-    user: Pubkey
-    mint: Pubkey
-    bondingCurve: Pubkey
+    user: SolPubkey
+    mint: SolPubkey
+    bondingCurve: SolPubkey
     timestamp: int
     
     @classmethod
@@ -61,9 +61,9 @@ class CompleteEvent:
     @classmethod
     def from_json(cls, obj: CompleteEventJSON) -> "CompleteEvent":
         return cls(
-                user=Pubkey.from_string(obj["user"]),
-                mint=Pubkey.from_string(obj["mint"]),
-                bondingCurve=Pubkey.from_string(obj["bondingCurve"]),
+                user=SolPubkey.from_string(obj["user"]),
+                mint=SolPubkey.from_string(obj["mint"]),
+                bondingCurve=SolPubkey.from_string(obj["bondingCurve"]),
                 timestamp=obj["timestamp"],
         )
 

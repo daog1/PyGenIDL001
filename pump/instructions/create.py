@@ -11,14 +11,14 @@ from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class CreateArgs(typing.TypedDict):
     name:str
     symbol:str
     uri:str
-    creator:Pubkey
+    creator:SolPubkey
 
 
 layout = borsh.CStruct(
@@ -30,25 +30,25 @@ layout = borsh.CStruct(
 
 
 class CreateAccounts(typing.TypedDict):
-    mint:Pubkey
-    mintAuthority:Pubkey
-    bondingCurve:Pubkey
-    associatedBondingCurve:Pubkey
-    global_:Pubkey
-    mplTokenMetadata:Pubkey
-    metadata:Pubkey
-    user:Pubkey
-    systemProgram:Pubkey
-    tokenProgram:Pubkey
-    associatedTokenProgram:Pubkey
-    rent:Pubkey
-    eventAuthority:Pubkey
-    program:Pubkey
+    mint:SolPubkey
+    mintAuthority:SolPubkey
+    bondingCurve:SolPubkey
+    associatedBondingCurve:SolPubkey
+    global_:SolPubkey
+    mplTokenMetadata:SolPubkey
+    metadata:SolPubkey
+    user:SolPubkey
+    systemProgram:SolPubkey
+    tokenProgram:SolPubkey
+    associatedTokenProgram:SolPubkey
+    rent:SolPubkey
+    eventAuthority:SolPubkey
+    program:SolPubkey
 
 def Create(
     args: CreateArgs,
     accounts: CreateAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
@@ -72,10 +72,10 @@ def Create(
         keys += remaining_accounts
     identifier = b"\x18\x1e\xc8\x28\x05\x1c\x07\x77"
     encoded_args = layout.build({
-    "name":args["name"],
-    "symbol":args["symbol"],
-    "uri":args["uri"],
-    "creator":args["creator"],
+        "name":args["name"],
+        "symbol":args["symbol"],
+        "uri":args["uri"],
+        "creator":args["creator"],
        })
 
     data = identifier + encoded_args

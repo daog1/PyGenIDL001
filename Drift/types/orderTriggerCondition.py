@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Above:
             kind="Above",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Above": {},
         }
@@ -46,7 +46,7 @@ class Below:
             kind="Below",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Below": {},
         }
@@ -66,7 +66,7 @@ class TriggeredAbove:
             kind="TriggeredAbove",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "TriggeredAbove": {},
         }
@@ -86,7 +86,7 @@ class TriggeredBelow:
             kind="TriggeredBelow",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "TriggeredBelow": {},
         }
@@ -96,16 +96,16 @@ class TriggeredBelow:
 
 
 OrderTriggerConditionKind = typing.Union[
-Above,
-Below,
-TriggeredAbove,
-TriggeredBelow,
+    Above,
+    Below,
+    TriggeredAbove,
+    TriggeredBelow,
 ]
 OrderTriggerConditionJSON = typing.Union[
-AboveJSON,
-BelowJSON,
-TriggeredAboveJSON,
-TriggeredBelowJSON,
+    AboveJSON,
+    BelowJSON,
+    TriggeredAboveJSON,
+    TriggeredBelowJSON,
 ]
 
 def from_decoded(obj: dict) -> OrderTriggerConditionKind:

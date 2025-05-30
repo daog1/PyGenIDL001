@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class CloseTokenArgs(typing.TypedDict):
@@ -25,17 +25,17 @@ layout = borsh.CStruct(
 
 
 class CloseTokenAccounts(typing.TypedDict):
-    operator:Pubkey
-    wallet:Pubkey
-    programAuthority:Pubkey
-    programTokenAccount:Pubkey
-    mint:Pubkey
-    tokenProgram:Pubkey
+    operator:SolPubkey
+    wallet:SolPubkey
+    programAuthority:SolPubkey
+    programTokenAccount:SolPubkey
+    mint:SolPubkey
+    tokenProgram:SolPubkey
 
 def CloseToken(
     args: CloseTokenArgs,
     accounts: CloseTokenAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
@@ -51,8 +51,8 @@ def CloseToken(
         keys += remaining_accounts
     identifier = b"\x1a\x4a\xec\x97\x68\x40\xb7\xf9"
     encoded_args = layout.build({
-    "id":args["id"],
-    "burnAll":args["burnAll"],
+        "id":args["id"],
+        "burnAll":args["burnAll"],
        })
 
     data = identifier + encoded_args

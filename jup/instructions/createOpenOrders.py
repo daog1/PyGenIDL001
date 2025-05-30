@@ -10,21 +10,21 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class CreateOpenOrdersAccounts(typing.TypedDict):
-    openOrders:Pubkey
-    payer:Pubkey
-    dexProgram:Pubkey
-    systemProgram:Pubkey
-    rent:Pubkey
-    market:Pubkey
+    openOrders:SolPubkey
+    payer:SolPubkey
+    dexProgram:SolPubkey
+    systemProgram:SolPubkey
+    rent:SolPubkey
+    market:SolPubkey
 
 def CreateOpenOrders(
     accounts: CreateOpenOrdersAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

@@ -15,7 +15,7 @@ from dataclasses import dataclass;
 from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
 from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 
@@ -55,15 +55,15 @@ class OpenbookV2FulfillmentConfig:
         "padding" /borsh.U8[4],
         )
     #fields
-    pubkey: Pubkey
-    openbookV2ProgramId: Pubkey
-    openbookV2Market: Pubkey
-    openbookV2MarketAuthority: Pubkey
-    openbookV2EventHeap: Pubkey
-    openbookV2Bids: Pubkey
-    openbookV2Asks: Pubkey
-    openbookV2BaseVault: Pubkey
-    openbookV2QuoteVault: Pubkey
+    pubkey: SolPubkey
+    openbookV2ProgramId: SolPubkey
+    openbookV2Market: SolPubkey
+    openbookV2MarketAuthority: SolPubkey
+    openbookV2EventHeap: SolPubkey
+    openbookV2Bids: SolPubkey
+    openbookV2Asks: SolPubkey
+    openbookV2BaseVault: SolPubkey
+    openbookV2QuoteVault: SolPubkey
     marketIndex: int
     fulfillmentType: types.spotFulfillmentType.SpotFulfillmentTypeKind
     status: types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatusKind
@@ -74,9 +74,9 @@ class OpenbookV2FulfillmentConfig:
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["OpenbookV2FulfillmentConfig"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -91,9 +91,9 @@ class OpenbookV2FulfillmentConfig:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["OpenbookV2FulfillmentConfig"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["OpenbookV2FulfillmentConfig"]] = []
@@ -143,21 +143,21 @@ class OpenbookV2FulfillmentConfig:
                 "marketIndex": self.marketIndex,
                 "fulfillmentType": self.fulfillmentType.to_json(),
                 "status": self.status.to_json(),
-                "padding": self.padding.to_json(),
+                "padding": self.padding,
                 }
 
     @classmethod
     def from_json(cls, obj: OpenbookV2FulfillmentConfigJSON) -> "OpenbookV2FulfillmentConfig":
         return cls(
-                pubkey=Pubkey.from_string(obj["pubkey"]),
-                openbookV2ProgramId=Pubkey.from_string(obj["openbookV2ProgramId"]),
-                openbookV2Market=Pubkey.from_string(obj["openbookV2Market"]),
-                openbookV2MarketAuthority=Pubkey.from_string(obj["openbookV2MarketAuthority"]),
-                openbookV2EventHeap=Pubkey.from_string(obj["openbookV2EventHeap"]),
-                openbookV2Bids=Pubkey.from_string(obj["openbookV2Bids"]),
-                openbookV2Asks=Pubkey.from_string(obj["openbookV2Asks"]),
-                openbookV2BaseVault=Pubkey.from_string(obj["openbookV2BaseVault"]),
-                openbookV2QuoteVault=Pubkey.from_string(obj["openbookV2QuoteVault"]),
+                pubkey=SolPubkey.from_string(obj["pubkey"]),
+                openbookV2ProgramId=SolPubkey.from_string(obj["openbookV2ProgramId"]),
+                openbookV2Market=SolPubkey.from_string(obj["openbookV2Market"]),
+                openbookV2MarketAuthority=SolPubkey.from_string(obj["openbookV2MarketAuthority"]),
+                openbookV2EventHeap=SolPubkey.from_string(obj["openbookV2EventHeap"]),
+                openbookV2Bids=SolPubkey.from_string(obj["openbookV2Bids"]),
+                openbookV2Asks=SolPubkey.from_string(obj["openbookV2Asks"]),
+                openbookV2BaseVault=SolPubkey.from_string(obj["openbookV2BaseVault"]),
+                openbookV2QuoteVault=SolPubkey.from_string(obj["openbookV2QuoteVault"]),
                 marketIndex=obj["marketIndex"],
                 fulfillmentType=types.spotFulfillmentType.from_json(obj["fulfillmentType"]),
                 status=types.spotFulfillmentConfigStatus.from_json(obj["status"]),

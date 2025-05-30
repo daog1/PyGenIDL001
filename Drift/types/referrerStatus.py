@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class IsReferrer:
             kind="IsReferrer",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "IsReferrer": {},
         }
@@ -46,7 +46,7 @@ class IsReferred:
             kind="IsReferred",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "IsReferred": {},
         }
@@ -56,12 +56,12 @@ class IsReferred:
 
 
 ReferrerStatusKind = typing.Union[
-IsReferrer,
-IsReferred,
+    IsReferrer,
+    IsReferred,
 ]
 ReferrerStatusJSON = typing.Union[
-IsReferrerJSON,
-IsReferredJSON,
+    IsReferrerJSON,
+    IsReferredJSON,
 ]
 
 def from_decoded(obj: dict) -> ReferrerStatusKind:

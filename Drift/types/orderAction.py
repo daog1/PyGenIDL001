@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Place:
             kind="Place",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Place": {},
         }
@@ -46,7 +46,7 @@ class Cancel:
             kind="Cancel",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Cancel": {},
         }
@@ -66,7 +66,7 @@ class Fill:
             kind="Fill",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Fill": {},
         }
@@ -86,7 +86,7 @@ class Trigger:
             kind="Trigger",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Trigger": {},
         }
@@ -106,7 +106,7 @@ class Expire:
             kind="Expire",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Expire": {},
         }
@@ -116,18 +116,18 @@ class Expire:
 
 
 OrderActionKind = typing.Union[
-Place,
-Cancel,
-Fill,
-Trigger,
-Expire,
+    Place,
+    Cancel,
+    Fill,
+    Trigger,
+    Expire,
 ]
 OrderActionJSON = typing.Union[
-PlaceJSON,
-CancelJSON,
-FillJSON,
-TriggerJSON,
-ExpireJSON,
+    PlaceJSON,
+    CancelJSON,
+    FillJSON,
+    TriggerJSON,
+    ExpireJSON,
 ]
 
 def from_decoded(obj: dict) -> OrderActionKind:

@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Market:
             kind="Market",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Market": {},
         }
@@ -46,7 +46,7 @@ class Limit:
             kind="Limit",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Limit": {},
         }
@@ -66,7 +66,7 @@ class TriggerMarket:
             kind="TriggerMarket",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "TriggerMarket": {},
         }
@@ -86,7 +86,7 @@ class TriggerLimit:
             kind="TriggerLimit",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "TriggerLimit": {},
         }
@@ -106,7 +106,7 @@ class Oracle:
             kind="Oracle",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Oracle": {},
         }
@@ -116,18 +116,18 @@ class Oracle:
 
 
 OrderTypeKind = typing.Union[
-Market,
-Limit,
-TriggerMarket,
-TriggerLimit,
-Oracle,
+    Market,
+    Limit,
+    TriggerMarket,
+    TriggerLimit,
+    Oracle,
 ]
 OrderTypeJSON = typing.Union[
-MarketJSON,
-LimitJSON,
-TriggerMarketJSON,
-TriggerLimitJSON,
-OracleJSON,
+    MarketJSON,
+    LimitJSON,
+    TriggerMarketJSON,
+    TriggerLimitJSON,
+    OracleJSON,
 ]
 
 def from_decoded(obj: dict) -> OrderTypeKind:

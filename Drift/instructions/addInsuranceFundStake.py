@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class AddInsuranceFundStakeArgs(typing.TypedDict):
@@ -25,21 +25,21 @@ layout = borsh.CStruct(
 
 
 class AddInsuranceFundStakeAccounts(typing.TypedDict):
-    state:Pubkey
-    spotMarket:Pubkey
-    insuranceFundStake:Pubkey
-    userStats:Pubkey
-    authority:Pubkey
-    spotMarketVault:Pubkey
-    insuranceFundVault:Pubkey
-    driftSigner:Pubkey
-    userTokenAccount:Pubkey
-    tokenProgram:Pubkey
+    state:SolPubkey
+    spotMarket:SolPubkey
+    insuranceFundStake:SolPubkey
+    userStats:SolPubkey
+    authority:SolPubkey
+    spotMarketVault:SolPubkey
+    insuranceFundVault:SolPubkey
+    driftSigner:SolPubkey
+    userTokenAccount:SolPubkey
+    tokenProgram:SolPubkey
 
 def AddInsuranceFundStake(
     args: AddInsuranceFundStakeArgs,
     accounts: AddInsuranceFundStakeAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

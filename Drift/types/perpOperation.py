@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class UpdateFunding:
             kind="UpdateFunding",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "UpdateFunding": {},
         }
@@ -46,7 +46,7 @@ class AmmFill:
             kind="AmmFill",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "AmmFill": {},
         }
@@ -66,7 +66,7 @@ class Fill:
             kind="Fill",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Fill": {},
         }
@@ -86,7 +86,7 @@ class SettlePnl:
             kind="SettlePnl",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "SettlePnl": {},
         }
@@ -106,7 +106,7 @@ class SettlePnlWithPosition:
             kind="SettlePnlWithPosition",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "SettlePnlWithPosition": {},
         }
@@ -126,7 +126,7 @@ class Liquidation:
             kind="Liquidation",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Liquidation": {},
         }
@@ -146,7 +146,7 @@ class AmmImmediateFill:
             kind="AmmImmediateFill",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "AmmImmediateFill": {},
         }
@@ -156,22 +156,22 @@ class AmmImmediateFill:
 
 
 PerpOperationKind = typing.Union[
-UpdateFunding,
-AmmFill,
-Fill,
-SettlePnl,
-SettlePnlWithPosition,
-Liquidation,
-AmmImmediateFill,
+    UpdateFunding,
+    AmmFill,
+    Fill,
+    SettlePnl,
+    SettlePnlWithPosition,
+    Liquidation,
+    AmmImmediateFill,
 ]
 PerpOperationJSON = typing.Union[
-UpdateFundingJSON,
-AmmFillJSON,
-FillJSON,
-SettlePnlJSON,
-SettlePnlWithPositionJSON,
-LiquidationJSON,
-AmmImmediateFillJSON,
+    UpdateFundingJSON,
+    AmmFillJSON,
+    FillJSON,
+    SettlePnlJSON,
+    SettlePnlWithPositionJSON,
+    LiquidationJSON,
+    AmmImmediateFillJSON,
 ]
 
 def from_decoded(obj: dict) -> PerpOperationKind:

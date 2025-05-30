@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from . import marketType, positionDirection;
 
@@ -40,7 +40,7 @@ class RFQMakerOrderParams:
         )
     #fields
     uuid: list[int]
-    authority: Pubkey
+    authority: SolPubkey
     subAccountId: int
     marketIndex: int
     marketType: marketType.MarketTypeKind
@@ -78,7 +78,7 @@ class RFQMakerOrderParams:
 
     def to_json(self) -> RFQMakerOrderParamsJSON:
         return {
-                "uuid": self.uuid.to_json(),
+                "uuid": self.uuid,
                 "authority": str(self.authority),
                 "subAccountId": self.subAccountId,
                 "marketIndex": self.marketIndex,
@@ -93,7 +93,7 @@ class RFQMakerOrderParams:
     def from_json(cls, obj: RFQMakerOrderParamsJSON) -> "RFQMakerOrderParams":
         return cls(
                 uuid=obj["uuid"],
-                authority=Pubkey.from_string(obj["authority"]),
+                authority=SolPubkey.from_string(obj["authority"]),
                 subAccountId=obj["subAccountId"],
                 marketIndex=obj["marketIndex"],
                 marketType=marketType.from_json(obj["marketType"]),

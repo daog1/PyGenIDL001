@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class A:
             kind="A",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "A": {},
         }
@@ -46,7 +46,7 @@ class B:
             kind="B",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "B": {},
         }
@@ -66,7 +66,7 @@ class C:
             kind="C",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "C": {},
         }
@@ -86,7 +86,7 @@ class Speculative:
             kind="Speculative",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Speculative": {},
         }
@@ -106,7 +106,7 @@ class HighlySpeculative:
             kind="HighlySpeculative",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "HighlySpeculative": {},
         }
@@ -126,7 +126,7 @@ class Isolated:
             kind="Isolated",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Isolated": {},
         }
@@ -136,20 +136,20 @@ class Isolated:
 
 
 ContractTierKind = typing.Union[
-A,
-B,
-C,
-Speculative,
-HighlySpeculative,
-Isolated,
+    A,
+    B,
+    C,
+    Speculative,
+    HighlySpeculative,
+    Isolated,
 ]
 ContractTierJSON = typing.Union[
-AJSON,
-BJSON,
-CJSON,
-SpeculativeJSON,
-HighlySpeculativeJSON,
-IsolatedJSON,
+    AJSON,
+    BJSON,
+    CJSON,
+    SpeculativeJSON,
+    HighlySpeculativeJSON,
+    IsolatedJSON,
 ]
 
 def from_decoded(obj: dict) -> ContractTierKind:

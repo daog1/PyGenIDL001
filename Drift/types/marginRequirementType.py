@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Initial:
             kind="Initial",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Initial": {},
         }
@@ -46,7 +46,7 @@ class Fill:
             kind="Fill",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Fill": {},
         }
@@ -66,7 +66,7 @@ class Maintenance:
             kind="Maintenance",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Maintenance": {},
         }
@@ -76,14 +76,14 @@ class Maintenance:
 
 
 MarginRequirementTypeKind = typing.Union[
-Initial,
-Fill,
-Maintenance,
+    Initial,
+    Fill,
+    Maintenance,
 ]
 MarginRequirementTypeJSON = typing.Union[
-InitialJSON,
-FillJSON,
-MaintenanceJSON,
+    InitialJSON,
+    FillJSON,
+    MaintenanceJSON,
 ]
 
 def from_decoded(obj: dict) -> MarginRequirementTypeKind:

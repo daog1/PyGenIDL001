@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Enabled:
             kind="Enabled",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Enabled": {},
         }
@@ -46,7 +46,7 @@ class Disabled:
             kind="Disabled",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Disabled": {},
         }
@@ -56,12 +56,12 @@ class Disabled:
 
 
 SpotFulfillmentConfigStatusKind = typing.Union[
-Enabled,
-Disabled,
+    Enabled,
+    Disabled,
 ]
 SpotFulfillmentConfigStatusJSON = typing.Union[
-EnabledJSON,
-DisabledJSON,
+    EnabledJSON,
+    DisabledJSON,
 ]
 
 def from_decoded(obj: dict) -> SpotFulfillmentConfigStatusKind:

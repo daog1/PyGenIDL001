@@ -10,21 +10,21 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class InitializeRfqUserAccounts(typing.TypedDict):
-    rfqUser:Pubkey
-    authority:Pubkey
-    user:Pubkey
-    payer:Pubkey
-    rent:Pubkey
-    systemProgram:Pubkey
+    rfqUser:SolPubkey
+    authority:SolPubkey
+    user:SolPubkey
+    payer:SolPubkey
+    rent:SolPubkey
+    systemProgram:SolPubkey
 
 def InitializeRfqUser(
     accounts: InitializeRfqUserAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

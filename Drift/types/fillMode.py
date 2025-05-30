@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Fill:
             kind="Fill",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Fill": {},
         }
@@ -46,7 +46,7 @@ class PlaceAndMake:
             kind="PlaceAndMake",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "PlaceAndMake": {},
         }
@@ -68,12 +68,12 @@ class PlaceAndTake:
     def to_json(self) -> PlaceAndTakeJSON:
         return PlaceAndTakeJSON(
             kind="PlaceAndTake",
-            value = (self.value[0],self.value[1])
+            value = (self.value[0],self.value[1],)
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "PlaceAndTake": {},
+            "PlaceAndTake": { "item_0":self.value[0],"item_1":self.value[1] }
         }
 
 
@@ -91,7 +91,7 @@ class Liquidation:
             kind="Liquidation",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Liquidation": {},
         }
@@ -111,7 +111,7 @@ class RFQ:
             kind="RFQ",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "RFQ": {},
         }
@@ -121,18 +121,18 @@ class RFQ:
 
 
 FillModeKind = typing.Union[
-Fill,
-PlaceAndMake,
-PlaceAndTake,
-Liquidation,
-RFQ,
+    Fill,
+    PlaceAndMake,
+    PlaceAndTake,
+    Liquidation,
+    RFQ,
 ]
 FillModeJSON = typing.Union[
-FillJSON,
-PlaceAndMakeJSON,
-PlaceAndTakeJSON,
-LiquidationJSON,
-RFQJSON,
+    FillJSON,
+    PlaceAndMakeJSON,
+    PlaceAndTakeJSON,
+    LiquidationJSON,
+    RFQJSON,
 ]
 
 def from_decoded(obj: dict) -> FillModeKind:
@@ -145,8 +145,8 @@ def from_decoded(obj: dict) -> FillModeKind:
     if "PlaceAndTake" in obj:
       val = obj["PlaceAndTake"]
       return PlaceAndTake((
-      val["item_0"],val["item_1"]
-      )) #todo Tuple
+      val["item_0"],val["item_1"],
+      ))
     if "Liquidation" in obj:
       return Liquidation()
     if "RFQ" in obj:
@@ -163,7 +163,7 @@ def from_json(obj: FillModeJSON) -> FillModeKind:
     if obj["kind"] == "PlaceAndTake":
         placeAndTakeJSONValue = typing.cast(PlaceAndTakeJSONValue, obj["value"])
         return PlaceAndTake(
-        (placeAndTakeJSONValue[0],placeAndTakeJSONValue[1])
+        (placeAndTakeJSONValue[0],placeAndTakeJSONValue[1],)
         )
 
     if obj["kind"] == "Liquidation":
@@ -178,7 +178,7 @@ def from_json(obj: FillModeJSON) -> FillModeKind:
 layout = EnumForCodegen(
 "Fill" / borsh.CStruct(),
 "PlaceAndMake" / borsh.CStruct(),
-"PlaceAndTake" / borsh.CStruct("item_0" / borsh.Bool,"item_1" / borsh.U8),
+"PlaceAndTake" / borsh.CStruct("item_0" / borsh.Bool,"item_1" / borsh.U8,),
 "Liquidation" / borsh.CStruct(),
 "RFQ" / borsh.CStruct(),
 )

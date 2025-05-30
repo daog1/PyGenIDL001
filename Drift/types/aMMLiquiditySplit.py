@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class ProtocolOwned:
             kind="ProtocolOwned",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "ProtocolOwned": {},
         }
@@ -46,7 +46,7 @@ class LPOwned:
             kind="LPOwned",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "LPOwned": {},
         }
@@ -66,7 +66,7 @@ class Shared:
             kind="Shared",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Shared": {},
         }
@@ -76,14 +76,14 @@ class Shared:
 
 
 AMMLiquiditySplitKind = typing.Union[
-ProtocolOwned,
-LPOwned,
-Shared,
+    ProtocolOwned,
+    LPOwned,
+    Shared,
 ]
 AMMLiquiditySplitJSON = typing.Union[
-ProtocolOwnedJSON,
-LPOwnedJSON,
-SharedJSON,
+    ProtocolOwnedJSON,
+    LPOwnedJSON,
+    SharedJSON,
 ]
 
 def from_decoded(obj: dict) -> AMMLiquiditySplitKind:

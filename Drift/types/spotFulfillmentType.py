@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class SerumV3:
             kind="SerumV3",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "SerumV3": {},
         }
@@ -46,7 +46,7 @@ class Match:
             kind="Match",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Match": {},
         }
@@ -66,7 +66,7 @@ class PhoenixV1:
             kind="PhoenixV1",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "PhoenixV1": {},
         }
@@ -86,7 +86,7 @@ class OpenbookV2:
             kind="OpenbookV2",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "OpenbookV2": {},
         }
@@ -96,16 +96,16 @@ class OpenbookV2:
 
 
 SpotFulfillmentTypeKind = typing.Union[
-SerumV3,
-Match,
-PhoenixV1,
-OpenbookV2,
+    SerumV3,
+    Match,
+    PhoenixV1,
+    OpenbookV2,
 ]
 SpotFulfillmentTypeJSON = typing.Union[
-SerumV3JSON,
-MatchJSON,
-PhoenixV1JSON,
-OpenbookV2JSON,
+    SerumV3JSON,
+    MatchJSON,
+    PhoenixV1JSON,
+    OpenbookV2JSON,
 ]
 
 def from_decoded(obj: dict) -> SpotFulfillmentTypeKind:

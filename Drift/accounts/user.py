@@ -15,7 +15,7 @@ from dataclasses import dataclass;
 from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
 from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 
@@ -91,8 +91,8 @@ class User:
         "padding" /borsh.U8[12],
         )
     #fields
-    authority: Pubkey
-    delegate: Pubkey
+    authority: SolPubkey
+    delegate: SolPubkey
     name: list[int]
     spotPositions: list[types.spotPosition.SpotPosition]
     perpPositions: list[types.perpPosition.PerpPosition]
@@ -128,9 +128,9 @@ class User:
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["User"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -145,9 +145,9 @@ class User:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["User"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["User"]] = []
@@ -205,7 +205,7 @@ class User:
         return {
                 "authority": str(self.authority),
                 "delegate": str(self.delegate),
-                "name": self.name.to_json(),
+                "name": self.name,
                 "spotPositions": list(map(lambda item:item.to_json(),self.spotPositions)),
                 "perpPositions": list(map(lambda item:item.to_json(),self.perpPositions)),
                 "orders": list(map(lambda item:item.to_json(),self.orders)),
@@ -231,16 +231,16 @@ class User:
                 "hasOpenAuction": self.hasOpenAuction,
                 "marginMode": self.marginMode.to_json(),
                 "poolId": self.poolId,
-                "padding1": self.padding1.to_json(),
+                "padding1": self.padding1,
                 "lastFuelBonusUpdateTs": self.lastFuelBonusUpdateTs,
-                "padding": self.padding.to_json(),
+                "padding": self.padding,
                 }
 
     @classmethod
     def from_json(cls, obj: UserJSON) -> "User":
         return cls(
-                authority=Pubkey.from_string(obj["authority"]),
-                delegate=Pubkey.from_string(obj["delegate"]),
+                authority=SolPubkey.from_string(obj["authority"]),
+                delegate=SolPubkey.from_string(obj["delegate"]),
                 name=obj["name"],
                 spotPositions=list(map(lambda item:types.spotPosition.SpotPosition.from_json(item),obj["spotPositions"])),
                 perpPositions=list(map(lambda item:types.perpPosition.PerpPosition.from_json(item),obj["perpPositions"])),

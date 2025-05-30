@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from . import remainingAccountsInfo, side;
 
@@ -27,7 +27,7 @@ class Saber:
             kind="Saber",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Saber": {},
         }
@@ -47,7 +47,7 @@ class SaberAddDecimalsDeposit:
             kind="SaberAddDecimalsDeposit",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "SaberAddDecimalsDeposit": {},
         }
@@ -67,7 +67,7 @@ class SaberAddDecimalsWithdraw:
             kind="SaberAddDecimalsWithdraw",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "SaberAddDecimalsWithdraw": {},
         }
@@ -87,7 +87,7 @@ class TokenSwap:
             kind="TokenSwap",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "TokenSwap": {},
         }
@@ -107,7 +107,7 @@ class Sencha:
             kind="Sencha",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Sencha": {},
         }
@@ -127,7 +127,7 @@ class Step:
             kind="Step",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Step": {},
         }
@@ -147,7 +147,7 @@ class Cropper:
             kind="Cropper",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Cropper": {},
         }
@@ -167,7 +167,7 @@ class Raydium:
             kind="Raydium",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Raydium": {},
         }
@@ -175,7 +175,6 @@ class Raydium:
 
 
 class CremaJSONValue(typing.TypedDict):
-    #kind: typing.Literal["Crema"]
     aToB: bool
 class CremaValue(typing.TypedDict):
     aToB: bool
@@ -200,10 +199,10 @@ class Crema:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "Crema": {},
-        }
+            "Crema":{ "aToB":self.value["aToB"] }
+            }
 
 
 
@@ -220,7 +219,7 @@ class Lifinity:
             kind="Lifinity",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Lifinity": {},
         }
@@ -240,7 +239,7 @@ class Mercurial:
             kind="Mercurial",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Mercurial": {},
         }
@@ -260,7 +259,7 @@ class Cykura:
             kind="Cykura",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Cykura": {},
         }
@@ -268,7 +267,6 @@ class Cykura:
 
 
 class SerumJSONValue(typing.TypedDict):
-    #kind: typing.Literal["Serum"]
     side: side.SideJSON
 class SerumValue(typing.TypedDict):
     side: side.SideKind
@@ -293,10 +291,10 @@ class Serum:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "Serum": {},
-        }
+            "Serum":{ "side":self.value["side"].to_encodable() }
+            }
 
 
 
@@ -313,7 +311,7 @@ class MarinadeDeposit:
             kind="MarinadeDeposit",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "MarinadeDeposit": {},
         }
@@ -333,7 +331,7 @@ class MarinadeUnstake:
             kind="MarinadeUnstake",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "MarinadeUnstake": {},
         }
@@ -341,7 +339,6 @@ class MarinadeUnstake:
 
 
 class AldrinJSONValue(typing.TypedDict):
-    #kind: typing.Literal["Aldrin"]
     side: side.SideJSON
 class AldrinValue(typing.TypedDict):
     side: side.SideKind
@@ -366,15 +363,14 @@ class Aldrin:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "Aldrin": {},
-        }
+            "Aldrin":{ "side":self.value["side"].to_encodable() }
+            }
 
 
 
 class AldrinV2JSONValue(typing.TypedDict):
-    #kind: typing.Literal["AldrinV2"]
     side: side.SideJSON
 class AldrinV2Value(typing.TypedDict):
     side: side.SideKind
@@ -399,15 +395,14 @@ class AldrinV2:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "AldrinV2": {},
-        }
+            "AldrinV2":{ "side":self.value["side"].to_encodable() }
+            }
 
 
 
 class WhirlpoolJSONValue(typing.TypedDict):
-    #kind: typing.Literal["Whirlpool"]
     aToB: bool
 class WhirlpoolValue(typing.TypedDict):
     aToB: bool
@@ -432,15 +427,14 @@ class Whirlpool:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "Whirlpool": {},
-        }
+            "Whirlpool":{ "aToB":self.value["aToB"] }
+            }
 
 
 
 class InvariantJSONValue(typing.TypedDict):
-    #kind: typing.Literal["Invariant"]
     xToY: bool
 class InvariantValue(typing.TypedDict):
     xToY: bool
@@ -465,10 +459,10 @@ class Invariant:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "Invariant": {},
-        }
+            "Invariant":{ "xToY":self.value["xToY"] }
+            }
 
 
 
@@ -485,7 +479,7 @@ class Meteora:
             kind="Meteora",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Meteora": {},
         }
@@ -505,7 +499,7 @@ class GooseFX:
             kind="GooseFX",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "GooseFX": {},
         }
@@ -513,7 +507,6 @@ class GooseFX:
 
 
 class DeltaFiJSONValue(typing.TypedDict):
-    #kind: typing.Literal["DeltaFi"]
     stable: bool
 class DeltaFiValue(typing.TypedDict):
     stable: bool
@@ -538,10 +531,10 @@ class DeltaFi:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "DeltaFi": {},
-        }
+            "DeltaFi":{ "stable":self.value["stable"] }
+            }
 
 
 
@@ -558,7 +551,7 @@ class Balansol:
             kind="Balansol",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Balansol": {},
         }
@@ -566,7 +559,6 @@ class Balansol:
 
 
 class MarcoPoloJSONValue(typing.TypedDict):
-    #kind: typing.Literal["MarcoPolo"]
     xToY: bool
 class MarcoPoloValue(typing.TypedDict):
     xToY: bool
@@ -591,15 +583,14 @@ class MarcoPolo:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "MarcoPolo": {},
-        }
+            "MarcoPolo":{ "xToY":self.value["xToY"] }
+            }
 
 
 
 class DradexJSONValue(typing.TypedDict):
-    #kind: typing.Literal["Dradex"]
     side: side.SideJSON
 class DradexValue(typing.TypedDict):
     side: side.SideKind
@@ -624,10 +615,10 @@ class Dradex:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "Dradex": {},
-        }
+            "Dradex":{ "side":self.value["side"].to_encodable() }
+            }
 
 
 
@@ -644,7 +635,7 @@ class LifinityV2:
             kind="LifinityV2",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "LifinityV2": {},
         }
@@ -664,7 +655,7 @@ class RaydiumClmm:
             kind="RaydiumClmm",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "RaydiumClmm": {},
         }
@@ -672,7 +663,6 @@ class RaydiumClmm:
 
 
 class OpenbookJSONValue(typing.TypedDict):
-    #kind: typing.Literal["Openbook"]
     side: side.SideJSON
 class OpenbookValue(typing.TypedDict):
     side: side.SideKind
@@ -697,15 +687,14 @@ class Openbook:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "Openbook": {},
-        }
+            "Openbook":{ "side":self.value["side"].to_encodable() }
+            }
 
 
 
 class PhoenixJSONValue(typing.TypedDict):
-    #kind: typing.Literal["Phoenix"]
     side: side.SideJSON
 class PhoenixValue(typing.TypedDict):
     side: side.SideKind
@@ -730,15 +719,14 @@ class Phoenix:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "Phoenix": {},
-        }
+            "Phoenix":{ "side":self.value["side"].to_encodable() }
+            }
 
 
 
 class SymmetryJSONValue(typing.TypedDict):
-    #kind: typing.Literal["Symmetry"]
     fromTokenId: int
     toTokenId: int
 class SymmetryValue(typing.TypedDict):
@@ -765,10 +753,10 @@ class Symmetry:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "Symmetry": {},
-        }
+            "Symmetry":{ "fromTokenId":self.value["fromTokenId"],"toTokenId":self.value["toTokenId"] }
+            }
 
 
 
@@ -785,7 +773,7 @@ class TokenSwapV2:
             kind="TokenSwapV2",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "TokenSwapV2": {},
         }
@@ -805,7 +793,7 @@ class HeliumTreasuryManagementRedeemV0:
             kind="HeliumTreasuryManagementRedeemV0",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "HeliumTreasuryManagementRedeemV0": {},
         }
@@ -825,7 +813,7 @@ class StakeDexStakeWrappedSol:
             kind="StakeDexStakeWrappedSol",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "StakeDexStakeWrappedSol": {},
         }
@@ -833,7 +821,6 @@ class StakeDexStakeWrappedSol:
 
 
 class StakeDexSwapViaStakeJSONValue(typing.TypedDict):
-    #kind: typing.Literal["StakeDexSwapViaStake"]
     bridgeStakeSeed: int
 class StakeDexSwapViaStakeValue(typing.TypedDict):
     bridgeStakeSeed: int
@@ -858,10 +845,10 @@ class StakeDexSwapViaStake:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "StakeDexSwapViaStake": {},
-        }
+            "StakeDexSwapViaStake":{ "bridgeStakeSeed":self.value["bridgeStakeSeed"] }
+            }
 
 
 
@@ -878,7 +865,7 @@ class GooseFXV2:
             kind="GooseFXV2",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "GooseFXV2": {},
         }
@@ -898,7 +885,7 @@ class Perps:
             kind="Perps",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Perps": {},
         }
@@ -918,7 +905,7 @@ class PerpsAddLiquidity:
             kind="PerpsAddLiquidity",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "PerpsAddLiquidity": {},
         }
@@ -938,7 +925,7 @@ class PerpsRemoveLiquidity:
             kind="PerpsRemoveLiquidity",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "PerpsRemoveLiquidity": {},
         }
@@ -958,7 +945,7 @@ class MeteoraDlmm:
             kind="MeteoraDlmm",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "MeteoraDlmm": {},
         }
@@ -966,7 +953,6 @@ class MeteoraDlmm:
 
 
 class OpenBookV2JSONValue(typing.TypedDict):
-    #kind: typing.Literal["OpenBookV2"]
     side: side.SideJSON
 class OpenBookV2Value(typing.TypedDict):
     side: side.SideKind
@@ -991,10 +977,10 @@ class OpenBookV2:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "OpenBookV2": {},
-        }
+            "OpenBookV2":{ "side":self.value["side"].to_encodable() }
+            }
 
 
 
@@ -1011,7 +997,7 @@ class RaydiumClmmV2:
             kind="RaydiumClmmV2",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "RaydiumClmmV2": {},
         }
@@ -1019,7 +1005,6 @@ class RaydiumClmmV2:
 
 
 class StakeDexPrefundWithdrawStakeAndDepositStakeJSONValue(typing.TypedDict):
-    #kind: typing.Literal["StakeDexPrefundWithdrawStakeAndDepositStake"]
     bridgeStakeSeed: int
 class StakeDexPrefundWithdrawStakeAndDepositStakeValue(typing.TypedDict):
     bridgeStakeSeed: int
@@ -1044,15 +1029,14 @@ class StakeDexPrefundWithdrawStakeAndDepositStake:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "StakeDexPrefundWithdrawStakeAndDepositStake": {},
-        }
+            "StakeDexPrefundWithdrawStakeAndDepositStake":{ "bridgeStakeSeed":self.value["bridgeStakeSeed"] }
+            }
 
 
 
 class CloneJSONValue(typing.TypedDict):
-    #kind: typing.Literal["Clone"]
     poolIndex: int
     quantityIsInput: bool
     quantityIsCollateral: bool
@@ -1081,15 +1065,14 @@ class Clone:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "Clone": {},
-        }
+            "Clone":{ "poolIndex":self.value["poolIndex"],"quantityIsInput":self.value["quantityIsInput"],"quantityIsCollateral":self.value["quantityIsCollateral"] }
+            }
 
 
 
 class SanctumSJSONValue(typing.TypedDict):
-    #kind: typing.Literal["SanctumS"]
     srcLstValueCalcAccs: int
     dstLstValueCalcAccs: int
     srcLstIndex: int
@@ -1120,15 +1103,14 @@ class SanctumS:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "SanctumS": {},
-        }
+            "SanctumS":{ "srcLstValueCalcAccs":self.value["srcLstValueCalcAccs"],"dstLstValueCalcAccs":self.value["dstLstValueCalcAccs"],"srcLstIndex":self.value["srcLstIndex"],"dstLstIndex":self.value["dstLstIndex"] }
+            }
 
 
 
 class SanctumSAddLiquidityJSONValue(typing.TypedDict):
-    #kind: typing.Literal["SanctumSAddLiquidity"]
     lstValueCalcAccs: int
     lstIndex: int
 class SanctumSAddLiquidityValue(typing.TypedDict):
@@ -1155,15 +1137,14 @@ class SanctumSAddLiquidity:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "SanctumSAddLiquidity": {},
-        }
+            "SanctumSAddLiquidity":{ "lstValueCalcAccs":self.value["lstValueCalcAccs"],"lstIndex":self.value["lstIndex"] }
+            }
 
 
 
 class SanctumSRemoveLiquidityJSONValue(typing.TypedDict):
-    #kind: typing.Literal["SanctumSRemoveLiquidity"]
     lstValueCalcAccs: int
     lstIndex: int
 class SanctumSRemoveLiquidityValue(typing.TypedDict):
@@ -1190,10 +1171,10 @@ class SanctumSRemoveLiquidity:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "SanctumSRemoveLiquidity": {},
-        }
+            "SanctumSRemoveLiquidity":{ "lstValueCalcAccs":self.value["lstValueCalcAccs"],"lstIndex":self.value["lstIndex"] }
+            }
 
 
 
@@ -1210,7 +1191,7 @@ class RaydiumCP:
             kind="RaydiumCP",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "RaydiumCP": {},
         }
@@ -1218,7 +1199,6 @@ class RaydiumCP:
 
 
 class WhirlpoolSwapV2JSONValue(typing.TypedDict):
-    #kind: typing.Literal["WhirlpoolSwapV2"]
     aToB: bool
     remainingAccountsInfo: typing.Optional[remainingAccountsInfo.RemainingAccountsInfoJSON]
 class WhirlpoolSwapV2Value(typing.TypedDict):
@@ -1245,10 +1225,10 @@ class WhirlpoolSwapV2:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "WhirlpoolSwapV2": {},
-        }
+            "WhirlpoolSwapV2":{ "aToB":self.value["aToB"],"remainingAccountsInfo":(None if self.value["remainingAccountsInfo"] is None else self.value["remainingAccountsInfo"].to_encodable()) }
+            }
 
 
 
@@ -1265,7 +1245,7 @@ class OneIntro:
             kind="OneIntro",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "OneIntro": {},
         }
@@ -1285,7 +1265,7 @@ class PumpdotfunWrappedBuy:
             kind="PumpdotfunWrappedBuy",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "PumpdotfunWrappedBuy": {},
         }
@@ -1305,7 +1285,7 @@ class PumpdotfunWrappedSell:
             kind="PumpdotfunWrappedSell",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "PumpdotfunWrappedSell": {},
         }
@@ -1325,7 +1305,7 @@ class PerpsV2:
             kind="PerpsV2",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "PerpsV2": {},
         }
@@ -1345,7 +1325,7 @@ class PerpsV2AddLiquidity:
             kind="PerpsV2AddLiquidity",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "PerpsV2AddLiquidity": {},
         }
@@ -1365,7 +1345,7 @@ class PerpsV2RemoveLiquidity:
             kind="PerpsV2RemoveLiquidity",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "PerpsV2RemoveLiquidity": {},
         }
@@ -1385,7 +1365,7 @@ class MoonshotWrappedBuy:
             kind="MoonshotWrappedBuy",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "MoonshotWrappedBuy": {},
         }
@@ -1405,7 +1385,7 @@ class MoonshotWrappedSell:
             kind="MoonshotWrappedSell",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "MoonshotWrappedSell": {},
         }
@@ -1425,7 +1405,7 @@ class StabbleStableSwap:
             kind="StabbleStableSwap",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "StabbleStableSwap": {},
         }
@@ -1445,7 +1425,7 @@ class StabbleWeightedSwap:
             kind="StabbleWeightedSwap",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "StabbleWeightedSwap": {},
         }
@@ -1453,7 +1433,6 @@ class StabbleWeightedSwap:
 
 
 class ObricJSONValue(typing.TypedDict):
-    #kind: typing.Literal["Obric"]
     xToY: bool
 class ObricValue(typing.TypedDict):
     xToY: bool
@@ -1478,10 +1457,10 @@ class Obric:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "Obric": {},
-        }
+            "Obric":{ "xToY":self.value["xToY"] }
+            }
 
 
 
@@ -1498,7 +1477,7 @@ class FoxBuyFromEstimatedCost:
             kind="FoxBuyFromEstimatedCost",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "FoxBuyFromEstimatedCost": {},
         }
@@ -1506,7 +1485,6 @@ class FoxBuyFromEstimatedCost:
 
 
 class FoxClaimPartialJSONValue(typing.TypedDict):
-    #kind: typing.Literal["FoxClaimPartial"]
     isY: bool
 class FoxClaimPartialValue(typing.TypedDict):
     isY: bool
@@ -1531,15 +1509,14 @@ class FoxClaimPartial:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "FoxClaimPartial": {},
-        }
+            "FoxClaimPartial":{ "isY":self.value["isY"] }
+            }
 
 
 
 class SolFiJSONValue(typing.TypedDict):
-    #kind: typing.Literal["SolFi"]
     isQuoteToBase: bool
 class SolFiValue(typing.TypedDict):
     isQuoteToBase: bool
@@ -1564,10 +1541,10 @@ class SolFi:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "SolFi": {},
-        }
+            "SolFi":{ "isQuoteToBase":self.value["isQuoteToBase"] }
+            }
 
 
 
@@ -1584,7 +1561,7 @@ class SolayerDelegateNoInit:
             kind="SolayerDelegateNoInit",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "SolayerDelegateNoInit": {},
         }
@@ -1604,7 +1581,7 @@ class SolayerUndelegateNoInit:
             kind="SolayerUndelegateNoInit",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "SolayerUndelegateNoInit": {},
         }
@@ -1612,7 +1589,6 @@ class SolayerUndelegateNoInit:
 
 
 class TokenMillJSONValue(typing.TypedDict):
-    #kind: typing.Literal["TokenMill"]
     side: side.SideJSON
 class TokenMillValue(typing.TypedDict):
     side: side.SideKind
@@ -1637,10 +1613,10 @@ class TokenMill:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "TokenMill": {},
-        }
+            "TokenMill":{ "side":self.value["side"].to_encodable() }
+            }
 
 
 
@@ -1657,7 +1633,7 @@ class DaosFunBuy:
             kind="DaosFunBuy",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "DaosFunBuy": {},
         }
@@ -1677,7 +1653,7 @@ class DaosFunSell:
             kind="DaosFunSell",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "DaosFunSell": {},
         }
@@ -1697,7 +1673,7 @@ class ZeroFi:
             kind="ZeroFi",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "ZeroFi": {},
         }
@@ -1717,7 +1693,7 @@ class StakeDexWithdrawWrappedSol:
             kind="StakeDexWithdrawWrappedSol",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "StakeDexWithdrawWrappedSol": {},
         }
@@ -1737,7 +1713,7 @@ class VirtualsBuy:
             kind="VirtualsBuy",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "VirtualsBuy": {},
         }
@@ -1757,7 +1733,7 @@ class VirtualsSell:
             kind="VirtualsSell",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "VirtualsSell": {},
         }
@@ -1765,7 +1741,6 @@ class VirtualsSell:
 
 
 class PerenaJSONValue(typing.TypedDict):
-    #kind: typing.Literal["Perena"]
     inIndex: int
     outIndex: int
 class PerenaValue(typing.TypedDict):
@@ -1792,10 +1767,10 @@ class Perena:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "Perena": {},
-        }
+            "Perena":{ "inIndex":self.value["inIndex"],"outIndex":self.value["outIndex"] }
+            }
 
 
 
@@ -1812,7 +1787,7 @@ class PumpdotfunAmmBuy:
             kind="PumpdotfunAmmBuy",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "PumpdotfunAmmBuy": {},
         }
@@ -1832,7 +1807,7 @@ class PumpdotfunAmmSell:
             kind="PumpdotfunAmmSell",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "PumpdotfunAmmSell": {},
         }
@@ -1852,7 +1827,7 @@ class Gamma:
             kind="Gamma",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Gamma": {},
         }
@@ -1860,7 +1835,6 @@ class Gamma:
 
 
 class MeteoraDlmmSwapV2JSONValue(typing.TypedDict):
-    #kind: typing.Literal["MeteoraDlmmSwapV2"]
     remainingAccountsInfo: remainingAccountsInfo.RemainingAccountsInfoJSON
 class MeteoraDlmmSwapV2Value(typing.TypedDict):
     remainingAccountsInfo: remainingAccountsInfo.RemainingAccountsInfo
@@ -1885,10 +1859,10 @@ class MeteoraDlmmSwapV2:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "MeteoraDlmmSwapV2": {},
-        }
+            "MeteoraDlmmSwapV2":{ "remainingAccountsInfo":self.value["remainingAccountsInfo"].to_encodable() }
+            }
 
 
 
@@ -1905,7 +1879,7 @@ class Woofi:
             kind="Woofi",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Woofi": {},
         }
@@ -1925,7 +1899,7 @@ class MeteoraDammV2:
             kind="MeteoraDammV2",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "MeteoraDammV2": {},
         }
@@ -1945,7 +1919,7 @@ class MeteoraDynamicBondingCurveSwap:
             kind="MeteoraDynamicBondingCurveSwap",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "MeteoraDynamicBondingCurveSwap": {},
         }
@@ -1965,7 +1939,7 @@ class StabbleStableSwapV2:
             kind="StabbleStableSwapV2",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "StabbleStableSwapV2": {},
         }
@@ -1985,7 +1959,7 @@ class StabbleWeightedSwapV2:
             kind="StabbleWeightedSwapV2",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "StabbleWeightedSwapV2": {},
         }
@@ -1993,7 +1967,6 @@ class StabbleWeightedSwapV2:
 
 
 class RaydiumLaunchlabBuyJSONValue(typing.TypedDict):
-    #kind: typing.Literal["RaydiumLaunchlabBuy"]
     shareFeeRate: int
 class RaydiumLaunchlabBuyValue(typing.TypedDict):
     shareFeeRate: int
@@ -2018,15 +1991,14 @@ class RaydiumLaunchlabBuy:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "RaydiumLaunchlabBuy": {},
-        }
+            "RaydiumLaunchlabBuy":{ "shareFeeRate":self.value["shareFeeRate"] }
+            }
 
 
 
 class RaydiumLaunchlabSellJSONValue(typing.TypedDict):
-    #kind: typing.Literal["RaydiumLaunchlabSell"]
     shareFeeRate: int
 class RaydiumLaunchlabSellValue(typing.TypedDict):
     shareFeeRate: int
@@ -2051,10 +2023,10 @@ class RaydiumLaunchlabSell:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "RaydiumLaunchlabSell": {},
-        }
+            "RaydiumLaunchlabSell":{ "shareFeeRate":self.value["shareFeeRate"] }
+            }
 
 
 
@@ -2071,7 +2043,7 @@ class BoopdotfunWrappedBuy:
             kind="BoopdotfunWrappedBuy",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "BoopdotfunWrappedBuy": {},
         }
@@ -2091,7 +2063,7 @@ class BoopdotfunWrappedSell:
             kind="BoopdotfunWrappedSell",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "BoopdotfunWrappedSell": {},
         }
@@ -2099,7 +2071,6 @@ class BoopdotfunWrappedSell:
 
 
 class PlasmaJSONValue(typing.TypedDict):
-    #kind: typing.Literal["Plasma"]
     side: side.SideJSON
 class PlasmaValue(typing.TypedDict):
     side: side.SideKind
@@ -2124,190 +2095,190 @@ class Plasma:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "Plasma": {},
-        }
+            "Plasma":{ "side":self.value["side"].to_encodable() }
+            }
 
 
 
 
 
 SwapKind = typing.Union[
-Saber,
-SaberAddDecimalsDeposit,
-SaberAddDecimalsWithdraw,
-TokenSwap,
-Sencha,
-Step,
-Cropper,
-Raydium,
-Crema,
-Lifinity,
-Mercurial,
-Cykura,
-Serum,
-MarinadeDeposit,
-MarinadeUnstake,
-Aldrin,
-AldrinV2,
-Whirlpool,
-Invariant,
-Meteora,
-GooseFX,
-DeltaFi,
-Balansol,
-MarcoPolo,
-Dradex,
-LifinityV2,
-RaydiumClmm,
-Openbook,
-Phoenix,
-Symmetry,
-TokenSwapV2,
-HeliumTreasuryManagementRedeemV0,
-StakeDexStakeWrappedSol,
-StakeDexSwapViaStake,
-GooseFXV2,
-Perps,
-PerpsAddLiquidity,
-PerpsRemoveLiquidity,
-MeteoraDlmm,
-OpenBookV2,
-RaydiumClmmV2,
-StakeDexPrefundWithdrawStakeAndDepositStake,
-Clone,
-SanctumS,
-SanctumSAddLiquidity,
-SanctumSRemoveLiquidity,
-RaydiumCP,
-WhirlpoolSwapV2,
-OneIntro,
-PumpdotfunWrappedBuy,
-PumpdotfunWrappedSell,
-PerpsV2,
-PerpsV2AddLiquidity,
-PerpsV2RemoveLiquidity,
-MoonshotWrappedBuy,
-MoonshotWrappedSell,
-StabbleStableSwap,
-StabbleWeightedSwap,
-Obric,
-FoxBuyFromEstimatedCost,
-FoxClaimPartial,
-SolFi,
-SolayerDelegateNoInit,
-SolayerUndelegateNoInit,
-TokenMill,
-DaosFunBuy,
-DaosFunSell,
-ZeroFi,
-StakeDexWithdrawWrappedSol,
-VirtualsBuy,
-VirtualsSell,
-Perena,
-PumpdotfunAmmBuy,
-PumpdotfunAmmSell,
-Gamma,
-MeteoraDlmmSwapV2,
-Woofi,
-MeteoraDammV2,
-MeteoraDynamicBondingCurveSwap,
-StabbleStableSwapV2,
-StabbleWeightedSwapV2,
-RaydiumLaunchlabBuy,
-RaydiumLaunchlabSell,
-BoopdotfunWrappedBuy,
-BoopdotfunWrappedSell,
-Plasma,
+    Saber,
+    SaberAddDecimalsDeposit,
+    SaberAddDecimalsWithdraw,
+    TokenSwap,
+    Sencha,
+    Step,
+    Cropper,
+    Raydium,
+    Crema,
+    Lifinity,
+    Mercurial,
+    Cykura,
+    Serum,
+    MarinadeDeposit,
+    MarinadeUnstake,
+    Aldrin,
+    AldrinV2,
+    Whirlpool,
+    Invariant,
+    Meteora,
+    GooseFX,
+    DeltaFi,
+    Balansol,
+    MarcoPolo,
+    Dradex,
+    LifinityV2,
+    RaydiumClmm,
+    Openbook,
+    Phoenix,
+    Symmetry,
+    TokenSwapV2,
+    HeliumTreasuryManagementRedeemV0,
+    StakeDexStakeWrappedSol,
+    StakeDexSwapViaStake,
+    GooseFXV2,
+    Perps,
+    PerpsAddLiquidity,
+    PerpsRemoveLiquidity,
+    MeteoraDlmm,
+    OpenBookV2,
+    RaydiumClmmV2,
+    StakeDexPrefundWithdrawStakeAndDepositStake,
+    Clone,
+    SanctumS,
+    SanctumSAddLiquidity,
+    SanctumSRemoveLiquidity,
+    RaydiumCP,
+    WhirlpoolSwapV2,
+    OneIntro,
+    PumpdotfunWrappedBuy,
+    PumpdotfunWrappedSell,
+    PerpsV2,
+    PerpsV2AddLiquidity,
+    PerpsV2RemoveLiquidity,
+    MoonshotWrappedBuy,
+    MoonshotWrappedSell,
+    StabbleStableSwap,
+    StabbleWeightedSwap,
+    Obric,
+    FoxBuyFromEstimatedCost,
+    FoxClaimPartial,
+    SolFi,
+    SolayerDelegateNoInit,
+    SolayerUndelegateNoInit,
+    TokenMill,
+    DaosFunBuy,
+    DaosFunSell,
+    ZeroFi,
+    StakeDexWithdrawWrappedSol,
+    VirtualsBuy,
+    VirtualsSell,
+    Perena,
+    PumpdotfunAmmBuy,
+    PumpdotfunAmmSell,
+    Gamma,
+    MeteoraDlmmSwapV2,
+    Woofi,
+    MeteoraDammV2,
+    MeteoraDynamicBondingCurveSwap,
+    StabbleStableSwapV2,
+    StabbleWeightedSwapV2,
+    RaydiumLaunchlabBuy,
+    RaydiumLaunchlabSell,
+    BoopdotfunWrappedBuy,
+    BoopdotfunWrappedSell,
+    Plasma,
 ]
 SwapJSON = typing.Union[
-SaberJSON,
-SaberAddDecimalsDepositJSON,
-SaberAddDecimalsWithdrawJSON,
-TokenSwapJSON,
-SenchaJSON,
-StepJSON,
-CropperJSON,
-RaydiumJSON,
-CremaJSON,
-LifinityJSON,
-MercurialJSON,
-CykuraJSON,
-SerumJSON,
-MarinadeDepositJSON,
-MarinadeUnstakeJSON,
-AldrinJSON,
-AldrinV2JSON,
-WhirlpoolJSON,
-InvariantJSON,
-MeteoraJSON,
-GooseFXJSON,
-DeltaFiJSON,
-BalansolJSON,
-MarcoPoloJSON,
-DradexJSON,
-LifinityV2JSON,
-RaydiumClmmJSON,
-OpenbookJSON,
-PhoenixJSON,
-SymmetryJSON,
-TokenSwapV2JSON,
-HeliumTreasuryManagementRedeemV0JSON,
-StakeDexStakeWrappedSolJSON,
-StakeDexSwapViaStakeJSON,
-GooseFXV2JSON,
-PerpsJSON,
-PerpsAddLiquidityJSON,
-PerpsRemoveLiquidityJSON,
-MeteoraDlmmJSON,
-OpenBookV2JSON,
-RaydiumClmmV2JSON,
-StakeDexPrefundWithdrawStakeAndDepositStakeJSON,
-CloneJSON,
-SanctumSJSON,
-SanctumSAddLiquidityJSON,
-SanctumSRemoveLiquidityJSON,
-RaydiumCPJSON,
-WhirlpoolSwapV2JSON,
-OneIntroJSON,
-PumpdotfunWrappedBuyJSON,
-PumpdotfunWrappedSellJSON,
-PerpsV2JSON,
-PerpsV2AddLiquidityJSON,
-PerpsV2RemoveLiquidityJSON,
-MoonshotWrappedBuyJSON,
-MoonshotWrappedSellJSON,
-StabbleStableSwapJSON,
-StabbleWeightedSwapJSON,
-ObricJSON,
-FoxBuyFromEstimatedCostJSON,
-FoxClaimPartialJSON,
-SolFiJSON,
-SolayerDelegateNoInitJSON,
-SolayerUndelegateNoInitJSON,
-TokenMillJSON,
-DaosFunBuyJSON,
-DaosFunSellJSON,
-ZeroFiJSON,
-StakeDexWithdrawWrappedSolJSON,
-VirtualsBuyJSON,
-VirtualsSellJSON,
-PerenaJSON,
-PumpdotfunAmmBuyJSON,
-PumpdotfunAmmSellJSON,
-GammaJSON,
-MeteoraDlmmSwapV2JSON,
-WoofiJSON,
-MeteoraDammV2JSON,
-MeteoraDynamicBondingCurveSwapJSON,
-StabbleStableSwapV2JSON,
-StabbleWeightedSwapV2JSON,
-RaydiumLaunchlabBuyJSON,
-RaydiumLaunchlabSellJSON,
-BoopdotfunWrappedBuyJSON,
-BoopdotfunWrappedSellJSON,
-PlasmaJSON,
+    SaberJSON,
+    SaberAddDecimalsDepositJSON,
+    SaberAddDecimalsWithdrawJSON,
+    TokenSwapJSON,
+    SenchaJSON,
+    StepJSON,
+    CropperJSON,
+    RaydiumJSON,
+    CremaJSON,
+    LifinityJSON,
+    MercurialJSON,
+    CykuraJSON,
+    SerumJSON,
+    MarinadeDepositJSON,
+    MarinadeUnstakeJSON,
+    AldrinJSON,
+    AldrinV2JSON,
+    WhirlpoolJSON,
+    InvariantJSON,
+    MeteoraJSON,
+    GooseFXJSON,
+    DeltaFiJSON,
+    BalansolJSON,
+    MarcoPoloJSON,
+    DradexJSON,
+    LifinityV2JSON,
+    RaydiumClmmJSON,
+    OpenbookJSON,
+    PhoenixJSON,
+    SymmetryJSON,
+    TokenSwapV2JSON,
+    HeliumTreasuryManagementRedeemV0JSON,
+    StakeDexStakeWrappedSolJSON,
+    StakeDexSwapViaStakeJSON,
+    GooseFXV2JSON,
+    PerpsJSON,
+    PerpsAddLiquidityJSON,
+    PerpsRemoveLiquidityJSON,
+    MeteoraDlmmJSON,
+    OpenBookV2JSON,
+    RaydiumClmmV2JSON,
+    StakeDexPrefundWithdrawStakeAndDepositStakeJSON,
+    CloneJSON,
+    SanctumSJSON,
+    SanctumSAddLiquidityJSON,
+    SanctumSRemoveLiquidityJSON,
+    RaydiumCPJSON,
+    WhirlpoolSwapV2JSON,
+    OneIntroJSON,
+    PumpdotfunWrappedBuyJSON,
+    PumpdotfunWrappedSellJSON,
+    PerpsV2JSON,
+    PerpsV2AddLiquidityJSON,
+    PerpsV2RemoveLiquidityJSON,
+    MoonshotWrappedBuyJSON,
+    MoonshotWrappedSellJSON,
+    StabbleStableSwapJSON,
+    StabbleWeightedSwapJSON,
+    ObricJSON,
+    FoxBuyFromEstimatedCostJSON,
+    FoxClaimPartialJSON,
+    SolFiJSON,
+    SolayerDelegateNoInitJSON,
+    SolayerUndelegateNoInitJSON,
+    TokenMillJSON,
+    DaosFunBuyJSON,
+    DaosFunSellJSON,
+    ZeroFiJSON,
+    StakeDexWithdrawWrappedSolJSON,
+    VirtualsBuyJSON,
+    VirtualsSellJSON,
+    PerenaJSON,
+    PumpdotfunAmmBuyJSON,
+    PumpdotfunAmmSellJSON,
+    GammaJSON,
+    MeteoraDlmmSwapV2JSON,
+    WoofiJSON,
+    MeteoraDammV2JSON,
+    MeteoraDynamicBondingCurveSwapJSON,
+    StabbleStableSwapV2JSON,
+    StabbleWeightedSwapV2JSON,
+    RaydiumLaunchlabBuyJSON,
+    RaydiumLaunchlabSellJSON,
+    BoopdotfunWrappedBuyJSON,
+    BoopdotfunWrappedSellJSON,
+    PlasmaJSON,
 ]
 
 def from_decoded(obj: dict) -> SwapKind:

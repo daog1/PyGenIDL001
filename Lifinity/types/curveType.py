@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Standard:
             kind="Standard",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Standard": {},
         }
@@ -46,7 +46,7 @@ class ConstantProduct:
             kind="ConstantProduct",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "ConstantProduct": {},
         }
@@ -56,12 +56,12 @@ class ConstantProduct:
 
 
 CurveTypeKind = typing.Union[
-Standard,
-ConstantProduct,
+    Standard,
+    ConstantProduct,
 ]
 CurveTypeJSON = typing.Union[
-StandardJSON,
-ConstantProductJSON,
+    StandardJSON,
+    ConstantProductJSON,
 ]
 
 def from_decoded(obj: dict) -> CurveTypeKind:

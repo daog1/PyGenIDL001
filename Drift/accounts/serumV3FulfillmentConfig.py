@@ -15,7 +15,7 @@ from dataclasses import dataclass;
 from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
 from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 
@@ -59,16 +59,16 @@ class SerumV3FulfillmentConfig:
         "padding" /borsh.U8[4],
         )
     #fields
-    pubkey: Pubkey
-    serumProgramId: Pubkey
-    serumMarket: Pubkey
-    serumRequestQueue: Pubkey
-    serumEventQueue: Pubkey
-    serumBids: Pubkey
-    serumAsks: Pubkey
-    serumBaseVault: Pubkey
-    serumQuoteVault: Pubkey
-    serumOpenOrders: Pubkey
+    pubkey: SolPubkey
+    serumProgramId: SolPubkey
+    serumMarket: SolPubkey
+    serumRequestQueue: SolPubkey
+    serumEventQueue: SolPubkey
+    serumBids: SolPubkey
+    serumAsks: SolPubkey
+    serumBaseVault: SolPubkey
+    serumQuoteVault: SolPubkey
+    serumOpenOrders: SolPubkey
     serumSignerNonce: int
     marketIndex: int
     fulfillmentType: types.spotFulfillmentType.SpotFulfillmentTypeKind
@@ -80,9 +80,9 @@ class SerumV3FulfillmentConfig:
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["SerumV3FulfillmentConfig"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -97,9 +97,9 @@ class SerumV3FulfillmentConfig:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["SerumV3FulfillmentConfig"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["SerumV3FulfillmentConfig"]] = []
@@ -153,22 +153,22 @@ class SerumV3FulfillmentConfig:
                 "marketIndex": self.marketIndex,
                 "fulfillmentType": self.fulfillmentType.to_json(),
                 "status": self.status.to_json(),
-                "padding": self.padding.to_json(),
+                "padding": self.padding,
                 }
 
     @classmethod
     def from_json(cls, obj: SerumV3FulfillmentConfigJSON) -> "SerumV3FulfillmentConfig":
         return cls(
-                pubkey=Pubkey.from_string(obj["pubkey"]),
-                serumProgramId=Pubkey.from_string(obj["serumProgramId"]),
-                serumMarket=Pubkey.from_string(obj["serumMarket"]),
-                serumRequestQueue=Pubkey.from_string(obj["serumRequestQueue"]),
-                serumEventQueue=Pubkey.from_string(obj["serumEventQueue"]),
-                serumBids=Pubkey.from_string(obj["serumBids"]),
-                serumAsks=Pubkey.from_string(obj["serumAsks"]),
-                serumBaseVault=Pubkey.from_string(obj["serumBaseVault"]),
-                serumQuoteVault=Pubkey.from_string(obj["serumQuoteVault"]),
-                serumOpenOrders=Pubkey.from_string(obj["serumOpenOrders"]),
+                pubkey=SolPubkey.from_string(obj["pubkey"]),
+                serumProgramId=SolPubkey.from_string(obj["serumProgramId"]),
+                serumMarket=SolPubkey.from_string(obj["serumMarket"]),
+                serumRequestQueue=SolPubkey.from_string(obj["serumRequestQueue"]),
+                serumEventQueue=SolPubkey.from_string(obj["serumEventQueue"]),
+                serumBids=SolPubkey.from_string(obj["serumBids"]),
+                serumAsks=SolPubkey.from_string(obj["serumAsks"]),
+                serumBaseVault=SolPubkey.from_string(obj["serumBaseVault"]),
+                serumQuoteVault=SolPubkey.from_string(obj["serumQuoteVault"]),
+                serumOpenOrders=SolPubkey.from_string(obj["serumOpenOrders"]),
                 serumSignerNonce=obj["serumSignerNonce"],
                 marketIndex=obj["marketIndex"],
                 fulfillmentType=types.spotFulfillmentType.from_json(obj["fulfillmentType"]),

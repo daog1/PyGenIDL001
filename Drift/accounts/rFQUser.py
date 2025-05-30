@@ -15,7 +15,7 @@ from dataclasses import dataclass;
 from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
 from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 
@@ -33,7 +33,7 @@ class RFQUser:
         "rfqOrderData" /types.rFQOrderId.RFQOrderId.layout[32],
         )
     #fields
-    userPubkey: Pubkey
+    userPubkey: SolPubkey
     rfqOrderData: list[types.rFQOrderId.RFQOrderId]
     
 
@@ -41,9 +41,9 @@ class RFQUser:
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["RFQUser"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -58,9 +58,9 @@ class RFQUser:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["RFQUser"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["RFQUser"]] = []
@@ -94,7 +94,7 @@ class RFQUser:
     @classmethod
     def from_json(cls, obj: RFQUserJSON) -> "RFQUser":
         return cls(
-                userPubkey=Pubkey.from_string(obj["userPubkey"]),
+                userPubkey=SolPubkey.from_string(obj["userPubkey"]),
                 rfqOrderData=list(map(lambda item:types.rFQOrderId.RFQOrderId.from_json(item),obj["rfqOrderData"])),
                 )
 

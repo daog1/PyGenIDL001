@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class UpdatePythPullOracleArgs(typing.TypedDict):
@@ -25,15 +25,15 @@ layout = borsh.CStruct(
 
 
 class UpdatePythPullOracleAccounts(typing.TypedDict):
-    keeper:Pubkey
-    pythSolanaReceiver:Pubkey
-    encodedVaa:Pubkey
-    priceFeed:Pubkey
+    keeper:SolPubkey
+    pythSolanaReceiver:SolPubkey
+    encodedVaa:SolPubkey
+    priceFeed:SolPubkey
 
 def UpdatePythPullOracle(
     args: UpdatePythPullOracleArgs,
     accounts: UpdatePythPullOracleAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

@@ -15,7 +15,7 @@ from dataclasses import dataclass;
 from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
 from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 
@@ -79,11 +79,11 @@ class State:
         "padding" /borsh.U8[10],
         )
     #fields
-    admin: Pubkey
-    whitelistMint: Pubkey
-    discountMint: Pubkey
-    signer: Pubkey
-    srmVault: Pubkey
+    admin: SolPubkey
+    whitelistMint: SolPubkey
+    discountMint: SolPubkey
+    signer: SolPubkey
+    srmVault: SolPubkey
     perpFeeStructure: types.feeStructure.FeeStructure
     spotFeeStructure: types.feeStructure.FeeStructure
     oracleGuardRails: types.oracleGuardRails.OracleGuardRails
@@ -110,9 +110,9 @@ class State:
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["State"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -127,9 +127,9 @@ class State:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["State"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["State"]] = []
@@ -203,17 +203,17 @@ class State:
                 "initialPctToLiquidate": self.initialPctToLiquidate,
                 "maxNumberOfSubAccounts": self.maxNumberOfSubAccounts,
                 "maxInitializeUserFee": self.maxInitializeUserFee,
-                "padding": self.padding.to_json(),
+                "padding": self.padding,
                 }
 
     @classmethod
     def from_json(cls, obj: StateJSON) -> "State":
         return cls(
-                admin=Pubkey.from_string(obj["admin"]),
-                whitelistMint=Pubkey.from_string(obj["whitelistMint"]),
-                discountMint=Pubkey.from_string(obj["discountMint"]),
-                signer=Pubkey.from_string(obj["signer"]),
-                srmVault=Pubkey.from_string(obj["srmVault"]),
+                admin=SolPubkey.from_string(obj["admin"]),
+                whitelistMint=SolPubkey.from_string(obj["whitelistMint"]),
+                discountMint=SolPubkey.from_string(obj["discountMint"]),
+                signer=SolPubkey.from_string(obj["signer"]),
+                srmVault=SolPubkey.from_string(obj["srmVault"]),
                 perpFeeStructure=types.feeStructure.FeeStructure.from_json(obj["perpFeeStructure"]),
                 spotFeeStructure=types.feeStructure.FeeStructure.from_json(obj["spotFeeStructure"]),
                 oracleGuardRails=types.oracleGuardRails.OracleGuardRails.from_json(obj["oracleGuardRails"]),

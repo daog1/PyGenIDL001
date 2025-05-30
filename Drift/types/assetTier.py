@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Collateral:
             kind="Collateral",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Collateral": {},
         }
@@ -46,7 +46,7 @@ class Protected:
             kind="Protected",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Protected": {},
         }
@@ -66,7 +66,7 @@ class Cross:
             kind="Cross",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Cross": {},
         }
@@ -86,7 +86,7 @@ class Isolated:
             kind="Isolated",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Isolated": {},
         }
@@ -106,7 +106,7 @@ class Unlisted:
             kind="Unlisted",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Unlisted": {},
         }
@@ -116,18 +116,18 @@ class Unlisted:
 
 
 AssetTierKind = typing.Union[
-Collateral,
-Protected,
-Cross,
-Isolated,
-Unlisted,
+    Collateral,
+    Protected,
+    Cross,
+    Isolated,
+    Unlisted,
 ]
 AssetTierJSON = typing.Union[
-CollateralJSON,
-ProtectedJSON,
-CrossJSON,
-IsolatedJSON,
-UnlistedJSON,
+    CollateralJSON,
+    ProtectedJSON,
+    CrossJSON,
+    IsolatedJSON,
+    UnlistedJSON,
 ]
 
 def from_decoded(obj: dict) -> AssetTierKind:

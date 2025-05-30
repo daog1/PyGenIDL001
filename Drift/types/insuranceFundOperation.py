@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Init:
             kind="Init",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Init": {},
         }
@@ -46,7 +46,7 @@ class Add:
             kind="Add",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Add": {},
         }
@@ -66,7 +66,7 @@ class RequestRemove:
             kind="RequestRemove",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "RequestRemove": {},
         }
@@ -86,7 +86,7 @@ class Remove:
             kind="Remove",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Remove": {},
         }
@@ -96,16 +96,16 @@ class Remove:
 
 
 InsuranceFundOperationKind = typing.Union[
-Init,
-Add,
-RequestRemove,
-Remove,
+    Init,
+    Add,
+    RequestRemove,
+    Remove,
 ]
 InsuranceFundOperationJSON = typing.Union[
-InitJSON,
-AddJSON,
-RequestRemoveJSON,
-RemoveJSON,
+    InitJSON,
+    AddJSON,
+    RequestRemoveJSON,
+    RemoveJSON,
 ]
 
 def from_decoded(obj: dict) -> InsuranceFundOperationKind:

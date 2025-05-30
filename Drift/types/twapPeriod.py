@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class FundingPeriod:
             kind="FundingPeriod",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "FundingPeriod": {},
         }
@@ -46,7 +46,7 @@ class FiveMin:
             kind="FiveMin",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "FiveMin": {},
         }
@@ -56,12 +56,12 @@ class FiveMin:
 
 
 TwapPeriodKind = typing.Union[
-FundingPeriod,
-FiveMin,
+    FundingPeriod,
+    FiveMin,
 ]
 TwapPeriodJSON = typing.Union[
-FundingPeriodJSON,
-FiveMinJSON,
+    FundingPeriodJSON,
+    FiveMinJSON,
 ]
 
 def from_decoded(obj: dict) -> TwapPeriodKind:

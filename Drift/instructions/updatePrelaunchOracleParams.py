@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
@@ -24,15 +24,15 @@ layout = borsh.CStruct(
 
 
 class UpdatePrelaunchOracleParamsAccounts(typing.TypedDict):
-    admin:Pubkey
-    prelaunchOracle:Pubkey
-    perpMarket:Pubkey
-    state:Pubkey
+    admin:SolPubkey
+    prelaunchOracle:SolPubkey
+    perpMarket:SolPubkey
+    state:SolPubkey
 
 def UpdatePrelaunchOracleParams(
     args: UpdatePrelaunchOracleParamsArgs,
     accounts: UpdatePrelaunchOracleParamsAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

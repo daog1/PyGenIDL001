@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Spot:
             kind="Spot",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Spot": {},
         }
@@ -46,7 +46,7 @@ class Perp:
             kind="Perp",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Perp": {},
         }
@@ -56,12 +56,12 @@ class Perp:
 
 
 MarketTypeKind = typing.Union[
-Spot,
-Perp,
+    Spot,
+    Perp,
 ]
 MarketTypeJSON = typing.Union[
-SpotJSON,
-PerpJSON,
+    SpotJSON,
+    PerpJSON,
 ]
 
 def from_decoded(obj: dict) -> MarketTypeKind:

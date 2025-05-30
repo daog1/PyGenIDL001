@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class NonPositive:
             kind="NonPositive",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "NonPositive": {},
         }
@@ -46,7 +46,7 @@ class TooVolatile:
             kind="TooVolatile",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "TooVolatile": {},
         }
@@ -66,7 +66,7 @@ class TooUncertain:
             kind="TooUncertain",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "TooUncertain": {},
         }
@@ -86,7 +86,7 @@ class StaleForMargin:
             kind="StaleForMargin",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "StaleForMargin": {},
         }
@@ -106,7 +106,7 @@ class InsufficientDataPoints:
             kind="InsufficientDataPoints",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "InsufficientDataPoints": {},
         }
@@ -126,7 +126,7 @@ class StaleForAMM:
             kind="StaleForAMM",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "StaleForAMM": {},
         }
@@ -146,7 +146,7 @@ class Valid:
             kind="Valid",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Valid": {},
         }
@@ -156,22 +156,22 @@ class Valid:
 
 
 OracleValidityKind = typing.Union[
-NonPositive,
-TooVolatile,
-TooUncertain,
-StaleForMargin,
-InsufficientDataPoints,
-StaleForAMM,
-Valid,
+    NonPositive,
+    TooVolatile,
+    TooUncertain,
+    StaleForMargin,
+    InsufficientDataPoints,
+    StaleForAMM,
+    Valid,
 ]
 OracleValidityJSON = typing.Union[
-NonPositiveJSON,
-TooVolatileJSON,
-TooUncertainJSON,
-StaleForMarginJSON,
-InsufficientDataPointsJSON,
-StaleForAMMJSON,
-ValidJSON,
+    NonPositiveJSON,
+    TooVolatileJSON,
+    TooUncertainJSON,
+    StaleForMarginJSON,
+    InsufficientDataPointsJSON,
+    StaleForAMMJSON,
+    ValidJSON,
 ]
 
 def from_decoded(obj: dict) -> OracleValidityKind:

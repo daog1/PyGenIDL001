@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class AddLiquidity:
             kind="AddLiquidity",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "AddLiquidity": {},
         }
@@ -46,7 +46,7 @@ class RemoveLiquidity:
             kind="RemoveLiquidity",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "RemoveLiquidity": {},
         }
@@ -66,7 +66,7 @@ class SettleLiquidity:
             kind="SettleLiquidity",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "SettleLiquidity": {},
         }
@@ -86,7 +86,7 @@ class RemoveLiquidityDerisk:
             kind="RemoveLiquidityDerisk",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "RemoveLiquidityDerisk": {},
         }
@@ -96,16 +96,16 @@ class RemoveLiquidityDerisk:
 
 
 LPActionKind = typing.Union[
-AddLiquidity,
-RemoveLiquidity,
-SettleLiquidity,
-RemoveLiquidityDerisk,
+    AddLiquidity,
+    RemoveLiquidity,
+    SettleLiquidity,
+    RemoveLiquidityDerisk,
 ]
 LPActionJSON = typing.Union[
-AddLiquidityJSON,
-RemoveLiquidityJSON,
-SettleLiquidityJSON,
-RemoveLiquidityDeriskJSON,
+    AddLiquidityJSON,
+    RemoveLiquidityJSON,
+    SettleLiquidityJSON,
+    RemoveLiquidityDeriskJSON,
 ]
 
 def from_decoded(obj: dict) -> LPActionKind:

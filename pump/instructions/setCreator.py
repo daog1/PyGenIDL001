@@ -11,11 +11,11 @@ from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class SetCreatorArgs(typing.TypedDict):
-    creator:Pubkey
+    creator:SolPubkey
 
 
 layout = borsh.CStruct(
@@ -24,18 +24,18 @@ layout = borsh.CStruct(
 
 
 class SetCreatorAccounts(typing.TypedDict):
-    setCreatorAuthority:Pubkey
-    global_:Pubkey
-    mint:Pubkey
-    metadata:Pubkey
-    bondingCurve:Pubkey
-    eventAuthority:Pubkey
-    program:Pubkey
+    setCreatorAuthority:SolPubkey
+    global_:SolPubkey
+    mint:SolPubkey
+    metadata:SolPubkey
+    bondingCurve:SolPubkey
+    eventAuthority:SolPubkey
+    program:SolPubkey
 
 def SetCreator(
     args: SetCreatorArgs,
     accounts: SetCreatorAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
@@ -52,7 +52,7 @@ def SetCreator(
         keys += remaining_accounts
     identifier = b"\xfe\x94\xff\x70\xcf\x8e\xaa\xa5"
     encoded_args = layout.build({
-    "creator":args["creator"],
+        "creator":args["creator"],
        })
 
     data = identifier + encoded_args

@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 class CollectCreatorFeeEventJSON(typing.TypedDict):
@@ -27,7 +27,7 @@ class CollectCreatorFeeEvent:
         )
     #fields
     timestamp: int
-    creator: Pubkey
+    creator: SolPubkey
     creatorFee: int
     
     @classmethod
@@ -56,7 +56,7 @@ class CollectCreatorFeeEvent:
     def from_json(cls, obj: CollectCreatorFeeEventJSON) -> "CollectCreatorFeeEvent":
         return cls(
                 timestamp=obj["timestamp"],
-                creator=Pubkey.from_string(obj["creator"]),
+                creator=SolPubkey.from_string(obj["creator"]),
                 creatorFee=obj["creatorFee"],
         )
 

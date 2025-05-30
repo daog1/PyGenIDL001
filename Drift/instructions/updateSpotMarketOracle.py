@@ -11,12 +11,12 @@ from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 class UpdateSpotMarketOracleArgs(typing.TypedDict):
-    oracle:Pubkey
+    oracle:SolPubkey
     oracleSource:types.oracleSource.OracleSourceKind
 
 
@@ -27,15 +27,15 @@ layout = borsh.CStruct(
 
 
 class UpdateSpotMarketOracleAccounts(typing.TypedDict):
-    admin:Pubkey
-    state:Pubkey
-    spotMarket:Pubkey
-    oracle:Pubkey
+    admin:SolPubkey
+    state:SolPubkey
+    spotMarket:SolPubkey
+    oracle:SolPubkey
 
 def UpdateSpotMarketOracle(
     args: UpdateSpotMarketOracleArgs,
     accounts: UpdateSpotMarketOracleAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

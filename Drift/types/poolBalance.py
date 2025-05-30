@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 class PoolBalanceJSON(typing.TypedDict):
@@ -49,7 +49,7 @@ class PoolBalance:
         return {
                 "scaledBalance": self.scaledBalance,
                 "marketIndex": self.marketIndex,
-                "padding": self.padding.to_json(),
+                "padding": self.padding,
                 }
 
     @classmethod

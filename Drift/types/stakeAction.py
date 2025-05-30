@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Stake:
             kind="Stake",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Stake": {},
         }
@@ -46,7 +46,7 @@ class UnstakeRequest:
             kind="UnstakeRequest",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "UnstakeRequest": {},
         }
@@ -66,7 +66,7 @@ class UnstakeCancelRequest:
             kind="UnstakeCancelRequest",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "UnstakeCancelRequest": {},
         }
@@ -86,7 +86,7 @@ class Unstake:
             kind="Unstake",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Unstake": {},
         }
@@ -106,7 +106,7 @@ class UnstakeTransfer:
             kind="UnstakeTransfer",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "UnstakeTransfer": {},
         }
@@ -126,7 +126,7 @@ class StakeTransfer:
             kind="StakeTransfer",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "StakeTransfer": {},
         }
@@ -136,20 +136,20 @@ class StakeTransfer:
 
 
 StakeActionKind = typing.Union[
-Stake,
-UnstakeRequest,
-UnstakeCancelRequest,
-Unstake,
-UnstakeTransfer,
-StakeTransfer,
+    Stake,
+    UnstakeRequest,
+    UnstakeCancelRequest,
+    Unstake,
+    UnstakeTransfer,
+    StakeTransfer,
 ]
 StakeActionJSON = typing.Union[
-StakeJSON,
-UnstakeRequestJSON,
-UnstakeCancelRequestJSON,
-UnstakeJSON,
-UnstakeTransferJSON,
-StakeTransferJSON,
+    StakeJSON,
+    UnstakeRequestJSON,
+    UnstakeCancelRequestJSON,
+    UnstakeJSON,
+    UnstakeTransferJSON,
+    StakeTransferJSON,
 ]
 
 def from_decoded(obj: dict) -> StakeActionKind:

@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class DepositAllTokenTypesArgs(typing.TypedDict):
@@ -27,21 +27,21 @@ layout = borsh.CStruct(
 
 
 class DepositAllTokenTypesAccounts(typing.TypedDict):
-    amm:Pubkey
-    authority:Pubkey
-    userTransferAuthorityInfo:Pubkey
-    sourceAInfo:Pubkey
-    sourceBInfo:Pubkey
-    tokenA:Pubkey
-    tokenB:Pubkey
-    poolMint:Pubkey
-    destination:Pubkey
-    tokenProgram:Pubkey
+    amm:SolPubkey
+    authority:SolPubkey
+    userTransferAuthorityInfo:SolPubkey
+    sourceAInfo:SolPubkey
+    sourceBInfo:SolPubkey
+    tokenA:SolPubkey
+    tokenB:SolPubkey
+    poolMint:SolPubkey
+    destination:SolPubkey
+    tokenProgram:SolPubkey
 
 def DepositAllTokenTypes(
     args: DepositAllTokenTypesArgs,
     accounts: DepositAllTokenTypesAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
@@ -61,9 +61,9 @@ def DepositAllTokenTypes(
         keys += remaining_accounts
     identifier = b"\x20\x5f\x45\x3c\x4b\x4f\xcd\xee"
     encoded_args = layout.build({
-    "poolTokenAmount":args["poolTokenAmount"],
-    "maximumTokenAAmount":args["maximumTokenAAmount"],
-    "maximumTokenBAmount":args["maximumTokenBAmount"],
+        "poolTokenAmount":args["poolTokenAmount"],
+        "maximumTokenAAmount":args["maximumTokenAAmount"],
+        "maximumTokenBAmount":args["maximumTokenBAmount"],
        })
 
     data = identifier + encoded_args

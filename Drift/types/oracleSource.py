@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Pyth:
             kind="Pyth",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Pyth": {},
         }
@@ -46,7 +46,7 @@ class Switchboard:
             kind="Switchboard",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Switchboard": {},
         }
@@ -66,7 +66,7 @@ class QuoteAsset:
             kind="QuoteAsset",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "QuoteAsset": {},
         }
@@ -86,7 +86,7 @@ class Pyth1K:
             kind="Pyth1K",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Pyth1K": {},
         }
@@ -106,7 +106,7 @@ class Pyth1M:
             kind="Pyth1M",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Pyth1M": {},
         }
@@ -126,7 +126,7 @@ class PythStableCoin:
             kind="PythStableCoin",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "PythStableCoin": {},
         }
@@ -146,7 +146,7 @@ class Prelaunch:
             kind="Prelaunch",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Prelaunch": {},
         }
@@ -166,7 +166,7 @@ class PythPull:
             kind="PythPull",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "PythPull": {},
         }
@@ -186,7 +186,7 @@ class Pyth1KPull:
             kind="Pyth1KPull",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Pyth1KPull": {},
         }
@@ -206,7 +206,7 @@ class Pyth1MPull:
             kind="Pyth1MPull",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Pyth1MPull": {},
         }
@@ -226,7 +226,7 @@ class PythStableCoinPull:
             kind="PythStableCoinPull",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "PythStableCoinPull": {},
         }
@@ -246,7 +246,7 @@ class SwitchboardOnDemand:
             kind="SwitchboardOnDemand",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "SwitchboardOnDemand": {},
         }
@@ -266,7 +266,7 @@ class PythLazer:
             kind="PythLazer",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "PythLazer": {},
         }
@@ -276,34 +276,34 @@ class PythLazer:
 
 
 OracleSourceKind = typing.Union[
-Pyth,
-Switchboard,
-QuoteAsset,
-Pyth1K,
-Pyth1M,
-PythStableCoin,
-Prelaunch,
-PythPull,
-Pyth1KPull,
-Pyth1MPull,
-PythStableCoinPull,
-SwitchboardOnDemand,
-PythLazer,
+    Pyth,
+    Switchboard,
+    QuoteAsset,
+    Pyth1K,
+    Pyth1M,
+    PythStableCoin,
+    Prelaunch,
+    PythPull,
+    Pyth1KPull,
+    Pyth1MPull,
+    PythStableCoinPull,
+    SwitchboardOnDemand,
+    PythLazer,
 ]
 OracleSourceJSON = typing.Union[
-PythJSON,
-SwitchboardJSON,
-QuoteAssetJSON,
-Pyth1KJSON,
-Pyth1MJSON,
-PythStableCoinJSON,
-PrelaunchJSON,
-PythPullJSON,
-Pyth1KPullJSON,
-Pyth1MPullJSON,
-PythStableCoinPullJSON,
-SwitchboardOnDemandJSON,
-PythLazerJSON,
+    PythJSON,
+    SwitchboardJSON,
+    QuoteAssetJSON,
+    Pyth1KJSON,
+    Pyth1MJSON,
+    PythStableCoinJSON,
+    PrelaunchJSON,
+    PythPullJSON,
+    Pyth1KPullJSON,
+    Pyth1MPullJSON,
+    PythStableCoinPullJSON,
+    SwitchboardOnDemandJSON,
+    PythLazerJSON,
 ]
 
 def from_decoded(obj: dict) -> OracleSourceKind:

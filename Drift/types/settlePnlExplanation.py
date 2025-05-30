@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class None_:
             kind="None",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "None": {},
         }
@@ -46,7 +46,7 @@ class ExpiredPosition:
             kind="ExpiredPosition",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "ExpiredPosition": {},
         }
@@ -56,12 +56,12 @@ class ExpiredPosition:
 
 
 SettlePnlExplanationKind = typing.Union[
-None_,
-ExpiredPosition,
+    None_,
+    ExpiredPosition,
 ]
 SettlePnlExplanationJSON = typing.Union[
-NoneJSON,
-ExpiredPositionJSON,
+    NoneJSON,
+    ExpiredPositionJSON,
 ]
 
 def from_decoded(obj: dict) -> SettlePnlExplanationKind:

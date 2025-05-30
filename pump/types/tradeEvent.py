@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 class TradeEventJSON(typing.TypedDict):
@@ -52,20 +52,20 @@ class TradeEvent:
         "creatorFee" /borsh.U64,
         )
     #fields
-    mint: Pubkey
+    mint: SolPubkey
     solAmount: int
     tokenAmount: int
     isBuy: bool
-    user: Pubkey
+    user: SolPubkey
     timestamp: int
     virtualSolReserves: int
     virtualTokenReserves: int
     realSolReserves: int
     realTokenReserves: int
-    feeRecipient: Pubkey
+    feeRecipient: SolPubkey
     feeBasisPoints: int
     fee: int
-    creator: Pubkey
+    creator: SolPubkey
     creatorFeeBasisPoints: int
     creatorFee: int
     
@@ -133,20 +133,20 @@ class TradeEvent:
     @classmethod
     def from_json(cls, obj: TradeEventJSON) -> "TradeEvent":
         return cls(
-                mint=Pubkey.from_string(obj["mint"]),
+                mint=SolPubkey.from_string(obj["mint"]),
                 solAmount=obj["solAmount"],
                 tokenAmount=obj["tokenAmount"],
                 isBuy=obj["isBuy"],
-                user=Pubkey.from_string(obj["user"]),
+                user=SolPubkey.from_string(obj["user"]),
                 timestamp=obj["timestamp"],
                 virtualSolReserves=obj["virtualSolReserves"],
                 virtualTokenReserves=obj["virtualTokenReserves"],
                 realSolReserves=obj["realSolReserves"],
                 realTokenReserves=obj["realTokenReserves"],
-                feeRecipient=Pubkey.from_string(obj["feeRecipient"]),
+                feeRecipient=SolPubkey.from_string(obj["feeRecipient"]),
                 feeBasisPoints=obj["feeBasisPoints"],
                 fee=obj["fee"],
-                creator=Pubkey.from_string(obj["creator"]),
+                creator=SolPubkey.from_string(obj["creator"]),
                 creatorFeeBasisPoints=obj["creatorFeeBasisPoints"],
                 creatorFee=obj["creatorFee"],
         )

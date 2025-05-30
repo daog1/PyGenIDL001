@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class ExternalMarket:
             kind="ExternalMarket",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "ExternalMarket": {},
         }
@@ -34,7 +34,7 @@ class ExternalMarket:
 
 
 MatchJSONValue = tuple[str,int]
-MatchValue = tuple[Pubkey,int]
+MatchValue = tuple[SolPubkey,int]
 
 class MatchJSON(typing.TypedDict):
     kind: typing.Literal["Match"]
@@ -48,12 +48,12 @@ class Match:
     def to_json(self) -> MatchJSON:
         return MatchJSON(
             kind="Match",
-            value = (self.value[0],self.value[1])
+            value = (str(self.value[0]),self.value[1],)
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "Match": {},
+            "Match": { "item_0":self.value[0],"item_1":self.value[1] }
         }
 
 
@@ -61,12 +61,12 @@ class Match:
 
 
 SpotFulfillmentMethodKind = typing.Union[
-ExternalMarket,
-Match,
+    ExternalMarket,
+    Match,
 ]
 SpotFulfillmentMethodJSON = typing.Union[
-ExternalMarketJSON,
-MatchJSON,
+    ExternalMarketJSON,
+    MatchJSON,
 ]
 
 def from_decoded(obj: dict) -> SpotFulfillmentMethodKind:
@@ -77,8 +77,8 @@ def from_decoded(obj: dict) -> SpotFulfillmentMethodKind:
     if "Match" in obj:
       val = obj["Match"]
       return Match((
-      val["item_0"],val["item_1"]
-      )) #todo Tuple
+      val["item_0"],val["item_1"],
+      ))
     raise ValueError("Invalid enum object")
 
 def from_json(obj: SpotFulfillmentMethodJSON) -> SpotFulfillmentMethodKind:
@@ -88,7 +88,7 @@ def from_json(obj: SpotFulfillmentMethodJSON) -> SpotFulfillmentMethodKind:
     if obj["kind"] == "Match":
         matchJSONValue = typing.cast(MatchJSONValue, obj["value"])
         return Match(
-        (matchJSONValue[0],matchJSONValue[1])
+        (SolPubkey.from_string(matchJSONValue[0]),matchJSONValue[1],)
         )
 
     kind = obj["kind"]
@@ -96,5 +96,5 @@ def from_json(obj: SpotFulfillmentMethodJSON) -> SpotFulfillmentMethodKind:
 
 layout = EnumForCodegen(
 "ExternalMarket" / borsh.CStruct(),
-"Match" / borsh.CStruct("item_0" / BorshPubkey,"item_1" / borsh.U16),
+"Match" / borsh.CStruct("item_0" / BorshPubkey,"item_1" / borsh.U16,),
 )

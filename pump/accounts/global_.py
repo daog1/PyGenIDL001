@@ -15,7 +15,7 @@ from dataclasses import dataclass;
 from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
 from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from ..program_id import PROGRAM_ID;
 
 
@@ -57,28 +57,28 @@ class Global:
         )
     #fields
     initialized: bool
-    authority: Pubkey
-    feeRecipient: Pubkey
+    authority: SolPubkey
+    feeRecipient: SolPubkey
     initialVirtualTokenReserves: int
     initialVirtualSolReserves: int
     initialRealTokenReserves: int
     tokenTotalSupply: int
     feeBasisPoints: int
-    withdrawAuthority: Pubkey
+    withdrawAuthority: SolPubkey
     enableMigrate: bool
     poolMigrationFee: int
     creatorFeeBasisPoints: int
-    feeRecipients: list[Pubkey]
-    setCreatorAuthority: Pubkey
+    feeRecipients: list[SolPubkey]
+    setCreatorAuthority: SolPubkey
     
 
     @classmethod
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["Global"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -93,9 +93,9 @@ class Global:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["Global"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["Global"]] = []
@@ -154,19 +154,19 @@ class Global:
     def from_json(cls, obj: GlobalJSON) -> "Global":
         return cls(
                 initialized=obj["initialized"],
-                authority=Pubkey.from_string(obj["authority"]),
-                feeRecipient=Pubkey.from_string(obj["feeRecipient"]),
+                authority=SolPubkey.from_string(obj["authority"]),
+                feeRecipient=SolPubkey.from_string(obj["feeRecipient"]),
                 initialVirtualTokenReserves=obj["initialVirtualTokenReserves"],
                 initialVirtualSolReserves=obj["initialVirtualSolReserves"],
                 initialRealTokenReserves=obj["initialRealTokenReserves"],
                 tokenTotalSupply=obj["tokenTotalSupply"],
                 feeBasisPoints=obj["feeBasisPoints"],
-                withdrawAuthority=Pubkey.from_string(obj["withdrawAuthority"]),
+                withdrawAuthority=SolPubkey.from_string(obj["withdrawAuthority"]),
                 enableMigrate=obj["enableMigrate"],
                 poolMigrationFee=obj["poolMigrationFee"],
                 creatorFeeBasisPoints=obj["creatorFeeBasisPoints"],
-                feeRecipients=list(map(lambda item:Pubkey.from_string(item),obj["feeRecipients"])),
-                setCreatorAuthority=Pubkey.from_string(obj["setCreatorAuthority"]),
+                feeRecipients=list(map(lambda item:SolPubkey.from_string(item),obj["feeRecipients"])),
+                setCreatorAuthority=SolPubkey.from_string(obj["setCreatorAuthority"]),
                 )
 
 

@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class ClaimArgs(typing.TypedDict):
@@ -23,14 +23,14 @@ layout = borsh.CStruct(
 
 
 class ClaimAccounts(typing.TypedDict):
-    wallet:Pubkey
-    programAuthority:Pubkey
-    systemProgram:Pubkey
+    wallet:SolPubkey
+    programAuthority:SolPubkey
+    systemProgram:SolPubkey
 
 def Claim(
     args: ClaimArgs,
     accounts: ClaimAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
@@ -43,7 +43,7 @@ def Claim(
         keys += remaining_accounts
     identifier = b"\x3e\xc6\xd6\xc1\xd5\x9f\x6c\xd2"
     encoded_args = layout.build({
-    "id":args["id"],
+        "id":args["id"],
        })
 
     data = identifier + encoded_args

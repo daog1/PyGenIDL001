@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class MustModify:
             kind="MustModify",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "MustModify": {},
         }
@@ -46,7 +46,7 @@ class ExcludePreviousFill:
             kind="ExcludePreviousFill",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "ExcludePreviousFill": {},
         }
@@ -56,12 +56,12 @@ class ExcludePreviousFill:
 
 
 ModifyOrderPolicyKind = typing.Union[
-MustModify,
-ExcludePreviousFill,
+    MustModify,
+    ExcludePreviousFill,
 ]
 ModifyOrderPolicyJSON = typing.Union[
-MustModifyJSON,
-ExcludePreviousFillJSON,
+    MustModifyJSON,
+    ExcludePreviousFillJSON,
 ]
 
 def from_decoded(obj: dict) -> ModifyOrderPolicyKind:

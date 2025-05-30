@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class None_:
             kind="None",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "None": {},
         }
@@ -46,7 +46,7 @@ class Transfer:
             kind="Transfer",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Transfer": {},
         }
@@ -66,7 +66,7 @@ class Borrow:
             kind="Borrow",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Borrow": {},
         }
@@ -86,7 +86,7 @@ class RepayBorrow:
             kind="RepayBorrow",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "RepayBorrow": {},
         }
@@ -96,16 +96,16 @@ class RepayBorrow:
 
 
 DepositExplanationKind = typing.Union[
-None_,
-Transfer,
-Borrow,
-RepayBorrow,
+    None_,
+    Transfer,
+    Borrow,
+    RepayBorrow,
 ]
 DepositExplanationJSON = typing.Union[
-NoneJSON,
-TransferJSON,
-BorrowJSON,
-RepayBorrowJSON,
+    NoneJSON,
+    TransferJSON,
+    BorrowJSON,
+    RepayBorrowJSON,
 ]
 
 def from_decoded(obj: dict) -> DepositExplanationKind:

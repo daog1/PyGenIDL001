@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class CreateProgramOpenOrdersArgs(typing.TypedDict):
@@ -23,18 +23,18 @@ layout = borsh.CStruct(
 
 
 class CreateProgramOpenOrdersAccounts(typing.TypedDict):
-    openOrders:Pubkey
-    payer:Pubkey
-    programAuthority:Pubkey
-    dexProgram:Pubkey
-    systemProgram:Pubkey
-    rent:Pubkey
-    market:Pubkey
+    openOrders:SolPubkey
+    payer:SolPubkey
+    programAuthority:SolPubkey
+    dexProgram:SolPubkey
+    systemProgram:SolPubkey
+    rent:SolPubkey
+    market:SolPubkey
 
 def CreateProgramOpenOrders(
     args: CreateProgramOpenOrdersArgs,
     accounts: CreateProgramOpenOrdersAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
@@ -51,7 +51,7 @@ def CreateProgramOpenOrders(
         keys += remaining_accounts
     identifier = b"\x1c\xe2\x20\x94\xbc\x88\x71\xab"
     encoded_args = layout.build({
-    "id":args["id"],
+        "id":args["id"],
        })
 
     data = identifier + encoded_args

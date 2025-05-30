@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Perpetual:
             kind="Perpetual",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Perpetual": {},
         }
@@ -46,7 +46,7 @@ class Future:
             kind="Future",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Future": {},
         }
@@ -66,7 +66,7 @@ class Prediction:
             kind="Prediction",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Prediction": {},
         }
@@ -76,14 +76,14 @@ class Prediction:
 
 
 ContractTypeKind = typing.Union[
-Perpetual,
-Future,
-Prediction,
+    Perpetual,
+    Future,
+    Prediction,
 ]
 ContractTypeJSON = typing.Union[
-PerpetualJSON,
-FutureJSON,
-PredictionJSON,
+    PerpetualJSON,
+    FutureJSON,
+    PredictionJSON,
 ]
 
 def from_decoded(obj: dict) -> ContractTypeKind:

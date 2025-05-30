@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
@@ -24,14 +24,14 @@ layout = borsh.CStruct(
 
 
 class OpenbookV2FulfillmentConfigStatusAccounts(typing.TypedDict):
-    state:Pubkey
-    openbookV2FulfillmentConfig:Pubkey
-    admin:Pubkey
+    state:SolPubkey
+    openbookV2FulfillmentConfig:SolPubkey
+    admin:SolPubkey
 
 def OpenbookV2FulfillmentConfigStatus(
     args: OpenbookV2FulfillmentConfigStatusArgs,
     accounts: OpenbookV2FulfillmentConfigStatusAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

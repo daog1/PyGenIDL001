@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 class SwiftUserOrdersFixedJSON(typing.TypedDict):
@@ -26,7 +26,7 @@ class SwiftUserOrdersFixed:
         "len" /borsh.U32,
         )
     #fields
-    userPubkey: Pubkey
+    userPubkey: SolPubkey
     padding: int
     len: int
     
@@ -55,7 +55,7 @@ class SwiftUserOrdersFixed:
     @classmethod
     def from_json(cls, obj: SwiftUserOrdersFixedJSON) -> "SwiftUserOrdersFixed":
         return cls(
-                userPubkey=Pubkey.from_string(obj["userPubkey"]),
+                userPubkey=SolPubkey.from_string(obj["userPubkey"]),
                 padding=obj["padding"],
                 len=obj["len"],
         )

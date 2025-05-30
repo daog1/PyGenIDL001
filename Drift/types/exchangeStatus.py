@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class DepositPaused:
             kind="DepositPaused",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "DepositPaused": {},
         }
@@ -46,7 +46,7 @@ class WithdrawPaused:
             kind="WithdrawPaused",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "WithdrawPaused": {},
         }
@@ -66,7 +66,7 @@ class AmmPaused:
             kind="AmmPaused",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "AmmPaused": {},
         }
@@ -86,7 +86,7 @@ class FillPaused:
             kind="FillPaused",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "FillPaused": {},
         }
@@ -106,7 +106,7 @@ class LiqPaused:
             kind="LiqPaused",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "LiqPaused": {},
         }
@@ -126,7 +126,7 @@ class FundingPaused:
             kind="FundingPaused",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "FundingPaused": {},
         }
@@ -146,7 +146,7 @@ class SettlePnlPaused:
             kind="SettlePnlPaused",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "SettlePnlPaused": {},
         }
@@ -166,7 +166,7 @@ class AmmImmediateFillPaused:
             kind="AmmImmediateFillPaused",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "AmmImmediateFillPaused": {},
         }
@@ -176,24 +176,24 @@ class AmmImmediateFillPaused:
 
 
 ExchangeStatusKind = typing.Union[
-DepositPaused,
-WithdrawPaused,
-AmmPaused,
-FillPaused,
-LiqPaused,
-FundingPaused,
-SettlePnlPaused,
-AmmImmediateFillPaused,
+    DepositPaused,
+    WithdrawPaused,
+    AmmPaused,
+    FillPaused,
+    LiqPaused,
+    FundingPaused,
+    SettlePnlPaused,
+    AmmImmediateFillPaused,
 ]
 ExchangeStatusJSON = typing.Union[
-DepositPausedJSON,
-WithdrawPausedJSON,
-AmmPausedJSON,
-FillPausedJSON,
-LiqPausedJSON,
-FundingPausedJSON,
-SettlePnlPausedJSON,
-AmmImmediateFillPausedJSON,
+    DepositPausedJSON,
+    WithdrawPausedJSON,
+    AmmPausedJSON,
+    FillPausedJSON,
+    LiqPausedJSON,
+    FundingPausedJSON,
+    SettlePnlPausedJSON,
+    AmmImmediateFillPausedJSON,
 ]
 
 def from_decoded(obj: dict) -> ExchangeStatusKind:

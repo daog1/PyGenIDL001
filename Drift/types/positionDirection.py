@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Long:
             kind="Long",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Long": {},
         }
@@ -46,7 +46,7 @@ class Short:
             kind="Short",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Short": {},
         }
@@ -56,12 +56,12 @@ class Short:
 
 
 PositionDirectionKind = typing.Union[
-Long,
-Short,
+    Long,
+    Short,
 ]
 PositionDirectionJSON = typing.Union[
-LongJSON,
-ShortJSON,
+    LongJSON,
+    ShortJSON,
 ]
 
 def from_decoded(obj: dict) -> PositionDirectionKind:

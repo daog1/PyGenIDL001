@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class InvalidEd25519InstructionProgramId:
             kind="InvalidEd25519InstructionProgramId",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "InvalidEd25519InstructionProgramId": {},
         }
@@ -46,7 +46,7 @@ class InvalidEd25519InstructionDataLength:
             kind="InvalidEd25519InstructionDataLength",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "InvalidEd25519InstructionDataLength": {},
         }
@@ -66,7 +66,7 @@ class InvalidSignatureIndex:
             kind="InvalidSignatureIndex",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "InvalidSignatureIndex": {},
         }
@@ -86,7 +86,7 @@ class InvalidSignatureOffset:
             kind="InvalidSignatureOffset",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "InvalidSignatureOffset": {},
         }
@@ -106,7 +106,7 @@ class InvalidPublicKeyOffset:
             kind="InvalidPublicKeyOffset",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "InvalidPublicKeyOffset": {},
         }
@@ -126,7 +126,7 @@ class InvalidMessageOffset:
             kind="InvalidMessageOffset",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "InvalidMessageOffset": {},
         }
@@ -146,7 +146,7 @@ class InvalidMessageDataSize:
             kind="InvalidMessageDataSize",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "InvalidMessageDataSize": {},
         }
@@ -166,7 +166,7 @@ class InvalidInstructionIndex:
             kind="InvalidInstructionIndex",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "InvalidInstructionIndex": {},
         }
@@ -186,7 +186,7 @@ class MessageOffsetOverflow:
             kind="MessageOffsetOverflow",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "MessageOffsetOverflow": {},
         }
@@ -206,7 +206,7 @@ class InvalidMessageHex:
             kind="InvalidMessageHex",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "InvalidMessageHex": {},
         }
@@ -216,28 +216,28 @@ class InvalidMessageHex:
 
 
 SignatureVerificationErrorKind = typing.Union[
-InvalidEd25519InstructionProgramId,
-InvalidEd25519InstructionDataLength,
-InvalidSignatureIndex,
-InvalidSignatureOffset,
-InvalidPublicKeyOffset,
-InvalidMessageOffset,
-InvalidMessageDataSize,
-InvalidInstructionIndex,
-MessageOffsetOverflow,
-InvalidMessageHex,
+    InvalidEd25519InstructionProgramId,
+    InvalidEd25519InstructionDataLength,
+    InvalidSignatureIndex,
+    InvalidSignatureOffset,
+    InvalidPublicKeyOffset,
+    InvalidMessageOffset,
+    InvalidMessageDataSize,
+    InvalidInstructionIndex,
+    MessageOffsetOverflow,
+    InvalidMessageHex,
 ]
 SignatureVerificationErrorJSON = typing.Union[
-InvalidEd25519InstructionProgramIdJSON,
-InvalidEd25519InstructionDataLengthJSON,
-InvalidSignatureIndexJSON,
-InvalidSignatureOffsetJSON,
-InvalidPublicKeyOffsetJSON,
-InvalidMessageOffsetJSON,
-InvalidMessageDataSizeJSON,
-InvalidInstructionIndexJSON,
-MessageOffsetOverflowJSON,
-InvalidMessageHexJSON,
+    InvalidEd25519InstructionProgramIdJSON,
+    InvalidEd25519InstructionDataLengthJSON,
+    InvalidSignatureIndexJSON,
+    InvalidSignatureOffsetJSON,
+    InvalidPublicKeyOffsetJSON,
+    InvalidMessageOffsetJSON,
+    InvalidMessageDataSizeJSON,
+    InvalidInstructionIndexJSON,
+    MessageOffsetOverflowJSON,
+    InvalidMessageHexJSON,
 ]
 
 def from_decoded(obj: dict) -> SignatureVerificationErrorKind:

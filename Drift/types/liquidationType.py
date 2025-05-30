@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class LiquidatePerp:
             kind="LiquidatePerp",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "LiquidatePerp": {},
         }
@@ -46,7 +46,7 @@ class LiquidateSpot:
             kind="LiquidateSpot",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "LiquidateSpot": {},
         }
@@ -66,7 +66,7 @@ class LiquidateBorrowForPerpPnl:
             kind="LiquidateBorrowForPerpPnl",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "LiquidateBorrowForPerpPnl": {},
         }
@@ -86,7 +86,7 @@ class LiquidatePerpPnlForDeposit:
             kind="LiquidatePerpPnlForDeposit",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "LiquidatePerpPnlForDeposit": {},
         }
@@ -106,7 +106,7 @@ class PerpBankruptcy:
             kind="PerpBankruptcy",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "PerpBankruptcy": {},
         }
@@ -126,7 +126,7 @@ class SpotBankruptcy:
             kind="SpotBankruptcy",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "SpotBankruptcy": {},
         }
@@ -136,20 +136,20 @@ class SpotBankruptcy:
 
 
 LiquidationTypeKind = typing.Union[
-LiquidatePerp,
-LiquidateSpot,
-LiquidateBorrowForPerpPnl,
-LiquidatePerpPnlForDeposit,
-PerpBankruptcy,
-SpotBankruptcy,
+    LiquidatePerp,
+    LiquidateSpot,
+    LiquidateBorrowForPerpPnl,
+    LiquidatePerpPnlForDeposit,
+    PerpBankruptcy,
+    SpotBankruptcy,
 ]
 LiquidationTypeJSON = typing.Union[
-LiquidatePerpJSON,
-LiquidateSpotJSON,
-LiquidateBorrowForPerpPnlJSON,
-LiquidatePerpPnlForDepositJSON,
-PerpBankruptcyJSON,
-SpotBankruptcyJSON,
+    LiquidatePerpJSON,
+    LiquidateSpotJSON,
+    LiquidateBorrowForPerpPnlJSON,
+    LiquidatePerpPnlForDepositJSON,
+    PerpBankruptcyJSON,
+    SpotBankruptcyJSON,
 ]
 
 def from_decoded(obj: dict) -> LiquidationTypeKind:

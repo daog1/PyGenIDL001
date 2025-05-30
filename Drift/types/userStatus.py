@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class BeingLiquidated:
             kind="BeingLiquidated",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "BeingLiquidated": {},
         }
@@ -46,7 +46,7 @@ class Bankrupt:
             kind="Bankrupt",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Bankrupt": {},
         }
@@ -66,7 +66,7 @@ class ReduceOnly:
             kind="ReduceOnly",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "ReduceOnly": {},
         }
@@ -86,7 +86,7 @@ class AdvancedLp:
             kind="AdvancedLp",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "AdvancedLp": {},
         }
@@ -106,7 +106,7 @@ class ProtectedMakerOrders:
             kind="ProtectedMakerOrders",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "ProtectedMakerOrders": {},
         }
@@ -116,18 +116,18 @@ class ProtectedMakerOrders:
 
 
 UserStatusKind = typing.Union[
-BeingLiquidated,
-Bankrupt,
-ReduceOnly,
-AdvancedLp,
-ProtectedMakerOrders,
+    BeingLiquidated,
+    Bankrupt,
+    ReduceOnly,
+    AdvancedLp,
+    ProtectedMakerOrders,
 ]
 UserStatusJSON = typing.Union[
-BeingLiquidatedJSON,
-BankruptJSON,
-ReduceOnlyJSON,
-AdvancedLpJSON,
-ProtectedMakerOrdersJSON,
+    BeingLiquidatedJSON,
+    BankruptJSON,
+    ReduceOnlyJSON,
+    AdvancedLpJSON,
+    ProtectedMakerOrdersJSON,
 ]
 
 def from_decoded(obj: dict) -> UserStatusKind:

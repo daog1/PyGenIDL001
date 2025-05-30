@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class DepositIntoSpotMarketVaultArgs(typing.TypedDict):
@@ -23,17 +23,17 @@ layout = borsh.CStruct(
 
 
 class DepositIntoSpotMarketVaultAccounts(typing.TypedDict):
-    state:Pubkey
-    spotMarket:Pubkey
-    admin:Pubkey
-    sourceVault:Pubkey
-    spotMarketVault:Pubkey
-    tokenProgram:Pubkey
+    state:SolPubkey
+    spotMarket:SolPubkey
+    admin:SolPubkey
+    sourceVault:SolPubkey
+    spotMarketVault:SolPubkey
+    tokenProgram:SolPubkey
 
 def DepositIntoSpotMarketVault(
     args: DepositIntoSpotMarketVaultArgs,
     accounts: DepositIntoSpotMarketVaultAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

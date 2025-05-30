@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class InitializeUserArgs(typing.TypedDict):
@@ -25,18 +25,18 @@ layout = borsh.CStruct(
 
 
 class InitializeUserAccounts(typing.TypedDict):
-    user:Pubkey
-    userStats:Pubkey
-    state:Pubkey
-    authority:Pubkey
-    payer:Pubkey
-    rent:Pubkey
-    systemProgram:Pubkey
+    user:SolPubkey
+    userStats:SolPubkey
+    state:SolPubkey
+    authority:SolPubkey
+    payer:SolPubkey
+    rent:SolPubkey
+    systemProgram:SolPubkey
 
 def InitializeUser(
     args: InitializeUserArgs,
     accounts: InitializeUserAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

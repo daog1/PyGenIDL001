@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class WithdrawAllTokenTypesArgs(typing.TypedDict):
@@ -27,21 +27,21 @@ layout = borsh.CStruct(
 
 
 class WithdrawAllTokenTypesAccounts(typing.TypedDict):
-    amm:Pubkey
-    authority:Pubkey
-    userTransferAuthorityInfo:Pubkey
-    sourceInfo:Pubkey
-    tokenA:Pubkey
-    tokenB:Pubkey
-    poolMint:Pubkey
-    destTokenAInfo:Pubkey
-    destTokenBInfo:Pubkey
-    tokenProgram:Pubkey
+    amm:SolPubkey
+    authority:SolPubkey
+    userTransferAuthorityInfo:SolPubkey
+    sourceInfo:SolPubkey
+    tokenA:SolPubkey
+    tokenB:SolPubkey
+    poolMint:SolPubkey
+    destTokenAInfo:SolPubkey
+    destTokenBInfo:SolPubkey
+    tokenProgram:SolPubkey
 
 def WithdrawAllTokenTypes(
     args: WithdrawAllTokenTypesArgs,
     accounts: WithdrawAllTokenTypesAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
@@ -61,9 +61,9 @@ def WithdrawAllTokenTypes(
         keys += remaining_accounts
     identifier = b"\xbd\xfe\x9c\xae\xd2\x09\xa4\xd8"
     encoded_args = layout.build({
-    "poolTokenAmount":args["poolTokenAmount"],
-    "minimumTokenAAmount":args["minimumTokenAAmount"],
-    "minimumTokenBAmount":args["minimumTokenBAmount"],
+        "poolTokenAmount":args["poolTokenAmount"],
+        "minimumTokenAAmount":args["minimumTokenAAmount"],
+        "minimumTokenBAmount":args["minimumTokenBAmount"],
        })
 
     data = identifier + encoded_args

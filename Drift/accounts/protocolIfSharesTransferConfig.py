@@ -15,7 +15,7 @@ from dataclasses import dataclass;
 from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
 from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from ..program_id import PROGRAM_ID;
 
 
@@ -38,7 +38,7 @@ class ProtocolIfSharesTransferConfig:
         "padding" /borsh.U128[8],
         )
     #fields
-    whitelistedSigners: list[Pubkey]
+    whitelistedSigners: list[SolPubkey]
     maxTransferPerEpoch: int
     currentEpochTransfer: int
     nextEpochTs: int
@@ -49,9 +49,9 @@ class ProtocolIfSharesTransferConfig:
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["ProtocolIfSharesTransferConfig"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -66,9 +66,9 @@ class ProtocolIfSharesTransferConfig:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["ProtocolIfSharesTransferConfig"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["ProtocolIfSharesTransferConfig"]] = []
@@ -108,7 +108,7 @@ class ProtocolIfSharesTransferConfig:
     @classmethod
     def from_json(cls, obj: ProtocolIfSharesTransferConfigJSON) -> "ProtocolIfSharesTransferConfig":
         return cls(
-                whitelistedSigners=list(map(lambda item:Pubkey.from_string(item),obj["whitelistedSigners"])),
+                whitelistedSigners=list(map(lambda item:SolPubkey.from_string(item),obj["whitelistedSigners"])),
                 maxTransferPerEpoch=obj["maxTransferPerEpoch"],
                 currentEpochTransfer=obj["currentEpochTransfer"],
                 nextEpochTs=obj["nextEpochTs"],

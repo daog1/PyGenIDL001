@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class None_:
             kind="None",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "None": {},
         }
@@ -46,7 +46,7 @@ class InsufficientFreeCollateral:
             kind="InsufficientFreeCollateral",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "InsufficientFreeCollateral": {},
         }
@@ -66,7 +66,7 @@ class OraclePriceBreachedLimitPrice:
             kind="OraclePriceBreachedLimitPrice",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "OraclePriceBreachedLimitPrice": {},
         }
@@ -86,7 +86,7 @@ class MarketOrderFilledToLimitPrice:
             kind="MarketOrderFilledToLimitPrice",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "MarketOrderFilledToLimitPrice": {},
         }
@@ -106,7 +106,7 @@ class OrderExpired:
             kind="OrderExpired",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "OrderExpired": {},
         }
@@ -126,7 +126,7 @@ class Liquidation:
             kind="Liquidation",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Liquidation": {},
         }
@@ -146,7 +146,7 @@ class OrderFilledWithAMM:
             kind="OrderFilledWithAMM",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "OrderFilledWithAMM": {},
         }
@@ -166,7 +166,7 @@ class OrderFilledWithAMMJit:
             kind="OrderFilledWithAMMJit",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "OrderFilledWithAMMJit": {},
         }
@@ -186,7 +186,7 @@ class OrderFilledWithMatch:
             kind="OrderFilledWithMatch",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "OrderFilledWithMatch": {},
         }
@@ -206,7 +206,7 @@ class OrderFilledWithMatchJit:
             kind="OrderFilledWithMatchJit",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "OrderFilledWithMatchJit": {},
         }
@@ -226,7 +226,7 @@ class MarketExpired:
             kind="MarketExpired",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "MarketExpired": {},
         }
@@ -246,7 +246,7 @@ class RiskingIncreasingOrder:
             kind="RiskingIncreasingOrder",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "RiskingIncreasingOrder": {},
         }
@@ -266,7 +266,7 @@ class ReduceOnlyOrderIncreasedPosition:
             kind="ReduceOnlyOrderIncreasedPosition",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "ReduceOnlyOrderIncreasedPosition": {},
         }
@@ -286,7 +286,7 @@ class OrderFillWithSerum:
             kind="OrderFillWithSerum",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "OrderFillWithSerum": {},
         }
@@ -306,7 +306,7 @@ class NoBorrowLiquidity:
             kind="NoBorrowLiquidity",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "NoBorrowLiquidity": {},
         }
@@ -326,7 +326,7 @@ class OrderFillWithPhoenix:
             kind="OrderFillWithPhoenix",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "OrderFillWithPhoenix": {},
         }
@@ -346,7 +346,7 @@ class OrderFilledWithAMMJitLPSplit:
             kind="OrderFilledWithAMMJitLPSplit",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "OrderFilledWithAMMJitLPSplit": {},
         }
@@ -366,7 +366,7 @@ class OrderFilledWithLPJit:
             kind="OrderFilledWithLPJit",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "OrderFilledWithLPJit": {},
         }
@@ -386,7 +386,7 @@ class DeriskLp:
             kind="DeriskLp",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "DeriskLp": {},
         }
@@ -406,7 +406,7 @@ class OrderFilledWithOpenbookV2:
             kind="OrderFilledWithOpenbookV2",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "OrderFilledWithOpenbookV2": {},
         }
@@ -416,48 +416,48 @@ class OrderFilledWithOpenbookV2:
 
 
 OrderActionExplanationKind = typing.Union[
-None_,
-InsufficientFreeCollateral,
-OraclePriceBreachedLimitPrice,
-MarketOrderFilledToLimitPrice,
-OrderExpired,
-Liquidation,
-OrderFilledWithAMM,
-OrderFilledWithAMMJit,
-OrderFilledWithMatch,
-OrderFilledWithMatchJit,
-MarketExpired,
-RiskingIncreasingOrder,
-ReduceOnlyOrderIncreasedPosition,
-OrderFillWithSerum,
-NoBorrowLiquidity,
-OrderFillWithPhoenix,
-OrderFilledWithAMMJitLPSplit,
-OrderFilledWithLPJit,
-DeriskLp,
-OrderFilledWithOpenbookV2,
+    None_,
+    InsufficientFreeCollateral,
+    OraclePriceBreachedLimitPrice,
+    MarketOrderFilledToLimitPrice,
+    OrderExpired,
+    Liquidation,
+    OrderFilledWithAMM,
+    OrderFilledWithAMMJit,
+    OrderFilledWithMatch,
+    OrderFilledWithMatchJit,
+    MarketExpired,
+    RiskingIncreasingOrder,
+    ReduceOnlyOrderIncreasedPosition,
+    OrderFillWithSerum,
+    NoBorrowLiquidity,
+    OrderFillWithPhoenix,
+    OrderFilledWithAMMJitLPSplit,
+    OrderFilledWithLPJit,
+    DeriskLp,
+    OrderFilledWithOpenbookV2,
 ]
 OrderActionExplanationJSON = typing.Union[
-NoneJSON,
-InsufficientFreeCollateralJSON,
-OraclePriceBreachedLimitPriceJSON,
-MarketOrderFilledToLimitPriceJSON,
-OrderExpiredJSON,
-LiquidationJSON,
-OrderFilledWithAMMJSON,
-OrderFilledWithAMMJitJSON,
-OrderFilledWithMatchJSON,
-OrderFilledWithMatchJitJSON,
-MarketExpiredJSON,
-RiskingIncreasingOrderJSON,
-ReduceOnlyOrderIncreasedPositionJSON,
-OrderFillWithSerumJSON,
-NoBorrowLiquidityJSON,
-OrderFillWithPhoenixJSON,
-OrderFilledWithAMMJitLPSplitJSON,
-OrderFilledWithLPJitJSON,
-DeriskLpJSON,
-OrderFilledWithOpenbookV2JSON,
+    NoneJSON,
+    InsufficientFreeCollateralJSON,
+    OraclePriceBreachedLimitPriceJSON,
+    MarketOrderFilledToLimitPriceJSON,
+    OrderExpiredJSON,
+    LiquidationJSON,
+    OrderFilledWithAMMJSON,
+    OrderFilledWithAMMJitJSON,
+    OrderFilledWithMatchJSON,
+    OrderFilledWithMatchJitJSON,
+    MarketExpiredJSON,
+    RiskingIncreasingOrderJSON,
+    ReduceOnlyOrderIncreasedPositionJSON,
+    OrderFillWithSerumJSON,
+    NoBorrowLiquidityJSON,
+    OrderFillWithPhoenixJSON,
+    OrderFilledWithAMMJitLPSplitJSON,
+    OrderFilledWithLPJitJSON,
+    DeriskLpJSON,
+    OrderFilledWithOpenbookV2JSON,
 ]
 
 def from_decoded(obj: dict) -> OrderActionExplanationKind:

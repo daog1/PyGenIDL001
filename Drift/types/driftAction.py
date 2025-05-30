@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class UpdateFunding:
             kind="UpdateFunding",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "UpdateFunding": {},
         }
@@ -46,7 +46,7 @@ class SettlePnl:
             kind="SettlePnl",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "SettlePnl": {},
         }
@@ -66,7 +66,7 @@ class TriggerOrder:
             kind="TriggerOrder",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "TriggerOrder": {},
         }
@@ -86,7 +86,7 @@ class FillOrderMatch:
             kind="FillOrderMatch",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "FillOrderMatch": {},
         }
@@ -106,7 +106,7 @@ class FillOrderAmm:
             kind="FillOrderAmm",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "FillOrderAmm": {},
         }
@@ -126,7 +126,7 @@ class Liquidate:
             kind="Liquidate",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Liquidate": {},
         }
@@ -146,7 +146,7 @@ class MarginCalc:
             kind="MarginCalc",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "MarginCalc": {},
         }
@@ -166,7 +166,7 @@ class UpdateTwap:
             kind="UpdateTwap",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "UpdateTwap": {},
         }
@@ -186,7 +186,7 @@ class UpdateAMMCurve:
             kind="UpdateAMMCurve",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "UpdateAMMCurve": {},
         }
@@ -206,7 +206,7 @@ class OracleOrderPrice:
             kind="OracleOrderPrice",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "OracleOrderPrice": {},
         }
@@ -216,28 +216,28 @@ class OracleOrderPrice:
 
 
 DriftActionKind = typing.Union[
-UpdateFunding,
-SettlePnl,
-TriggerOrder,
-FillOrderMatch,
-FillOrderAmm,
-Liquidate,
-MarginCalc,
-UpdateTwap,
-UpdateAMMCurve,
-OracleOrderPrice,
+    UpdateFunding,
+    SettlePnl,
+    TriggerOrder,
+    FillOrderMatch,
+    FillOrderAmm,
+    Liquidate,
+    MarginCalc,
+    UpdateTwap,
+    UpdateAMMCurve,
+    OracleOrderPrice,
 ]
 DriftActionJSON = typing.Union[
-UpdateFundingJSON,
-SettlePnlJSON,
-TriggerOrderJSON,
-FillOrderMatchJSON,
-FillOrderAmmJSON,
-LiquidateJSON,
-MarginCalcJSON,
-UpdateTwapJSON,
-UpdateAMMCurveJSON,
-OracleOrderPriceJSON,
+    UpdateFundingJSON,
+    SettlePnlJSON,
+    TriggerOrderJSON,
+    FillOrderMatchJSON,
+    FillOrderAmmJSON,
+    LiquidateJSON,
+    MarginCalcJSON,
+    UpdateTwapJSON,
+    UpdateAMMCurveJSON,
+    OracleOrderPriceJSON,
 ]
 
 def from_decoded(obj: dict) -> DriftActionKind:

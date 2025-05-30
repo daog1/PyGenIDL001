@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class PartialFill:
             kind="PartialFill",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "PartialFill": {},
         }
@@ -46,7 +46,7 @@ class FullFill:
             kind="FullFill",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "FullFill": {},
         }
@@ -56,12 +56,12 @@ class FullFill:
 
 
 PlaceAndTakeOrderSuccessConditionKind = typing.Union[
-PartialFill,
-FullFill,
+    PartialFill,
+    FullFill,
 ]
 PlaceAndTakeOrderSuccessConditionJSON = typing.Union[
-PartialFillJSON,
-FullFillJSON,
+    PartialFillJSON,
+    FullFillJSON,
 ]
 
 def from_decoded(obj: dict) -> PlaceAndTakeOrderSuccessConditionKind:

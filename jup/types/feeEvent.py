@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 class FeeEventJSON(typing.TypedDict):
@@ -26,8 +26,8 @@ class FeeEvent:
         "amount" /borsh.U64,
         )
     #fields
-    account: Pubkey
-    mint: Pubkey
+    account: SolPubkey
+    mint: SolPubkey
     amount: int
     
     @classmethod
@@ -55,8 +55,8 @@ class FeeEvent:
     @classmethod
     def from_json(cls, obj: FeeEventJSON) -> "FeeEvent":
         return cls(
-                account=Pubkey.from_string(obj["account"]),
-                mint=Pubkey.from_string(obj["mint"]),
+                account=SolPubkey.from_string(obj["account"]),
+                mint=SolPubkey.from_string(obj["mint"]),
                 amount=obj["amount"],
         )
 

@@ -11,11 +11,11 @@ from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class UpdateAdminArgs(typing.TypedDict):
-    admin:Pubkey
+    admin:SolPubkey
 
 
 layout = borsh.CStruct(
@@ -24,13 +24,13 @@ layout = borsh.CStruct(
 
 
 class UpdateAdminAccounts(typing.TypedDict):
-    admin:Pubkey
-    state:Pubkey
+    admin:SolPubkey
+    state:SolPubkey
 
 def UpdateAdmin(
     args: UpdateAdminArgs,
     accounts: UpdateAdminAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

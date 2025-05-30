@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 class ExtendAccountEventJSON(typing.TypedDict):
@@ -30,8 +30,8 @@ class ExtendAccountEvent:
         "timestamp" /borsh.I64,
         )
     #fields
-    account: Pubkey
-    user: Pubkey
+    account: SolPubkey
+    user: SolPubkey
     currentSize: int
     newSize: int
     timestamp: int
@@ -67,8 +67,8 @@ class ExtendAccountEvent:
     @classmethod
     def from_json(cls, obj: ExtendAccountEventJSON) -> "ExtendAccountEvent":
         return cls(
-                account=Pubkey.from_string(obj["account"]),
-                user=Pubkey.from_string(obj["user"]),
+                account=SolPubkey.from_string(obj["account"]),
+                user=SolPubkey.from_string(obj["user"]),
                 currentSize=obj["currentSize"],
                 newSize=obj["newSize"],
                 timestamp=obj["timestamp"],

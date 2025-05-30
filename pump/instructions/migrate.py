@@ -10,39 +10,39 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class MigrateAccounts(typing.TypedDict):
-    global_:Pubkey
-    withdrawAuthority:Pubkey
-    mint:Pubkey
-    bondingCurve:Pubkey
-    associatedBondingCurve:Pubkey
-    user:Pubkey
-    systemProgram:Pubkey
-    tokenProgram:Pubkey
-    pumpAmm:Pubkey
-    pool:Pubkey
-    poolAuthority:Pubkey
-    poolAuthorityMintAccount:Pubkey
-    poolAuthorityWsolAccount:Pubkey
-    ammGlobalConfig:Pubkey
-    wsolMint:Pubkey
-    lpMint:Pubkey
-    userPoolTokenAccount:Pubkey
-    poolBaseTokenAccount:Pubkey
-    poolQuoteTokenAccount:Pubkey
-    token2022Program:Pubkey
-    associatedTokenProgram:Pubkey
-    pumpAmmEventAuthority:Pubkey
-    eventAuthority:Pubkey
-    program:Pubkey
+    global_:SolPubkey
+    withdrawAuthority:SolPubkey
+    mint:SolPubkey
+    bondingCurve:SolPubkey
+    associatedBondingCurve:SolPubkey
+    user:SolPubkey
+    systemProgram:SolPubkey
+    tokenProgram:SolPubkey
+    pumpAmm:SolPubkey
+    pool:SolPubkey
+    poolAuthority:SolPubkey
+    poolAuthorityMintAccount:SolPubkey
+    poolAuthorityWsolAccount:SolPubkey
+    ammGlobalConfig:SolPubkey
+    wsolMint:SolPubkey
+    lpMint:SolPubkey
+    userPoolTokenAccount:SolPubkey
+    poolBaseTokenAccount:SolPubkey
+    poolQuoteTokenAccount:SolPubkey
+    token2022Program:SolPubkey
+    associatedTokenProgram:SolPubkey
+    pumpAmmEventAuthority:SolPubkey
+    eventAuthority:SolPubkey
+    program:SolPubkey
 
 def Migrate(
     accounts: MigrateAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

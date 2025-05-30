@@ -15,7 +15,7 @@ from dataclasses import dataclass;
 from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
 from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 
@@ -157,10 +157,10 @@ class SpotMarket:
         "padding" /borsh.U8[40],
         )
     #fields
-    pubkey: Pubkey
-    oracle: Pubkey
-    mint: Pubkey
-    vault: Pubkey
+    pubkey: SolPubkey
+    oracle: SolPubkey
+    mint: SolPubkey
+    vault: SolPubkey
     name: list[int]
     historicalOracleData: types.historicalOracleData.HistoricalOracleData
     historicalIndexData: types.historicalIndexData.HistoricalIndexData
@@ -227,9 +227,9 @@ class SpotMarket:
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["SpotMarket"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -244,9 +244,9 @@ class SpotMarket:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["SpotMarket"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["SpotMarket"]] = []
@@ -339,7 +339,7 @@ class SpotMarket:
                 "oracle": str(self.oracle),
                 "mint": str(self.mint),
                 "vault": str(self.vault),
-                "name": self.name.to_json(),
+                "name": self.name,
                 "historicalOracleData": self.historicalOracleData.to_json(),
                 "historicalIndexData": self.historicalIndexData.to_json(),
                 "revenuePool": self.revenuePool.to_json(),
@@ -398,16 +398,16 @@ class SpotMarket:
                 "fuelBoostInsurance": self.fuelBoostInsurance,
                 "tokenProgram": self.tokenProgram,
                 "poolId": self.poolId,
-                "padding": self.padding.to_json(),
+                "padding": self.padding,
                 }
 
     @classmethod
     def from_json(cls, obj: SpotMarketJSON) -> "SpotMarket":
         return cls(
-                pubkey=Pubkey.from_string(obj["pubkey"]),
-                oracle=Pubkey.from_string(obj["oracle"]),
-                mint=Pubkey.from_string(obj["mint"]),
-                vault=Pubkey.from_string(obj["vault"]),
+                pubkey=SolPubkey.from_string(obj["pubkey"]),
+                oracle=SolPubkey.from_string(obj["oracle"]),
+                mint=SolPubkey.from_string(obj["mint"]),
+                vault=SolPubkey.from_string(obj["vault"]),
                 name=obj["name"],
                 historicalOracleData=types.historicalOracleData.HistoricalOracleData.from_json(obj["historicalOracleData"]),
                 historicalIndexData=types.historicalIndexData.HistoricalIndexData.from_json(obj["historicalIndexData"]),

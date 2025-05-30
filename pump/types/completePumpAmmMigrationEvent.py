@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 class CompletePumpAmmMigrationEventJSON(typing.TypedDict):
@@ -36,14 +36,14 @@ class CompletePumpAmmMigrationEvent:
         "pool" /BorshPubkey,
         )
     #fields
-    user: Pubkey
-    mint: Pubkey
+    user: SolPubkey
+    mint: SolPubkey
     mintAmount: int
     solAmount: int
     poolMigrationFee: int
-    bondingCurve: Pubkey
+    bondingCurve: SolPubkey
     timestamp: int
-    pool: Pubkey
+    pool: SolPubkey
     
     @classmethod
     def from_decoded(cls, obj: Container) -> "CompletePumpAmmMigrationEvent":
@@ -85,14 +85,14 @@ class CompletePumpAmmMigrationEvent:
     @classmethod
     def from_json(cls, obj: CompletePumpAmmMigrationEventJSON) -> "CompletePumpAmmMigrationEvent":
         return cls(
-                user=Pubkey.from_string(obj["user"]),
-                mint=Pubkey.from_string(obj["mint"]),
+                user=SolPubkey.from_string(obj["user"]),
+                mint=SolPubkey.from_string(obj["mint"]),
                 mintAmount=obj["mintAmount"],
                 solAmount=obj["solAmount"],
                 poolMigrationFee=obj["poolMigrationFee"],
-                bondingCurve=Pubkey.from_string(obj["bondingCurve"]),
+                bondingCurve=SolPubkey.from_string(obj["bondingCurve"]),
                 timestamp=obj["timestamp"],
-                pool=Pubkey.from_string(obj["pool"]),
+                pool=SolPubkey.from_string(obj["pool"]),
         )
 
 

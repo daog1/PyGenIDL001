@@ -16,7 +16,7 @@ from dataclasses import dataclass;
 from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
 from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 
@@ -36,7 +36,7 @@ class SwiftUserOrders:
         "swiftOrderData" /borsh.Vec(typing.cast(Construct, types.swiftOrderId.SwiftOrderId.layout)),
         )
     #fields
-    userPubkey: Pubkey
+    userPubkey: SolPubkey
     padding: int
     swiftOrderData: list[types.swiftOrderId.SwiftOrderId]
     
@@ -45,9 +45,9 @@ class SwiftUserOrders:
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["SwiftUserOrders"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -62,9 +62,9 @@ class SwiftUserOrders:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["SwiftUserOrders"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["SwiftUserOrders"]] = []
@@ -100,7 +100,7 @@ class SwiftUserOrders:
     @classmethod
     def from_json(cls, obj: SwiftUserOrdersJSON) -> "SwiftUserOrders":
         return cls(
-                userPubkey=Pubkey.from_string(obj["userPubkey"]),
+                userPubkey=SolPubkey.from_string(obj["userPubkey"]),
                 padding=obj["padding"],
                 swiftOrderData=list(map(lambda item:types.swiftOrderId.SwiftOrderId.from_json(item),obj["swiftOrderData"])),
                 )

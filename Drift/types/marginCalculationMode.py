@@ -10,12 +10,11 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from . import marketIdentifier;
 
 class StandardJSONValue(typing.TypedDict):
-    #kind: typing.Literal["Standard"]
     trackOpenOrdersFraction: bool
 class StandardValue(typing.TypedDict):
     trackOpenOrdersFraction: bool
@@ -40,15 +39,14 @@ class Standard:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "Standard": {},
-        }
+            "Standard":{ "trackOpenOrdersFraction":self.value["trackOpenOrdersFraction"] }
+            }
 
 
 
 class LiquidationJSONValue(typing.TypedDict):
-    #kind: typing.Literal["Liquidation"]
     marketToTrackMarginRequirement: typing.Optional[marketIdentifier.MarketIdentifierJSON]
 class LiquidationValue(typing.TypedDict):
     marketToTrackMarginRequirement: typing.Optional[marketIdentifier.MarketIdentifier]
@@ -73,22 +71,22 @@ class Liquidation:
             }
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "Liquidation": {},
-        }
+            "Liquidation":{ "marketToTrackMarginRequirement":(None if self.value["marketToTrackMarginRequirement"] is None else self.value["marketToTrackMarginRequirement"].to_encodable()) }
+            }
 
 
 
 
 
 MarginCalculationModeKind = typing.Union[
-Standard,
-Liquidation,
+    Standard,
+    Liquidation,
 ]
 MarginCalculationModeJSON = typing.Union[
-StandardJSON,
-LiquidationJSON,
+    StandardJSON,
+    LiquidationJSON,
 ]
 
 def from_decoded(obj: dict) -> MarginCalculationModeKind:

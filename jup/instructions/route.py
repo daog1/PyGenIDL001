@@ -10,7 +10,7 @@ import typing;
 from construct import Construct, Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
@@ -32,20 +32,20 @@ layout = borsh.CStruct(
 
 
 class RouteAccounts(typing.TypedDict):
-    tokenProgram:Pubkey
-    userTransferAuthority:Pubkey
-    userSourceTokenAccount:Pubkey
-    userDestinationTokenAccount:Pubkey
-    destinationTokenAccount:Pubkey
-    destinationMint:Pubkey
-    platformFeeAccount:Pubkey
-    eventAuthority:Pubkey
-    program:Pubkey
+    tokenProgram:SolPubkey
+    userTransferAuthority:SolPubkey
+    userSourceTokenAccount:SolPubkey
+    userDestinationTokenAccount:SolPubkey
+    destinationTokenAccount:SolPubkey
+    destinationMint:SolPubkey
+    platformFeeAccount:SolPubkey
+    eventAuthority:SolPubkey
+    program:SolPubkey
 
 def Route(
     args: RouteArgs,
     accounts: RouteAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
@@ -64,11 +64,11 @@ def Route(
         keys += remaining_accounts
     identifier = b"\xe5\x17\xcb\x97\x7a\xe3\xad\x2a"
     encoded_args = layout.build({
-    "routePlan":list(map(lambda item:item.to_encodable(),args["routePlan"])),
-    "inAmount":args["inAmount"],
-    "quotedOutAmount":args["quotedOutAmount"],
-    "slippageBps":args["slippageBps"],
-    "platformFeeBps":args["platformFeeBps"],
+        "routePlan":list(map(lambda item:item.to_encodable(),args["routePlan"])),
+        "inAmount":args["inAmount"],
+        "quotedOutAmount":args["quotedOutAmount"],
+        "slippageBps":args["slippageBps"],
+        "platformFeeBps":args["platformFeeBps"],
        })
 
     data = identifier + encoded_args

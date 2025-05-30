@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
@@ -72,17 +72,17 @@ layout = borsh.CStruct(
 
 
 class InitializePerpMarketAccounts(typing.TypedDict):
-    admin:Pubkey
-    state:Pubkey
-    perpMarket:Pubkey
-    oracle:Pubkey
-    rent:Pubkey
-    systemProgram:Pubkey
+    admin:SolPubkey
+    state:SolPubkey
+    perpMarket:SolPubkey
+    oracle:SolPubkey
+    rent:SolPubkey
+    systemProgram:SolPubkey
 
 def InitializePerpMarket(
     args: InitializePerpMarketArgs,
     accounts: InitializePerpMarketAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

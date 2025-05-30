@@ -15,7 +15,7 @@ from dataclasses import dataclass;
 from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
 from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 
@@ -99,7 +99,7 @@ class PerpMarket:
         "padding" /borsh.U8[38],
         )
     #fields
-    pubkey: Pubkey
+    pubkey: SolPubkey
     amm: types.aMM.AMM
     pnlPool: types.poolBalance.PoolBalance
     name: list[int]
@@ -140,9 +140,9 @@ class PerpMarket:
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["PerpMarket"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -157,9 +157,9 @@ class PerpMarket:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["PerpMarket"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["PerpMarket"]] = []
@@ -222,7 +222,7 @@ class PerpMarket:
                 "pubkey": str(self.pubkey),
                 "amm": self.amm.to_json(),
                 "pnlPool": self.pnlPool.to_json(),
-                "name": self.name.to_json(),
+                "name": self.name,
                 "insuranceClaim": self.insuranceClaim.to_json(),
                 "unrealizedPnlMaxImbalance": self.unrealizedPnlMaxImbalance,
                 "expiryTs": self.expiryTs,
@@ -253,13 +253,13 @@ class PerpMarket:
                 "poolId": self.poolId,
                 "highLeverageMarginRatioInitial": self.highLeverageMarginRatioInitial,
                 "highLeverageMarginRatioMaintenance": self.highLeverageMarginRatioMaintenance,
-                "padding": self.padding.to_json(),
+                "padding": self.padding,
                 }
 
     @classmethod
     def from_json(cls, obj: PerpMarketJSON) -> "PerpMarket":
         return cls(
-                pubkey=Pubkey.from_string(obj["pubkey"]),
+                pubkey=SolPubkey.from_string(obj["pubkey"]),
                 amm=types.aMM.AMM.from_json(obj["amm"]),
                 pnlPool=types.poolBalance.PoolBalance.from_json(obj["pnlPool"]),
                 name=obj["name"],

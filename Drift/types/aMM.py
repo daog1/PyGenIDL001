@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from . import historicalOracleData, oracleSource, poolBalance;
 
@@ -189,7 +189,7 @@ class AMM:
         "padding" /borsh.U8[12],
         )
     #fields
-    oracle: Pubkey
+    oracle: SolPubkey
     historicalOracleData: historicalOracleData.HistoricalOracleData
     baseAssetAmountPerLp: int
     quoteAssetAmountPerLp: int
@@ -536,13 +536,13 @@ class AMM:
                 "netUnsettledFundingPnl": self.netUnsettledFundingPnl,
                 "quoteAssetAmountWithUnsettledLp": self.quoteAssetAmountWithUnsettledLp,
                 "referencePriceOffset": self.referencePriceOffset,
-                "padding": self.padding.to_json(),
+                "padding": self.padding,
                 }
 
     @classmethod
     def from_json(cls, obj: AMMJSON) -> "AMM":
         return cls(
-                oracle=Pubkey.from_string(obj["oracle"]),
+                oracle=SolPubkey.from_string(obj["oracle"]),
                 historicalOracleData=historicalOracleData.HistoricalOracleData.from_json(obj["historicalOracleData"]),
                 baseAssetAmountPerLp=obj["baseAssetAmountPerLp"],
                 quoteAssetAmountPerLp=obj["quoteAssetAmountPerLp"],

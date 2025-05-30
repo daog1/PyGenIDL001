@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 class SetParamsEventJSON(typing.TypedDict):
@@ -52,13 +52,13 @@ class SetParamsEvent:
     finalRealSolReserves: int
     tokenTotalSupply: int
     feeBasisPoints: int
-    withdrawAuthority: Pubkey
+    withdrawAuthority: SolPubkey
     enableMigrate: bool
     poolMigrationFee: int
     creatorFeeBasisPoints: int
-    feeRecipients: list[Pubkey]
+    feeRecipients: list[SolPubkey]
     timestamp: int
-    setCreatorAuthority: Pubkey
+    setCreatorAuthority: SolPubkey
     
     @classmethod
     def from_decoded(cls, obj: Container) -> "SetParamsEvent":
@@ -73,7 +73,7 @@ class SetParamsEvent:
         enableMigrate=obj["enableMigrate"],
         poolMigrationFee=obj["poolMigrationFee"],
         creatorFeeBasisPoints=obj["creatorFeeBasisPoints"],
-        feeRecipients=list(map(lambda item:Pubkey.from_string(item),obj["feeRecipients"])),
+        feeRecipients=list(map(lambda item:SolPubkey.from_string(item),obj["feeRecipients"])),
         timestamp=obj["timestamp"],
         setCreatorAuthority=obj["setCreatorAuthority"],
         )
@@ -121,13 +121,13 @@ class SetParamsEvent:
                 finalRealSolReserves=obj["finalRealSolReserves"],
                 tokenTotalSupply=obj["tokenTotalSupply"],
                 feeBasisPoints=obj["feeBasisPoints"],
-                withdrawAuthority=Pubkey.from_string(obj["withdrawAuthority"]),
+                withdrawAuthority=SolPubkey.from_string(obj["withdrawAuthority"]),
                 enableMigrate=obj["enableMigrate"],
                 poolMigrationFee=obj["poolMigrationFee"],
                 creatorFeeBasisPoints=obj["creatorFeeBasisPoints"],
-                feeRecipients=list(map(lambda item:Pubkey.from_string(item),obj["feeRecipients"])),
+                feeRecipients=list(map(lambda item:SolPubkey.from_string(item),obj["feeRecipients"])),
                 timestamp=obj["timestamp"],
-                setCreatorAuthority=Pubkey.from_string(obj["setCreatorAuthority"]),
+                setCreatorAuthority=SolPubkey.from_string(obj["setCreatorAuthority"]),
         )
 
 

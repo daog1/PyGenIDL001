@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class ResolvePerpBankruptcyArgs(typing.TypedDict):
@@ -25,21 +25,21 @@ layout = borsh.CStruct(
 
 
 class ResolvePerpBankruptcyAccounts(typing.TypedDict):
-    state:Pubkey
-    authority:Pubkey
-    liquidator:Pubkey
-    liquidatorStats:Pubkey
-    user:Pubkey
-    userStats:Pubkey
-    spotMarketVault:Pubkey
-    insuranceFundVault:Pubkey
-    driftSigner:Pubkey
-    tokenProgram:Pubkey
+    state:SolPubkey
+    authority:SolPubkey
+    liquidator:SolPubkey
+    liquidatorStats:SolPubkey
+    user:SolPubkey
+    userStats:SolPubkey
+    spotMarketVault:SolPubkey
+    insuranceFundVault:SolPubkey
+    driftSigner:SolPubkey
+    tokenProgram:SolPubkey
 
 def ResolvePerpBankruptcy(
     args: ResolvePerpBankruptcyArgs,
     accounts: ResolvePerpBankruptcyAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

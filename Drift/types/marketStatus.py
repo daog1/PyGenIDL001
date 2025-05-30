@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Initialized:
             kind="Initialized",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Initialized": {},
         }
@@ -46,7 +46,7 @@ class Active:
             kind="Active",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Active": {},
         }
@@ -66,7 +66,7 @@ class FundingPaused:
             kind="FundingPaused",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "FundingPaused": {},
         }
@@ -86,7 +86,7 @@ class AmmPaused:
             kind="AmmPaused",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "AmmPaused": {},
         }
@@ -106,7 +106,7 @@ class FillPaused:
             kind="FillPaused",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "FillPaused": {},
         }
@@ -126,7 +126,7 @@ class WithdrawPaused:
             kind="WithdrawPaused",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "WithdrawPaused": {},
         }
@@ -146,7 +146,7 @@ class ReduceOnly:
             kind="ReduceOnly",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "ReduceOnly": {},
         }
@@ -166,7 +166,7 @@ class Settlement:
             kind="Settlement",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Settlement": {},
         }
@@ -186,7 +186,7 @@ class Delisted:
             kind="Delisted",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Delisted": {},
         }
@@ -196,26 +196,26 @@ class Delisted:
 
 
 MarketStatusKind = typing.Union[
-Initialized,
-Active,
-FundingPaused,
-AmmPaused,
-FillPaused,
-WithdrawPaused,
-ReduceOnly,
-Settlement,
-Delisted,
+    Initialized,
+    Active,
+    FundingPaused,
+    AmmPaused,
+    FillPaused,
+    WithdrawPaused,
+    ReduceOnly,
+    Settlement,
+    Delisted,
 ]
 MarketStatusJSON = typing.Union[
-InitializedJSON,
-ActiveJSON,
-FundingPausedJSON,
-AmmPausedJSON,
-FillPausedJSON,
-WithdrawPausedJSON,
-ReduceOnlyJSON,
-SettlementJSON,
-DelistedJSON,
+    InitializedJSON,
+    ActiveJSON,
+    FundingPausedJSON,
+    AmmPausedJSON,
+    FillPausedJSON,
+    WithdrawPausedJSON,
+    ReduceOnlyJSON,
+    SettlementJSON,
+    DelistedJSON,
 ]
 
 def from_decoded(obj: dict) -> MarketStatusKind:

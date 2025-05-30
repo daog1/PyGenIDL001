@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Bid:
             kind="Bid",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Bid": {},
         }
@@ -46,7 +46,7 @@ class Ask:
             kind="Ask",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Ask": {},
         }
@@ -56,12 +56,12 @@ class Ask:
 
 
 SideKind = typing.Union[
-Bid,
-Ask,
+    Bid,
+    Ask,
 ]
 SideJSON = typing.Union[
-BidJSON,
-AskJSON,
+    BidJSON,
+    AskJSON,
 ]
 
 def from_decoded(obj: dict) -> SideKind:

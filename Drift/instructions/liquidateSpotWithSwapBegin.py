@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class LiquidateSpotWithSwapBeginArgs(typing.TypedDict):
@@ -27,24 +27,24 @@ layout = borsh.CStruct(
 
 
 class LiquidateSpotWithSwapBeginAccounts(typing.TypedDict):
-    state:Pubkey
-    authority:Pubkey
-    liquidator:Pubkey
-    liquidatorStats:Pubkey
-    user:Pubkey
-    userStats:Pubkey
-    liabilitySpotMarketVault:Pubkey
-    assetSpotMarketVault:Pubkey
-    liabilityTokenAccount:Pubkey
-    assetTokenAccount:Pubkey
-    tokenProgram:Pubkey
-    driftSigner:Pubkey
-    instructions:Pubkey
+    state:SolPubkey
+    authority:SolPubkey
+    liquidator:SolPubkey
+    liquidatorStats:SolPubkey
+    user:SolPubkey
+    userStats:SolPubkey
+    liabilitySpotMarketVault:SolPubkey
+    assetSpotMarketVault:SolPubkey
+    liabilityTokenAccount:SolPubkey
+    assetTokenAccount:SolPubkey
+    tokenProgram:SolPubkey
+    driftSigner:SolPubkey
+    instructions:SolPubkey
 
 def LiquidateSpotWithSwapBegin(
     args: LiquidateSpotWithSwapBeginArgs,
     accounts: LiquidateSpotWithSwapBeginAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

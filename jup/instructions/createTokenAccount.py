@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class CreateTokenAccountArgs(typing.TypedDict):
@@ -23,16 +23,16 @@ layout = borsh.CStruct(
 
 
 class CreateTokenAccountAccounts(typing.TypedDict):
-    tokenAccount:Pubkey
-    user:Pubkey
-    mint:Pubkey
-    tokenProgram:Pubkey
-    systemProgram:Pubkey
+    tokenAccount:SolPubkey
+    user:SolPubkey
+    mint:SolPubkey
+    tokenProgram:SolPubkey
+    systemProgram:SolPubkey
 
 def CreateTokenAccount(
     args: CreateTokenAccountArgs,
     accounts: CreateTokenAccountAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
@@ -47,7 +47,7 @@ def CreateTokenAccount(
         keys += remaining_accounts
     identifier = b"\x93\xf1\x7b\x64\xf4\x84\xae\x76"
     encoded_args = layout.build({
-    "bump":args["bump"],
+        "bump":args["bump"],
        })
 
     data = identifier + encoded_args

@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class SwapArgs(typing.TypedDict):
@@ -25,24 +25,24 @@ layout = borsh.CStruct(
 
 
 class SwapAccounts(typing.TypedDict):
-    authority:Pubkey
-    amm:Pubkey
-    userTransferAuthority:Pubkey
-    sourceInfo:Pubkey
-    destinationInfo:Pubkey
-    swapSource:Pubkey
-    swapDestination:Pubkey
-    poolMint:Pubkey
-    feeAccount:Pubkey
-    tokenProgram:Pubkey
-    oracleMainAccount:Pubkey
-    oracleSubAccount:Pubkey
-    oraclePcAccount:Pubkey
+    authority:SolPubkey
+    amm:SolPubkey
+    userTransferAuthority:SolPubkey
+    sourceInfo:SolPubkey
+    destinationInfo:SolPubkey
+    swapSource:SolPubkey
+    swapDestination:SolPubkey
+    poolMint:SolPubkey
+    feeAccount:SolPubkey
+    tokenProgram:SolPubkey
+    oracleMainAccount:SolPubkey
+    oracleSubAccount:SolPubkey
+    oraclePcAccount:SolPubkey
 
 def Swap(
     args: SwapArgs,
     accounts: SwapAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
@@ -65,8 +65,8 @@ def Swap(
         keys += remaining_accounts
     identifier = b"\xf8\xc6\x9e\x91\xe1\x75\x87\xc8"
     encoded_args = layout.build({
-    "amountIn":args["amountIn"],
-    "minimumAmountOut":args["minimumAmountOut"],
+        "amountIn":args["amountIn"],
+        "minimumAmountOut":args["minimumAmountOut"],
        })
 
     data = identifier + encoded_args

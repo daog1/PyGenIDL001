@@ -10,7 +10,7 @@ import typing;
 from construct import Construct, Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
@@ -30,21 +30,21 @@ layout = borsh.CStruct(
 
 
 class RouteWithTokenLedgerAccounts(typing.TypedDict):
-    tokenProgram:Pubkey
-    userTransferAuthority:Pubkey
-    userSourceTokenAccount:Pubkey
-    userDestinationTokenAccount:Pubkey
-    destinationTokenAccount:Pubkey
-    destinationMint:Pubkey
-    platformFeeAccount:Pubkey
-    tokenLedger:Pubkey
-    eventAuthority:Pubkey
-    program:Pubkey
+    tokenProgram:SolPubkey
+    userTransferAuthority:SolPubkey
+    userSourceTokenAccount:SolPubkey
+    userDestinationTokenAccount:SolPubkey
+    destinationTokenAccount:SolPubkey
+    destinationMint:SolPubkey
+    platformFeeAccount:SolPubkey
+    tokenLedger:SolPubkey
+    eventAuthority:SolPubkey
+    program:SolPubkey
 
 def RouteWithTokenLedger(
     args: RouteWithTokenLedgerArgs,
     accounts: RouteWithTokenLedgerAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
@@ -64,10 +64,10 @@ def RouteWithTokenLedger(
         keys += remaining_accounts
     identifier = b"\x96\x56\x47\x74\xa7\x5d\x0e\x68"
     encoded_args = layout.build({
-    "routePlan":list(map(lambda item:item.to_encodable(),args["routePlan"])),
-    "quotedOutAmount":args["quotedOutAmount"],
-    "slippageBps":args["slippageBps"],
-    "platformFeeBps":args["platformFeeBps"],
+        "routePlan":list(map(lambda item:item.to_encodable(),args["routePlan"])),
+        "quotedOutAmount":args["quotedOutAmount"],
+        "slippageBps":args["slippageBps"],
+        "platformFeeBps":args["platformFeeBps"],
        })
 
     data = identifier + encoded_args

@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Add:
             kind="Add",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Add": {},
         }
@@ -46,7 +46,7 @@ class Remove:
             kind="Remove",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Remove": {},
         }
@@ -56,12 +56,12 @@ class Remove:
 
 
 SwapDirectionKind = typing.Union[
-Add,
-Remove,
+    Add,
+    Remove,
 ]
 SwapDirectionJSON = typing.Union[
-AddJSON,
-RemoveJSON,
+    AddJSON,
+    RemoveJSON,
 ]
 
 def from_decoded(obj: dict) -> SwapDirectionKind:

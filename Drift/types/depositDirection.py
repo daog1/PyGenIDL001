@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class Deposit:
             kind="Deposit",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Deposit": {},
         }
@@ -46,7 +46,7 @@ class Withdraw:
             kind="Withdraw",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Withdraw": {},
         }
@@ -56,12 +56,12 @@ class Withdraw:
 
 
 DepositDirectionKind = typing.Union[
-Deposit,
-Withdraw,
+    Deposit,
+    Withdraw,
 ]
 DepositDirectionJSON = typing.Union[
-DepositJSON,
-WithdrawJSON,
+    DepositJSON,
+    WithdrawJSON,
 ]
 
 def from_decoded(obj: dict) -> DepositDirectionKind:

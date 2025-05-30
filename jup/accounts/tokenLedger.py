@@ -15,7 +15,7 @@ from dataclasses import dataclass;
 from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
 from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from ..program_id import PROGRAM_ID;
 
 
@@ -32,7 +32,7 @@ class TokenLedger:
         "amount" /borsh.U64,
         )
     #fields
-    tokenAccount: Pubkey
+    tokenAccount: SolPubkey
     amount: int
     
 
@@ -40,9 +40,9 @@ class TokenLedger:
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["TokenLedger"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -57,9 +57,9 @@ class TokenLedger:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["TokenLedger"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["TokenLedger"]] = []
@@ -93,7 +93,7 @@ class TokenLedger:
     @classmethod
     def from_json(cls, obj: TokenLedgerJSON) -> "TokenLedger":
         return cls(
-                tokenAccount=Pubkey.from_string(obj["tokenAccount"]),
+                tokenAccount=SolPubkey.from_string(obj["tokenAccount"]),
                 amount=obj["amount"],
                 )
 

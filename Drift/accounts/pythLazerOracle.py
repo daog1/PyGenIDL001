@@ -52,9 +52,9 @@ class PythLazerOracle:
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["PythLazerOracle"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -69,9 +69,9 @@ class PythLazerOracle:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["PythLazerOracle"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["PythLazerOracle"]] = []
@@ -106,7 +106,7 @@ class PythLazerOracle:
                 "publishTime": self.publishTime,
                 "postedSlot": self.postedSlot,
                 "exponent": self.exponent,
-                "padding": self.padding.to_json(),
+                "padding": self.padding,
                 "conf": self.conf,
                 }
 

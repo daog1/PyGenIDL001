@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class BeginSwapArgs(typing.TypedDict):
@@ -27,22 +27,22 @@ layout = borsh.CStruct(
 
 
 class BeginSwapAccounts(typing.TypedDict):
-    state:Pubkey
-    user:Pubkey
-    userStats:Pubkey
-    authority:Pubkey
-    outSpotMarketVault:Pubkey
-    inSpotMarketVault:Pubkey
-    outTokenAccount:Pubkey
-    inTokenAccount:Pubkey
-    tokenProgram:Pubkey
-    driftSigner:Pubkey
-    instructions:Pubkey
+    state:SolPubkey
+    user:SolPubkey
+    userStats:SolPubkey
+    authority:SolPubkey
+    outSpotMarketVault:SolPubkey
+    inSpotMarketVault:SolPubkey
+    outTokenAccount:SolPubkey
+    inTokenAccount:SolPubkey
+    tokenProgram:SolPubkey
+    driftSigner:SolPubkey
+    instructions:SolPubkey
 
 def BeginSwap(
     args: BeginSwapArgs,
     accounts: BeginSwapAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

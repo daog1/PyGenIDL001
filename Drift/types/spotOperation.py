@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class UpdateCumulativeInterest:
             kind="UpdateCumulativeInterest",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "UpdateCumulativeInterest": {},
         }
@@ -46,7 +46,7 @@ class Fill:
             kind="Fill",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Fill": {},
         }
@@ -66,7 +66,7 @@ class Deposit:
             kind="Deposit",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Deposit": {},
         }
@@ -86,7 +86,7 @@ class Withdraw:
             kind="Withdraw",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Withdraw": {},
         }
@@ -106,7 +106,7 @@ class Liquidation:
             kind="Liquidation",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Liquidation": {},
         }
@@ -116,18 +116,18 @@ class Liquidation:
 
 
 SpotOperationKind = typing.Union[
-UpdateCumulativeInterest,
-Fill,
-Deposit,
-Withdraw,
-Liquidation,
+    UpdateCumulativeInterest,
+    Fill,
+    Deposit,
+    Withdraw,
+    Liquidation,
 ]
 SpotOperationJSON = typing.Union[
-UpdateCumulativeInterestJSON,
-FillJSON,
-DepositJSON,
-WithdrawJSON,
-LiquidationJSON,
+    UpdateCumulativeInterestJSON,
+    FillJSON,
+    DepositJSON,
+    WithdrawJSON,
+    LiquidationJSON,
 ]
 
 def from_decoded(obj: dict) -> SpotOperationKind:

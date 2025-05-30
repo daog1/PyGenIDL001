@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class MustSettle:
             kind="MustSettle",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "MustSettle": {},
         }
@@ -46,7 +46,7 @@ class TrySettle:
             kind="TrySettle",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "TrySettle": {},
         }
@@ -56,12 +56,12 @@ class TrySettle:
 
 
 SettlePnlModeKind = typing.Union[
-MustSettle,
-TrySettle,
+    MustSettle,
+    TrySettle,
 ]
 SettlePnlModeJSON = typing.Union[
-MustSettleJSON,
-TrySettleJSON,
+    MustSettleJSON,
+    TrySettleJSON,
 ]
 
 def from_decoded(obj: dict) -> SettlePnlModeKind:

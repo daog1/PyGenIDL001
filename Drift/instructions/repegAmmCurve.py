@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class RepegAmmCurveArgs(typing.TypedDict):
@@ -23,15 +23,15 @@ layout = borsh.CStruct(
 
 
 class RepegAmmCurveAccounts(typing.TypedDict):
-    state:Pubkey
-    perpMarket:Pubkey
-    oracle:Pubkey
-    admin:Pubkey
+    state:SolPubkey
+    perpMarket:SolPubkey
+    oracle:SolPubkey
+    admin:SolPubkey
 
 def RepegAmmCurve(
     args: RepegAmmCurveArgs,
     accounts: RepegAmmCurveAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

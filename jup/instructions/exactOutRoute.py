@@ -10,7 +10,7 @@ import typing;
 from construct import Construct, Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
@@ -32,22 +32,22 @@ layout = borsh.CStruct(
 
 
 class ExactOutRouteAccounts(typing.TypedDict):
-    tokenProgram:Pubkey
-    userTransferAuthority:Pubkey
-    userSourceTokenAccount:Pubkey
-    userDestinationTokenAccount:Pubkey
-    destinationTokenAccount:Pubkey
-    sourceMint:Pubkey
-    destinationMint:Pubkey
-    platformFeeAccount:Pubkey
-    token2022Program:Pubkey
-    eventAuthority:Pubkey
-    program:Pubkey
+    tokenProgram:SolPubkey
+    userTransferAuthority:SolPubkey
+    userSourceTokenAccount:SolPubkey
+    userDestinationTokenAccount:SolPubkey
+    destinationTokenAccount:SolPubkey
+    sourceMint:SolPubkey
+    destinationMint:SolPubkey
+    platformFeeAccount:SolPubkey
+    token2022Program:SolPubkey
+    eventAuthority:SolPubkey
+    program:SolPubkey
 
 def ExactOutRoute(
     args: ExactOutRouteArgs,
     accounts: ExactOutRouteAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
@@ -68,11 +68,11 @@ def ExactOutRoute(
         keys += remaining_accounts
     identifier = b"\xd0\x33\xef\x97\x7b\x2b\xed\x5c"
     encoded_args = layout.build({
-    "routePlan":list(map(lambda item:item.to_encodable(),args["routePlan"])),
-    "outAmount":args["outAmount"],
-    "quotedInAmount":args["quotedInAmount"],
-    "slippageBps":args["slippageBps"],
-    "platformFeeBps":args["platformFeeBps"],
+        "routePlan":list(map(lambda item:item.to_encodable(),args["routePlan"])),
+        "outAmount":args["outAmount"],
+        "quotedInAmount":args["quotedInAmount"],
+        "slippageBps":args["slippageBps"],
+        "platformFeeBps":args["platformFeeBps"],
        })
 
     data = identifier + encoded_args

@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 class UpdateGlobalAuthorityEventJSON(typing.TypedDict):
@@ -28,9 +28,9 @@ class UpdateGlobalAuthorityEvent:
         "timestamp" /borsh.I64,
         )
     #fields
-    global_: Pubkey
-    authority: Pubkey
-    newAuthority: Pubkey
+    global_: SolPubkey
+    authority: SolPubkey
+    newAuthority: SolPubkey
     timestamp: int
     
     @classmethod
@@ -61,9 +61,9 @@ class UpdateGlobalAuthorityEvent:
     @classmethod
     def from_json(cls, obj: UpdateGlobalAuthorityEventJSON) -> "UpdateGlobalAuthorityEvent":
         return cls(
-                global_=Pubkey.from_string(obj["global_"]),
-                authority=Pubkey.from_string(obj["authority"]),
-                newAuthority=Pubkey.from_string(obj["newAuthority"]),
+                global_=SolPubkey.from_string(obj["global_"]),
+                authority=SolPubkey.from_string(obj["authority"]),
+                newAuthority=SolPubkey.from_string(obj["newAuthority"]),
                 timestamp=obj["timestamp"],
         )
 

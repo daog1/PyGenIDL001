@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 class SetMetaplexCreatorEventJSON(typing.TypedDict):
@@ -31,10 +31,10 @@ class SetMetaplexCreatorEvent:
         )
     #fields
     timestamp: int
-    mint: Pubkey
-    bondingCurve: Pubkey
-    metadata: Pubkey
-    creator: Pubkey
+    mint: SolPubkey
+    bondingCurve: SolPubkey
+    metadata: SolPubkey
+    creator: SolPubkey
     
     @classmethod
     def from_decoded(cls, obj: Container) -> "SetMetaplexCreatorEvent":
@@ -68,10 +68,10 @@ class SetMetaplexCreatorEvent:
     def from_json(cls, obj: SetMetaplexCreatorEventJSON) -> "SetMetaplexCreatorEvent":
         return cls(
                 timestamp=obj["timestamp"],
-                mint=Pubkey.from_string(obj["mint"]),
-                bondingCurve=Pubkey.from_string(obj["bondingCurve"]),
-                metadata=Pubkey.from_string(obj["metadata"]),
-                creator=Pubkey.from_string(obj["creator"]),
+                mint=SolPubkey.from_string(obj["mint"]),
+                bondingCurve=SolPubkey.from_string(obj["bondingCurve"]),
+                metadata=SolPubkey.from_string(obj["metadata"]),
+                creator=SolPubkey.from_string(obj["creator"]),
         )
 
 

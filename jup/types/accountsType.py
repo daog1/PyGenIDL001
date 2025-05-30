@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class TransferHookA:
             kind="TransferHookA",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "TransferHookA": {},
         }
@@ -46,7 +46,7 @@ class TransferHookB:
             kind="TransferHookB",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "TransferHookB": {},
         }
@@ -66,7 +66,7 @@ class TransferHookReward:
             kind="TransferHookReward",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "TransferHookReward": {},
         }
@@ -86,7 +86,7 @@ class TransferHookInput:
             kind="TransferHookInput",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "TransferHookInput": {},
         }
@@ -106,7 +106,7 @@ class TransferHookIntermediate:
             kind="TransferHookIntermediate",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "TransferHookIntermediate": {},
         }
@@ -126,7 +126,7 @@ class TransferHookOutput:
             kind="TransferHookOutput",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "TransferHookOutput": {},
         }
@@ -146,7 +146,7 @@ class SupplementalTickArrays:
             kind="SupplementalTickArrays",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "SupplementalTickArrays": {},
         }
@@ -166,7 +166,7 @@ class SupplementalTickArraysOne:
             kind="SupplementalTickArraysOne",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "SupplementalTickArraysOne": {},
         }
@@ -186,7 +186,7 @@ class SupplementalTickArraysTwo:
             kind="SupplementalTickArraysTwo",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "SupplementalTickArraysTwo": {},
         }
@@ -196,26 +196,26 @@ class SupplementalTickArraysTwo:
 
 
 AccountsTypeKind = typing.Union[
-TransferHookA,
-TransferHookB,
-TransferHookReward,
-TransferHookInput,
-TransferHookIntermediate,
-TransferHookOutput,
-SupplementalTickArrays,
-SupplementalTickArraysOne,
-SupplementalTickArraysTwo,
+    TransferHookA,
+    TransferHookB,
+    TransferHookReward,
+    TransferHookInput,
+    TransferHookIntermediate,
+    TransferHookOutput,
+    SupplementalTickArrays,
+    SupplementalTickArraysOne,
+    SupplementalTickArraysTwo,
 ]
 AccountsTypeJSON = typing.Union[
-TransferHookAJSON,
-TransferHookBJSON,
-TransferHookRewardJSON,
-TransferHookInputJSON,
-TransferHookIntermediateJSON,
-TransferHookOutputJSON,
-SupplementalTickArraysJSON,
-SupplementalTickArraysOneJSON,
-SupplementalTickArraysTwoJSON,
+    TransferHookAJSON,
+    TransferHookBJSON,
+    TransferHookRewardJSON,
+    TransferHookInputJSON,
+    TransferHookIntermediateJSON,
+    TransferHookOutputJSON,
+    SupplementalTickArraysJSON,
+    SupplementalTickArraysOneJSON,
+    SupplementalTickArraysTwoJSON,
 ]
 
 def from_decoded(obj: dict) -> AccountsTypeKind:

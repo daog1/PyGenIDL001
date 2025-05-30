@@ -15,7 +15,7 @@ from dataclasses import dataclass;
 from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
 from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 
@@ -79,8 +79,8 @@ class UserStats:
         "padding" /borsh.U8[12],
         )
     #fields
-    authority: Pubkey
-    referrer: Pubkey
+    authority: SolPubkey
+    referrer: SolPubkey
     fees: types.userFees.UserFees
     nextEpochTs: int
     makerVolume30d: int
@@ -110,9 +110,9 @@ class UserStats:
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["UserStats"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -127,9 +127,9 @@ class UserStats:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["UserStats"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["UserStats"]] = []
@@ -194,7 +194,7 @@ class UserStats:
                 "numberOfSubAccountsCreated": self.numberOfSubAccountsCreated,
                 "referrerStatus": self.referrerStatus,
                 "disableUpdatePerpBidAskTwap": self.disableUpdatePerpBidAskTwap,
-                "padding1": self.padding1.to_json(),
+                "padding1": self.padding1,
                 "fuelInsurance": self.fuelInsurance,
                 "fuelDeposits": self.fuelDeposits,
                 "fuelBorrows": self.fuelBorrows,
@@ -203,14 +203,14 @@ class UserStats:
                 "fuelMaker": self.fuelMaker,
                 "ifStakedGovTokenAmount": self.ifStakedGovTokenAmount,
                 "lastFuelIfBonusUpdateTs": self.lastFuelIfBonusUpdateTs,
-                "padding": self.padding.to_json(),
+                "padding": self.padding,
                 }
 
     @classmethod
     def from_json(cls, obj: UserStatsJSON) -> "UserStats":
         return cls(
-                authority=Pubkey.from_string(obj["authority"]),
-                referrer=Pubkey.from_string(obj["referrer"]),
+                authority=SolPubkey.from_string(obj["authority"]),
+                referrer=SolPubkey.from_string(obj["referrer"]),
                 fees=types.userFees.UserFees.from_json(obj["fees"]),
                 nextEpochTs=obj["nextEpochTs"],
                 makerVolume30d=obj["makerVolume30d"],

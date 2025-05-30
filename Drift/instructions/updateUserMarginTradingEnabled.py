@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class UpdateUserMarginTradingEnabledArgs(typing.TypedDict):
@@ -25,13 +25,13 @@ layout = borsh.CStruct(
 
 
 class UpdateUserMarginTradingEnabledAccounts(typing.TypedDict):
-    user:Pubkey
-    authority:Pubkey
+    user:SolPubkey
+    authority:SolPubkey
 
 def UpdateUserMarginTradingEnabled(
     args: UpdateUserMarginTradingEnabledArgs,
     accounts: UpdateUserMarginTradingEnabledAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

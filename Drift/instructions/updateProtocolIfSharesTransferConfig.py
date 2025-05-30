@@ -11,11 +11,11 @@ from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class UpdateProtocolIfSharesTransferConfigArgs(typing.TypedDict):
-    whitelistedSigners:typing.Optional[list[Pubkey]]
+    whitelistedSigners:typing.Optional[list[SolPubkey]]
     maxTransferPerEpoch:typing.Optional[int]
 
 
@@ -26,14 +26,14 @@ layout = borsh.CStruct(
 
 
 class UpdateProtocolIfSharesTransferConfigAccounts(typing.TypedDict):
-    admin:Pubkey
-    protocolIfSharesTransferConfig:Pubkey
-    state:Pubkey
+    admin:SolPubkey
+    protocolIfSharesTransferConfig:SolPubkey
+    state:SolPubkey
 
 def UpdateProtocolIfSharesTransferConfig(
     args: UpdateProtocolIfSharesTransferConfigArgs,
     accounts: UpdateProtocolIfSharesTransferConfigAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 class InsuranceFundJSON(typing.TypedDict):
@@ -38,7 +38,7 @@ class InsuranceFund:
         "userFactor" /borsh.U32,
         )
     #fields
-    vault: Pubkey
+    vault: SolPubkey
     totalShares: int
     userShares: int
     sharesBase: int
@@ -91,7 +91,7 @@ class InsuranceFund:
     @classmethod
     def from_json(cls, obj: InsuranceFundJSON) -> "InsuranceFund":
         return cls(
-                vault=Pubkey.from_string(obj["vault"]),
+                vault=SolPubkey.from_string(obj["vault"]),
                 totalShares=obj["totalShares"],
                 userShares=obj["userShares"],
                 sharesBase=obj["sharesBase"],

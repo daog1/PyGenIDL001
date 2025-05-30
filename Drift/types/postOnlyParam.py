@@ -10,7 +10,7 @@ import typing;
 from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 
 
@@ -26,7 +26,7 @@ class None_:
             kind="None",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "None": {},
         }
@@ -46,7 +46,7 @@ class MustPostOnly:
             kind="MustPostOnly",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "MustPostOnly": {},
         }
@@ -66,7 +66,7 @@ class TryPostOnly:
             kind="TryPostOnly",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "TryPostOnly": {},
         }
@@ -86,7 +86,7 @@ class Slide:
             kind="Slide",
         )
 
-    def to_encodable(self) -> dict:
+    def to_encodable(self) -> dict[str, typing.Any]:
         return {
             "Slide": {},
         }
@@ -96,16 +96,16 @@ class Slide:
 
 
 PostOnlyParamKind = typing.Union[
-None_,
-MustPostOnly,
-TryPostOnly,
-Slide,
+    None_,
+    MustPostOnly,
+    TryPostOnly,
+    Slide,
 ]
 PostOnlyParamJSON = typing.Union[
-NoneJSON,
-MustPostOnlyJSON,
-TryPostOnlyJSON,
-SlideJSON,
+    NoneJSON,
+    MustPostOnlyJSON,
+    TryPostOnlyJSON,
+    SlideJSON,
 ]
 
 def from_decoded(obj: dict) -> PostOnlyParamKind:

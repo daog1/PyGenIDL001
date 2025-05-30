@@ -15,7 +15,7 @@ from dataclasses import dataclass;
 from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
 from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 
@@ -49,12 +49,12 @@ class PhoenixV1FulfillmentConfig:
         "padding" /borsh.U8[4],
         )
     #fields
-    pubkey: Pubkey
-    phoenixProgramId: Pubkey
-    phoenixLogAuthority: Pubkey
-    phoenixMarket: Pubkey
-    phoenixBaseVault: Pubkey
-    phoenixQuoteVault: Pubkey
+    pubkey: SolPubkey
+    phoenixProgramId: SolPubkey
+    phoenixLogAuthority: SolPubkey
+    phoenixMarket: SolPubkey
+    phoenixBaseVault: SolPubkey
+    phoenixQuoteVault: SolPubkey
     marketIndex: int
     fulfillmentType: types.spotFulfillmentType.SpotFulfillmentTypeKind
     status: types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatusKind
@@ -65,9 +65,9 @@ class PhoenixV1FulfillmentConfig:
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["PhoenixV1FulfillmentConfig"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -82,9 +82,9 @@ class PhoenixV1FulfillmentConfig:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["PhoenixV1FulfillmentConfig"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["PhoenixV1FulfillmentConfig"]] = []
@@ -128,18 +128,18 @@ class PhoenixV1FulfillmentConfig:
                 "marketIndex": self.marketIndex,
                 "fulfillmentType": self.fulfillmentType.to_json(),
                 "status": self.status.to_json(),
-                "padding": self.padding.to_json(),
+                "padding": self.padding,
                 }
 
     @classmethod
     def from_json(cls, obj: PhoenixV1FulfillmentConfigJSON) -> "PhoenixV1FulfillmentConfig":
         return cls(
-                pubkey=Pubkey.from_string(obj["pubkey"]),
-                phoenixProgramId=Pubkey.from_string(obj["phoenixProgramId"]),
-                phoenixLogAuthority=Pubkey.from_string(obj["phoenixLogAuthority"]),
-                phoenixMarket=Pubkey.from_string(obj["phoenixMarket"]),
-                phoenixBaseVault=Pubkey.from_string(obj["phoenixBaseVault"]),
-                phoenixQuoteVault=Pubkey.from_string(obj["phoenixQuoteVault"]),
+                pubkey=SolPubkey.from_string(obj["pubkey"]),
+                phoenixProgramId=SolPubkey.from_string(obj["phoenixProgramId"]),
+                phoenixLogAuthority=SolPubkey.from_string(obj["phoenixLogAuthority"]),
+                phoenixMarket=SolPubkey.from_string(obj["phoenixMarket"]),
+                phoenixBaseVault=SolPubkey.from_string(obj["phoenixBaseVault"]),
+                phoenixQuoteVault=SolPubkey.from_string(obj["phoenixQuoteVault"]),
                 marketIndex=obj["marketIndex"],
                 fulfillmentType=types.spotFulfillmentType.from_json(obj["fulfillmentType"]),
                 status=types.spotFulfillmentConfigStatus.from_json(obj["status"]),

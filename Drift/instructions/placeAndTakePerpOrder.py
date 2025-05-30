@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
@@ -26,15 +26,15 @@ layout = borsh.CStruct(
 
 
 class PlaceAndTakePerpOrderAccounts(typing.TypedDict):
-    state:Pubkey
-    user:Pubkey
-    userStats:Pubkey
-    authority:Pubkey
+    state:SolPubkey
+    user:SolPubkey
+    userStats:SolPubkey
+    authority:SolPubkey
 
 def PlaceAndTakePerpOrder(
     args: PlaceAndTakePerpOrderArgs,
     accounts: PlaceAndTakePerpOrderAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

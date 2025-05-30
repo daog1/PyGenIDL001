@@ -15,7 +15,7 @@ from dataclasses import dataclass;
 from solana.rpc.async_api import AsyncClient;
 from solana.rpc.commitment import Commitment;
 from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from ..program_id import PROGRAM_ID;
 
 
@@ -48,16 +48,16 @@ class BondingCurve:
     realSolReserves: int
     tokenTotalSupply: int
     complete: bool
-    creator: Pubkey
+    creator: SolPubkey
     
 
     @classmethod
     async def fetch(
         cls,
         conn: AsyncClient,
-        address: Pubkey,
+        address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.Optional["BondingCurve"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -72,9 +72,9 @@ class BondingCurve:
     async def fetch_multiple(
         cls,
         conn: AsyncClient,
-        addresses: list[Pubkey],
+        addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: Pubkey = PROGRAM_ID,
+        program_id: SolPubkey = PROGRAM_ID,
     ) -> typing.List[typing.Optional["BondingCurve"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["BondingCurve"]] = []
@@ -124,7 +124,7 @@ class BondingCurve:
                 realSolReserves=obj["realSolReserves"],
                 tokenTotalSupply=obj["tokenTotalSupply"],
                 complete=obj["complete"],
-                creator=Pubkey.from_string(obj["creator"]),
+                creator=SolPubkey.from_string(obj["creator"]),
                 )
 
 

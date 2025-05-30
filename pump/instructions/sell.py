@@ -10,7 +10,7 @@ import typing;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey as SolPubkey;
 from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class SellArgs(typing.TypedDict):
@@ -25,23 +25,23 @@ layout = borsh.CStruct(
 
 
 class SellAccounts(typing.TypedDict):
-    global_:Pubkey
-    feeRecipient:Pubkey
-    mint:Pubkey
-    bondingCurve:Pubkey
-    associatedBondingCurve:Pubkey
-    associatedUser:Pubkey
-    user:Pubkey
-    systemProgram:Pubkey
-    creatorVault:Pubkey
-    tokenProgram:Pubkey
-    eventAuthority:Pubkey
-    program:Pubkey
+    global_:SolPubkey
+    feeRecipient:SolPubkey
+    mint:SolPubkey
+    bondingCurve:SolPubkey
+    associatedBondingCurve:SolPubkey
+    associatedUser:SolPubkey
+    user:SolPubkey
+    systemProgram:SolPubkey
+    creatorVault:SolPubkey
+    tokenProgram:SolPubkey
+    eventAuthority:SolPubkey
+    program:SolPubkey
 
 def Sell(
     args: SellArgs,
     accounts: SellAccounts,
-    program_id: Pubkey = PROGRAM_ID,
+    program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
@@ -63,8 +63,8 @@ def Sell(
         keys += remaining_accounts
     identifier = b"\x33\xe6\x85\xa4\x01\x7f\x83\xad"
     encoded_args = layout.build({
-    "amount":args["amount"],
-    "minSolOutput":args["minSolOutput"],
+        "amount":args["amount"],
+        "minSolOutput":args["minSolOutput"],
        })
 
     data = identifier + encoded_args
