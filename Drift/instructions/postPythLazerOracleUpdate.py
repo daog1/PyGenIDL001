@@ -37,7 +37,6 @@ def PostPythLazerOracleUpdate(
     AccountMeta(pubkey=accounts["keeper"], is_signer=True, is_writable=True),
     AccountMeta(pubkey=accounts["pythLazerStorage"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["ixSysvar"], is_signer=False, is_writable=False),
-    AccountMeta(pubkey=RENT, is_signer=False, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts

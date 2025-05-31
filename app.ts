@@ -23,6 +23,7 @@ GenIdl("./idls/pump.json", "pump");
 GenIdl("./idls/idl-0.1.2.json", "Lifinity");
 GenIdl("./idls/drift.json", "Drift");
 GenIdl("./idls/jup.json", "jup");
+GenIdl("./idls/scope.json", "scope");
 //GenIdl("./idls/klend.json", "klend");
 // GenIdlJs("./idls/pump.json", "pumpjs");
 // GenIdlJs("./idls/idl-0.1.2.json", "Lifinityjs");

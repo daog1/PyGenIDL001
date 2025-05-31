@@ -41,7 +41,6 @@ def UpdatePythPullOracle(
     AccountMeta(pubkey=accounts["pythSolanaReceiver"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["encodedVaa"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["priceFeed"], is_signer=False, is_writable=True),
-    AccountMeta(pubkey=RENT, is_signer=False, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts

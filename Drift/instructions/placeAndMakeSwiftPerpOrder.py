@@ -48,7 +48,6 @@ def PlaceAndMakeSwiftPerpOrder(
     AccountMeta(pubkey=accounts["takerStats"], is_signer=False, is_writable=True),
     AccountMeta(pubkey=accounts["takerSwiftUserOrders"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["authority"], is_signer=True, is_writable=False),
-    AccountMeta(pubkey=RENT, is_signer=False, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts

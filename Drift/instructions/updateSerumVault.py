@@ -28,7 +28,6 @@ def UpdateSerumVault(
     AccountMeta(pubkey=accounts["state"], is_signer=False, is_writable=True),
     AccountMeta(pubkey=accounts["admin"], is_signer=True, is_writable=True),
     AccountMeta(pubkey=accounts["srmVault"], is_signer=False, is_writable=False),
-    AccountMeta(pubkey=RENT, is_signer=False, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts

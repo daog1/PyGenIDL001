@@ -66,7 +66,6 @@ def Create(
     AccountMeta(pubkey=accounts["rent"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["eventAuthority"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["program"], is_signer=False, is_writable=False),
-    AccountMeta(pubkey=RENT, is_signer=False, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts

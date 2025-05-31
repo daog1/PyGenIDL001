@@ -45,7 +45,6 @@ def FillPerpOrder(
     AccountMeta(pubkey=accounts["fillerStats"], is_signer=False, is_writable=True),
     AccountMeta(pubkey=accounts["user"], is_signer=False, is_writable=True),
     AccountMeta(pubkey=accounts["userStats"], is_signer=False, is_writable=True),
-    AccountMeta(pubkey=RENT, is_signer=False, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts

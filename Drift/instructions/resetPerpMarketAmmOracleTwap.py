@@ -30,7 +30,6 @@ def ResetPerpMarketAmmOracleTwap(
     AccountMeta(pubkey=accounts["perpMarket"], is_signer=False, is_writable=True),
     AccountMeta(pubkey=accounts["oracle"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["admin"], is_signer=True, is_writable=False),
-    AccountMeta(pubkey=RENT, is_signer=False, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts

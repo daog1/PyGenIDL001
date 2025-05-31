@@ -59,7 +59,6 @@ def LiquidateSpotWithSwapEnd(
     AccountMeta(pubkey=accounts["tokenProgram"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["driftSigner"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["instructions"], is_signer=False, is_writable=False),
-    AccountMeta(pubkey=RENT, is_signer=False, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts

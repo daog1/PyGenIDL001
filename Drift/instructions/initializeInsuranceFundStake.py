@@ -47,7 +47,6 @@ def InitializeInsuranceFundStake(
     AccountMeta(pubkey=accounts["payer"], is_signer=True, is_writable=True),
     AccountMeta(pubkey=accounts["rent"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["systemProgram"], is_signer=False, is_writable=False),
-    AccountMeta(pubkey=RENT, is_signer=False, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts

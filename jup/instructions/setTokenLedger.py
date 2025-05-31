@@ -26,7 +26,6 @@ def SetTokenLedger(
     keys: list[AccountMeta] = [
     AccountMeta(pubkey=accounts["tokenLedger"], is_signer=False, is_writable=True),
     AccountMeta(pubkey=accounts["tokenAccount"], is_signer=False, is_writable=False),
-    AccountMeta(pubkey=RENT, is_signer=False, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts

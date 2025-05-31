@@ -37,7 +37,6 @@ def PostMultiPythPullOracleUpdatesAtomic(
     AccountMeta(pubkey=accounts["keeper"], is_signer=True, is_writable=True),
     AccountMeta(pubkey=accounts["pythSolanaReceiver"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["guardianSet"], is_signer=False, is_writable=False),
-    AccountMeta(pubkey=RENT, is_signer=False, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts

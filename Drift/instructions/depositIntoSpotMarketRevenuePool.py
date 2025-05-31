@@ -43,7 +43,6 @@ def DepositIntoSpotMarketRevenuePool(
     AccountMeta(pubkey=accounts["spotMarketVault"], is_signer=False, is_writable=True),
     AccountMeta(pubkey=accounts["userTokenAccount"], is_signer=False, is_writable=True),
     AccountMeta(pubkey=accounts["tokenProgram"], is_signer=False, is_writable=False),
-    AccountMeta(pubkey=RENT, is_signer=False, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts

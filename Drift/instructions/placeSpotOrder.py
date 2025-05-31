@@ -38,7 +38,6 @@ def PlaceSpotOrder(
     AccountMeta(pubkey=accounts["state"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["user"], is_signer=False, is_writable=True),
     AccountMeta(pubkey=accounts["authority"], is_signer=True, is_writable=False),
-    AccountMeta(pubkey=RENT, is_signer=False, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts
