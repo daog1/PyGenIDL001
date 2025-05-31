@@ -57,16 +57,16 @@ def CreateProgramOpenOrders(
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
 
-def find_OpenOrders(market: Pubkey, programAuthority: Pubkey) -> typing.Tuple[Pubkey, int]:
+def find_OpenOrders(market: SolPubkey, programAuthority: SolPubkey) -> typing.Tuple[SolPubkey, int]:
     seeds = [
        b"\x6f\x70\x65\x6e\x5f\x6f\x72\x64\x65\x72\x73",
        bytes(market),
        bytes(programAuthority),
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
+    address, bump = SolPubkey.find_program_address(seeds,
         PROGRAM_ID
-            ) # Using solana.publickey
+            )
 
     return address, bump
 

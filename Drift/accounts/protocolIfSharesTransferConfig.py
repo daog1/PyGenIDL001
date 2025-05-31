@@ -102,7 +102,7 @@ class ProtocolIfSharesTransferConfig:
                 "maxTransferPerEpoch": self.maxTransferPerEpoch,
                 "currentEpochTransfer": self.currentEpochTransfer,
                 "nextEpochTs": self.nextEpochTs,
-                "padding": list(map(lambda item:item,self.padding)),
+                "padding": self.padding,
                 }
 
     @classmethod
@@ -112,7 +112,7 @@ class ProtocolIfSharesTransferConfig:
                 maxTransferPerEpoch=obj["maxTransferPerEpoch"],
                 currentEpochTransfer=obj["currentEpochTransfer"],
                 nextEpochTs=obj["nextEpochTs"],
-                padding=list(map(lambda item:item,obj["padding"])),
+                padding=obj["padding"],
                 )
 
 

@@ -38,14 +38,14 @@ def Initialize(
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
 
-def find_Global() -> typing.Tuple[Pubkey, int]:
+def find_Global() -> typing.Tuple[SolPubkey, int]:
     seeds = [
        b"\x67\x6c\x6f\x62\x61\x6c",
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
+    address, bump = SolPubkey.find_program_address(seeds,
         PROGRAM_ID
-            ) # Using solana.publickey
+            )
 
     return address, bump
 

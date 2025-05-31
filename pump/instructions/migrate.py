@@ -80,43 +80,43 @@ def Migrate(
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
 
-def find_Global() -> typing.Tuple[Pubkey, int]:
+def find_Global() -> typing.Tuple[SolPubkey, int]:
     seeds = [
        b"\x67\x6c\x6f\x62\x61\x6c",
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
+    address, bump = SolPubkey.find_program_address(seeds,
         PROGRAM_ID
-            ) # Using solana.publickey
+            )
 
     return address, bump
 
 
 
-def find_BondingCurve(mint: Pubkey) -> typing.Tuple[Pubkey, int]:
+def find_BondingCurve(mint: SolPubkey) -> typing.Tuple[SolPubkey, int]:
     seeds = [
        b"\x62\x6f\x6e\x64\x69\x6e\x67\x2d\x63\x75\x72\x76\x65",
        bytes(mint),
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
+    address, bump = SolPubkey.find_program_address(seeds,
         PROGRAM_ID
-            ) # Using solana.publickey
+            )
 
     return address, bump
 
 
 
-def find_AssociatedBondingCurve(bondingCurve: Pubkey, mint: Pubkey) -> typing.Tuple[Pubkey, int]:
+def find_AssociatedBondingCurve(bondingCurve: SolPubkey, mint: SolPubkey) -> typing.Tuple[SolPubkey, int]:
     seeds = [
        bytes(bondingCurve),
        b"\x06\xdd\xf6\xe1\xd7\x65\xa1\x93\xd9\xcb\xe1\x46\xce\xeb\x79\xac\x1c\xb4\x85\xed\x5f\x5b\x37\x91\x3a\x8c\xf5\x85\x7e\xff\x00\xa9",
        bytes(mint),
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
-            program_id=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
-            ) # Using solana.publickey
+    address, bump = SolPubkey.find_program_address(seeds,
+            program_id=SolPubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
+            )
 
     return address, bump
 
@@ -128,7 +128,7 @@ def find_AssociatedBondingCurve(bondingCurve: Pubkey, mint: Pubkey) -> typing.Tu
 
 
 
-def find_Pool(poolAuthority: Pubkey, mint: Pubkey, wsolMint: Pubkey) -> typing.Tuple[Pubkey, int]:
+def find_Pool(poolAuthority: SolPubkey, mint: SolPubkey, wsolMint: SolPubkey) -> typing.Tuple[SolPubkey, int]:
     seeds = [
        b"\x70\x6f\x6f\x6c",
        b"\x00\x00",
@@ -137,66 +137,66 @@ def find_Pool(poolAuthority: Pubkey, mint: Pubkey, wsolMint: Pubkey) -> typing.T
        bytes(wsolMint),
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
-            program_id=Pubkey.from_string('pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA')
-            ) # Using solana.publickey
+    address, bump = SolPubkey.find_program_address(seeds,
+            program_id=SolPubkey.from_string('pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA')
+            )
 
     return address, bump
 
 
 
-def find_PoolAuthority(mint: Pubkey) -> typing.Tuple[Pubkey, int]:
+def find_PoolAuthority(mint: SolPubkey) -> typing.Tuple[SolPubkey, int]:
     seeds = [
        b"\x70\x6f\x6f\x6c\x2d\x61\x75\x74\x68\x6f\x72\x69\x74\x79",
        bytes(mint),
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
+    address, bump = SolPubkey.find_program_address(seeds,
         PROGRAM_ID
-            ) # Using solana.publickey
+            )
 
     return address, bump
 
 
 
-def find_PoolAuthorityMintAccount(poolAuthority: Pubkey, tokenProgram: Pubkey, mint: Pubkey) -> typing.Tuple[Pubkey, int]:
+def find_PoolAuthorityMintAccount(poolAuthority: SolPubkey, tokenProgram: SolPubkey, mint: SolPubkey) -> typing.Tuple[SolPubkey, int]:
     seeds = [
        bytes(poolAuthority),
        bytes(tokenProgram),
        bytes(mint),
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
-            program_id=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
-            ) # Using solana.publickey
+    address, bump = SolPubkey.find_program_address(seeds,
+            program_id=SolPubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
+            )
 
     return address, bump
 
 
 
-def find_PoolAuthorityWsolAccount(poolAuthority: Pubkey, tokenProgram: Pubkey, wsolMint: Pubkey) -> typing.Tuple[Pubkey, int]:
+def find_PoolAuthorityWsolAccount(poolAuthority: SolPubkey, tokenProgram: SolPubkey, wsolMint: SolPubkey) -> typing.Tuple[SolPubkey, int]:
     seeds = [
        bytes(poolAuthority),
        bytes(tokenProgram),
        bytes(wsolMint),
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
-            program_id=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
-            ) # Using solana.publickey
+    address, bump = SolPubkey.find_program_address(seeds,
+            program_id=SolPubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
+            )
 
     return address, bump
 
 
 
-def find_AmmGlobalConfig() -> typing.Tuple[Pubkey, int]:
+def find_AmmGlobalConfig() -> typing.Tuple[SolPubkey, int]:
     seeds = [
        b"\x67\x6c\x6f\x62\x61\x6c\x5f\x63\x6f\x6e\x66\x69\x67",
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
-            program_id=Pubkey.from_string('pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA')
-            ) # Using solana.publickey
+    address, bump = SolPubkey.find_program_address(seeds,
+            program_id=SolPubkey.from_string('pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA')
+            )
 
     return address, bump
 
@@ -204,60 +204,60 @@ def find_AmmGlobalConfig() -> typing.Tuple[Pubkey, int]:
 
 
 
-def find_LpMint(pool: Pubkey) -> typing.Tuple[Pubkey, int]:
+def find_LpMint(pool: SolPubkey) -> typing.Tuple[SolPubkey, int]:
     seeds = [
        b"\x70\x6f\x6f\x6c\x5f\x6c\x70\x5f\x6d\x69\x6e\x74",
        bytes(pool),
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
-            program_id=Pubkey.from_string('pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA')
-            ) # Using solana.publickey
+    address, bump = SolPubkey.find_program_address(seeds,
+            program_id=SolPubkey.from_string('pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA')
+            )
 
     return address, bump
 
 
 
-def find_UserPoolTokenAccount(poolAuthority: Pubkey, token2022Program: Pubkey, lpMint: Pubkey) -> typing.Tuple[Pubkey, int]:
+def find_UserPoolTokenAccount(poolAuthority: SolPubkey, token2022Program: SolPubkey, lpMint: SolPubkey) -> typing.Tuple[SolPubkey, int]:
     seeds = [
        bytes(poolAuthority),
        bytes(token2022Program),
        bytes(lpMint),
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
-            program_id=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
-            ) # Using solana.publickey
+    address, bump = SolPubkey.find_program_address(seeds,
+            program_id=SolPubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
+            )
 
     return address, bump
 
 
 
-def find_PoolBaseTokenAccount(pool: Pubkey, tokenProgram: Pubkey, mint: Pubkey) -> typing.Tuple[Pubkey, int]:
+def find_PoolBaseTokenAccount(pool: SolPubkey, tokenProgram: SolPubkey, mint: SolPubkey) -> typing.Tuple[SolPubkey, int]:
     seeds = [
        bytes(pool),
        bytes(tokenProgram),
        bytes(mint),
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
-            program_id=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
-            ) # Using solana.publickey
+    address, bump = SolPubkey.find_program_address(seeds,
+            program_id=SolPubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
+            )
 
     return address, bump
 
 
 
-def find_PoolQuoteTokenAccount(pool: Pubkey, tokenProgram: Pubkey, wsolMint: Pubkey) -> typing.Tuple[Pubkey, int]:
+def find_PoolQuoteTokenAccount(pool: SolPubkey, tokenProgram: SolPubkey, wsolMint: SolPubkey) -> typing.Tuple[SolPubkey, int]:
     seeds = [
        bytes(pool),
        bytes(tokenProgram),
        bytes(wsolMint),
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
-            program_id=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
-            ) # Using solana.publickey
+    address, bump = SolPubkey.find_program_address(seeds,
+            program_id=SolPubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
+            )
 
     return address, bump
 
@@ -267,27 +267,27 @@ def find_PoolQuoteTokenAccount(pool: Pubkey, tokenProgram: Pubkey, wsolMint: Pub
 
 
 
-def find_PumpAmmEventAuthority() -> typing.Tuple[Pubkey, int]:
+def find_PumpAmmEventAuthority() -> typing.Tuple[SolPubkey, int]:
     seeds = [
        b"\x5f\x5f\x65\x76\x65\x6e\x74\x5f\x61\x75\x74\x68\x6f\x72\x69\x74\x79",
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
-            program_id=Pubkey.from_string('pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA')
-            ) # Using solana.publickey
+    address, bump = SolPubkey.find_program_address(seeds,
+            program_id=SolPubkey.from_string('pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA')
+            )
 
     return address, bump
 
 
 
-def find_EventAuthority() -> typing.Tuple[Pubkey, int]:
+def find_EventAuthority() -> typing.Tuple[SolPubkey, int]:
     seeds = [
        b"\x5f\x5f\x65\x76\x65\x6e\x74\x5f\x61\x75\x74\x68\x6f\x72\x69\x74\x79",
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
+    address, bump = SolPubkey.find_program_address(seeds,
         PROGRAM_ID
-            ) # Using solana.publickey
+            )
 
     return address, bump
 

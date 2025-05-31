@@ -42,14 +42,14 @@ def UpdateGlobalAuthority(
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
 
-def find_Global() -> typing.Tuple[Pubkey, int]:
+def find_Global() -> typing.Tuple[SolPubkey, int]:
     seeds = [
        b"\x67\x6c\x6f\x62\x61\x6c",
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
+    address, bump = SolPubkey.find_program_address(seeds,
         PROGRAM_ID
-            ) # Using solana.publickey
+            )
 
     return address, bump
 
@@ -57,14 +57,14 @@ def find_Global() -> typing.Tuple[Pubkey, int]:
 
 
 
-def find_EventAuthority() -> typing.Tuple[Pubkey, int]:
+def find_EventAuthority() -> typing.Tuple[SolPubkey, int]:
     seeds = [
        b"\x5f\x5f\x65\x76\x65\x6e\x74\x5f\x61\x75\x74\x68\x6f\x72\x69\x74\x79",
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
+    address, bump = SolPubkey.find_program_address(seeds,
         PROGRAM_ID
-            ) # Using solana.publickey
+            )
 
     return address, bump
 

@@ -65,16 +65,16 @@ def ClaimToken(
 
 
 
-def find_DestinationTokenAccount(wallet: Pubkey, tokenProgram: Pubkey, mint: Pubkey) -> typing.Tuple[Pubkey, int]:
+def find_DestinationTokenAccount(wallet: SolPubkey, tokenProgram: SolPubkey, mint: SolPubkey) -> typing.Tuple[SolPubkey, int]:
     seeds = [
        bytes(wallet),
        bytes(tokenProgram),
        bytes(mint),
     ]
 
-    address, bump = Pubkey.find_program_address(seeds,
-            program_id=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
-            ) # Using solana.publickey
+    address, bump = SolPubkey.find_program_address(seeds,
+            program_id=SolPubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
+            )
 
     return address, bump
 
