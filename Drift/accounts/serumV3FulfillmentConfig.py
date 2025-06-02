@@ -8,7 +8,6 @@
 import borsh_construct as borsh;
 import typing;
 from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.coder.accounts import ACCOUNT_DISCRIMINATOR_SIZE;
 from anchorpy.error import AccountInvalidDiscriminator;
 from anchorpy.utils.rpc import get_multiple_accounts;
 from dataclasses import dataclass;
@@ -39,7 +38,8 @@ class SerumV3FulfillmentConfigJSON(typing.TypedDict):
 
 @dataclass
 class SerumV3FulfillmentConfig:
-    discriminator: typing.ClassVar = b"\x41\xa0\xc5\x70\xef\xa8\x67\xb9";
+    discriminator: typing.ClassVar = b"\x41\xa0\xc5\x70\xef\xa8\x67\xb9"
+    DISCRIMINATOR_SIZE: int = 8
 
     layout: typing.ClassVar = borsh.CStruct(
         "pubkey" /BorshPubkey,
@@ -114,11 +114,11 @@ class SerumV3FulfillmentConfig:
 
     @classmethod
     def decode(cls, data: bytes) -> "SerumV3FulfillmentConfig":
-        if data[:ACCOUNT_DISCRIMINATOR_SIZE] != cls.discriminator:
+        if data[:cls.DISCRIMINATOR_SIZE] != cls.discriminator:
             raise AccountInvalidDiscriminator(
                 "The discriminator for this account is invalid"
             )
-        dec = SerumV3FulfillmentConfig.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
+        dec = SerumV3FulfillmentConfig.layout.parse(data[cls.DISCRIMINATOR_SIZE:])
         return cls(
                 pubkey=dec.pubkey,
                 serumProgramId=dec.serumProgramId,

@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class UpdatePerpMarketMarginRatioArgs(typing.TypedDict):
     marginRatioInitial:int
@@ -47,8 +46,8 @@ def UpdatePerpMarketMarginRatio(
         "marginRatioInitial":args["marginRatioInitial"],
         "marginRatioMaintenance":args["marginRatioMaintenance"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 

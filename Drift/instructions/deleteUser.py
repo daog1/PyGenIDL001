@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class DeleteUserAccounts(typing.TypedDict):
@@ -35,9 +34,9 @@ def DeleteUser(
         keys += remaining_accounts
     identifier = b"\xba\x55\x11\xf9\xdb\xe7\x62\xfb"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class UpdateUserOpenOrdersCountAccounts(typing.TypedDict):
@@ -35,9 +34,9 @@ def UpdateUserOpenOrdersCount(
         keys += remaining_accounts
     identifier = b"\x68\x27\x41\xd2\xfa\xa3\x64\x86"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

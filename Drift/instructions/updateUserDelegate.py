@@ -12,7 +12,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class UpdateUserDelegateArgs(typing.TypedDict):
     subAccountId:int
@@ -46,9 +45,9 @@ def UpdateUserDelegate(
         "subAccountId":args["subAccountId"],
         "delegate":args["delegate"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

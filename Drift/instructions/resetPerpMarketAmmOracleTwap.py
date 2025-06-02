@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class ResetPerpMarketAmmOracleTwapAccounts(typing.TypedDict):
@@ -35,8 +34,8 @@ def ResetPerpMarketAmmOracleTwap(
         keys += remaining_accounts
     identifier = b"\x7f\x0a\x37\xa4\x7b\xe2\x2f\x18"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 

@@ -8,7 +8,6 @@
 import borsh_construct as borsh;
 import typing;
 from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.coder.accounts import ACCOUNT_DISCRIMINATOR_SIZE;
 from anchorpy.error import AccountInvalidDiscriminator;
 from anchorpy.utils.rpc import get_multiple_accounts;
 from dataclasses import dataclass;
@@ -27,7 +26,8 @@ class OracleTwapsJSON(typing.TypedDict):
 
 @dataclass
 class OracleTwaps:
-    discriminator: typing.ClassVar = b"\xc0\x8b\x1b\xfa\x35\xa6\x65\x3d";
+    discriminator: typing.ClassVar = b"\xc0\x8b\x1b\xfa\x35\xa6\x65\x3d"
+    DISCRIMINATOR_SIZE: int = 8
 
     layout: typing.ClassVar = borsh.CStruct(
         "oraclePrices" /BorshPubkey,
@@ -78,11 +78,11 @@ class OracleTwaps:
 
     @classmethod
     def decode(cls, data: bytes) -> "OracleTwaps":
-        if data[:ACCOUNT_DISCRIMINATOR_SIZE] != cls.discriminator:
+        if data[:cls.DISCRIMINATOR_SIZE] != cls.discriminator:
             raise AccountInvalidDiscriminator(
                 "The discriminator for this account is invalid"
             )
-        dec = OracleTwaps.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
+        dec = OracleTwaps.layout.parse(data[cls.DISCRIMINATOR_SIZE:])
         return cls(
                 oraclePrices=dec.oraclePrices,
                 oracleMappings=dec.oracleMappings,

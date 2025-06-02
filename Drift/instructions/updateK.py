@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class UpdateKArgs(typing.TypedDict):
     sqrtK:int
@@ -46,8 +45,8 @@ def UpdateK(
     encoded_args = layout.build({
         "sqrtK":args["sqrtK"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 

@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class WithdrawAllTokenTypesArgs(typing.TypedDict):
     poolTokenAmount:int
@@ -64,9 +63,9 @@ def WithdrawAllTokenTypes(
         "minimumTokenAAmount":args["minimumTokenAAmount"],
         "minimumTokenBAmount":args["minimumTokenBAmount"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

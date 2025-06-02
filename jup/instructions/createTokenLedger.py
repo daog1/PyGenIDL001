@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class CreateTokenLedgerAccounts(typing.TypedDict):
@@ -33,9 +32,9 @@ def CreateTokenLedger(
         keys += remaining_accounts
     identifier = b"\xe8\xf2\xc5\xfd\xf0\x8f\x81\x34"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class SetUserStatusToBeingLiquidatedAccounts(typing.TypedDict):
@@ -33,9 +32,9 @@ def SetUserStatusToBeingLiquidated(
         keys += remaining_accounts
     identifier = b"\x6a\x85\xa0\xce\xc1\xab\xc0\xc2"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

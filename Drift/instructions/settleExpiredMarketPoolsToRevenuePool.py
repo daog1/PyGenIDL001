@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class SettleExpiredMarketPoolsToRevenuePoolAccounts(typing.TypedDict):
@@ -35,8 +34,8 @@ def SettleExpiredMarketPoolsToRevenuePool(
         keys += remaining_accounts
     identifier = b"\x37\x13\xee\xa9\xe3\x5a\xc8\xb8"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 

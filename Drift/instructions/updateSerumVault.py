@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class UpdateSerumVaultAccounts(typing.TypedDict):
@@ -33,8 +32,8 @@ def UpdateSerumVault(
         keys += remaining_accounts
     identifier = b"\xdb\x08\xf6\x60\xa9\x79\x5b\x6e"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 

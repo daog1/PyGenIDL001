@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 class CancelOrdersArgs(typing.TypedDict):
@@ -51,9 +50,9 @@ def CancelOrders(
         "marketIndex":args["marketIndex"],
         "direction":(None if args["direction"] is None else args["direction"].to_encodable()),
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

@@ -8,7 +8,6 @@
 import borsh_construct as borsh;
 import typing;
 from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.coder.accounts import ACCOUNT_DISCRIMINATOR_SIZE;
 from anchorpy.error import AccountInvalidDiscriminator;
 from anchorpy.utils.rpc import get_multiple_accounts;
 from dataclasses import dataclass;
@@ -27,7 +26,8 @@ class HighLeverageModeConfigJSON(typing.TypedDict):
 
 @dataclass
 class HighLeverageModeConfig:
-    discriminator: typing.ClassVar = b"\x03\xc4\x5a\xbd\xc1\x40\xe4\xea";
+    discriminator: typing.ClassVar = b"\x03\xc4\x5a\xbd\xc1\x40\xe4\xea"
+    DISCRIMINATOR_SIZE: int = 8
 
     layout: typing.ClassVar = borsh.CStruct(
         "maxUsers" /borsh.U32,
@@ -80,11 +80,11 @@ class HighLeverageModeConfig:
 
     @classmethod
     def decode(cls, data: bytes) -> "HighLeverageModeConfig":
-        if data[:ACCOUNT_DISCRIMINATOR_SIZE] != cls.discriminator:
+        if data[:cls.DISCRIMINATOR_SIZE] != cls.discriminator:
             raise AccountInvalidDiscriminator(
                 "The discriminator for this account is invalid"
             )
-        dec = HighLeverageModeConfig.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
+        dec = HighLeverageModeConfig.layout.parse(data[cls.DISCRIMINATOR_SIZE:])
         return cls(
                 maxUsers=dec.maxUsers,
                 currentUsers=dec.currentUsers,

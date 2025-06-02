@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class UpdateMappingArgs(typing.TypedDict):
     token:int
@@ -64,8 +63,8 @@ def UpdateMapping(
         "feedName":args["feedName"],
         "genericData":args["genericData"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 

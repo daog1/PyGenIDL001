@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class PauseSpotMarketDepositWithdrawAccounts(typing.TypedDict):
@@ -35,8 +34,8 @@ def PauseSpotMarketDepositWithdraw(
         keys += remaining_accounts
     identifier = b"\xb7\x77\x3b\xaa\x89\x23\xf2\x56"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 

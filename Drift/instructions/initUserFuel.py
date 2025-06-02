@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class InitUserFuelArgs(typing.TypedDict):
     fuelBoostDeposits:typing.Optional[int]
@@ -58,8 +57,8 @@ def InitUserFuel(
         "fuelBoostMaker":args["fuelBoostMaker"],
         "fuelBoostInsurance":args["fuelBoostInsurance"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 

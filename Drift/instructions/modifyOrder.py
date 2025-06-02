@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 class ModifyOrderArgs(typing.TypedDict):
@@ -48,9 +47,9 @@ def ModifyOrder(
         "orderId":args["orderId"],
         "modifyOrderParams":args["modifyOrderParams"].to_encodable(),
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

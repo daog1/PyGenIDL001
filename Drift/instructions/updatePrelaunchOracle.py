@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class UpdatePrelaunchOracleAccounts(typing.TypedDict):
@@ -33,8 +32,8 @@ def UpdatePrelaunchOracle(
         keys += remaining_accounts
     identifier = b"\xdc\x84\x1b\x1b\xe9\xdc\x3d\xdb"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 

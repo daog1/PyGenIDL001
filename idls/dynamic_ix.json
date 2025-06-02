@@ -1,0 +1,108 @@
+{
+  "address": "Bp9S9w7EBS42rpjqS1YVQmuzxHwtWsY2Toy51Mht8Nmg",
+  "metadata": {
+    "name": "dynamic_ix",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "initialize",
+      "discriminator": [
+        1
+      ],
+      "accounts": [
+        {
+          "name": "my_account"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize2",
+      "discriminator": [
+        2
+      ],
+      "accounts": [
+        {
+          "name": "my_account"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize3",
+      "discriminator": [
+        3,
+        2
+      ],
+      "accounts": [
+        {
+          "name": "my_account"
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "MyAccount",
+      "discriminator": [
+        1
+      ]
+    },
+    {
+      "name": "MyAccount2",
+      "discriminator": [
+        2,
+        3
+      ]
+    },
+    {
+      "name": "MyAccount3",
+      "discriminator": [
+        3,
+        0
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "MyAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "field",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MyAccount2",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "field",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MyAccount3",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "field",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}

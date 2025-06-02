@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class InitializeProtocolIfSharesTransferConfigAccounts(typing.TypedDict):
@@ -37,9 +36,9 @@ def InitializeProtocolIfSharesTransferConfig(
         keys += remaining_accounts
     identifier = b"\x59\x83\xef\xc8\xb2\x8d\x6a\xc2"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class InitializeAccounts(typing.TypedDict):
@@ -33,9 +32,9 @@ def Initialize(
         keys += remaining_accounts
     identifier = b"\xaf\xaf\x6d\x1f\x0d\x98\x9b\xed"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 def find_Global() -> typing.Tuple[SolPubkey, int]:
     seeds = [

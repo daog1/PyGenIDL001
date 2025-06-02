@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class UpdateUserCustomMarginRatioArgs(typing.TypedDict):
     subAccountId:int
@@ -45,9 +44,9 @@ def UpdateUserCustomMarginRatio(
         "subAccountId":args["subAccountId"],
         "marginRatio":args["marginRatio"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

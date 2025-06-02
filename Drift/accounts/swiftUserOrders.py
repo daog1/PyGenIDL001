@@ -8,7 +8,6 @@
 import borsh_construct as borsh;
 import typing;
 from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.coder.accounts import ACCOUNT_DISCRIMINATOR_SIZE;
 from anchorpy.error import AccountInvalidDiscriminator;
 from anchorpy.utils.rpc import get_multiple_accounts;
 from construct import Construct;
@@ -28,7 +27,8 @@ class SwiftUserOrdersJSON(typing.TypedDict):
 
 @dataclass
 class SwiftUserOrders:
-    discriminator: typing.ClassVar = b"\x43\x79\x7f\x62\x15\x32\x39\xc1";
+    discriminator: typing.ClassVar = b"\x43\x79\x7f\x62\x15\x32\x39\xc1"
+    DISCRIMINATOR_SIZE: int = 8
 
     layout: typing.ClassVar = borsh.CStruct(
         "userPubkey" /BorshPubkey,
@@ -79,11 +79,11 @@ class SwiftUserOrders:
 
     @classmethod
     def decode(cls, data: bytes) -> "SwiftUserOrders":
-        if data[:ACCOUNT_DISCRIMINATOR_SIZE] != cls.discriminator:
+        if data[:cls.DISCRIMINATOR_SIZE] != cls.discriminator:
             raise AccountInvalidDiscriminator(
                 "The discriminator for this account is invalid"
             )
-        dec = SwiftUserOrders.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
+        dec = SwiftUserOrders.layout.parse(data[cls.DISCRIMINATOR_SIZE:])
         return cls(
                 userPubkey=dec.userPubkey,
                 padding=dec.padding,

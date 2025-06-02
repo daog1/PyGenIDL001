@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class UpdateWithdrawGuardThresholdArgs(typing.TypedDict):
     withdrawGuardThreshold:int
@@ -44,8 +43,8 @@ def UpdateWithdrawGuardThreshold(
     encoded_args = layout.build({
         "withdrawGuardThreshold":args["withdrawGuardThreshold"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 

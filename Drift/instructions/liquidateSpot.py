@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class LiquidateSpotArgs(typing.TypedDict):
     assetMarketIndex:int
@@ -59,9 +58,9 @@ def LiquidateSpot(
         "liquidatorMaxLiabilityTransfer":args["liquidatorMaxLiabilityTransfer"],
         "limitPrice":args["limitPrice"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

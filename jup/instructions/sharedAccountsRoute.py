@@ -11,7 +11,6 @@ from construct import Construct, Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 class SharedAccountsRouteArgs(typing.TypedDict):
@@ -80,9 +79,9 @@ def SharedAccountsRoute(
         "slippageBps":args["slippageBps"],
         "platformFeeBps":args["platformFeeBps"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class CreateOpenOrdersAccounts(typing.TypedDict):
@@ -39,9 +38,9 @@ def CreateOpenOrders(
         keys += remaining_accounts
     identifier = b"\xe5\xc2\xd4\xac\x08\x0a\x86\x93"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 def find_OpenOrders(market: SolPubkey, payer: SolPubkey) -> typing.Tuple[SolPubkey, int]:
     seeds = [

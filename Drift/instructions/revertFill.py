@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class RevertFillAccounts(typing.TypedDict):
@@ -35,9 +34,9 @@ def RevertFill(
         keys += remaining_accounts
     identifier = b"\xec\xee\xb0\x45\xef\x0a\xb5\xc1"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

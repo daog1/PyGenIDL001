@@ -8,7 +8,6 @@
 import borsh_construct as borsh;
 import typing;
 from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.coder.accounts import ACCOUNT_DISCRIMINATOR_SIZE;
 from anchorpy.error import AccountInvalidDiscriminator;
 from anchorpy.utils.rpc import get_multiple_accounts;
 from dataclasses import dataclass;
@@ -27,7 +26,8 @@ class ProtectedMakerModeConfigJSON(typing.TypedDict):
 
 @dataclass
 class ProtectedMakerModeConfig:
-    discriminator: typing.ClassVar = b"\x2f\x56\x5a\x09\xe0\xff\x0a\x45";
+    discriminator: typing.ClassVar = b"\x2f\x56\x5a\x09\xe0\xff\x0a\x45"
+    DISCRIMINATOR_SIZE: int = 8
 
     layout: typing.ClassVar = borsh.CStruct(
         "maxUsers" /borsh.U32,
@@ -80,11 +80,11 @@ class ProtectedMakerModeConfig:
 
     @classmethod
     def decode(cls, data: bytes) -> "ProtectedMakerModeConfig":
-        if data[:ACCOUNT_DISCRIMINATOR_SIZE] != cls.discriminator:
+        if data[:cls.DISCRIMINATOR_SIZE] != cls.discriminator:
             raise AccountInvalidDiscriminator(
                 "The discriminator for this account is invalid"
             )
-        dec = ProtectedMakerModeConfig.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
+        dec = ProtectedMakerModeConfig.layout.parse(data[cls.DISCRIMINATOR_SIZE:])
         return cls(
                 maxUsers=dec.maxUsers,
                 currentUsers=dec.currentUsers,

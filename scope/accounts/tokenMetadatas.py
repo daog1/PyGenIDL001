@@ -8,7 +8,6 @@
 import borsh_construct as borsh;
 import typing;
 from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.coder.accounts import ACCOUNT_DISCRIMINATOR_SIZE;
 from anchorpy.error import AccountInvalidDiscriminator;
 from anchorpy.utils.rpc import get_multiple_accounts;
 from dataclasses import dataclass;
@@ -25,7 +24,8 @@ class TokenMetadatasJSON(typing.TypedDict):
 
 @dataclass
 class TokenMetadatas:
-    discriminator: typing.ClassVar = b"\xdd\x6b\x40\x67\x43\x00\xa5\x16";
+    discriminator: typing.ClassVar = b"\xdd\x6b\x40\x67\x43\x00\xa5\x16"
+    DISCRIMINATOR_SIZE: int = 8
 
     layout: typing.ClassVar = borsh.CStruct(
         "metadatasArray" /types.tokenMetadata.TokenMetadata.layout[512],
@@ -72,11 +72,11 @@ class TokenMetadatas:
 
     @classmethod
     def decode(cls, data: bytes) -> "TokenMetadatas":
-        if data[:ACCOUNT_DISCRIMINATOR_SIZE] != cls.discriminator:
+        if data[:cls.DISCRIMINATOR_SIZE] != cls.discriminator:
             raise AccountInvalidDiscriminator(
                 "The discriminator for this account is invalid"
             )
-        dec = TokenMetadatas.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
+        dec = TokenMetadatas.layout.parse(data[cls.DISCRIMINATOR_SIZE:])
         return cls(
                 metadatasArray=dec.metadatasArray,
                 )

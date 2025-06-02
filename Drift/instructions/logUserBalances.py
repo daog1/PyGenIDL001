@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class LogUserBalancesAccounts(typing.TypedDict):
@@ -33,9 +32,9 @@ def LogUserBalances(
         keys += remaining_accounts
     identifier = b"\xa2\x15\x23\xfb\x20\x39\xa1\xd2"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

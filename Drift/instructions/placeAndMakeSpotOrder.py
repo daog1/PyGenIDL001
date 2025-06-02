@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 class PlaceAndMakeSpotOrderArgs(typing.TypedDict):
@@ -57,9 +56,9 @@ def PlaceAndMakeSpotOrder(
         "takerOrderId":args["takerOrderId"],
         "fulfillmentType":(None if args["fulfillmentType"] is None else args["fulfillmentType"].to_encodable()),
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

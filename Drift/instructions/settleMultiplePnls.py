@@ -11,7 +11,6 @@ from construct import Construct, Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 class SettleMultiplePnlsArgs(typing.TypedDict):
@@ -50,9 +49,9 @@ def SettleMultiplePnls(
         "marketIndexes":args["marketIndexes"],
         "mode":args["mode"].to_encodable(),
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

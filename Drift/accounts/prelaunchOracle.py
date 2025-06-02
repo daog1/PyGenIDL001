@@ -8,7 +8,6 @@
 import borsh_construct as borsh;
 import typing;
 from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.coder.accounts import ACCOUNT_DISCRIMINATOR_SIZE;
 from anchorpy.error import AccountInvalidDiscriminator;
 from anchorpy.utils.rpc import get_multiple_accounts;
 from dataclasses import dataclass;
@@ -30,7 +29,8 @@ class PrelaunchOracleJSON(typing.TypedDict):
 
 @dataclass
 class PrelaunchOracle:
-    discriminator: typing.ClassVar = b"\x5c\x0e\x8b\xea\x48\xf4\x44\x1a";
+    discriminator: typing.ClassVar = b"\x5c\x0e\x8b\xea\x48\xf4\x44\x1a"
+    DISCRIMINATOR_SIZE: int = 8
 
     layout: typing.ClassVar = borsh.CStruct(
         "price" /borsh.I64,
@@ -89,11 +89,11 @@ class PrelaunchOracle:
 
     @classmethod
     def decode(cls, data: bytes) -> "PrelaunchOracle":
-        if data[:ACCOUNT_DISCRIMINATOR_SIZE] != cls.discriminator:
+        if data[:cls.DISCRIMINATOR_SIZE] != cls.discriminator:
             raise AccountInvalidDiscriminator(
                 "The discriminator for this account is invalid"
             )
-        dec = PrelaunchOracle.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
+        dec = PrelaunchOracle.layout.parse(data[cls.DISCRIMINATOR_SIZE:])
         return cls(
                 price=dec.price,
                 maxPrice=dec.maxPrice,

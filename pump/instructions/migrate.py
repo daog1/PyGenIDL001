@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class MigrateAccounts(typing.TypedDict):
@@ -75,9 +74,9 @@ def Migrate(
         keys += remaining_accounts
     identifier = b"\x9b\xea\xe7\x92\xec\x9e\xa2\x1e"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 def find_Global() -> typing.Tuple[SolPubkey, int]:
     seeds = [

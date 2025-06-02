@@ -12,7 +12,6 @@ from construct import Construct, Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class CreateMintMapArgs(typing.TypedDict):
     seedPk:SolPubkey
@@ -56,9 +55,9 @@ def CreateMintMap(
         "bump":args["bump"],
         "scopeChains":args["scopeChains"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

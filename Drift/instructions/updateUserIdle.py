@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class UpdateUserIdleAccounts(typing.TypedDict):
@@ -35,9 +34,9 @@ def UpdateUserIdle(
         keys += remaining_accounts
     identifier = b"\xfd\x85\x43\x16\x67\xa1\x14\x64"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

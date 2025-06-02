@@ -11,7 +11,6 @@ from construct import Construct, Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from .. import types;
 from ..program_id import PROGRAM_ID;
 class PlaceAndMatchRfqOrdersArgs(typing.TypedDict):
@@ -49,9 +48,9 @@ def PlaceAndMatchRfqOrders(
     encoded_args = layout.build({
         "rfqMatches":list(map(lambda item:item.to_encodable(),args["rfqMatches"])),
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

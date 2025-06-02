@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class UpdateGlobalAuthorityAccounts(typing.TypedDict):
@@ -37,9 +36,9 @@ def UpdateGlobalAuthority(
         keys += remaining_accounts
     identifier = b"\xe3\xb5\x4a\xc4\xd0\x15\x61\xd5"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 def find_Global() -> typing.Tuple[SolPubkey, int]:
     seeds = [

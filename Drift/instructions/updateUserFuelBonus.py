@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class UpdateUserFuelBonusAccounts(typing.TypedDict):
@@ -35,9 +34,9 @@ def UpdateUserFuelBonus(
         keys += remaining_accounts
     identifier = b"\x58\xaf\xc9\xbe\xde\x64\x8f\x39"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

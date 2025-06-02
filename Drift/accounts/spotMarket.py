@@ -8,7 +8,6 @@
 import borsh_construct as borsh;
 import typing;
 from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.coder.accounts import ACCOUNT_DISCRIMINATOR_SIZE;
 from anchorpy.error import AccountInvalidDiscriminator;
 from anchorpy.utils.rpc import get_multiple_accounts;
 from dataclasses import dataclass;
@@ -88,7 +87,8 @@ class SpotMarketJSON(typing.TypedDict):
 
 @dataclass
 class SpotMarket:
-    discriminator: typing.ClassVar = b"\x64\xb1\x08\x6b\xa8\x41\x41\x27";
+    discriminator: typing.ClassVar = b"\x64\xb1\x08\x6b\xa8\x41\x41\x27"
+    DISCRIMINATOR_SIZE: int = 8
 
     layout: typing.ClassVar = borsh.CStruct(
         "pubkey" /BorshPubkey,
@@ -261,11 +261,11 @@ class SpotMarket:
 
     @classmethod
     def decode(cls, data: bytes) -> "SpotMarket":
-        if data[:ACCOUNT_DISCRIMINATOR_SIZE] != cls.discriminator:
+        if data[:cls.DISCRIMINATOR_SIZE] != cls.discriminator:
             raise AccountInvalidDiscriminator(
                 "The discriminator for this account is invalid"
             )
-        dec = SpotMarket.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
+        dec = SpotMarket.layout.parse(data[cls.DISCRIMINATOR_SIZE:])
         return cls(
                 pubkey=dec.pubkey,
                 oracle=dec.oracle,

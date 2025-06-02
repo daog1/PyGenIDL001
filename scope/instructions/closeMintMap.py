@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class CloseMintMapAccounts(typing.TypedDict):
@@ -35,9 +34,9 @@ def CloseMintMap(
         keys += remaining_accounts
     identifier = b"\x92\xd4\xcb\xef\xbf\x68\x26\x66"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

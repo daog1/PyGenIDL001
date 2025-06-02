@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class UpdateUserGovTokenInsuranceStakeAccounts(typing.TypedDict):
@@ -39,8 +38,8 @@ def UpdateUserGovTokenInsuranceStake(
         keys += remaining_accounts
     identifier = b"\x8f\x63\xeb\xbb\x14\x9f\xb8\x54"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 

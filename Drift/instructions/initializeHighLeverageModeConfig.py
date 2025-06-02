@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class InitializeHighLeverageModeConfigArgs(typing.TypedDict):
     maxUsers:int
@@ -48,9 +47,9 @@ def InitializeHighLeverageModeConfig(
     encoded_args = layout.build({
         "maxUsers":args["maxUsers"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

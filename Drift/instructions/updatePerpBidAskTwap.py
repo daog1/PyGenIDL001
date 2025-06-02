@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class UpdatePerpBidAskTwapAccounts(typing.TypedDict):
@@ -37,9 +36,9 @@ def UpdatePerpBidAskTwap(
         keys += remaining_accounts
     identifier = b"\xf7\x17\xff\x41\xd4\x5a\xdd\xc2"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

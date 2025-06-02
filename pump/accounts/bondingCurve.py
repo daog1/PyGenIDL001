@@ -8,7 +8,6 @@
 import borsh_construct as borsh;
 import typing;
 from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.coder.accounts import ACCOUNT_DISCRIMINATOR_SIZE;
 from anchorpy.error import AccountInvalidDiscriminator;
 from anchorpy.utils.rpc import get_multiple_accounts;
 from dataclasses import dataclass;
@@ -30,7 +29,8 @@ class BondingCurveJSON(typing.TypedDict):
 
 @dataclass
 class BondingCurve:
-    discriminator: typing.ClassVar = b"\x17\xb7\xf8\x37\x60\xd8\xac\x60";
+    discriminator: typing.ClassVar = b"\x17\xb7\xf8\x37\x60\xd8\xac\x60"
+    DISCRIMINATOR_SIZE: int = 8
 
     layout: typing.ClassVar = borsh.CStruct(
         "virtualTokenReserves" /borsh.U64,
@@ -89,11 +89,11 @@ class BondingCurve:
 
     @classmethod
     def decode(cls, data: bytes) -> "BondingCurve":
-        if data[:ACCOUNT_DISCRIMINATOR_SIZE] != cls.discriminator:
+        if data[:cls.DISCRIMINATOR_SIZE] != cls.discriminator:
             raise AccountInvalidDiscriminator(
                 "The discriminator for this account is invalid"
             )
-        dec = BondingCurve.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
+        dec = BondingCurve.layout.parse(data[cls.DISCRIMINATOR_SIZE:])
         return cls(
                 virtualTokenReserves=dec.virtualTokenReserves,
                 virtualSolReserves=dec.virtualSolReserves,

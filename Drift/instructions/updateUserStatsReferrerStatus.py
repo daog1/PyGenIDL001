@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class UpdateUserStatsReferrerStatusAccounts(typing.TypedDict):
@@ -33,9 +32,9 @@ def UpdateUserStatsReferrerStatus(
         keys += remaining_accounts
     identifier = b"\xae\x9a\x48\x2a\xbf\x94\x91\xcd"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class CollectCreatorFeeAccounts(typing.TypedDict):
@@ -37,9 +36,9 @@ def CollectCreatorFee(
         keys += remaining_accounts
     identifier = b"\x14\x16\x56\x7b\xc6\x1c\xdb\x84"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 def find_CreatorVault(creator: SolPubkey) -> typing.Tuple[SolPubkey, int]:
     seeds = [

@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class SetMetaplexCreatorAccounts(typing.TypedDict):
@@ -37,9 +36,9 @@ def SetMetaplexCreator(
         keys += remaining_accounts
     identifier = b"\x8a\x60\xae\xd9\x30\x55\xc5\xf6"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 def find_Metadata(mint: SolPubkey) -> typing.Tuple[SolPubkey, int]:
     seeds = [

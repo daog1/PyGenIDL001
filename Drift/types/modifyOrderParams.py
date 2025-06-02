@@ -11,7 +11,6 @@ from anchorpy.borsh_extension import BorshPubkey;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from . import orderTriggerCondition, positionDirection, postOnlyParam;
 
 class ModifyOrderParamsJSON(typing.TypedDict):

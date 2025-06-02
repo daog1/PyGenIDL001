@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class DeletePrelaunchOracleArgs(typing.TypedDict):
     perpMarketIndex:int
@@ -46,8 +45,8 @@ def DeletePrelaunchOracle(
     encoded_args = layout.build({
         "perpMarketIndex":args["perpMarketIndex"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 

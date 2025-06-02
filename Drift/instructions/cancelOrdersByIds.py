@@ -11,7 +11,6 @@ from construct import Construct, Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class CancelOrdersByIdsArgs(typing.TypedDict):
     orderIds:list[int]
@@ -44,9 +43,9 @@ def CancelOrdersByIds(
     encoded_args = layout.build({
         "orderIds":args["orderIds"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

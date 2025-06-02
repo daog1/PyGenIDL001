@@ -8,7 +8,6 @@
 import borsh_construct as borsh;
 import typing;
 from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.coder.accounts import ACCOUNT_DISCRIMINATOR_SIZE;
 from anchorpy.error import AccountInvalidDiscriminator;
 from anchorpy.utils.rpc import get_multiple_accounts;
 from dataclasses import dataclass;
@@ -49,7 +48,8 @@ class StateJSON(typing.TypedDict):
 
 @dataclass
 class State:
-    discriminator: typing.ClassVar = b"\xd8\x92\x6b\x5e\x68\x4b\xb6\xb1";
+    discriminator: typing.ClassVar = b"\xd8\x92\x6b\x5e\x68\x4b\xb6\xb1"
+    DISCRIMINATOR_SIZE: int = 8
 
     layout: typing.ClassVar = borsh.CStruct(
         "admin" /BorshPubkey,
@@ -144,11 +144,11 @@ class State:
 
     @classmethod
     def decode(cls, data: bytes) -> "State":
-        if data[:ACCOUNT_DISCRIMINATOR_SIZE] != cls.discriminator:
+        if data[:cls.DISCRIMINATOR_SIZE] != cls.discriminator:
             raise AccountInvalidDiscriminator(
                 "The discriminator for this account is invalid"
             )
-        dec = State.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
+        dec = State.layout.parse(data[cls.DISCRIMINATOR_SIZE:])
         return cls(
                 admin=dec.admin,
                 whitelistMint=dec.whitelistMint,

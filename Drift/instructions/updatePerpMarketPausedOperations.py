@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class UpdatePerpMarketPausedOperationsArgs(typing.TypedDict):
     pausedOperations:int
@@ -44,8 +43,8 @@ def UpdatePerpMarketPausedOperations(
     encoded_args = layout.build({
         "pausedOperations":args["pausedOperations"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 

@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class DisableUserHighLeverageModeAccounts(typing.TypedDict):
@@ -35,9 +34,9 @@ def DisableUserHighLeverageMode(
         keys += remaining_accounts
     identifier = b"\xb7\x9b\x2d\x00\xe2\x55\xd5\x45"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

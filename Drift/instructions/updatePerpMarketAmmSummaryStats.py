@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class UpdatePerpMarketAmmSummaryStatsArgs(typing.TypedDict):
     quoteAssetAmountWithUnsettledLp:typing.Optional[int]
@@ -54,8 +53,8 @@ def UpdatePerpMarketAmmSummaryStats(
         "netUnsettledFundingPnl":args["netUnsettledFundingPnl"],
         "updateAmmSummaryStats":args["updateAmmSummaryStats"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 

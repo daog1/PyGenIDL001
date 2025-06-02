@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 
 class ReclaimRentAccounts(typing.TypedDict):
@@ -37,9 +36,9 @@ def ReclaimRent(
         keys += remaining_accounts
     identifier = b"\xda\xc8\x13\xc5\xe3\x59\xc0\x16"
     encoded_args = b""
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

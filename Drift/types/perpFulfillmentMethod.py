@@ -11,7 +11,6 @@ from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
 from construct import Container;
 from dataclasses import dataclass;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 
 AMMJSONValue = tuple[typing.Optional[int]]
 AMMValue = tuple[typing.Optional[int]]

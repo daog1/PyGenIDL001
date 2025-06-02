@@ -8,7 +8,6 @@
 import borsh_construct as borsh;
 import typing;
 from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.coder.accounts import ACCOUNT_DISCRIMINATOR_SIZE;
 from anchorpy.error import AccountInvalidDiscriminator;
 from anchorpy.utils.rpc import get_multiple_accounts;
 from dataclasses import dataclass;
@@ -37,7 +36,8 @@ class OpenbookV2FulfillmentConfigJSON(typing.TypedDict):
 
 @dataclass
 class OpenbookV2FulfillmentConfig:
-    discriminator: typing.ClassVar = b"\x03\x2b\x3a\x6a\x83\x84\xc7\xab";
+    discriminator: typing.ClassVar = b"\x03\x2b\x3a\x6a\x83\x84\xc7\xab"
+    DISCRIMINATOR_SIZE: int = 8
 
     layout: typing.ClassVar = borsh.CStruct(
         "pubkey" /BorshPubkey,
@@ -108,11 +108,11 @@ class OpenbookV2FulfillmentConfig:
 
     @classmethod
     def decode(cls, data: bytes) -> "OpenbookV2FulfillmentConfig":
-        if data[:ACCOUNT_DISCRIMINATOR_SIZE] != cls.discriminator:
+        if data[:cls.DISCRIMINATOR_SIZE] != cls.discriminator:
             raise AccountInvalidDiscriminator(
                 "The discriminator for this account is invalid"
             )
-        dec = OpenbookV2FulfillmentConfig.layout.parse(data[ACCOUNT_DISCRIMINATOR_SIZE:])
+        dec = OpenbookV2FulfillmentConfig.layout.parse(data[cls.DISCRIMINATOR_SIZE:])
         return cls(
                 pubkey=dec.pubkey,
                 openbookV2ProgramId=dec.openbookV2ProgramId,

@@ -11,7 +11,6 @@ from construct import Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class PostPythPullOracleUpdateAtomicArgs(typing.TypedDict):
     feedId:list[int]
@@ -49,8 +48,8 @@ def PostPythPullOracleUpdateAtomic(
         "feedId":args["feedId"],
         "params":args["params"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 

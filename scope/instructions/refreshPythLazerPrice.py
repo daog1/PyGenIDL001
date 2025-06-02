@@ -11,7 +11,6 @@ from construct import Construct, Container;
 from dataclasses import dataclass;
 from solders.instruction import AccountMeta, Instruction;
 from solders.pubkey import Pubkey as SolPubkey;
-from solders.sysvar import RENT;
 from ..program_id import PROGRAM_ID;
 class RefreshPythLazerPriceArgs(typing.TypedDict):
     tokens:list[int]
@@ -62,9 +61,9 @@ def RefreshPythLazerPrice(
         "serializedPythMessage":args["serializedPythMessage"],
         "ed25519InstructionIndex":args["ed25519InstructionIndex"],
        })
-
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 
