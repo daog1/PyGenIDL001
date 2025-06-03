@@ -5,12 +5,11 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
-from construct import Container;
-from dataclasses import dataclass;
-from solders.pubkey import Pubkey as SolPubkey;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen
+from dataclasses import dataclass
+from solders.pubkey import Pubkey as SolPubkey
 
 AMMJSONValue = tuple[typing.Optional[int]]
 AMMValue = tuple[typing.Optional[int]]
@@ -103,6 +102,7 @@ def from_json(obj: PerpFulfillmentMethodJSON) -> PerpFulfillmentMethodKind:
 
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
+
 
 layout = EnumForCodegen(
 "AMM" / borsh.CStruct("item_0" / borsh.Option(borsh.U64),),

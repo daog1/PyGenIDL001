@@ -5,18 +5,17 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey as SolPubkey;
-from .. import types;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import BorshPubkey
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from .. import types
+from ..program_id import PROGRAM_ID
 
 
 class OraclePricesJSON(typing.TypedDict):
@@ -25,6 +24,10 @@ class OraclePricesJSON(typing.TypedDict):
 
 @dataclass
 class OraclePrices:
+    #fields
+    oracleMappings: SolPubkey
+    prices: list[types.datedPrice.DatedPrice]
+
     discriminator: typing.ClassVar = b"\x59\x80\x76\xdd\x06\x48\xb4\x92"
     DISCRIMINATOR_SIZE: int = 8
 
@@ -32,10 +35,8 @@ class OraclePrices:
         "oracleMappings" /BorshPubkey,
         "prices" /types.datedPrice.DatedPrice.layout[512],
         )
-    #fields
-    oracleMappings: SolPubkey
-    prices: list[types.datedPrice.DatedPrice]
-    
+
+
 
     @classmethod
     async def fetch(

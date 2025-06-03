@@ -5,13 +5,11 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from construct import Construct, Container;
-from dataclasses import dataclass;
-from solders.pubkey import Pubkey as SolPubkey;
-from . import remainingAccountsSlice;
+import borsh_construct as borsh
+import typing
+from construct import Construct, Container
+from dataclasses import dataclass
+from . import remainingAccountsSlice
 
 class RemainingAccountsInfoJSON(typing.TypedDict):
     slices: list[remainingAccountsSlice.RemainingAccountsSliceJSON]

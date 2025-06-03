@@ -5,19 +5,18 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from construct import Construct;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey as SolPubkey;
-from .. import types;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import BorshPubkey
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from construct import Construct
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from .. import types
+from ..program_id import PROGRAM_ID
 
 
 class SwiftUserOrdersJSON(typing.TypedDict):
@@ -27,6 +26,11 @@ class SwiftUserOrdersJSON(typing.TypedDict):
 
 @dataclass
 class SwiftUserOrders:
+    #fields
+    userPubkey: SolPubkey
+    padding: int
+    swiftOrderData: list[types.swiftOrderId.SwiftOrderId]
+
     discriminator: typing.ClassVar = b"\x43\x79\x7f\x62\x15\x32\x39\xc1"
     DISCRIMINATOR_SIZE: int = 8
 
@@ -35,11 +39,8 @@ class SwiftUserOrders:
         "padding" /borsh.U32,
         "swiftOrderData" /borsh.Vec(typing.cast(Construct, types.swiftOrderId.SwiftOrderId.layout)),
         )
-    #fields
-    userPubkey: SolPubkey
-    padding: int
-    swiftOrderData: list[types.swiftOrderId.SwiftOrderId]
-    
+
+
 
     @classmethod
     async def fetch(

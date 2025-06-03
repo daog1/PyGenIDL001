@@ -5,18 +5,17 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey as SolPubkey;
-from .. import types;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import BorshPubkey
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from .. import types
+from ..program_id import PROGRAM_ID
 
 
 class PerpMarketJSON(typing.TypedDict):
@@ -58,6 +57,43 @@ class PerpMarketJSON(typing.TypedDict):
 
 @dataclass
 class PerpMarket:
+    #fields
+    pubkey: SolPubkey
+    amm: types.aMM.AMM
+    pnlPool: types.poolBalance.PoolBalance
+    name: list[int]
+    insuranceClaim: types.insuranceClaim.InsuranceClaim
+    unrealizedPnlMaxImbalance: int
+    expiryTs: int
+    expiryPrice: int
+    nextFillRecordId: int
+    nextFundingRateRecordId: int
+    nextCurveRecordId: int
+    imfFactor: int
+    unrealizedPnlImfFactor: int
+    liquidatorFee: int
+    ifLiquidationFee: int
+    marginRatioInitial: int
+    marginRatioMaintenance: int
+    unrealizedPnlInitialAssetWeight: int
+    unrealizedPnlMaintenanceAssetWeight: int
+    numberOfUsersWithBase: int
+    numberOfUsers: int
+    marketIndex: int
+    status: types.marketStatus.MarketStatusKind
+    contractType: types.contractType.ContractTypeKind
+    contractTier: types.contractTier.ContractTierKind
+    pausedOperations: int
+    quoteSpotMarketIndex: int
+    feeAdjustment: int
+    fuelBoostPosition: int
+    fuelBoostTaker: int
+    fuelBoostMaker: int
+    poolId: int
+    highLeverageMarginRatioInitial: int
+    highLeverageMarginRatioMaintenance: int
+    padding: list[int]
+
     discriminator: typing.ClassVar = b"\x0a\xdf\x0c\x2c\x6b\xf5\x37\xf7"
     DISCRIMINATOR_SIZE: int = 8
 
@@ -98,43 +134,8 @@ class PerpMarket:
         "highLeverageMarginRatioMaintenance" /borsh.U16,
         "padding" /borsh.U8[38],
         )
-    #fields
-    pubkey: SolPubkey
-    amm: types.aMM.AMM
-    pnlPool: types.poolBalance.PoolBalance
-    name: list[int]
-    insuranceClaim: types.insuranceClaim.InsuranceClaim
-    unrealizedPnlMaxImbalance: int
-    expiryTs: int
-    expiryPrice: int
-    nextFillRecordId: int
-    nextFundingRateRecordId: int
-    nextCurveRecordId: int
-    imfFactor: int
-    unrealizedPnlImfFactor: int
-    liquidatorFee: int
-    ifLiquidationFee: int
-    marginRatioInitial: int
-    marginRatioMaintenance: int
-    unrealizedPnlInitialAssetWeight: int
-    unrealizedPnlMaintenanceAssetWeight: int
-    numberOfUsersWithBase: int
-    numberOfUsers: int
-    marketIndex: int
-    status: types.marketStatus.MarketStatusKind
-    contractType: types.contractType.ContractTypeKind
-    contractTier: types.contractTier.ContractTierKind
-    pausedOperations: int
-    quoteSpotMarketIndex: int
-    feeAdjustment: int
-    fuelBoostPosition: int
-    fuelBoostTaker: int
-    fuelBoostMaker: int
-    poolId: int
-    highLeverageMarginRatioInitial: int
-    highLeverageMarginRatioMaintenance: int
-    padding: list[int]
-    
+
+
 
     @classmethod
     async def fetch(

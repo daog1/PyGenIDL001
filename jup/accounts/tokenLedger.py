@@ -5,17 +5,16 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey as SolPubkey;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import BorshPubkey
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from ..program_id import PROGRAM_ID
 
 
 class TokenLedgerJSON(typing.TypedDict):
@@ -24,6 +23,10 @@ class TokenLedgerJSON(typing.TypedDict):
 
 @dataclass
 class TokenLedger:
+    #fields
+    tokenAccount: SolPubkey
+    amount: int
+
     discriminator: typing.ClassVar = b"\x9c\xf7\x09\xbc\x36\x6c\x55\x4d"
     DISCRIMINATOR_SIZE: int = 8
 
@@ -31,10 +34,8 @@ class TokenLedger:
         "tokenAccount" /BorshPubkey,
         "amount" /borsh.U64,
         )
-    #fields
-    tokenAccount: SolPubkey
-    amount: int
-    
+
+
 
     @classmethod
     async def fetch(

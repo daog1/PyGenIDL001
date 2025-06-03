@@ -5,18 +5,16 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
-from .. import types;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from .. import types
+from ..program_id import PROGRAM_ID
 
 
 class TokenMetadatasJSON(typing.TypedDict):
@@ -24,15 +22,17 @@ class TokenMetadatasJSON(typing.TypedDict):
 
 @dataclass
 class TokenMetadatas:
+    #fields
+    metadatasArray: list[types.tokenMetadata.TokenMetadata]
+
     discriminator: typing.ClassVar = b"\xdd\x6b\x40\x67\x43\x00\xa5\x16"
     DISCRIMINATOR_SIZE: int = 8
 
     layout: typing.ClassVar = borsh.CStruct(
         "metadatasArray" /types.tokenMetadata.TokenMetadata.layout[512],
         )
-    #fields
-    metadatasArray: list[types.tokenMetadata.TokenMetadata]
-    
+
+
 
     @classmethod
     async def fetch(

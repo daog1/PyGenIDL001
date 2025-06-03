@@ -5,12 +5,10 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from construct import Container;
-from dataclasses import dataclass;
-from solders.pubkey import Pubkey as SolPubkey;
+import borsh_construct as borsh
+import typing
+from construct import Container
+from dataclasses import dataclass
 
 class PerpPositionJSON(typing.TypedDict):
     lastCumulativeFundingRate: int

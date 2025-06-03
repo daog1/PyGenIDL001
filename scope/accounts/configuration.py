@@ -5,17 +5,16 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey as SolPubkey;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import BorshPubkey
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from ..program_id import PROGRAM_ID
 
 
 class ConfigurationJSON(typing.TypedDict):
@@ -29,6 +28,15 @@ class ConfigurationJSON(typing.TypedDict):
 
 @dataclass
 class Configuration:
+    #fields
+    admin: SolPubkey
+    oracleMappings: SolPubkey
+    oraclePrices: SolPubkey
+    tokensMetadata: SolPubkey
+    oracleTwaps: SolPubkey
+    adminCached: SolPubkey
+    padding: list[int]
+
     discriminator: typing.ClassVar = b"\xc0\x4f\xac\x1e\x15\xad\x19\x2b"
     DISCRIMINATOR_SIZE: int = 8
 
@@ -41,15 +49,8 @@ class Configuration:
         "adminCached" /BorshPubkey,
         "padding" /borsh.U64[1255],
         )
-    #fields
-    admin: SolPubkey
-    oracleMappings: SolPubkey
-    oraclePrices: SolPubkey
-    tokensMetadata: SolPubkey
-    oracleTwaps: SolPubkey
-    adminCached: SolPubkey
-    padding: list[int]
-    
+
+
 
     @classmethod
     async def fetch(

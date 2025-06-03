@@ -5,18 +5,17 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey as SolPubkey;
-from .. import types;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import BorshPubkey
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from .. import types
+from ..program_id import PROGRAM_ID
 
 
 class AmmJSON(typing.TypedDict):
@@ -52,6 +51,37 @@ class AmmJSON(typing.TypedDict):
 
 @dataclass
 class Amm:
+    #fields
+    initializerKey: SolPubkey
+    initializerDepositTokenAccount: SolPubkey
+    initializerReceiveTokenAccount: SolPubkey
+    initializerAmount: int
+    takerAmount: int
+    isInitialized: bool
+    bumpSeed: int
+    freezeTrade: int
+    freezeDeposit: int
+    freezeWithdraw: int
+    baseDecimals: int
+    tokenProgramId: SolPubkey
+    tokenAAccount: SolPubkey
+    tokenBAccount: SolPubkey
+    poolMint: SolPubkey
+    tokenAMint: SolPubkey
+    tokenBMint: SolPubkey
+    feeAccount: SolPubkey
+    oracleMainAccount: SolPubkey
+    oracleSubAccount: SolPubkey
+    oraclePcAccount: SolPubkey
+    fees: types.ammFees.AmmFees
+    curve: types.ammCurve.AmmCurve
+    config: types.ammConfig.AmmConfig
+    ammPTemp1: SolPubkey
+    ammPTemp2: SolPubkey
+    ammPTemp3: SolPubkey
+    ammPTemp4: SolPubkey
+    ammPTemp5: SolPubkey
+
     discriminator: typing.ClassVar = b"\x8f\xf5\xc8\x11\x4a\xd6\xc4\x87"
     DISCRIMINATOR_SIZE: int = 8
 
@@ -86,37 +116,8 @@ class Amm:
         "ammPTemp4" /BorshPubkey,
         "ammPTemp5" /BorshPubkey,
         )
-    #fields
-    initializerKey: SolPubkey
-    initializerDepositTokenAccount: SolPubkey
-    initializerReceiveTokenAccount: SolPubkey
-    initializerAmount: int
-    takerAmount: int
-    isInitialized: bool
-    bumpSeed: int
-    freezeTrade: int
-    freezeDeposit: int
-    freezeWithdraw: int
-    baseDecimals: int
-    tokenProgramId: SolPubkey
-    tokenAAccount: SolPubkey
-    tokenBAccount: SolPubkey
-    poolMint: SolPubkey
-    tokenAMint: SolPubkey
-    tokenBMint: SolPubkey
-    feeAccount: SolPubkey
-    oracleMainAccount: SolPubkey
-    oracleSubAccount: SolPubkey
-    oraclePcAccount: SolPubkey
-    fees: types.ammFees.AmmFees
-    curve: types.ammCurve.AmmCurve
-    config: types.ammConfig.AmmConfig
-    ammPTemp1: SolPubkey
-    ammPTemp2: SolPubkey
-    ammPTemp3: SolPubkey
-    ammPTemp4: SolPubkey
-    ammPTemp5: SolPubkey
-    
+
+
 
     @classmethod
     async def fetch(

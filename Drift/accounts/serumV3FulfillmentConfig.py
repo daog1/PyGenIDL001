@@ -5,18 +5,17 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey as SolPubkey;
-from .. import types;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import BorshPubkey
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from .. import types
+from ..program_id import PROGRAM_ID
 
 
 class SerumV3FulfillmentConfigJSON(typing.TypedDict):
@@ -38,6 +37,23 @@ class SerumV3FulfillmentConfigJSON(typing.TypedDict):
 
 @dataclass
 class SerumV3FulfillmentConfig:
+    #fields
+    pubkey: SolPubkey
+    serumProgramId: SolPubkey
+    serumMarket: SolPubkey
+    serumRequestQueue: SolPubkey
+    serumEventQueue: SolPubkey
+    serumBids: SolPubkey
+    serumAsks: SolPubkey
+    serumBaseVault: SolPubkey
+    serumQuoteVault: SolPubkey
+    serumOpenOrders: SolPubkey
+    serumSignerNonce: int
+    marketIndex: int
+    fulfillmentType: types.spotFulfillmentType.SpotFulfillmentTypeKind
+    status: types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatusKind
+    padding: list[int]
+
     discriminator: typing.ClassVar = b"\x41\xa0\xc5\x70\xef\xa8\x67\xb9"
     DISCRIMINATOR_SIZE: int = 8
 
@@ -58,23 +74,8 @@ class SerumV3FulfillmentConfig:
         "status" /types.spotFulfillmentConfigStatus.layout,
         "padding" /borsh.U8[4],
         )
-    #fields
-    pubkey: SolPubkey
-    serumProgramId: SolPubkey
-    serumMarket: SolPubkey
-    serumRequestQueue: SolPubkey
-    serumEventQueue: SolPubkey
-    serumBids: SolPubkey
-    serumAsks: SolPubkey
-    serumBaseVault: SolPubkey
-    serumQuoteVault: SolPubkey
-    serumOpenOrders: SolPubkey
-    serumSignerNonce: int
-    marketIndex: int
-    fulfillmentType: types.spotFulfillmentType.SpotFulfillmentTypeKind
-    status: types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatusKind
-    padding: list[int]
-    
+
+
 
     @classmethod
     async def fetch(

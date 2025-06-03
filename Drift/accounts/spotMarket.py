@@ -5,18 +5,17 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey as SolPubkey;
-from .. import types;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import BorshPubkey
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from .. import types
+from ..program_id import PROGRAM_ID
 
 
 class SpotMarketJSON(typing.TypedDict):
@@ -87,6 +86,72 @@ class SpotMarketJSON(typing.TypedDict):
 
 @dataclass
 class SpotMarket:
+    #fields
+    pubkey: SolPubkey
+    oracle: SolPubkey
+    mint: SolPubkey
+    vault: SolPubkey
+    name: list[int]
+    historicalOracleData: types.historicalOracleData.HistoricalOracleData
+    historicalIndexData: types.historicalIndexData.HistoricalIndexData
+    revenuePool: types.poolBalance.PoolBalance
+    spotFeePool: types.poolBalance.PoolBalance
+    insuranceFund: types.insuranceFund.InsuranceFund
+    totalSpotFee: int
+    depositBalance: int
+    borrowBalance: int
+    cumulativeDepositInterest: int
+    cumulativeBorrowInterest: int
+    totalSocialLoss: int
+    totalQuoteSocialLoss: int
+    withdrawGuardThreshold: int
+    maxTokenDeposits: int
+    depositTokenTwap: int
+    borrowTokenTwap: int
+    utilizationTwap: int
+    lastInterestTs: int
+    lastTwapTs: int
+    expiryTs: int
+    orderStepSize: int
+    orderTickSize: int
+    minOrderSize: int
+    maxPositionSize: int
+    nextFillRecordId: int
+    nextDepositRecordId: int
+    initialAssetWeight: int
+    maintenanceAssetWeight: int
+    initialLiabilityWeight: int
+    maintenanceLiabilityWeight: int
+    imfFactor: int
+    liquidatorFee: int
+    ifLiquidationFee: int
+    optimalUtilization: int
+    optimalBorrowRate: int
+    maxBorrowRate: int
+    decimals: int
+    marketIndex: int
+    ordersEnabled: bool
+    oracleSource: types.oracleSource.OracleSourceKind
+    status: types.marketStatus.MarketStatusKind
+    assetTier: types.assetTier.AssetTierKind
+    pausedOperations: int
+    ifPausedOperations: int
+    feeAdjustment: int
+    maxTokenBorrowsFraction: int
+    flashLoanAmount: int
+    flashLoanInitialTokenAmount: int
+    totalSwapFee: int
+    scaleInitialAssetWeightStart: int
+    minBorrowRate: int
+    fuelBoostDeposits: int
+    fuelBoostBorrows: int
+    fuelBoostTaker: int
+    fuelBoostMaker: int
+    fuelBoostInsurance: int
+    tokenProgram: int
+    poolId: int
+    padding: list[int]
+
     discriminator: typing.ClassVar = b"\x64\xb1\x08\x6b\xa8\x41\x41\x27"
     DISCRIMINATOR_SIZE: int = 8
 
@@ -156,72 +221,8 @@ class SpotMarket:
         "poolId" /borsh.U8,
         "padding" /borsh.U8[40],
         )
-    #fields
-    pubkey: SolPubkey
-    oracle: SolPubkey
-    mint: SolPubkey
-    vault: SolPubkey
-    name: list[int]
-    historicalOracleData: types.historicalOracleData.HistoricalOracleData
-    historicalIndexData: types.historicalIndexData.HistoricalIndexData
-    revenuePool: types.poolBalance.PoolBalance
-    spotFeePool: types.poolBalance.PoolBalance
-    insuranceFund: types.insuranceFund.InsuranceFund
-    totalSpotFee: int
-    depositBalance: int
-    borrowBalance: int
-    cumulativeDepositInterest: int
-    cumulativeBorrowInterest: int
-    totalSocialLoss: int
-    totalQuoteSocialLoss: int
-    withdrawGuardThreshold: int
-    maxTokenDeposits: int
-    depositTokenTwap: int
-    borrowTokenTwap: int
-    utilizationTwap: int
-    lastInterestTs: int
-    lastTwapTs: int
-    expiryTs: int
-    orderStepSize: int
-    orderTickSize: int
-    minOrderSize: int
-    maxPositionSize: int
-    nextFillRecordId: int
-    nextDepositRecordId: int
-    initialAssetWeight: int
-    maintenanceAssetWeight: int
-    initialLiabilityWeight: int
-    maintenanceLiabilityWeight: int
-    imfFactor: int
-    liquidatorFee: int
-    ifLiquidationFee: int
-    optimalUtilization: int
-    optimalBorrowRate: int
-    maxBorrowRate: int
-    decimals: int
-    marketIndex: int
-    ordersEnabled: bool
-    oracleSource: types.oracleSource.OracleSourceKind
-    status: types.marketStatus.MarketStatusKind
-    assetTier: types.assetTier.AssetTierKind
-    pausedOperations: int
-    ifPausedOperations: int
-    feeAdjustment: int
-    maxTokenBorrowsFraction: int
-    flashLoanAmount: int
-    flashLoanInitialTokenAmount: int
-    totalSwapFee: int
-    scaleInitialAssetWeightStart: int
-    minBorrowRate: int
-    fuelBoostDeposits: int
-    fuelBoostBorrows: int
-    fuelBoostTaker: int
-    fuelBoostMaker: int
-    fuelBoostInsurance: int
-    tokenProgram: int
-    poolId: int
-    padding: list[int]
-    
+
+
 
     @classmethod
     async def fetch(

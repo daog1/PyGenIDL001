@@ -5,17 +5,15 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from ..program_id import PROGRAM_ID
 
 
 class ProtectedMakerModeConfigJSON(typing.TypedDict):
@@ -26,6 +24,12 @@ class ProtectedMakerModeConfigJSON(typing.TypedDict):
 
 @dataclass
 class ProtectedMakerModeConfig:
+    #fields
+    maxUsers: int
+    currentUsers: int
+    reduceOnly: int
+    padding: list[int]
+
     discriminator: typing.ClassVar = b"\x2f\x56\x5a\x09\xe0\xff\x0a\x45"
     DISCRIMINATOR_SIZE: int = 8
 
@@ -35,12 +39,8 @@ class ProtectedMakerModeConfig:
         "reduceOnly" /borsh.U8,
         "padding" /borsh.U8[31],
         )
-    #fields
-    maxUsers: int
-    currentUsers: int
-    reduceOnly: int
-    padding: list[int]
-    
+
+
 
     @classmethod
     async def fetch(

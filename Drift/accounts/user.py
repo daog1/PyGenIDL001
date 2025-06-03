@@ -5,18 +5,17 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey as SolPubkey;
-from .. import types;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import BorshPubkey
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from .. import types
+from ..program_id import PROGRAM_ID
 
 
 class UserJSON(typing.TypedDict):
@@ -54,6 +53,39 @@ class UserJSON(typing.TypedDict):
 
 @dataclass
 class User:
+    #fields
+    authority: SolPubkey
+    delegate: SolPubkey
+    name: list[int]
+    spotPositions: list[types.spotPosition.SpotPosition]
+    perpPositions: list[types.perpPosition.PerpPosition]
+    orders: list[types.order.Order]
+    lastAddPerpLpSharesTs: int
+    totalDeposits: int
+    totalWithdraws: int
+    totalSocialLoss: int
+    settledPerpPnl: int
+    cumulativeSpotFees: int
+    cumulativePerpFunding: int
+    liquidationMarginFreed: int
+    lastActiveSlot: int
+    nextOrderId: int
+    maxMarginRatio: int
+    nextLiquidationId: int
+    subAccountId: int
+    status: int
+    isMarginTradingEnabled: bool
+    idle: bool
+    openOrders: int
+    hasOpenOrder: bool
+    openAuctions: int
+    hasOpenAuction: bool
+    marginMode: types.marginMode.MarginModeKind
+    poolId: int
+    padding1: list[int]
+    lastFuelBonusUpdateTs: int
+    padding: list[int]
+
     discriminator: typing.ClassVar = b"\x9f\x75\x5f\xe3\xef\x97\x3a\xec"
     DISCRIMINATOR_SIZE: int = 8
 
@@ -90,39 +122,8 @@ class User:
         "lastFuelBonusUpdateTs" /borsh.U32,
         "padding" /borsh.U8[12],
         )
-    #fields
-    authority: SolPubkey
-    delegate: SolPubkey
-    name: list[int]
-    spotPositions: list[types.spotPosition.SpotPosition]
-    perpPositions: list[types.perpPosition.PerpPosition]
-    orders: list[types.order.Order]
-    lastAddPerpLpSharesTs: int
-    totalDeposits: int
-    totalWithdraws: int
-    totalSocialLoss: int
-    settledPerpPnl: int
-    cumulativeSpotFees: int
-    cumulativePerpFunding: int
-    liquidationMarginFreed: int
-    lastActiveSlot: int
-    nextOrderId: int
-    maxMarginRatio: int
-    nextLiquidationId: int
-    subAccountId: int
-    status: int
-    isMarginTradingEnabled: bool
-    idle: bool
-    openOrders: int
-    hasOpenOrder: bool
-    openAuctions: int
-    hasOpenAuction: bool
-    marginMode: types.marginMode.MarginModeKind
-    poolId: int
-    padding1: list[int]
-    lastFuelBonusUpdateTs: int
-    padding: list[int]
-    
+
+
 
     @classmethod
     async def fetch(

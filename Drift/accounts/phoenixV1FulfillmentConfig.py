@@ -5,18 +5,17 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey as SolPubkey;
-from .. import types;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import BorshPubkey
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from .. import types
+from ..program_id import PROGRAM_ID
 
 
 class PhoenixV1FulfillmentConfigJSON(typing.TypedDict):
@@ -33,6 +32,18 @@ class PhoenixV1FulfillmentConfigJSON(typing.TypedDict):
 
 @dataclass
 class PhoenixV1FulfillmentConfig:
+    #fields
+    pubkey: SolPubkey
+    phoenixProgramId: SolPubkey
+    phoenixLogAuthority: SolPubkey
+    phoenixMarket: SolPubkey
+    phoenixBaseVault: SolPubkey
+    phoenixQuoteVault: SolPubkey
+    marketIndex: int
+    fulfillmentType: types.spotFulfillmentType.SpotFulfillmentTypeKind
+    status: types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatusKind
+    padding: list[int]
+
     discriminator: typing.ClassVar = b"\xe9\x2d\x3e\x28\x23\x81\x30\x48"
     DISCRIMINATOR_SIZE: int = 8
 
@@ -48,18 +59,8 @@ class PhoenixV1FulfillmentConfig:
         "status" /types.spotFulfillmentConfigStatus.layout,
         "padding" /borsh.U8[4],
         )
-    #fields
-    pubkey: SolPubkey
-    phoenixProgramId: SolPubkey
-    phoenixLogAuthority: SolPubkey
-    phoenixMarket: SolPubkey
-    phoenixBaseVault: SolPubkey
-    phoenixQuoteVault: SolPubkey
-    marketIndex: int
-    fulfillmentType: types.spotFulfillmentType.SpotFulfillmentTypeKind
-    status: types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatusKind
-    padding: list[int]
-    
+
+
 
     @classmethod
     async def fetch(

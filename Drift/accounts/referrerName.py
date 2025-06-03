@@ -5,17 +5,16 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey as SolPubkey;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import BorshPubkey
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from ..program_id import PROGRAM_ID
 
 
 class ReferrerNameJSON(typing.TypedDict):
@@ -26,6 +25,12 @@ class ReferrerNameJSON(typing.TypedDict):
 
 @dataclass
 class ReferrerName:
+    #fields
+    authority: SolPubkey
+    user: SolPubkey
+    userStats: SolPubkey
+    name: list[int]
+
     discriminator: typing.ClassVar = b"\x69\x85\xaa\x6e\x34\x2a\x1c\xb6"
     DISCRIMINATOR_SIZE: int = 8
 
@@ -35,12 +40,8 @@ class ReferrerName:
         "userStats" /BorshPubkey,
         "name" /borsh.U8[32],
         )
-    #fields
-    authority: SolPubkey
-    user: SolPubkey
-    userStats: SolPubkey
-    name: list[int]
-    
+
+
 
     @classmethod
     async def fetch(

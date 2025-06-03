@@ -5,17 +5,15 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from ..program_id import PROGRAM_ID
 
 
 class MyAccount3JSON(typing.TypedDict):
@@ -23,15 +21,17 @@ class MyAccount3JSON(typing.TypedDict):
 
 @dataclass
 class MyAccount3:
+    #fields
+    field: int
+
     discriminator: typing.ClassVar = b"\x03\x00"
     DISCRIMINATOR_SIZE: int = 2
 
     layout: typing.ClassVar = borsh.CStruct(
         "field" /borsh.U8,
         )
-    #fields
-    field: int
-    
+
+
 
     @classmethod
     async def fetch(

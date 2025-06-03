@@ -5,7 +5,7 @@
     @see https://github.com/codama-idl/codama
 '''
 
-from solders.pubkey import Pubkey;
+from solders.pubkey import Pubkey
 
 PROGRAM_ID = Pubkey.from_string("JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4")
 

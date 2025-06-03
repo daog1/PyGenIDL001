@@ -5,18 +5,17 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey as SolPubkey;
-from .. import types;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import BorshPubkey
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from .. import types
+from ..program_id import PROGRAM_ID
 
 
 class OpenbookV2FulfillmentConfigJSON(typing.TypedDict):
@@ -36,6 +35,21 @@ class OpenbookV2FulfillmentConfigJSON(typing.TypedDict):
 
 @dataclass
 class OpenbookV2FulfillmentConfig:
+    #fields
+    pubkey: SolPubkey
+    openbookV2ProgramId: SolPubkey
+    openbookV2Market: SolPubkey
+    openbookV2MarketAuthority: SolPubkey
+    openbookV2EventHeap: SolPubkey
+    openbookV2Bids: SolPubkey
+    openbookV2Asks: SolPubkey
+    openbookV2BaseVault: SolPubkey
+    openbookV2QuoteVault: SolPubkey
+    marketIndex: int
+    fulfillmentType: types.spotFulfillmentType.SpotFulfillmentTypeKind
+    status: types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatusKind
+    padding: list[int]
+
     discriminator: typing.ClassVar = b"\x03\x2b\x3a\x6a\x83\x84\xc7\xab"
     DISCRIMINATOR_SIZE: int = 8
 
@@ -54,21 +68,8 @@ class OpenbookV2FulfillmentConfig:
         "status" /types.spotFulfillmentConfigStatus.layout,
         "padding" /borsh.U8[4],
         )
-    #fields
-    pubkey: SolPubkey
-    openbookV2ProgramId: SolPubkey
-    openbookV2Market: SolPubkey
-    openbookV2MarketAuthority: SolPubkey
-    openbookV2EventHeap: SolPubkey
-    openbookV2Bids: SolPubkey
-    openbookV2Asks: SolPubkey
-    openbookV2BaseVault: SolPubkey
-    openbookV2QuoteVault: SolPubkey
-    marketIndex: int
-    fulfillmentType: types.spotFulfillmentType.SpotFulfillmentTypeKind
-    status: types.spotFulfillmentConfigStatus.SpotFulfillmentConfigStatusKind
-    padding: list[int]
-    
+
+
 
     @classmethod
     async def fetch(

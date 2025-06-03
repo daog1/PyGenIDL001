@@ -49,11 +49,14 @@ GenIdl("./idls/jup.json", "jup");
 // GenIdl("./idls/scope.json", "scope");
 GenIdl("./idls/dynamic_ix.json", "dynamic_ix");
 GenIdl("./idls/dummy.json", "dummy");
-GenIdl("./idls/system.json", "system");
+
 
 
 GenIdl2("./idls/scope.json", "scope");
-//GenIdl("./idls/klend.json", "klend");
+//GenIdl2("./idls/drift.json", "Drift");
+//GenIdl("./idls/dummy.json", "dummy");
+GenIdl("./idls/system.json", "system");
+GenIdl2("./idls/klend.json", "klend");
 // GenIdlJs("./idls/pump.json", "pumpjs");
 // GenIdlJs("./idls/idl-0.1.2.json", "Lifinityjs");
 // GenIdlJs("./idls/drift.json", "Driftjs");

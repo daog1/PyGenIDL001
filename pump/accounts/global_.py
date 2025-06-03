@@ -5,17 +5,16 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey as SolPubkey;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import BorshPubkey
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from ..program_id import PROGRAM_ID
 
 
 class GlobalJSON(typing.TypedDict):
@@ -36,6 +35,22 @@ class GlobalJSON(typing.TypedDict):
 
 @dataclass
 class Global:
+    #fields
+    initialized: bool
+    authority: SolPubkey
+    feeRecipient: SolPubkey
+    initialVirtualTokenReserves: int
+    initialVirtualSolReserves: int
+    initialRealTokenReserves: int
+    tokenTotalSupply: int
+    feeBasisPoints: int
+    withdrawAuthority: SolPubkey
+    enableMigrate: bool
+    poolMigrationFee: int
+    creatorFeeBasisPoints: int
+    feeRecipients: list[SolPubkey]
+    setCreatorAuthority: SolPubkey
+
     discriminator: typing.ClassVar = b"\xa7\xe8\xe8\xb1\xc8\x6c\x72\x7f"
     DISCRIMINATOR_SIZE: int = 8
 
@@ -55,22 +70,8 @@ class Global:
         "feeRecipients" /BorshPubkey[7],
         "setCreatorAuthority" /BorshPubkey,
         )
-    #fields
-    initialized: bool
-    authority: SolPubkey
-    feeRecipient: SolPubkey
-    initialVirtualTokenReserves: int
-    initialVirtualSolReserves: int
-    initialRealTokenReserves: int
-    tokenTotalSupply: int
-    feeBasisPoints: int
-    withdrawAuthority: SolPubkey
-    enableMigrate: bool
-    poolMigrationFee: int
-    creatorFeeBasisPoints: int
-    feeRecipients: list[SolPubkey]
-    setCreatorAuthority: SolPubkey
-    
+
+
 
     @classmethod
     async def fetch(

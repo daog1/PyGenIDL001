@@ -5,18 +5,17 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey as SolPubkey;
-from .. import types;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import BorshPubkey
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from .. import types
+from ..program_id import PROGRAM_ID
 
 
 class OracleTwapsJSON(typing.TypedDict):
@@ -26,6 +25,11 @@ class OracleTwapsJSON(typing.TypedDict):
 
 @dataclass
 class OracleTwaps:
+    #fields
+    oraclePrices: SolPubkey
+    oracleMappings: SolPubkey
+    twaps: list[types.emaTwap.EmaTwap]
+
     discriminator: typing.ClassVar = b"\xc0\x8b\x1b\xfa\x35\xa6\x65\x3d"
     DISCRIMINATOR_SIZE: int = 8
 
@@ -34,11 +38,8 @@ class OracleTwaps:
         "oracleMappings" /BorshPubkey,
         "twaps" /types.emaTwap.EmaTwap.layout[512],
         )
-    #fields
-    oraclePrices: SolPubkey
-    oracleMappings: SolPubkey
-    twaps: list[types.emaTwap.EmaTwap]
-    
+
+
 
     @classmethod
     async def fetch(

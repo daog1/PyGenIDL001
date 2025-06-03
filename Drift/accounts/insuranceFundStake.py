@@ -5,17 +5,16 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from anchorpy.error import AccountInvalidDiscriminator;
-from anchorpy.utils.rpc import get_multiple_accounts;
-from dataclasses import dataclass;
-from solana.rpc.async_api import AsyncClient;
-from solana.rpc.commitment import Commitment;
-from solana.rpc.types import MemcmpOpts;
-from solders.pubkey import Pubkey as SolPubkey;
-from ..program_id import PROGRAM_ID;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import BorshPubkey
+from anchorpy.error import AccountInvalidDiscriminator
+from anchorpy.utils.rpc import get_multiple_accounts
+from dataclasses import dataclass
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Commitment
+from solders.pubkey import Pubkey as SolPubkey
+from ..program_id import PROGRAM_ID
 
 
 class InsuranceFundStakeJSON(typing.TypedDict):
@@ -32,6 +31,18 @@ class InsuranceFundStakeJSON(typing.TypedDict):
 
 @dataclass
 class InsuranceFundStake:
+    #fields
+    authority: SolPubkey
+    ifShares: int
+    lastWithdrawRequestShares: int
+    ifBase: int
+    lastValidTs: int
+    lastWithdrawRequestValue: int
+    lastWithdrawRequestTs: int
+    costBasis: int
+    marketIndex: int
+    padding: list[int]
+
     discriminator: typing.ClassVar = b"\x6e\xca\x0e\x2a\x5f\x49\x5a\x5f"
     DISCRIMINATOR_SIZE: int = 8
 
@@ -47,18 +58,8 @@ class InsuranceFundStake:
         "marketIndex" /borsh.U16,
         "padding" /borsh.U8[14],
         )
-    #fields
-    authority: SolPubkey
-    ifShares: int
-    lastWithdrawRequestShares: int
-    ifBase: int
-    lastValidTs: int
-    lastWithdrawRequestValue: int
-    lastWithdrawRequestTs: int
-    costBasis: int
-    marketIndex: int
-    padding: list[int]
-    
+
+
 
     @classmethod
     async def fetch(

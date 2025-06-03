@@ -5,13 +5,13 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from construct import Container;
-from dataclasses import dataclass;
-from solders.pubkey import Pubkey as SolPubkey;
-from . import historicalOracleData, oracleSource, poolBalance;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import BorshPubkey
+from construct import Container
+from dataclasses import dataclass
+from solders.pubkey import Pubkey as SolPubkey
+from . import historicalOracleData, oracleSource, poolBalance
 
 class AMMJSON(typing.TypedDict):
     oracle: str

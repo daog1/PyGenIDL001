@@ -5,12 +5,10 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen;
-from construct import Container;
-from dataclasses import dataclass;
-from solders.pubkey import Pubkey as SolPubkey;
+import borsh_construct as borsh
+import typing
+from anchorpy.borsh_extension import EnumForCodegen
+from dataclasses import dataclass
 
 
 class UpdateFundingJSON(typing.TypedDict):
@@ -297,6 +295,7 @@ def from_json(obj: DriftActionJSON) -> DriftActionKind:
 
     kind = obj["kind"]
     raise ValueError(f"Unrecognized enum kind: {kind}")
+
 
 layout = EnumForCodegen(
 "UpdateFunding" / borsh.CStruct(),

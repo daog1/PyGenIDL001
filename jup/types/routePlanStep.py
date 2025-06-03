@@ -5,13 +5,11 @@
     @see https://github.com/codama-idl/codama
 '''
 
-import borsh_construct as borsh;
-import typing;
-from anchorpy.borsh_extension import BorshPubkey;
-from construct import Container;
-from dataclasses import dataclass;
-from solders.pubkey import Pubkey as SolPubkey;
-from . import swap;
+import borsh_construct as borsh
+import typing
+from construct import Container
+from dataclasses import dataclass
+from . import swap
 
 class RoutePlanStepJSON(typing.TypedDict):
     swap: swap.SwapJSON
