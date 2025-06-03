@@ -48,7 +48,7 @@ def CreateAccountWithSeed(
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts
-    identifier = b"\x3"
+    identifier = b"\x03"
     encoded_args = layout.build({
         "base":args["base"],
         "seed":args["seed"],

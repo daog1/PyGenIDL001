@@ -36,7 +36,7 @@ def Assign(
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts
-    identifier = b"\x1"
+    identifier = b"\x01"
     encoded_args = layout.build({
         "programAddress":args["programAddress"],
        })

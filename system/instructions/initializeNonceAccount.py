@@ -40,7 +40,7 @@ def InitializeNonceAccount(
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts
-    identifier = b"\x6"
+    identifier = b"\x06"
     encoded_args = layout.build({
         "nonceAuthority":args["nonceAuthority"],
        })

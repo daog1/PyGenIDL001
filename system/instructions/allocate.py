@@ -35,7 +35,7 @@ def Allocate(
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts
-    identifier = b"\x8"
+    identifier = b"\x08"
     encoded_args = layout.build({
         "space":args["space"],
        })

@@ -42,7 +42,7 @@ def AssignWithSeed(
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts
-    identifier = b"\xa"
+    identifier = b"\x0a"
     encoded_args = layout.build({
         "base":args["base"],
         "seed":args["seed"],

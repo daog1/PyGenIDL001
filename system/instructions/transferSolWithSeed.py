@@ -44,7 +44,7 @@ def TransferSolWithSeed(
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts
-    identifier = b"\xb"
+    identifier = b"\x0b"
     encoded_args = layout.build({
         "amount":args["amount"],
         "fromSeed":args["fromSeed"],

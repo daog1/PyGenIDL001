@@ -30,7 +30,7 @@ def AdvanceNonceAccount(
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts
-    identifier = b"\x4"
+    identifier = b"\x04"
     encoded_args = b""
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)

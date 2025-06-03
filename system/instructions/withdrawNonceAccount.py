@@ -43,7 +43,7 @@ def WithdrawNonceAccount(
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts
-    identifier = b"\x5"
+    identifier = b"\x05"
     encoded_args = layout.build({
         "withdrawAmount":args["withdrawAmount"],
        })
