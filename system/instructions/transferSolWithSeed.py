@@ -11,6 +11,7 @@ from anchorpy.borsh_extension import BorshPubkey
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
 from ..program_id import PROGRAM_ID
+from ..shared import String64
 class TransferSolWithSeedArgs(typing.TypedDict):
     amount:int
     fromSeed:str
@@ -19,7 +20,7 @@ class TransferSolWithSeedArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "amount" /borsh.U64,
-    "fromSeed" /borsh.String,
+    "fromSeed" /String64,
     "fromOwner" /BorshPubkey,
     )
 

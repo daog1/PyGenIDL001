@@ -11,6 +11,7 @@ from anchorpy.borsh_extension import BorshPubkey
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
 from ..program_id import PROGRAM_ID
+from ..shared import String64
 class CreateAccountWithSeedArgs(typing.TypedDict):
     base:SolPubkey
     seed:str
@@ -21,7 +22,7 @@ class CreateAccountWithSeedArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "base" /BorshPubkey,
-    "seed" /borsh.String,
+    "seed" /String64,
     "amount" /borsh.U64,
     "space" /borsh.U64,
     "programAddress" /BorshPubkey,

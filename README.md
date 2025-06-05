@@ -17,4 +17,6 @@ function GenIdl(file: String, dirPath: String) {
 
 GenIdl("./idls/pump.json", "pump");
 GenIdl("./idls/idl-0.1.2.json", "Lifinity");
+
+
 ```

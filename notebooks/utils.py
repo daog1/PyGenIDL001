@@ -9,12 +9,11 @@ def find_program_index(tx,program_id):
     message = tx.value.transaction.transaction.message
     account_keys = message.account_keys
     for i, account in enumerate(account_keys):
-        #print(f"  [{i}]: {account}")
         if account == program_id:
             return i
     return -1
 
-def getTx(txHash):
-    client = Client(os.getenv("rpc_url"))
+def getTx(rpc,txHash):
+    client = Client(os.getenv(rpc))
     tx = client.get_transaction( Signature.from_string(txHash), encoding="json", max_supported_transaction_version=0)
     return tx

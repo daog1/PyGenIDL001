@@ -288,7 +288,7 @@
                             "type": { "kind": "stringTypeNode", "encoding": "utf8" },
                             "prefix": {
                                 "kind": "numberTypeNode",
-                                "format": "u32",
+                                "format": "u64",
                                 "endian": "le"
                             }
                         },
@@ -694,7 +694,7 @@
                             "type": { "kind": "stringTypeNode", "encoding": "utf8" },
                             "prefix": {
                                 "kind": "numberTypeNode",
-                                "format": "u32",
+                                "format": "u64",
                                 "endian": "le"
                             }
                         },
@@ -776,7 +776,7 @@
                             "type": { "kind": "stringTypeNode", "encoding": "utf8" },
                             "prefix": {
                                 "kind": "numberTypeNode",
-                                "format": "u32",
+                                "format": "u64",
                                 "endian": "le"
                             }
                         },
@@ -860,7 +860,7 @@
                             "type": { "kind": "stringTypeNode", "encoding": "utf8" },
                             "prefix": {
                                 "kind": "numberTypeNode",
-                                "format": "u32",
+                                "format": "u64",
                                 "endian": "le"
                             }
                         },
@@ -961,7 +961,9 @@
                 "idlName": "AccountAlreadyInUse",
                 "code": 0,
                 "message": "an account with the same address already exists",
-                "docs": ["AccountAlreadyInUse: an account with the same address already exists"]
+                "docs": [
+                    "AccountAlreadyInUse: an account with the same address already exists"
+                ]
             },
             {
                 "kind": "errorNode",
@@ -969,7 +971,9 @@
                 "idlName": "ResultWithNegativeLamports",
                 "code": 1,
                 "message": "account does not have enough SOL to perform the operation",
-                "docs": ["ResultWithNegativeLamports: account does not have enough SOL to perform the operation"]
+                "docs": [
+                    "ResultWithNegativeLamports: account does not have enough SOL to perform the operation"
+                ]
             },
             {
                 "kind": "errorNode",
@@ -985,7 +989,9 @@
                 "idlName": "InvalidAccountDataLength",
                 "code": 3,
                 "message": "cannot allocate account data of this length",
-                "docs": ["InvalidAccountDataLength: cannot allocate account data of this length"]
+                "docs": [
+                    "InvalidAccountDataLength: cannot allocate account data of this length"
+                ]
             },
             {
                 "kind": "errorNode",
@@ -1001,7 +1007,9 @@
                 "idlName": "AddressWithSeedMismatch",
                 "code": 5,
                 "message": "provided address does not match addressed derived from seed",
-                "docs": ["AddressWithSeedMismatch: provided address does not match addressed derived from seed"]
+                "docs": [
+                    "AddressWithSeedMismatch: provided address does not match addressed derived from seed"
+                ]
             },
             {
                 "kind": "errorNode",
@@ -1019,7 +1027,9 @@
                 "idlName": "NonceBlockhashNotExpired",
                 "code": 7,
                 "message": "stored nonce is still in recent_blockhashes",
-                "docs": ["NonceBlockhashNotExpired: stored nonce is still in recent_blockhashes"]
+                "docs": [
+                    "NonceBlockhashNotExpired: stored nonce is still in recent_blockhashes"
+                ]
             },
             {
                 "kind": "errorNode",
@@ -1027,7 +1037,9 @@
                 "idlName": "NonceUnexpectedBlockhashValue",
                 "code": 8,
                 "message": "specified nonce does not match stored nonce",
-                "docs": ["NonceUnexpectedBlockhashValue: specified nonce does not match stored nonce"]
+                "docs": [
+                    "NonceUnexpectedBlockhashValue: specified nonce does not match stored nonce"
+                ]
             }
         ],
         "name": "system",

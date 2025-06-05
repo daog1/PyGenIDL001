@@ -6,7 +6,7 @@ import {
 import { createFromRoot, updateProgramsVisitor } from "codama";
 import { AnchorIdl, rootNodeFromAnchor } from "@codama/nodes-from-anchor";
 import { readJson } from "@codama/renderers-core";
-import path from 'path';
+import path from "path";
 import { rootNode } from "@codama/nodes";
 //const path = require('node:path');
 
@@ -29,10 +29,9 @@ function GenIdl(file: String, dirPath: String) {
     //const rootNode = rootNodeFromAnchor( as AnchorIdl);
     const codama = createFromRoot(root);
     codama.accept(renderPythonVisitor(dirPath));
-  }catch (e) {
-   console.error(`${file}  `+e);
+  } catch (e) {
+    console.error(`${file}  ` + e);
   }
-
 }
 function GenIdlJs(file: String, dirPath: String) {
   let anchorIdl = require(file);
@@ -40,7 +39,6 @@ function GenIdlJs(file: String, dirPath: String) {
   const codama = createFromRoot(rootNode);
   codama.accept(renderJavaScriptVisitor(dirPath));
 }
-
 
 GenIdl("./idls/pump.json", "pump");
 GenIdl2("./idls/idl-0.1.2.json", "Lifinity");
@@ -50,11 +48,10 @@ GenIdl("./idls/jup.json", "jup");
 GenIdl("./idls/dynamic_ix.json", "dynamic_ix");
 GenIdl("./idls/dummy.json", "dummy");
 
-
-
-GenIdl2("./idls/scope.json", "scope");
+//GenIdl2("./idls/scope.json", "scope");
 //GenIdl2("./idls/drift.json", "Drift");
 //GenIdl("./idls/dummy.json", "dummy");
+//GenIdl("./idls/pump.json", "pump");
 GenIdl("./idls/system.json", "system");
 GenIdl2("./idls/klend.json", "klend");
 // GenIdlJs("./idls/pump.json", "pumpjs");
