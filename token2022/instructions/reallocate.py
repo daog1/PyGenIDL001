@@ -7,48 +7,45 @@
 
 import borsh_construct as borsh
 import typing
-from anchorpy.borsh_extension import BorshPubkey
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
 from ..program_id import PROGRAM_ID
-from ..shared import StringU64
-class AssignWithSeedArgs(typing.TypedDict):
-    base:SolPubkey
-    seed:borsh.String
-    programAddress:SolPubkey
+class ReallocateArgs(typing.TypedDict):
+    newExtensionTypes:list[types.extensionType.ExtensionTypeKind]
 
 
 layout = borsh.CStruct(
-    "base" /BorshPubkey,
-    "seed" /StringU64,
-    "programAddress" /BorshPubkey,
+    "newExtensionTypes" /borsh.Vec(typing.cast(Construct, types.extensionType.layout)),
     )
 
 
-class AssignWithSeedAccounts(typing.TypedDict):
-    account:SolPubkey
-    baseAccount:SolPubkey
+class ReallocateAccounts(typing.TypedDict):
+    token:SolPubkey
+    payer:SolPubkey
+    systemProgram:SolPubkey
+    owner:SolPubkey
 
-def AssignWithSeed(
-    args: AssignWithSeedArgs,
-    accounts: AssignWithSeedAccounts,
+def Reallocate(
+    args: ReallocateArgs,
+    accounts: ReallocateAccounts,
     program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
-    AccountMeta(pubkey=accounts["account"], is_signer=False, is_writable=True),
-    AccountMeta(pubkey=accounts["baseAccount"], is_signer=True, is_writable=False),
+    AccountMeta(pubkey=accounts["token"], is_signer=False, is_writable=True),
+    AccountMeta(pubkey=accounts["payer"], is_signer=True, is_writable=True),
+    AccountMeta(pubkey=accounts["systemProgram"], is_signer=False, is_writable=False),
+    AccountMeta(pubkey=accounts["owner"], is_signer=True, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts
-    identifier = b"\x0a\x00\x00\x00"
+    identifier = b"\x1d"
     encoded_args = layout.build({
-        "base":args["base"],
-        "seed":args["seed"],
-        "programAddress":args["programAddress"],
+        "newExtensionTypes":,
        })
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

@@ -7,45 +7,35 @@
 
 import borsh_construct as borsh
 import typing
-from anchorpy.borsh_extension import BorshPubkey
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
 from ..program_id import PROGRAM_ID
-from ..shared import StringU64
-class AssignWithSeedArgs(typing.TypedDict):
-    base:SolPubkey
-    seed:borsh.String
-    programAddress:SolPubkey
+class InitializeMultisig2Args(typing.TypedDict):
+    m:int
 
 
 layout = borsh.CStruct(
-    "base" /BorshPubkey,
-    "seed" /StringU64,
-    "programAddress" /BorshPubkey,
+    "m" /borsh.U8,
     )
 
 
-class AssignWithSeedAccounts(typing.TypedDict):
-    account:SolPubkey
-    baseAccount:SolPubkey
+class InitializeMultisig2Accounts(typing.TypedDict):
+    multisig:SolPubkey
 
-def AssignWithSeed(
-    args: AssignWithSeedArgs,
-    accounts: AssignWithSeedAccounts,
+def InitializeMultisig2(
+    args: InitializeMultisig2Args,
+    accounts: InitializeMultisig2Accounts,
     program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
-    AccountMeta(pubkey=accounts["account"], is_signer=False, is_writable=True),
-    AccountMeta(pubkey=accounts["baseAccount"], is_signer=True, is_writable=False),
+    AccountMeta(pubkey=accounts["multisig"], is_signer=False, is_writable=True),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts
-    identifier = b"\x0a\x00\x00\x00"
+    identifier = b"\x13"
     encoded_args = layout.build({
-        "base":args["base"],
-        "seed":args["seed"],
-        "programAddress":args["programAddress"],
+        "m":args["m"],
        })
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)

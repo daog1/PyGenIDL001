@@ -10,42 +10,39 @@ import typing
 from anchorpy.borsh_extension import BorshPubkey
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
+from .. import types
 from ..program_id import PROGRAM_ID
-from ..shared import StringU64
-class AssignWithSeedArgs(typing.TypedDict):
-    base:SolPubkey
-    seed:borsh.String
-    programAddress:SolPubkey
+class SetAuthorityArgs(typing.TypedDict):
+    authorityType:types.authorityType.AuthorityTypeKind
+    newAuthority:typing.Optional[SolPubkey]
 
 
 layout = borsh.CStruct(
-    "base" /BorshPubkey,
-    "seed" /StringU64,
-    "programAddress" /BorshPubkey,
+    "authorityType" /types.authorityType.layout,
+    "newAuthority" /borsh.Option(BorshPubkey),
     )
 
 
-class AssignWithSeedAccounts(typing.TypedDict):
-    account:SolPubkey
-    baseAccount:SolPubkey
+class SetAuthorityAccounts(typing.TypedDict):
+    owned:SolPubkey
+    owner:SolPubkey
 
-def AssignWithSeed(
-    args: AssignWithSeedArgs,
-    accounts: AssignWithSeedAccounts,
+def SetAuthority(
+    args: SetAuthorityArgs,
+    accounts: SetAuthorityAccounts,
     program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
-    AccountMeta(pubkey=accounts["account"], is_signer=False, is_writable=True),
-    AccountMeta(pubkey=accounts["baseAccount"], is_signer=True, is_writable=False),
+    AccountMeta(pubkey=accounts["owned"], is_signer=False, is_writable=True),
+    AccountMeta(pubkey=accounts["owner"], is_signer=True, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts
-    identifier = b"\x0a\x00\x00\x00"
+    identifier = b"\x06"
     encoded_args = layout.build({
-        "base":args["base"],
-        "seed":args["seed"],
-        "programAddress":args["programAddress"],
+        "authorityType":args["authorityType"].to_encodable(),
+        "newAuthority":args["newAuthority"],
        })
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)

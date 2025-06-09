@@ -7,50 +7,54 @@
 
 import borsh_construct as borsh
 import typing
-from anchorpy.borsh_extension import BorshPubkey
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
 from ..program_id import PROGRAM_ID
-from ..shared import StringU64
-class TransferSolWithSeedArgs(typing.TypedDict):
+class TransferCheckedWithFeeArgs(typing.TypedDict):
+    transferFeeDiscriminator:int
     amount:int
-    fromSeed:borsh.String
-    fromOwner:SolPubkey
+    decimals:int
+    fee:int
 
 
 layout = borsh.CStruct(
+    "transferFeeDiscriminator" /borsh.U8,
     "amount" /borsh.U64,
-    "fromSeed" /StringU64,
-    "fromOwner" /BorshPubkey,
+    "decimals" /borsh.U8,
+    "fee" /borsh.U64,
     )
 
 
-class TransferSolWithSeedAccounts(typing.TypedDict):
+class TransferCheckedWithFeeAccounts(typing.TypedDict):
     source:SolPubkey
-    baseAccount:SolPubkey
+    mint:SolPubkey
     destination:SolPubkey
+    authority:SolPubkey
 
-def TransferSolWithSeed(
-    args: TransferSolWithSeedArgs,
-    accounts: TransferSolWithSeedAccounts,
+def TransferCheckedWithFee(
+    args: TransferCheckedWithFeeArgs,
+    accounts: TransferCheckedWithFeeAccounts,
     program_id: SolPubkey = PROGRAM_ID,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
     AccountMeta(pubkey=accounts["source"], is_signer=False, is_writable=True),
-    AccountMeta(pubkey=accounts["baseAccount"], is_signer=True, is_writable=False),
+    AccountMeta(pubkey=accounts["mint"], is_signer=False, is_writable=False),
     AccountMeta(pubkey=accounts["destination"], is_signer=False, is_writable=True),
+    AccountMeta(pubkey=accounts["authority"], is_signer=True, is_writable=False),
     ]
     if remaining_accounts is not None:
         keys += remaining_accounts
-    identifier = b"\x0b\x00\x00\x00"
+    identifier = b"\x1a"
     encoded_args = layout.build({
+        "transferFeeDiscriminator":args["transferFeeDiscriminator"],
         "amount":args["amount"],
-        "fromSeed":args["fromSeed"],
-        "fromOwner":args["fromOwner"],
+        "decimals":args["decimals"],
+        "fee":args["fee"],
        })
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)
+
 
 
 

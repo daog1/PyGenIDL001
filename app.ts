@@ -30,7 +30,7 @@ function GenIdl(file: String, dirPath: String) {
     const codama = createFromRoot(root);
     codama.accept(renderPythonVisitor(dirPath));
   } catch (e) {
-    console.error(`${file}  ` + e);
+    console.error(`${file}  ` + e.stack);
   }
 }
 function GenIdlJs(file: String, dirPath: String) {
@@ -39,21 +39,25 @@ function GenIdlJs(file: String, dirPath: String) {
   const codama = createFromRoot(rootNode);
   codama.accept(renderJavaScriptVisitor(dirPath));
 }
+function main() {
+  GenIdl("./idls/pump.json", "pump");
+  GenIdl2("./idls/idl-0.1.2.json", "Lifinity");
+  GenIdl2("./idls/drift.json", "Drift");
+  GenIdl("./idls/jup.json", "jup");
+  // GenIdl("./idls/scope.json", "scope");
+  GenIdl("./idls/dynamic_ix.json", "dynamic_ix");
+  GenIdl("./idls/dummy.json", "dummy");
 
-GenIdl("./idls/pump.json", "pump");
-GenIdl2("./idls/idl-0.1.2.json", "Lifinity");
-GenIdl2("./idls/drift.json", "Drift");
-GenIdl("./idls/jup.json", "jup");
-// GenIdl("./idls/scope.json", "scope");
-GenIdl("./idls/dynamic_ix.json", "dynamic_ix");
-GenIdl("./idls/dummy.json", "dummy");
-
-//GenIdl2("./idls/scope.json", "scope");
-//GenIdl2("./idls/drift.json", "Drift");
-//GenIdl("./idls/dummy.json", "dummy");
-//GenIdl("./idls/pump.json", "pump");
-GenIdl("./idls/system.json", "system");
-GenIdl2("./idls/klend.json", "klend");
+  //GenIdl2("./idls/scope.json", "scope");
+  //GenIdl2("./idls/drift.json", "Drift");
+  //GenIdl("./idls/dummy.json", "dummy");
+  //GenIdl("./idls/pump.json", "pump");
+  GenIdl("./idls/system.json", "system");
+  GenIdl2("./idls/klend.json", "klend");
+}
+//main();
+//GenIdl("./idls/system.json", "system");
+GenIdl("./idls/token2022.json", "token2022");
 // GenIdlJs("./idls/pump.json", "pumpjs");
 // GenIdlJs("./idls/idl-0.1.2.json", "Lifinityjs");
 // GenIdlJs("./idls/drift.json", "Driftjs");

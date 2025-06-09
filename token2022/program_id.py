@@ -5,4 +5,7 @@
     @see https://github.com/codama-idl/codama
 '''
 
-from .extension import EnumForCodegenU32,String64,OptionU32,RemainderOption,HiddenPrefixAdapter
+from solders.pubkey import Pubkey
+
+PROGRAM_ID = Pubkey.from_string("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL")
+
