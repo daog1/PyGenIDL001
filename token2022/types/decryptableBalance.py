@@ -5,5 +5,12 @@
     @see https://github.com/codama-idl/codama
 '''
 
+import borsh_construct as borsh
+import typing
+from construct import GreedyBytes
+from dataclasses import dataclass
+from ..shared import FixedSizeBytes
 
+DecryptableBalance=FixedSizeBytes(36,GreedyBytes)
+pyType = bytes
 

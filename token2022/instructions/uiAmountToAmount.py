@@ -11,7 +11,7 @@ from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
 from ..program_id import PROGRAM_ID
 class UiAmountToAmountArgs(typing.TypedDict):
-    uiAmount:borsh.String
+    uiAmount:str
 
 
 layout = borsh.CStruct(

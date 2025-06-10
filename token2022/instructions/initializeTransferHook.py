@@ -7,9 +7,11 @@
 
 import borsh_construct as borsh
 import typing
+from anchorpy.borsh_extension import BorshPubkey
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
 from ..program_id import PROGRAM_ID
+from ..shared import ZeroableOption
 class InitializeTransferHookArgs(typing.TypedDict):
     transferHookDiscriminator:int
     authority:borsh.String
@@ -18,8 +20,8 @@ class InitializeTransferHookArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "transferHookDiscriminator" /borsh.U8,
-    "authority" /borsh.String,
-    "programId" /borsh.String,
+    "authority" /ZeroableOption(BorshPubkey),
+    "programId" /ZeroableOption(BorshPubkey),
     )
 
 

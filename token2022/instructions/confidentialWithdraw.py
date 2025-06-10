@@ -15,7 +15,7 @@ class ConfidentialWithdrawArgs(typing.TypedDict):
     confidentialTransferDiscriminator:int
     amount:int
     decimals:int
-    newDecryptableAvailableBalance:types.decryptableBalance.DecryptableBalance
+    newDecryptableAvailableBalance:types.decryptableBalance.pyType
     equalityProofInstructionOffset:int
     rangeProofInstructionOffset:int
 
@@ -24,7 +24,7 @@ layout = borsh.CStruct(
     "confidentialTransferDiscriminator" /borsh.U8,
     "amount" /borsh.U64,
     "decimals" /borsh.U8,
-    "newDecryptableAvailableBalance" /types.decryptableBalance.DecryptableBalance.layout,
+    "newDecryptableAvailableBalance" /types.decryptableBalance.DecryptableBalance,
     "equalityProofInstructionOffset" /borsh.I8,
     "rangeProofInstructionOffset" /borsh.I8,
     )
@@ -59,7 +59,7 @@ def ConfidentialWithdraw(
         "confidentialTransferDiscriminator":args["confidentialTransferDiscriminator"],
         "amount":args["amount"],
         "decimals":args["decimals"],
-        "newDecryptableAvailableBalance":args["newDecryptableAvailableBalance"].to_encodable(),
+        "newDecryptableAvailableBalance":args["newDecryptableAvailableBalance"],
         "equalityProofInstructionOffset":args["equalityProofInstructionOffset"],
         "rangeProofInstructionOffset":args["rangeProofInstructionOffset"],
        })

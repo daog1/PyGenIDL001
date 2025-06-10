@@ -7,9 +7,11 @@
 
 import borsh_construct as borsh
 import typing
+from anchorpy.borsh_extension import BorshPubkey
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
 from ..program_id import PROGRAM_ID
+from ..shared import ZeroableOption
 class InitializeScaledUiAmountMintArgs(typing.TypedDict):
     scaledUiAmountMintDiscriminator:int
     authority:borsh.String
@@ -18,7 +20,7 @@ class InitializeScaledUiAmountMintArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "scaledUiAmountMintDiscriminator" /borsh.U8,
-    "authority" /borsh.String,
+    "authority" /ZeroableOption(BorshPubkey),
     "multiplier" /borsh.F64,
     )
 

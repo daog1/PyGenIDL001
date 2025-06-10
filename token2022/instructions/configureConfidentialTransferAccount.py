@@ -13,14 +13,14 @@ from .. import types
 from ..program_id import PROGRAM_ID
 class ConfigureConfidentialTransferAccountArgs(typing.TypedDict):
     confidentialTransferDiscriminator:int
-    decryptableZeroBalance:types.decryptableBalance.DecryptableBalance
+    decryptableZeroBalance:types.decryptableBalance.pyType
     maximumPendingBalanceCreditCounter:int
     proofInstructionOffset:int
 
 
 layout = borsh.CStruct(
     "confidentialTransferDiscriminator" /borsh.U8,
-    "decryptableZeroBalance" /types.decryptableBalance.DecryptableBalance.layout,
+    "decryptableZeroBalance" /types.decryptableBalance.DecryptableBalance,
     "maximumPendingBalanceCreditCounter" /borsh.U64,
     "proofInstructionOffset" /borsh.I8,
     )
@@ -51,7 +51,7 @@ def ConfigureConfidentialTransferAccount(
     identifier = b"\x1b"
     encoded_args = layout.build({
         "confidentialTransferDiscriminator":args["confidentialTransferDiscriminator"],
-        "decryptableZeroBalance":args["decryptableZeroBalance"].to_encodable(),
+        "decryptableZeroBalance":args["decryptableZeroBalance"],
         "maximumPendingBalanceCreditCounter":args["maximumPendingBalanceCreditCounter"],
         "proofInstructionOffset":args["proofInstructionOffset"],
        })

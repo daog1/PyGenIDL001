@@ -14,13 +14,13 @@ from ..program_id import PROGRAM_ID
 class WithdrawWithheldTokensFromMintForConfidentialTransferFeeArgs(typing.TypedDict):
     confidentialTransferFeeDiscriminator:int
     proofInstructionOffset:int
-    newDecryptableAvailableBalance:types.decryptableBalance.DecryptableBalance
+    newDecryptableAvailableBalance:types.decryptableBalance.pyType
 
 
 layout = borsh.CStruct(
     "confidentialTransferFeeDiscriminator" /borsh.U8,
     "proofInstructionOffset" /borsh.I8,
-    "newDecryptableAvailableBalance" /types.decryptableBalance.DecryptableBalance.layout,
+    "newDecryptableAvailableBalance" /types.decryptableBalance.DecryptableBalance,
     )
 
 
@@ -50,7 +50,7 @@ def WithdrawWithheldTokensFromMintForConfidentialTransferFee(
     encoded_args = layout.build({
         "confidentialTransferFeeDiscriminator":args["confidentialTransferFeeDiscriminator"],
         "proofInstructionOffset":args["proofInstructionOffset"],
-        "newDecryptableAvailableBalance":args["newDecryptableAvailableBalance"].to_encodable(),
+        "newDecryptableAvailableBalance":args["newDecryptableAvailableBalance"],
        })
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)

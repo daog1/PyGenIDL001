@@ -7,9 +7,11 @@
 
 import borsh_construct as borsh
 import typing
+from anchorpy.borsh_extension import BorshPubkey
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
 from ..program_id import PROGRAM_ID
+from ..shared import ZeroableOption
 class InitializeInterestBearingMintArgs(typing.TypedDict):
     interestBearingMintDiscriminator:int
     rateAuthority:borsh.String
@@ -18,7 +20,7 @@ class InitializeInterestBearingMintArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "interestBearingMintDiscriminator" /borsh.U8,
-    "rateAuthority" /borsh.String,
+    "rateAuthority" /ZeroableOption(BorshPubkey),
     "rate" /borsh.I16,
     )
 

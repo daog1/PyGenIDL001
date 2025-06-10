@@ -13,7 +13,7 @@ from .. import types
 from ..program_id import PROGRAM_ID
 class ConfidentialTransferWithFeeArgs(typing.TypedDict):
     confidentialTransferDiscriminator:int
-    newSourceDecryptableAvailableBalance:types.decryptableBalance.DecryptableBalance
+    newSourceDecryptableAvailableBalance:types.decryptableBalance.pyType
     equalityProofInstructionOffset:int
     transferAmountCiphertextValidityProofInstructionOffset:int
     feeSigmaProofInstructionOffset:int
@@ -23,7 +23,7 @@ class ConfidentialTransferWithFeeArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "confidentialTransferDiscriminator" /borsh.U8,
-    "newSourceDecryptableAvailableBalance" /types.decryptableBalance.DecryptableBalance.layout,
+    "newSourceDecryptableAvailableBalance" /types.decryptableBalance.DecryptableBalance,
     "equalityProofInstructionOffset" /borsh.I8,
     "transferAmountCiphertextValidityProofInstructionOffset" /borsh.I8,
     "feeSigmaProofInstructionOffset" /borsh.I8,
@@ -67,7 +67,7 @@ def ConfidentialTransferWithFee(
     identifier = b"\x1b"
     encoded_args = layout.build({
         "confidentialTransferDiscriminator":args["confidentialTransferDiscriminator"],
-        "newSourceDecryptableAvailableBalance":args["newSourceDecryptableAvailableBalance"].to_encodable(),
+        "newSourceDecryptableAvailableBalance":args["newSourceDecryptableAvailableBalance"],
         "equalityProofInstructionOffset":args["equalityProofInstructionOffset"],
         "transferAmountCiphertextValidityProofInstructionOffset":args["transferAmountCiphertextValidityProofInstructionOffset"],
         "feeSigmaProofInstructionOffset":args["feeSigmaProofInstructionOffset"],

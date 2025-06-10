@@ -14,13 +14,13 @@ from ..program_id import PROGRAM_ID
 class ApplyConfidentialPendingBalanceArgs(typing.TypedDict):
     confidentialTransferDiscriminator:int
     expectedPendingBalanceCreditCounter:int
-    newDecryptableAvailableBalance:types.decryptableBalance.DecryptableBalance
+    newDecryptableAvailableBalance:types.decryptableBalance.pyType
 
 
 layout = borsh.CStruct(
     "confidentialTransferDiscriminator" /borsh.U8,
     "expectedPendingBalanceCreditCounter" /borsh.U64,
-    "newDecryptableAvailableBalance" /types.decryptableBalance.DecryptableBalance.layout,
+    "newDecryptableAvailableBalance" /types.decryptableBalance.DecryptableBalance,
     )
 
 
@@ -44,7 +44,7 @@ def ApplyConfidentialPendingBalance(
     encoded_args = layout.build({
         "confidentialTransferDiscriminator":args["confidentialTransferDiscriminator"],
         "expectedPendingBalanceCreditCounter":args["expectedPendingBalanceCreditCounter"],
-        "newDecryptableAvailableBalance":args["newDecryptableAvailableBalance"].to_encodable(),
+        "newDecryptableAvailableBalance":args["newDecryptableAvailableBalance"],
        })
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)

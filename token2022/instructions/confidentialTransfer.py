@@ -13,7 +13,7 @@ from .. import types
 from ..program_id import PROGRAM_ID
 class ConfidentialTransferArgs(typing.TypedDict):
     confidentialTransferDiscriminator:int
-    newSourceDecryptableAvailableBalance:types.decryptableBalance.DecryptableBalance
+    newSourceDecryptableAvailableBalance:types.decryptableBalance.pyType
     equalityProofInstructionOffset:int
     ciphertextValidityProofInstructionOffset:int
     rangeProofInstructionOffset:int
@@ -21,7 +21,7 @@ class ConfidentialTransferArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "confidentialTransferDiscriminator" /borsh.U8,
-    "newSourceDecryptableAvailableBalance" /types.decryptableBalance.DecryptableBalance.layout,
+    "newSourceDecryptableAvailableBalance" /types.decryptableBalance.DecryptableBalance,
     "equalityProofInstructionOffset" /borsh.I8,
     "ciphertextValidityProofInstructionOffset" /borsh.I8,
     "rangeProofInstructionOffset" /borsh.I8,
@@ -59,7 +59,7 @@ def ConfidentialTransfer(
     identifier = b"\x1b"
     encoded_args = layout.build({
         "confidentialTransferDiscriminator":args["confidentialTransferDiscriminator"],
-        "newSourceDecryptableAvailableBalance":args["newSourceDecryptableAvailableBalance"].to_encodable(),
+        "newSourceDecryptableAvailableBalance":args["newSourceDecryptableAvailableBalance"],
         "equalityProofInstructionOffset":args["equalityProofInstructionOffset"],
         "ciphertextValidityProofInstructionOffset":args["ciphertextValidityProofInstructionOffset"],
         "rangeProofInstructionOffset":args["rangeProofInstructionOffset"],

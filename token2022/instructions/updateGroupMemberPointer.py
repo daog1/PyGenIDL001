@@ -7,9 +7,11 @@
 
 import borsh_construct as borsh
 import typing
+from anchorpy.borsh_extension import BorshPubkey
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
 from ..program_id import PROGRAM_ID
+from ..shared import ZeroableOption
 class UpdateGroupMemberPointerArgs(typing.TypedDict):
     groupMemberPointerDiscriminator:int
     memberAddress:borsh.String
@@ -17,7 +19,7 @@ class UpdateGroupMemberPointerArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "groupMemberPointerDiscriminator" /borsh.U8,
-    "memberAddress" /borsh.String,
+    "memberAddress" /ZeroableOption(BorshPubkey),
     )
 
 

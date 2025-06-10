@@ -11,6 +11,7 @@ from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen
 from dataclasses import dataclass
 from solders.pubkey import Pubkey as SolPubkey
 from . import accountState, decryptableBalance, encryptedBalance, transferFee
+from ..shared import ZeroableOption
 
 
 class UninitializedJSON(typing.TypedDict):
@@ -198,10 +199,10 @@ class ConfidentialTransferAccountJSONValue(typing.TypedDict):
 class ConfidentialTransferAccountValue(typing.TypedDict):
     approved: bool
     elgamalPubkey: SolPubkey
-    pendingBalanceLow: encryptedBalance.EncryptedBalance
-    pendingBalanceHigh: encryptedBalance.EncryptedBalance
-    availableBalance: encryptedBalance.EncryptedBalance
-    decryptableAvailableBalance: decryptableBalance.DecryptableBalance
+    pendingBalanceLow: encryptedBalance.pyType
+    pendingBalanceHigh: encryptedBalance.pyType
+    availableBalance: encryptedBalance.pyType
+    decryptableAvailableBalance: decryptableBalance.pyType
     allowConfidentialCredits: bool
     allowNonConfidentialCredits: bool
     pendingBalanceCreditCounter: int
@@ -231,7 +232,7 @@ class ConfidentialTransferAccount:
 
     def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "ConfidentialTransferAccount":{ "approved":self.value["approved"],"elgamalPubkey":self.value["elgamalPubkey"],"pendingBalanceLow":self.value["pendingBalanceLow"].to_encodable(),"pendingBalanceHigh":self.value["pendingBalanceHigh"].to_encodable(),"availableBalance":self.value["availableBalance"].to_encodable(),"decryptableAvailableBalance":self.value["decryptableAvailableBalance"].to_encodable(),"allowConfidentialCredits":self.value["allowConfidentialCredits"],"allowNonConfidentialCredits":self.value["allowNonConfidentialCredits"],"pendingBalanceCreditCounter":self.value["pendingBalanceCreditCounter"],"maximumPendingBalanceCreditCounter":self.value["maximumPendingBalanceCreditCounter"],"expectedPendingBalanceCreditCounter":self.value["expectedPendingBalanceCreditCounter"],"actualPendingBalanceCreditCounter":self.value["actualPendingBalanceCreditCounter"] }
+            "ConfidentialTransferAccount":{ "approved":self.value["approved"],"elgamalPubkey":self.value["elgamalPubkey"],"pendingBalanceLow":self.value["pendingBalanceLow"],"pendingBalanceHigh":self.value["pendingBalanceHigh"],"availableBalance":self.value["availableBalance"],"decryptableAvailableBalance":self.value["decryptableAvailableBalance"],"allowConfidentialCredits":self.value["allowConfidentialCredits"],"allowNonConfidentialCredits":self.value["allowNonConfidentialCredits"],"pendingBalanceCreditCounter":self.value["pendingBalanceCreditCounter"],"maximumPendingBalanceCreditCounter":self.value["maximumPendingBalanceCreditCounter"],"expectedPendingBalanceCreditCounter":self.value["expectedPendingBalanceCreditCounter"],"actualPendingBalanceCreditCounter":self.value["actualPendingBalanceCreditCounter"] }
             }
 
 
@@ -591,7 +592,7 @@ class ConfidentialTransferFeeValue(typing.TypedDict):
     authority: borsh.String
     elgamalPubkey: SolPubkey
     harvestToMintEnabled: bool
-    withheldAmount: encryptedBalance.EncryptedBalance
+    withheldAmount: encryptedBalance.pyType
 
 
 
@@ -615,7 +616,7 @@ class ConfidentialTransferFee:
 
     def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "ConfidentialTransferFee":{ "authority":self.value["authority"],"elgamalPubkey":self.value["elgamalPubkey"],"harvestToMintEnabled":self.value["harvestToMintEnabled"],"withheldAmount":self.value["withheldAmount"].to_encodable() }
+            "ConfidentialTransferFee":{ "authority":self.value["authority"],"elgamalPubkey":self.value["elgamalPubkey"],"harvestToMintEnabled":self.value["harvestToMintEnabled"],"withheldAmount":self.value["withheldAmount"] }
             }
 
 
@@ -625,7 +626,7 @@ class ConfidentialTransferFeeAmountJSONValue(typing.TypedDict):
 
 
 class ConfidentialTransferFeeAmountValue(typing.TypedDict):
-    withheldAmount: encryptedBalance.EncryptedBalance
+    withheldAmount: encryptedBalance.pyType
 
 
 
@@ -649,7 +650,7 @@ class ConfidentialTransferFeeAmount:
 
     def to_encodable(self) -> dict[str, typing.Any]:
         return {
-            "ConfidentialTransferFeeAmount":{ "withheldAmount":self.value["withheldAmount"].to_encodable() }
+            "ConfidentialTransferFeeAmount":{ "withheldAmount":self.value["withheldAmount"] }
             }
 
 
@@ -1517,8 +1518,8 @@ def from_json(obj: ExtensionJSON) -> ExtensionKind:
 "TransferFeeConfig" / borsh.CStruct("transferFeeConfigAuthority" /BorshPubkey,"withdrawWithheldAuthority" /BorshPubkey,"withheldAmount" /borsh.U64,"olderTransferFee" /transferFee.TransferFee.layout,"newerTransferFee" /transferFee.TransferFee.layout),
 "TransferFeeAmount" / borsh.CStruct("withheldAmount" /borsh.U64),
 "MintCloseAuthority" / borsh.CStruct("closeAuthority" /BorshPubkey),
-"ConfidentialTransferMint" / borsh.CStruct("authority" /borsh.String,"autoApproveNewAccounts" /borsh.Bool,"auditorElgamalPubkey" /borsh.String),
-"ConfidentialTransferAccount" / borsh.CStruct("approved" /borsh.Bool,"elgamalPubkey" /BorshPubkey,"pendingBalanceLow" /encryptedBalance.EncryptedBalance.layout,"pendingBalanceHigh" /encryptedBalance.EncryptedBalance.layout,"availableBalance" /encryptedBalance.EncryptedBalance.layout,"decryptableAvailableBalance" /decryptableBalance.DecryptableBalance.layout,"allowConfidentialCredits" /borsh.Bool,"allowNonConfidentialCredits" /borsh.Bool,"pendingBalanceCreditCounter" /borsh.U64,"maximumPendingBalanceCreditCounter" /borsh.U64,"expectedPendingBalanceCreditCounter" /borsh.U64,"actualPendingBalanceCreditCounter" /borsh.U64),
+"ConfidentialTransferMint" / borsh.CStruct("authority" /ZeroableOption(BorshPubkey),"autoApproveNewAccounts" /borsh.Bool,"auditorElgamalPubkey" /ZeroableOption(BorshPubkey)),
+"ConfidentialTransferAccount" / borsh.CStruct("approved" /borsh.Bool,"elgamalPubkey" /BorshPubkey,"pendingBalanceLow" /encryptedBalance.EncryptedBalance,"pendingBalanceHigh" /encryptedBalance.EncryptedBalance,"availableBalance" /encryptedBalance.EncryptedBalance,"decryptableAvailableBalance" /decryptableBalance.DecryptableBalance,"allowConfidentialCredits" /borsh.Bool,"allowNonConfidentialCredits" /borsh.Bool,"pendingBalanceCreditCounter" /borsh.U64,"maximumPendingBalanceCreditCounter" /borsh.U64,"expectedPendingBalanceCreditCounter" /borsh.U64,"actualPendingBalanceCreditCounter" /borsh.U64),
 "DefaultAccountState" / borsh.CStruct("state" /accountState.layout),
 "ImmutableOwner" / borsh.CStruct(),
 "MemoTransfer" / borsh.CStruct("requireIncomingTransferMemos" /borsh.Bool),
@@ -1529,16 +1530,16 @@ def from_json(obj: ExtensionJSON) -> ExtensionKind:
 "NonTransferableAccount" / borsh.CStruct(),
 "TransferHook" / borsh.CStruct("authority" /BorshPubkey,"programId" /BorshPubkey),
 "TransferHookAccount" / borsh.CStruct("transferring" /borsh.Bool),
-"ConfidentialTransferFee" / borsh.CStruct("authority" /borsh.String,"elgamalPubkey" /BorshPubkey,"harvestToMintEnabled" /borsh.Bool,"withheldAmount" /encryptedBalance.EncryptedBalance.layout),
-"ConfidentialTransferFeeAmount" / borsh.CStruct("withheldAmount" /encryptedBalance.EncryptedBalance.layout),
-"MetadataPointer" / borsh.CStruct("authority" /borsh.String,"metadataAddress" /borsh.String),
-"TokenMetadata" / borsh.CStruct("updateAuthority" /borsh.String,"mint" /BorshPubkey,"name" /borsh.String,"symbol" /borsh.String,"uri" /borsh.String,"additionalMetadata" /borsh.HashMap(borsh.String,borsh.String)),
-"GroupPointer" / borsh.CStruct("authority" /borsh.String,"groupAddress" /borsh.String),
-"TokenGroup" / borsh.CStruct("updateAuthority" /borsh.String,"mint" /BorshPubkey,"size" /borsh.U64,"maxSize" /borsh.U64),
-"GroupMemberPointer" / borsh.CStruct("authority" /borsh.String,"memberAddress" /borsh.String),
+"ConfidentialTransferFee" / borsh.CStruct("authority" /ZeroableOption(BorshPubkey),"elgamalPubkey" /BorshPubkey,"harvestToMintEnabled" /borsh.Bool,"withheldAmount" /encryptedBalance.EncryptedBalance),
+"ConfidentialTransferFeeAmount" / borsh.CStruct("withheldAmount" /encryptedBalance.EncryptedBalance),
+"MetadataPointer" / borsh.CStruct("authority" /ZeroableOption(BorshPubkey),"metadataAddress" /ZeroableOption(BorshPubkey)),
+"TokenMetadata" / borsh.CStruct("updateAuthority" /ZeroableOption(BorshPubkey),"mint" /BorshPubkey,"name" /borsh.String,"symbol" /borsh.String,"uri" /borsh.String,"additionalMetadata" /borsh.HashMap(borsh.String,borsh.String)),
+"GroupPointer" / borsh.CStruct("authority" /ZeroableOption(BorshPubkey),"groupAddress" /ZeroableOption(BorshPubkey)),
+"TokenGroup" / borsh.CStruct("updateAuthority" /ZeroableOption(BorshPubkey),"mint" /BorshPubkey,"size" /borsh.U64,"maxSize" /borsh.U64),
+"GroupMemberPointer" / borsh.CStruct("authority" /ZeroableOption(BorshPubkey),"memberAddress" /ZeroableOption(BorshPubkey)),
 "TokenGroupMember" / borsh.CStruct("mint" /BorshPubkey,"group" /BorshPubkey,"memberNumber" /borsh.U64),
 "ConfidentialMintBurn" / borsh.CStruct(),
 "ScaledUiAmountConfig" / borsh.CStruct("authority" /BorshPubkey,"multiplier" /borsh.F64,"newMultiplierEffectiveTimestamp" /borsh.U64,"newMultiplier" /borsh.F64),
-"PausableConfig" / borsh.CStruct("authority" /borsh.String,"paused" /borsh.Bool),
+"PausableConfig" / borsh.CStruct("authority" /ZeroableOption(BorshPubkey),"paused" /borsh.Bool),
 "PausableAccount" / borsh.CStruct(),
 )
