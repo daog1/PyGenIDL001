@@ -14,8 +14,8 @@ from ..program_id import PROGRAM_ID
 from ..shared import ZeroableOption
 class InitializeMetadataPointerArgs(typing.TypedDict):
     metadataPointerDiscriminator:int
-    authority:borsh.String
-    metadataAddress:borsh.String
+    authority:SolPubkey
+    metadataAddress:SolPubkey
 
 
 layout = borsh.CStruct(

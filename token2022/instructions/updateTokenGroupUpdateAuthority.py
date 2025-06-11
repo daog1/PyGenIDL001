@@ -13,7 +13,7 @@ from solders.pubkey import Pubkey as SolPubkey
 from ..program_id import PROGRAM_ID
 from ..shared import ZeroableOption
 class UpdateTokenGroupUpdateAuthorityArgs(typing.TypedDict):
-    newUpdateAuthority:borsh.String
+    newUpdateAuthority:SolPubkey
 
 
 layout = borsh.CStruct(

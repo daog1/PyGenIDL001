@@ -11,9 +11,9 @@ from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
 from ..program_id import PROGRAM_ID
 class InitializeTokenMetadataArgs(typing.TypedDict):
-    name:borsh.String
-    symbol:borsh.String
-    uri:borsh.String
+    name:str
+    symbol:str
+    uri:str
 
 
 layout = borsh.CStruct(

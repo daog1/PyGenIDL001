@@ -14,7 +14,7 @@ from ..program_id import PROGRAM_ID
 from ..shared import ZeroableOption
 class UpdateGroupMemberPointerArgs(typing.TypedDict):
     groupMemberPointerDiscriminator:int
-    memberAddress:borsh.String
+    memberAddress:SolPubkey
 
 
 layout = borsh.CStruct(

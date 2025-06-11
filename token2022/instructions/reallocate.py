@@ -7,8 +7,10 @@
 
 import borsh_construct as borsh
 import typing
+from construct import Construct
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
+from .. import types
 from ..program_id import PROGRAM_ID
 class ReallocateArgs(typing.TypedDict):
     newExtensionTypes:list[types.extensionType.ExtensionTypeKind]

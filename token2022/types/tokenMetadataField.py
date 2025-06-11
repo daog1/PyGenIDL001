@@ -71,7 +71,7 @@ class Uri:
 
 
 KeyJSONValue = tuple[str]
-KeyValue = tuple[borsh.String]
+KeyValue = tuple[str]
 
 class KeyJSON(typing.TypedDict):
     kind: typing.Literal["Key"]

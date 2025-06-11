@@ -13,7 +13,7 @@ from solders.pubkey import Pubkey as SolPubkey
 from ..program_id import PROGRAM_ID
 from ..shared import ZeroableOption
 class InitializeTokenGroupArgs(typing.TypedDict):
-    updateAuthority:borsh.String
+    updateAuthority:SolPubkey
     maxSize:int
 
 

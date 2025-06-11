@@ -13,7 +13,7 @@ from .. import types
 from ..program_id import PROGRAM_ID
 class UpdateTokenMetadataFieldArgs(typing.TypedDict):
     field:types.tokenMetadataField.TokenMetadataFieldKind
-    value:borsh.String
+    value:str
 
 
 layout = borsh.CStruct(

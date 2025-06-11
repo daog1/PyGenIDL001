@@ -7,11 +7,11 @@
 
 import borsh_construct as borsh
 import typing
-from anchorpy.borsh_extension import BorshPubkey, EnumForCodegen
+from anchorpy.borsh_extension import BorshPubkey
 from dataclasses import dataclass
 from solders.pubkey import Pubkey as SolPubkey
 from . import accountState, decryptableBalance, encryptedBalance, transferFee
-from ..shared import ZeroableOption
+from ..shared import EnumForCodegenU16, ZeroableOption
 
 
 class UninitializedJSON(typing.TypedDict):
@@ -39,7 +39,6 @@ class TransferFeeConfigJSONValue(typing.TypedDict):
     withheldAmount: int
     olderTransferFee: transferFee.TransferFeeJSON
     newerTransferFee: transferFee.TransferFeeJSON
-
 
 class TransferFeeConfigValue(typing.TypedDict):
     transferFeeConfigAuthority: SolPubkey
@@ -78,7 +77,6 @@ class TransferFeeConfig:
 class TransferFeeAmountJSONValue(typing.TypedDict):
     withheldAmount: int
 
-
 class TransferFeeAmountValue(typing.TypedDict):
     withheldAmount: int
 
@@ -111,7 +109,6 @@ class TransferFeeAmount:
 
 class MintCloseAuthorityJSONValue(typing.TypedDict):
     closeAuthority: str
-
 
 class MintCloseAuthorityValue(typing.TypedDict):
     closeAuthority: SolPubkey
@@ -148,11 +145,10 @@ class ConfidentialTransferMintJSONValue(typing.TypedDict):
     autoApproveNewAccounts: bool
     auditorElgamalPubkey: str
 
-
 class ConfidentialTransferMintValue(typing.TypedDict):
-    authority: borsh.String
+    authority: SolPubkey
     autoApproveNewAccounts: bool
-    auditorElgamalPubkey: borsh.String
+    auditorElgamalPubkey: SolPubkey
 
 
 
@@ -170,7 +166,7 @@ class ConfidentialTransferMint:
         return ConfidentialTransferMintJSON(
             kind="ConfidentialTransferMint",
             value = {
-            "authority":self.value["authority"],"autoApproveNewAccounts":self.value["autoApproveNewAccounts"],"auditorElgamalPubkey":self.value["auditorElgamalPubkey"]
+            "authority":str(self.value["authority"]),"autoApproveNewAccounts":self.value["autoApproveNewAccounts"],"auditorElgamalPubkey":str(self.value["auditorElgamalPubkey"])
             }
         )
 
@@ -184,17 +180,16 @@ class ConfidentialTransferMint:
 class ConfidentialTransferAccountJSONValue(typing.TypedDict):
     approved: bool
     elgamalPubkey: str
-    pendingBalanceLow: encryptedBalance.EncryptedBalanceJSON
-    pendingBalanceHigh: encryptedBalance.EncryptedBalanceJSON
-    availableBalance: encryptedBalance.EncryptedBalanceJSON
-    decryptableAvailableBalance: decryptableBalance.DecryptableBalanceJSON
+    pendingBalanceLow: encryptedBalance.pyType
+    pendingBalanceHigh: encryptedBalance.pyType
+    availableBalance: encryptedBalance.pyType
+    decryptableAvailableBalance: decryptableBalance.pyType
     allowConfidentialCredits: bool
     allowNonConfidentialCredits: bool
     pendingBalanceCreditCounter: int
     maximumPendingBalanceCreditCounter: int
     expectedPendingBalanceCreditCounter: int
     actualPendingBalanceCreditCounter: int
-
 
 class ConfidentialTransferAccountValue(typing.TypedDict):
     approved: bool
@@ -226,7 +221,7 @@ class ConfidentialTransferAccount:
         return ConfidentialTransferAccountJSON(
             kind="ConfidentialTransferAccount",
             value = {
-            "approved":self.value["approved"],"elgamalPubkey":str(self.value["elgamalPubkey"]),"pendingBalanceLow":self.value["pendingBalanceLow"].to_json(),"pendingBalanceHigh":self.value["pendingBalanceHigh"].to_json(),"availableBalance":self.value["availableBalance"].to_json(),"decryptableAvailableBalance":self.value["decryptableAvailableBalance"].to_json(),"allowConfidentialCredits":self.value["allowConfidentialCredits"],"allowNonConfidentialCredits":self.value["allowNonConfidentialCredits"],"pendingBalanceCreditCounter":self.value["pendingBalanceCreditCounter"],"maximumPendingBalanceCreditCounter":self.value["maximumPendingBalanceCreditCounter"],"expectedPendingBalanceCreditCounter":self.value["expectedPendingBalanceCreditCounter"],"actualPendingBalanceCreditCounter":self.value["actualPendingBalanceCreditCounter"]
+            "approved":self.value["approved"],"elgamalPubkey":str(self.value["elgamalPubkey"]),"pendingBalanceLow":self.value["pendingBalanceLow"],"pendingBalanceHigh":self.value["pendingBalanceHigh"],"availableBalance":self.value["availableBalance"],"decryptableAvailableBalance":self.value["decryptableAvailableBalance"],"allowConfidentialCredits":self.value["allowConfidentialCredits"],"allowNonConfidentialCredits":self.value["allowNonConfidentialCredits"],"pendingBalanceCreditCounter":self.value["pendingBalanceCreditCounter"],"maximumPendingBalanceCreditCounter":self.value["maximumPendingBalanceCreditCounter"],"expectedPendingBalanceCreditCounter":self.value["expectedPendingBalanceCreditCounter"],"actualPendingBalanceCreditCounter":self.value["actualPendingBalanceCreditCounter"]
             }
         )
 
@@ -239,7 +234,6 @@ class ConfidentialTransferAccount:
 
 class DefaultAccountStateJSONValue(typing.TypedDict):
     state: accountState.AccountStateJSON
-
 
 class DefaultAccountStateValue(typing.TypedDict):
     state: accountState.AccountStateKind
@@ -272,9 +266,10 @@ class DefaultAccountState:
 
 
 class ImmutableOwnerJSONValue(typing.TypedDict):
-
+    pass
 
 class ImmutableOwnerValue(typing.TypedDict):
+    pass
 
 
 
@@ -305,7 +300,6 @@ class ImmutableOwner:
 
 class MemoTransferJSONValue(typing.TypedDict):
     requireIncomingTransferMemos: bool
-
 
 class MemoTransferValue(typing.TypedDict):
     requireIncomingTransferMemos: bool
@@ -338,9 +332,10 @@ class MemoTransfer:
 
 
 class NonTransferableJSONValue(typing.TypedDict):
-
+    pass
 
 class NonTransferableValue(typing.TypedDict):
+    pass
 
 
 
@@ -375,7 +370,6 @@ class InterestBearingConfigJSONValue(typing.TypedDict):
     preUpdateAverageRate: int
     lastUpdateTimestamp: int
     currentRate: int
-
 
 class InterestBearingConfigValue(typing.TypedDict):
     rateAuthority: SolPubkey
@@ -414,7 +408,6 @@ class InterestBearingConfig:
 class CpiGuardJSONValue(typing.TypedDict):
     lockCpi: bool
 
-
 class CpiGuardValue(typing.TypedDict):
     lockCpi: bool
 
@@ -448,7 +441,6 @@ class CpiGuard:
 class PermanentDelegateJSONValue(typing.TypedDict):
     delegate: str
 
-
 class PermanentDelegateValue(typing.TypedDict):
     delegate: SolPubkey
 
@@ -480,9 +472,10 @@ class PermanentDelegate:
 
 
 class NonTransferableAccountJSONValue(typing.TypedDict):
-
+    pass
 
 class NonTransferableAccountValue(typing.TypedDict):
+    pass
 
 
 
@@ -514,7 +507,6 @@ class NonTransferableAccount:
 class TransferHookJSONValue(typing.TypedDict):
     authority: str
     programId: str
-
 
 class TransferHookValue(typing.TypedDict):
     authority: SolPubkey
@@ -550,7 +542,6 @@ class TransferHook:
 class TransferHookAccountJSONValue(typing.TypedDict):
     transferring: bool
 
-
 class TransferHookAccountValue(typing.TypedDict):
     transferring: bool
 
@@ -585,11 +576,10 @@ class ConfidentialTransferFeeJSONValue(typing.TypedDict):
     authority: str
     elgamalPubkey: str
     harvestToMintEnabled: bool
-    withheldAmount: encryptedBalance.EncryptedBalanceJSON
-
+    withheldAmount: encryptedBalance.pyType
 
 class ConfidentialTransferFeeValue(typing.TypedDict):
-    authority: borsh.String
+    authority: SolPubkey
     elgamalPubkey: SolPubkey
     harvestToMintEnabled: bool
     withheldAmount: encryptedBalance.pyType
@@ -610,7 +600,7 @@ class ConfidentialTransferFee:
         return ConfidentialTransferFeeJSON(
             kind="ConfidentialTransferFee",
             value = {
-            "authority":self.value["authority"],"elgamalPubkey":str(self.value["elgamalPubkey"]),"harvestToMintEnabled":self.value["harvestToMintEnabled"],"withheldAmount":self.value["withheldAmount"].to_json()
+            "authority":str(self.value["authority"]),"elgamalPubkey":str(self.value["elgamalPubkey"]),"harvestToMintEnabled":self.value["harvestToMintEnabled"],"withheldAmount":self.value["withheldAmount"]
             }
         )
 
@@ -622,8 +612,7 @@ class ConfidentialTransferFee:
 
 
 class ConfidentialTransferFeeAmountJSONValue(typing.TypedDict):
-    withheldAmount: encryptedBalance.EncryptedBalanceJSON
-
+    withheldAmount: encryptedBalance.pyType
 
 class ConfidentialTransferFeeAmountValue(typing.TypedDict):
     withheldAmount: encryptedBalance.pyType
@@ -644,7 +633,7 @@ class ConfidentialTransferFeeAmount:
         return ConfidentialTransferFeeAmountJSON(
             kind="ConfidentialTransferFeeAmount",
             value = {
-            "withheldAmount":self.value["withheldAmount"].to_json()
+            "withheldAmount":self.value["withheldAmount"]
             }
         )
 
@@ -659,10 +648,9 @@ class MetadataPointerJSONValue(typing.TypedDict):
     authority: str
     metadataAddress: str
 
-
 class MetadataPointerValue(typing.TypedDict):
-    authority: borsh.String
-    metadataAddress: borsh.String
+    authority: SolPubkey
+    metadataAddress: SolPubkey
 
 
 
@@ -680,7 +668,7 @@ class MetadataPointer:
         return MetadataPointerJSON(
             kind="MetadataPointer",
             value = {
-            "authority":self.value["authority"],"metadataAddress":self.value["metadataAddress"]
+            "authority":str(self.value["authority"]),"metadataAddress":str(self.value["metadataAddress"])
             }
         )
 
@@ -699,13 +687,12 @@ class TokenMetadataJSONValue(typing.TypedDict):
     uri: str
     additionalMetadata: int
 
-
 class TokenMetadataValue(typing.TypedDict):
-    updateAuthority: borsh.String
+    updateAuthority: SolPubkey
     mint: SolPubkey
-    name: borsh.String
-    symbol: borsh.String
-    uri: borsh.String
+    name: str
+    symbol: str
+    uri: str
     additionalMetadata: int
 
 
@@ -724,7 +711,7 @@ class TokenMetadata:
         return TokenMetadataJSON(
             kind="TokenMetadata",
             value = {
-            "updateAuthority":self.value["updateAuthority"],"mint":str(self.value["mint"]),"name":self.value["name"],"symbol":self.value["symbol"],"uri":self.value["uri"],"additionalMetadata":self.value["additionalMetadata"]
+            "updateAuthority":str(self.value["updateAuthority"]),"mint":str(self.value["mint"]),"name":self.value["name"],"symbol":self.value["symbol"],"uri":self.value["uri"],"additionalMetadata":self.value["additionalMetadata"]
             }
         )
 
@@ -739,10 +726,9 @@ class GroupPointerJSONValue(typing.TypedDict):
     authority: str
     groupAddress: str
 
-
 class GroupPointerValue(typing.TypedDict):
-    authority: borsh.String
-    groupAddress: borsh.String
+    authority: SolPubkey
+    groupAddress: SolPubkey
 
 
 
@@ -760,7 +746,7 @@ class GroupPointer:
         return GroupPointerJSON(
             kind="GroupPointer",
             value = {
-            "authority":self.value["authority"],"groupAddress":self.value["groupAddress"]
+            "authority":str(self.value["authority"]),"groupAddress":str(self.value["groupAddress"])
             }
         )
 
@@ -777,9 +763,8 @@ class TokenGroupJSONValue(typing.TypedDict):
     size: int
     maxSize: int
 
-
 class TokenGroupValue(typing.TypedDict):
-    updateAuthority: borsh.String
+    updateAuthority: SolPubkey
     mint: SolPubkey
     size: int
     maxSize: int
@@ -800,7 +785,7 @@ class TokenGroup:
         return TokenGroupJSON(
             kind="TokenGroup",
             value = {
-            "updateAuthority":self.value["updateAuthority"],"mint":str(self.value["mint"]),"size":self.value["size"],"maxSize":self.value["maxSize"]
+            "updateAuthority":str(self.value["updateAuthority"]),"mint":str(self.value["mint"]),"size":self.value["size"],"maxSize":self.value["maxSize"]
             }
         )
 
@@ -815,10 +800,9 @@ class GroupMemberPointerJSONValue(typing.TypedDict):
     authority: str
     memberAddress: str
 
-
 class GroupMemberPointerValue(typing.TypedDict):
-    authority: borsh.String
-    memberAddress: borsh.String
+    authority: SolPubkey
+    memberAddress: SolPubkey
 
 
 
@@ -836,7 +820,7 @@ class GroupMemberPointer:
         return GroupMemberPointerJSON(
             kind="GroupMemberPointer",
             value = {
-            "authority":self.value["authority"],"memberAddress":self.value["memberAddress"]
+            "authority":str(self.value["authority"]),"memberAddress":str(self.value["memberAddress"])
             }
         )
 
@@ -851,7 +835,6 @@ class TokenGroupMemberJSONValue(typing.TypedDict):
     mint: str
     group: str
     memberNumber: int
-
 
 class TokenGroupMemberValue(typing.TypedDict):
     mint: SolPubkey
@@ -911,7 +894,6 @@ class ScaledUiAmountConfigJSONValue(typing.TypedDict):
     newMultiplierEffectiveTimestamp: int
     newMultiplier: int
 
-
 class ScaledUiAmountConfigValue(typing.TypedDict):
     authority: SolPubkey
     multiplier: int
@@ -949,9 +931,8 @@ class PausableConfigJSONValue(typing.TypedDict):
     authority: str
     paused: bool
 
-
 class PausableConfigValue(typing.TypedDict):
-    authority: borsh.String
+    authority: SolPubkey
     paused: bool
 
 
@@ -970,7 +951,7 @@ class PausableConfig:
         return PausableConfigJSON(
             kind="PausableConfig",
             value = {
-            "authority":self.value["authority"],"paused":self.value["paused"]
+            "authority":str(self.value["authority"]),"paused":self.value["paused"]
             }
         )
 
@@ -1105,7 +1086,7 @@ def from_decoded(obj: dict) -> ExtensionKind:
       val = obj["ConfidentialTransferAccount"]
       return ConfidentialTransferAccount(
             ConfidentialTransferAccountValue(
-                approved= val["approved"],elgamalPubkey= val["elgamalPubkey"],pendingBalanceLow= encryptedBalance.EncryptedBalance.from_decoded(val["pendingBalanceLow"]),pendingBalanceHigh= encryptedBalance.EncryptedBalance.from_decoded(val["pendingBalanceHigh"]),availableBalance= encryptedBalance.EncryptedBalance.from_decoded(val["availableBalance"]),decryptableAvailableBalance= decryptableBalance.DecryptableBalance.from_decoded(val["decryptableAvailableBalance"]),allowConfidentialCredits= val["allowConfidentialCredits"],allowNonConfidentialCredits= val["allowNonConfidentialCredits"],pendingBalanceCreditCounter= val["pendingBalanceCreditCounter"],maximumPendingBalanceCreditCounter= val["maximumPendingBalanceCreditCounter"],expectedPendingBalanceCreditCounter= val["expectedPendingBalanceCreditCounter"],actualPendingBalanceCreditCounter= val["actualPendingBalanceCreditCounter"]
+                approved= val["approved"],elgamalPubkey= val["elgamalPubkey"],pendingBalanceLow= val["pendingBalanceLow"],pendingBalanceHigh= val["pendingBalanceHigh"],availableBalance= val["availableBalance"],decryptableAvailableBalance= val["decryptableAvailableBalance"],allowConfidentialCredits= val["allowConfidentialCredits"],allowNonConfidentialCredits= val["allowNonConfidentialCredits"],pendingBalanceCreditCounter= val["pendingBalanceCreditCounter"],maximumPendingBalanceCreditCounter= val["maximumPendingBalanceCreditCounter"],expectedPendingBalanceCreditCounter= val["expectedPendingBalanceCreditCounter"],actualPendingBalanceCreditCounter= val["actualPendingBalanceCreditCounter"]
             )
         )
 
@@ -1193,7 +1174,7 @@ def from_decoded(obj: dict) -> ExtensionKind:
       val = obj["ConfidentialTransferFee"]
       return ConfidentialTransferFee(
             ConfidentialTransferFeeValue(
-                authority= val["authority"],elgamalPubkey= val["elgamalPubkey"],harvestToMintEnabled= val["harvestToMintEnabled"],withheldAmount= encryptedBalance.EncryptedBalance.from_decoded(val["withheldAmount"])
+                authority= val["authority"],elgamalPubkey= val["elgamalPubkey"],harvestToMintEnabled= val["harvestToMintEnabled"],withheldAmount= val["withheldAmount"]
             )
         )
 
@@ -1201,7 +1182,7 @@ def from_decoded(obj: dict) -> ExtensionKind:
       val = obj["ConfidentialTransferFeeAmount"]
       return ConfidentialTransferFeeAmount(
             ConfidentialTransferFeeAmountValue(
-                withheldAmount= encryptedBalance.EncryptedBalance.from_decoded(val["withheldAmount"])
+                withheldAmount= val["withheldAmount"]
             )
         )
 
@@ -1310,7 +1291,7 @@ def from_json(obj: ExtensionJSON) -> ExtensionKind:
         confidentialTransferMintJSONValue = typing.cast(ConfidentialTransferMintJSONValue, obj["value"])
         return ConfidentialTransferMint(
             ConfidentialTransferMintValue(
-                authority=confidentialTransferMintJSONValue["authority"],autoApproveNewAccounts=confidentialTransferMintJSONValue["autoApproveNewAccounts"],auditorElgamalPubkey=confidentialTransferMintJSONValue["auditorElgamalPubkey"]
+                authority=SolPubkey.from_string(confidentialTransferMintJSONValue["authority"]),autoApproveNewAccounts=confidentialTransferMintJSONValue["autoApproveNewAccounts"],auditorElgamalPubkey=SolPubkey.from_string(confidentialTransferMintJSONValue["auditorElgamalPubkey"])
             )
         )
 
@@ -1319,7 +1300,7 @@ def from_json(obj: ExtensionJSON) -> ExtensionKind:
         confidentialTransferAccountJSONValue = typing.cast(ConfidentialTransferAccountJSONValue, obj["value"])
         return ConfidentialTransferAccount(
             ConfidentialTransferAccountValue(
-                approved=confidentialTransferAccountJSONValue["approved"],elgamalPubkey=SolPubkey.from_string(confidentialTransferAccountJSONValue["elgamalPubkey"]),pendingBalanceLow=encryptedBalance.EncryptedBalance.from_json(confidentialTransferAccountJSONValue["pendingBalanceLow"]),pendingBalanceHigh=encryptedBalance.EncryptedBalance.from_json(confidentialTransferAccountJSONValue["pendingBalanceHigh"]),availableBalance=encryptedBalance.EncryptedBalance.from_json(confidentialTransferAccountJSONValue["availableBalance"]),decryptableAvailableBalance=decryptableBalance.DecryptableBalance.from_json(confidentialTransferAccountJSONValue["decryptableAvailableBalance"]),allowConfidentialCredits=confidentialTransferAccountJSONValue["allowConfidentialCredits"],allowNonConfidentialCredits=confidentialTransferAccountJSONValue["allowNonConfidentialCredits"],pendingBalanceCreditCounter=confidentialTransferAccountJSONValue["pendingBalanceCreditCounter"],maximumPendingBalanceCreditCounter=confidentialTransferAccountJSONValue["maximumPendingBalanceCreditCounter"],expectedPendingBalanceCreditCounter=confidentialTransferAccountJSONValue["expectedPendingBalanceCreditCounter"],actualPendingBalanceCreditCounter=confidentialTransferAccountJSONValue["actualPendingBalanceCreditCounter"]
+                approved=confidentialTransferAccountJSONValue["approved"],elgamalPubkey=SolPubkey.from_string(confidentialTransferAccountJSONValue["elgamalPubkey"]),pendingBalanceLow=confidentialTransferAccountJSONValue["pendingBalanceLow"],pendingBalanceHigh=confidentialTransferAccountJSONValue["pendingBalanceHigh"],availableBalance=confidentialTransferAccountJSONValue["availableBalance"],decryptableAvailableBalance=confidentialTransferAccountJSONValue["decryptableAvailableBalance"],allowConfidentialCredits=confidentialTransferAccountJSONValue["allowConfidentialCredits"],allowNonConfidentialCredits=confidentialTransferAccountJSONValue["allowNonConfidentialCredits"],pendingBalanceCreditCounter=confidentialTransferAccountJSONValue["pendingBalanceCreditCounter"],maximumPendingBalanceCreditCounter=confidentialTransferAccountJSONValue["maximumPendingBalanceCreditCounter"],expectedPendingBalanceCreditCounter=confidentialTransferAccountJSONValue["expectedPendingBalanceCreditCounter"],actualPendingBalanceCreditCounter=confidentialTransferAccountJSONValue["actualPendingBalanceCreditCounter"]
             )
         )
 
@@ -1418,7 +1399,7 @@ def from_json(obj: ExtensionJSON) -> ExtensionKind:
         confidentialTransferFeeJSONValue = typing.cast(ConfidentialTransferFeeJSONValue, obj["value"])
         return ConfidentialTransferFee(
             ConfidentialTransferFeeValue(
-                authority=confidentialTransferFeeJSONValue["authority"],elgamalPubkey=SolPubkey.from_string(confidentialTransferFeeJSONValue["elgamalPubkey"]),harvestToMintEnabled=confidentialTransferFeeJSONValue["harvestToMintEnabled"],withheldAmount=encryptedBalance.EncryptedBalance.from_json(confidentialTransferFeeJSONValue["withheldAmount"])
+                authority=SolPubkey.from_string(confidentialTransferFeeJSONValue["authority"]),elgamalPubkey=SolPubkey.from_string(confidentialTransferFeeJSONValue["elgamalPubkey"]),harvestToMintEnabled=confidentialTransferFeeJSONValue["harvestToMintEnabled"],withheldAmount=confidentialTransferFeeJSONValue["withheldAmount"]
             )
         )
 
@@ -1427,7 +1408,7 @@ def from_json(obj: ExtensionJSON) -> ExtensionKind:
         confidentialTransferFeeAmountJSONValue = typing.cast(ConfidentialTransferFeeAmountJSONValue, obj["value"])
         return ConfidentialTransferFeeAmount(
             ConfidentialTransferFeeAmountValue(
-                withheldAmount=encryptedBalance.EncryptedBalance.from_json(confidentialTransferFeeAmountJSONValue["withheldAmount"])
+                withheldAmount=confidentialTransferFeeAmountJSONValue["withheldAmount"]
             )
         )
 
@@ -1436,7 +1417,7 @@ def from_json(obj: ExtensionJSON) -> ExtensionKind:
         metadataPointerJSONValue = typing.cast(MetadataPointerJSONValue, obj["value"])
         return MetadataPointer(
             MetadataPointerValue(
-                authority=metadataPointerJSONValue["authority"],metadataAddress=metadataPointerJSONValue["metadataAddress"]
+                authority=SolPubkey.from_string(metadataPointerJSONValue["authority"]),metadataAddress=SolPubkey.from_string(metadataPointerJSONValue["metadataAddress"])
             )
         )
 
@@ -1445,7 +1426,7 @@ def from_json(obj: ExtensionJSON) -> ExtensionKind:
         tokenMetadataJSONValue = typing.cast(TokenMetadataJSONValue, obj["value"])
         return TokenMetadata(
             TokenMetadataValue(
-                updateAuthority=tokenMetadataJSONValue["updateAuthority"],mint=SolPubkey.from_string(tokenMetadataJSONValue["mint"]),name=tokenMetadataJSONValue["name"],symbol=tokenMetadataJSONValue["symbol"],uri=tokenMetadataJSONValue["uri"],additionalMetadata=tokenMetadataJSONValue["additionalMetadata"]
+                updateAuthority=SolPubkey.from_string(tokenMetadataJSONValue["updateAuthority"]),mint=SolPubkey.from_string(tokenMetadataJSONValue["mint"]),name=tokenMetadataJSONValue["name"],symbol=tokenMetadataJSONValue["symbol"],uri=tokenMetadataJSONValue["uri"],additionalMetadata=tokenMetadataJSONValue["additionalMetadata"]
             )
         )
 
@@ -1454,7 +1435,7 @@ def from_json(obj: ExtensionJSON) -> ExtensionKind:
         groupPointerJSONValue = typing.cast(GroupPointerJSONValue, obj["value"])
         return GroupPointer(
             GroupPointerValue(
-                authority=groupPointerJSONValue["authority"],groupAddress=groupPointerJSONValue["groupAddress"]
+                authority=SolPubkey.from_string(groupPointerJSONValue["authority"]),groupAddress=SolPubkey.from_string(groupPointerJSONValue["groupAddress"])
             )
         )
 
@@ -1463,7 +1444,7 @@ def from_json(obj: ExtensionJSON) -> ExtensionKind:
         tokenGroupJSONValue = typing.cast(TokenGroupJSONValue, obj["value"])
         return TokenGroup(
             TokenGroupValue(
-                updateAuthority=tokenGroupJSONValue["updateAuthority"],mint=SolPubkey.from_string(tokenGroupJSONValue["mint"]),size=tokenGroupJSONValue["size"],maxSize=tokenGroupJSONValue["maxSize"]
+                updateAuthority=SolPubkey.from_string(tokenGroupJSONValue["updateAuthority"]),mint=SolPubkey.from_string(tokenGroupJSONValue["mint"]),size=tokenGroupJSONValue["size"],maxSize=tokenGroupJSONValue["maxSize"]
             )
         )
 
@@ -1472,7 +1453,7 @@ def from_json(obj: ExtensionJSON) -> ExtensionKind:
         groupMemberPointerJSONValue = typing.cast(GroupMemberPointerJSONValue, obj["value"])
         return GroupMemberPointer(
             GroupMemberPointerValue(
-                authority=groupMemberPointerJSONValue["authority"],memberAddress=groupMemberPointerJSONValue["memberAddress"]
+                authority=SolPubkey.from_string(groupMemberPointerJSONValue["authority"]),memberAddress=SolPubkey.from_string(groupMemberPointerJSONValue["memberAddress"])
             )
         )
 
@@ -1502,7 +1483,7 @@ def from_json(obj: ExtensionJSON) -> ExtensionKind:
         pausableConfigJSONValue = typing.cast(PausableConfigJSONValue, obj["value"])
         return PausableConfig(
             PausableConfigValue(
-                authority=pausableConfigJSONValue["authority"],paused=pausableConfigJSONValue["paused"]
+                authority=SolPubkey.from_string(pausableConfigJSONValue["authority"]),paused=pausableConfigJSONValue["paused"]
             )
         )
 
@@ -1514,6 +1495,7 @@ def from_json(obj: ExtensionJSON) -> ExtensionKind:
     raise ValueError(f"Unrecognized enum kind: {kind}")
 
 
+layout = EnumForCodegenU16(
 "Uninitialized" / borsh.CStruct(),
 "TransferFeeConfig" / borsh.CStruct("transferFeeConfigAuthority" /BorshPubkey,"withdrawWithheldAuthority" /BorshPubkey,"withheldAmount" /borsh.U64,"olderTransferFee" /transferFee.TransferFee.layout,"newerTransferFee" /transferFee.TransferFee.layout),
 "TransferFeeAmount" / borsh.CStruct("withheldAmount" /borsh.U64),
@@ -1539,7 +1521,7 @@ def from_json(obj: ExtensionJSON) -> ExtensionKind:
 "GroupMemberPointer" / borsh.CStruct("authority" /ZeroableOption(BorshPubkey),"memberAddress" /ZeroableOption(BorshPubkey)),
 "TokenGroupMember" / borsh.CStruct("mint" /BorshPubkey,"group" /BorshPubkey,"memberNumber" /borsh.U64),
 "ConfidentialMintBurn" / borsh.CStruct(),
-"ScaledUiAmountConfig" / borsh.CStruct("authority" /BorshPubkey,"multiplier" /borsh.F64,"newMultiplierEffectiveTimestamp" /borsh.U64,"newMultiplier" /borsh.F64),
+"ScaledUiAmountConfig" / borsh.CStruct("authority" /BorshPubkey,"multiplier" /borsh.F64(),"newMultiplierEffectiveTimestamp" /borsh.U64,"newMultiplier" /borsh.F64()),
 "PausableConfig" / borsh.CStruct("authority" /ZeroableOption(BorshPubkey),"paused" /borsh.Bool),
 "PausableAccount" / borsh.CStruct(),
 )

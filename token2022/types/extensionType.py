@@ -7,8 +7,8 @@
 
 import borsh_construct as borsh
 import typing
-from anchorpy.borsh_extension import EnumForCodegen
 from dataclasses import dataclass
+from ..shared import EnumForCodegenU16
 
 
 class UninitializedJSON(typing.TypedDict):
@@ -756,6 +756,7 @@ def from_json(obj: ExtensionTypeJSON) -> ExtensionTypeKind:
     raise ValueError(f"Unrecognized enum kind: {kind}")
 
 
+layout = EnumForCodegenU16(
 "Uninitialized" / borsh.CStruct(),
 "TransferFeeConfig" / borsh.CStruct(),
 "TransferFeeAmount" / borsh.CStruct(),

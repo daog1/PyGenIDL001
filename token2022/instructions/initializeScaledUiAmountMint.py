@@ -14,7 +14,7 @@ from ..program_id import PROGRAM_ID
 from ..shared import ZeroableOption
 class InitializeScaledUiAmountMintArgs(typing.TypedDict):
     scaledUiAmountMintDiscriminator:int
-    authority:borsh.String
+    authority:SolPubkey
     multiplier:int
 
 

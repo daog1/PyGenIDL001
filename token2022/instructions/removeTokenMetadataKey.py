@@ -12,7 +12,7 @@ from solders.pubkey import Pubkey as SolPubkey
 from ..program_id import PROGRAM_ID
 class RemoveTokenMetadataKeyArgs(typing.TypedDict):
     idempotent:bool
-    key:borsh.String
+    key:str
 
 
 layout = borsh.CStruct(

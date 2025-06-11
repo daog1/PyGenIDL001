@@ -14,8 +14,8 @@ from ..program_id import PROGRAM_ID
 from ..shared import ZeroableOption
 class InitializeConfidentialTransferFeeArgs(typing.TypedDict):
     confidentialTransferFeeDiscriminator:int
-    authority:borsh.String
-    withdrawWithheldAuthorityElGamalPubkey:borsh.String
+    authority:SolPubkey
+    withdrawWithheldAuthorityElGamalPubkey:SolPubkey
 
 
 layout = borsh.CStruct(

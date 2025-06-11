@@ -15,7 +15,7 @@ from ..shared import ZeroableOption
 class UpdateConfidentialTransferMintArgs(typing.TypedDict):
     confidentialTransferDiscriminator:int
     autoApproveNewAccounts:bool
-    auditorElgamalPubkey:borsh.String
+    auditorElgamalPubkey:SolPubkey
 
 
 layout = borsh.CStruct(

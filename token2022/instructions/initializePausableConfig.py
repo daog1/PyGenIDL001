@@ -14,7 +14,7 @@ from ..program_id import PROGRAM_ID
 from ..shared import ZeroableOption
 class InitializePausableConfigArgs(typing.TypedDict):
     pausableDiscriminator:int
-    authority:borsh.String
+    authority:SolPubkey
 
 
 layout = borsh.CStruct(

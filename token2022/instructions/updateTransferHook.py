@@ -14,7 +14,7 @@ from ..program_id import PROGRAM_ID
 from ..shared import ZeroableOption
 class UpdateTransferHookArgs(typing.TypedDict):
     transferHookDiscriminator:int
-    programId:borsh.String
+    programId:SolPubkey
 
 
 layout = borsh.CStruct(

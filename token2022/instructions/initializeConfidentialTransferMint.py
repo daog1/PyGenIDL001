@@ -14,9 +14,9 @@ from ..program_id import PROGRAM_ID
 from ..shared import ZeroableOption
 class InitializeConfidentialTransferMintArgs(typing.TypedDict):
     confidentialTransferDiscriminator:int
-    authority:borsh.String
+    authority:SolPubkey
     autoApproveNewAccounts:bool
-    auditorElgamalPubkey:borsh.String
+    auditorElgamalPubkey:SolPubkey
 
 
 layout = borsh.CStruct(

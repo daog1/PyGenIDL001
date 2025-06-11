@@ -10,12 +10,14 @@ import typing
 from anchorpy.borsh_extension import BorshPubkey
 from anchorpy.error import AccountInvalidDiscriminator
 from anchorpy.utils.rpc import get_multiple_accounts
+from construct import Const, Construct
 from dataclasses import dataclass
 from solana.rpc.async_api import AsyncClient
 from solana.rpc.commitment import Commitment
 from solders.pubkey import Pubkey as SolPubkey
+from .. import types
 from ..program_id import PROGRAM_ID
-from ..shared import HiddenPrefixAdapter, OptionU32, RemainderOption
+from ..shared import HiddenPrefixAdapter, OptionU32, PreOffset, RemainderOption
 
 
 class MintJSON(typing.TypedDict):

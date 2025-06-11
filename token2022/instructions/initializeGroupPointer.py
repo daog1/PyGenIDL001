@@ -14,8 +14,8 @@ from ..program_id import PROGRAM_ID
 from ..shared import ZeroableOption
 class InitializeGroupPointerArgs(typing.TypedDict):
     groupPointerDiscriminator:int
-    authority:borsh.String
-    groupAddress:borsh.String
+    authority:SolPubkey
+    groupAddress:SolPubkey
 
 
 layout = borsh.CStruct(

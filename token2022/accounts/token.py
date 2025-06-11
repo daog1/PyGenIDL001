@@ -10,6 +10,7 @@ import typing
 from anchorpy.borsh_extension import BorshPubkey
 from anchorpy.error import AccountInvalidDiscriminator
 from anchorpy.utils.rpc import get_multiple_accounts
+from construct import Const, Construct
 from dataclasses import dataclass
 from solana.rpc.async_api import AsyncClient
 from solana.rpc.commitment import Commitment

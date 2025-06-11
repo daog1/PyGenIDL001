@@ -14,7 +14,7 @@ from ..program_id import PROGRAM_ID
 from ..shared import ZeroableOption
 class InitializeInterestBearingMintArgs(typing.TypedDict):
     interestBearingMintDiscriminator:int
-    rateAuthority:borsh.String
+    rateAuthority:SolPubkey
     rate:int
 
 
