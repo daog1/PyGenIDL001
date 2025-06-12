@@ -10,9 +10,7 @@ from .accountState import AccountStateJSON,AccountStateKind;
 from . import authorityType
 from .authorityType import AuthorityTypeJSON,AuthorityTypeKind;
 from . import decryptableBalance
-from .decryptableBalance import DecryptableBalanceJSON,DecryptableBalance;
 from . import encryptedBalance
-from .encryptedBalance import EncryptedBalanceJSON,EncryptedBalance;
 from . import extension
 from .extension import ExtensionJSON,ExtensionKind;
 from . import extensionType

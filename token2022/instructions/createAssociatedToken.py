@@ -8,7 +8,7 @@
 import typing
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
-from ..program_id import PROGRAM_ID
+from ..program_id import ASSOCIATED_TOKEN_PROGRAM_ADDRESS
 
 class CreateAssociatedTokenAccounts(typing.TypedDict):
     payer:SolPubkey
@@ -20,7 +20,7 @@ class CreateAssociatedTokenAccounts(typing.TypedDict):
 
 def CreateAssociatedToken(
     accounts: CreateAssociatedTokenAccounts,
-    program_id: SolPubkey = PROGRAM_ID,
+    program_id: SolPubkey =  ASSOCIATED_TOKEN_PROGRAM_ADDRESS,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
@@ -46,7 +46,7 @@ def find_Ata() -> typing.Tuple[SolPubkey, int]:
     ]
 
     address, bump = SolPubkey.find_program_address(seeds,
-        PROGRAM_ID
+         ASSOCIATED_TOKEN_PROGRAM_ADDRESS
             )
 
     return address, bump

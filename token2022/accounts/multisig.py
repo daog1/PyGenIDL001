@@ -14,7 +14,7 @@ from dataclasses import dataclass
 from solana.rpc.async_api import AsyncClient
 from solana.rpc.commitment import Commitment
 from solders.pubkey import Pubkey as SolPubkey
-from ..program_id import PROGRAM_ID
+from ..program_id import TOKEN_2022_PROGRAM_ADDRESS
 
 
 class MultisigJSON(typing.TypedDict):
@@ -47,7 +47,7 @@ class Multisig:
         conn: AsyncClient,
         address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: SolPubkey = PROGRAM_ID,
+        program_id: SolPubkey = TOKEN_2022_PROGRAM_ADDRESS,
     ) -> typing.Optional["Multisig"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -64,7 +64,7 @@ class Multisig:
         conn: AsyncClient,
         addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: SolPubkey = PROGRAM_ID,
+        program_id: SolPubkey = TOKEN_2022_PROGRAM_ADDRESS,
     ) -> typing.List[typing.Optional["Multisig"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["Multisig"]] = []

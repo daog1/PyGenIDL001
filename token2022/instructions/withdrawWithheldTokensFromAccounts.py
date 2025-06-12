@@ -9,7 +9,7 @@ import borsh_construct as borsh
 import typing
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
-from ..program_id import PROGRAM_ID
+from ..program_id import TOKEN_2022_PROGRAM_ADDRESS
 class WithdrawWithheldTokensFromAccountsArgs(typing.TypedDict):
     transferFeeDiscriminator:int
     numTokenAccounts:int
@@ -29,7 +29,7 @@ class WithdrawWithheldTokensFromAccountsAccounts(typing.TypedDict):
 def WithdrawWithheldTokensFromAccounts(
     args: WithdrawWithheldTokensFromAccountsArgs,
     accounts: WithdrawWithheldTokensFromAccountsAccounts,
-    program_id: SolPubkey = PROGRAM_ID,
+    program_id: SolPubkey =  TOKEN_2022_PROGRAM_ADDRESS,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

@@ -16,7 +16,7 @@ from solana.rpc.async_api import AsyncClient
 from solana.rpc.commitment import Commitment
 from solders.pubkey import Pubkey as SolPubkey
 from .. import types
-from ..program_id import PROGRAM_ID
+from ..program_id import TOKEN_2022_PROGRAM_ADDRESS
 from ..shared import HiddenPrefixAdapter, OptionU32, PreOffset, RemainderOption
 
 
@@ -45,7 +45,7 @@ class Mint:
         "decimals" /borsh.U8,
         "isInitialized" /borsh.Bool,
         "freezeAuthority" /OptionU32(BorshPubkey),
-        "extensions" /RemainderOption(HiddenPrefixAdapter(borsh.TupleStruct(Const(1,PreOffset(borsh.Vec(typing.cast(Construct, types.extension.layout)),83))))),
+        "extensions" /RemainderOption(HiddenPrefixAdapter(borsh.TupleStruct(Const(1,PreOffset(borsh.Vec(typing.cast(Construct, types.extension.layout)),83))),borsh.Vec(typing.cast(Construct, types.extension.layout)))),
         )
 
 
@@ -56,7 +56,7 @@ class Mint:
         conn: AsyncClient,
         address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: SolPubkey = PROGRAM_ID,
+        program_id: SolPubkey = TOKEN_2022_PROGRAM_ADDRESS,
     ) -> typing.Optional["Mint"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -73,7 +73,7 @@ class Mint:
         conn: AsyncClient,
         addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: SolPubkey = PROGRAM_ID,
+        program_id: SolPubkey = TOKEN_2022_PROGRAM_ADDRESS,
     ) -> typing.List[typing.Optional["Mint"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["Mint"]] = []

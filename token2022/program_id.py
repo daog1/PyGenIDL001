@@ -7,5 +7,6 @@
 
 from solders.pubkey import Pubkey
 
-PROGRAM_ID = Pubkey.from_string("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL")
+ASSOCIATED_TOKEN_PROGRAM_ADDRESS =Pubkey.from_string("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL")
+TOKEN_2022_PROGRAM_ADDRESS =Pubkey.from_string("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb")
 

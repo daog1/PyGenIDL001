@@ -8,7 +8,7 @@
 import typing
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
-from ..program_id import PROGRAM_ID
+from ..program_id import ASSOCIATED_TOKEN_PROGRAM_ADDRESS
 
 class RecoverNestedAssociatedTokenAccounts(typing.TypedDict):
     nestedAssociatedAccountAddress:SolPubkey
@@ -21,7 +21,7 @@ class RecoverNestedAssociatedTokenAccounts(typing.TypedDict):
 
 def RecoverNestedAssociatedToken(
     accounts: RecoverNestedAssociatedTokenAccounts,
-    program_id: SolPubkey = PROGRAM_ID,
+    program_id: SolPubkey =  ASSOCIATED_TOKEN_PROGRAM_ADDRESS,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [
@@ -46,7 +46,7 @@ def find_NestedAssociatedAccountAddress() -> typing.Tuple[SolPubkey, int]:
     ]
 
     address, bump = SolPubkey.find_program_address(seeds,
-        PROGRAM_ID
+         ASSOCIATED_TOKEN_PROGRAM_ADDRESS
             )
 
     return address, bump
@@ -58,7 +58,7 @@ def find_DestinationAssociatedAccountAddress() -> typing.Tuple[SolPubkey, int]:
     ]
 
     address, bump = SolPubkey.find_program_address(seeds,
-        PROGRAM_ID
+         ASSOCIATED_TOKEN_PROGRAM_ADDRESS
             )
 
     return address, bump
@@ -70,7 +70,7 @@ def find_OwnerAssociatedAccountAddress() -> typing.Tuple[SolPubkey, int]:
     ]
 
     address, bump = SolPubkey.find_program_address(seeds,
-        PROGRAM_ID
+         ASSOCIATED_TOKEN_PROGRAM_ADDRESS
             )
 
     return address, bump

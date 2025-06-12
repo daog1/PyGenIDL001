@@ -10,7 +10,7 @@ import typing
 from anchorpy.borsh_extension import BorshPubkey
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
-from ..program_id import PROGRAM_ID
+from ..program_id import TOKEN_2022_PROGRAM_ADDRESS
 from ..shared import ZeroableOption
 class InitializeConfidentialTransferMintArgs(typing.TypedDict):
     confidentialTransferDiscriminator:int
@@ -21,9 +21,9 @@ class InitializeConfidentialTransferMintArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "confidentialTransferDiscriminator" /borsh.U8,
-    "authority" /ZeroableOption(BorshPubkey),
+    "authority" /ZeroableOption(BorshPubkey,None),
     "autoApproveNewAccounts" /borsh.Bool,
-    "auditorElgamalPubkey" /ZeroableOption(BorshPubkey),
+    "auditorElgamalPubkey" /ZeroableOption(BorshPubkey,None),
     )
 
 
@@ -33,7 +33,7 @@ class InitializeConfidentialTransferMintAccounts(typing.TypedDict):
 def InitializeConfidentialTransferMint(
     args: InitializeConfidentialTransferMintArgs,
     accounts: InitializeConfidentialTransferMintAccounts,
-    program_id: SolPubkey = PROGRAM_ID,
+    program_id: SolPubkey =  TOKEN_2022_PROGRAM_ADDRESS,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

@@ -16,7 +16,7 @@ from solana.rpc.async_api import AsyncClient
 from solana.rpc.commitment import Commitment
 from solders.pubkey import Pubkey as SolPubkey
 from .. import types
-from ..program_id import PROGRAM_ID
+from ..program_id import TOKEN_2022_PROGRAM_ADDRESS
 from ..shared import HiddenPrefixAdapter, OptionU32, RemainderOption
 
 
@@ -54,7 +54,7 @@ class Token:
         "isNative" /OptionU32(borsh.U64),
         "delegatedAmount" /borsh.U64,
         "closeAuthority" /OptionU32(BorshPubkey),
-        "extensions" /RemainderOption(HiddenPrefixAdapter(borsh.TupleStruct(Const(2,borsh.U8)))),
+        "extensions" /RemainderOption(HiddenPrefixAdapter(borsh.TupleStruct(Const(2,borsh.U8)),borsh.Vec(typing.cast(Construct, types.extension.layout)))),
         )
 
 
@@ -65,7 +65,7 @@ class Token:
         conn: AsyncClient,
         address: SolPubkey,
         commitment: typing.Optional[Commitment] = None,
-        program_id: SolPubkey = PROGRAM_ID,
+        program_id: SolPubkey = TOKEN_2022_PROGRAM_ADDRESS,
     ) -> typing.Optional["Token"]:
         resp = await conn.get_account_info(address, commitment=commitment)
         info = resp.value
@@ -82,7 +82,7 @@ class Token:
         conn: AsyncClient,
         addresses: list[SolPubkey],
         commitment: typing.Optional[Commitment] = None,
-        program_id: SolPubkey = PROGRAM_ID,
+        program_id: SolPubkey = TOKEN_2022_PROGRAM_ADDRESS,
     ) -> typing.List[typing.Optional["Token"]]:
         infos = await get_multiple_accounts(conn, addresses, commitment=commitment)
         res: typing.List[typing.Optional["Token"]] = []

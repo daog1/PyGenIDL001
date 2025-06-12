@@ -10,7 +10,7 @@ import typing
 from anchorpy.borsh_extension import BorshPubkey
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
-from ..program_id import PROGRAM_ID
+from ..program_id import TOKEN_2022_PROGRAM_ADDRESS
 from ..shared import ZeroableOption
 class UpdateTransferHookArgs(typing.TypedDict):
     transferHookDiscriminator:int
@@ -19,7 +19,7 @@ class UpdateTransferHookArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "transferHookDiscriminator" /borsh.U8,
-    "programId" /ZeroableOption(BorshPubkey),
+    "programId" /ZeroableOption(BorshPubkey,None),
     )
 
 
@@ -30,7 +30,7 @@ class UpdateTransferHookAccounts(typing.TypedDict):
 def UpdateTransferHook(
     args: UpdateTransferHookArgs,
     accounts: UpdateTransferHookAccounts,
-    program_id: SolPubkey = PROGRAM_ID,
+    program_id: SolPubkey =  TOKEN_2022_PROGRAM_ADDRESS,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

@@ -7,18 +7,19 @@
 
 import borsh_construct as borsh
 import typing
+from construct import Float64l
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
-from ..program_id import PROGRAM_ID
+from ..program_id import TOKEN_2022_PROGRAM_ADDRESS
 class UpdateMultiplierScaledUiMintArgs(typing.TypedDict):
     scaledUiAmountMintDiscriminator:int
-    multiplier:int
+    multiplier:float
     effectiveTimestamp:int
 
 
 layout = borsh.CStruct(
     "scaledUiAmountMintDiscriminator" /borsh.U8,
-    "multiplier" /borsh.F64,
+    "multiplier" /Float64l,
     "effectiveTimestamp" /borsh.I64,
     )
 
@@ -30,7 +31,7 @@ class UpdateMultiplierScaledUiMintAccounts(typing.TypedDict):
 def UpdateMultiplierScaledUiMint(
     args: UpdateMultiplierScaledUiMintArgs,
     accounts: UpdateMultiplierScaledUiMintAccounts,
-    program_id: SolPubkey = PROGRAM_ID,
+    program_id: SolPubkey =  TOKEN_2022_PROGRAM_ADDRESS,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

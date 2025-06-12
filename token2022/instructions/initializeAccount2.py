@@ -10,7 +10,7 @@ import typing
 from anchorpy.borsh_extension import BorshPubkey
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
-from ..program_id import PROGRAM_ID
+from ..program_id import TOKEN_2022_PROGRAM_ADDRESS
 class InitializeAccount2Args(typing.TypedDict):
     owner:SolPubkey
 
@@ -28,7 +28,7 @@ class InitializeAccount2Accounts(typing.TypedDict):
 def InitializeAccount2(
     args: InitializeAccount2Args,
     accounts: InitializeAccount2Accounts,
-    program_id: SolPubkey = PROGRAM_ID,
+    program_id: SolPubkey =  TOKEN_2022_PROGRAM_ADDRESS,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

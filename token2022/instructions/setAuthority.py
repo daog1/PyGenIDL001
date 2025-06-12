@@ -11,7 +11,7 @@ from anchorpy.borsh_extension import BorshPubkey
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
 from .. import types
-from ..program_id import PROGRAM_ID
+from ..program_id import TOKEN_2022_PROGRAM_ADDRESS
 class SetAuthorityArgs(typing.TypedDict):
     authorityType:types.authorityType.AuthorityTypeKind
     newAuthority:typing.Optional[SolPubkey]
@@ -30,7 +30,7 @@ class SetAuthorityAccounts(typing.TypedDict):
 def SetAuthority(
     args: SetAuthorityArgs,
     accounts: SetAuthorityAccounts,
-    program_id: SolPubkey = PROGRAM_ID,
+    program_id: SolPubkey =  TOKEN_2022_PROGRAM_ADDRESS,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

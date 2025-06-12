@@ -34,11 +34,29 @@ function GenIdl(file: String, dirPath: String) {
   }
 }
 function GenIdlJs(file: String, dirPath: String) {
+  const idl = readJson(path.join(__dirname, file));
+
+  let root;
+  try {
+    if (idl?.metadata?.spec) {
+      root = rootNodeFromAnchor(idl);
+    } else {
+      root = rootNode(idl.program, idl.additionalPrograms);
+    }
+    //const rootNode = rootNodeFromAnchor( as AnchorIdl);
+    const codama = createFromRoot(root);
+    codama.accept(renderJavaScriptVisitor(dirPath));
+  } catch (e) {
+    console.error(`${file}  ` + e.stack);
+  }
+}
+/*
+function GenIdlJs(file: String, dirPath: String) {
   let anchorIdl = require(file);
   const rootNode = rootNodeFromAnchor(anchorIdl as AnchorIdl);
   const codama = createFromRoot(rootNode);
   codama.accept(renderJavaScriptVisitor(dirPath));
-}
+}*/
 function main() {
   GenIdl("./idls/pump.json", "pump");
   GenIdl2("./idls/idl-0.1.2.json", "Lifinity");
@@ -58,6 +76,7 @@ function main() {
 //main();
 //GenIdl("./idls/system.json", "system");
 GenIdl("./idls/token2022.json", "token2022");
+//GenIdlJs("./idls/token2022.json", "token2022-js");
 // GenIdlJs("./idls/pump.json", "pumpjs");
 // GenIdlJs("./idls/idl-0.1.2.json", "Lifinityjs");
 // GenIdlJs("./idls/drift.json", "Driftjs");

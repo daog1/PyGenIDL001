@@ -10,7 +10,7 @@ import typing
 from anchorpy.borsh_extension import BorshPubkey
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
-from ..program_id import PROGRAM_ID
+from ..program_id import TOKEN_2022_PROGRAM_ADDRESS
 from ..shared import ZeroableOption
 class InitializeGroupPointerArgs(typing.TypedDict):
     groupPointerDiscriminator:int
@@ -20,8 +20,8 @@ class InitializeGroupPointerArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "groupPointerDiscriminator" /borsh.U8,
-    "authority" /ZeroableOption(BorshPubkey),
-    "groupAddress" /ZeroableOption(BorshPubkey),
+    "authority" /ZeroableOption(BorshPubkey,None),
+    "groupAddress" /ZeroableOption(BorshPubkey,None),
     )
 
 
@@ -31,7 +31,7 @@ class InitializeGroupPointerAccounts(typing.TypedDict):
 def InitializeGroupPointer(
     args: InitializeGroupPointerArgs,
     accounts: InitializeGroupPointerAccounts,
-    program_id: SolPubkey = PROGRAM_ID,
+    program_id: SolPubkey =  TOKEN_2022_PROGRAM_ADDRESS,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

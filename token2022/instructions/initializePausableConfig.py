@@ -10,7 +10,7 @@ import typing
 from anchorpy.borsh_extension import BorshPubkey
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
-from ..program_id import PROGRAM_ID
+from ..program_id import TOKEN_2022_PROGRAM_ADDRESS
 from ..shared import ZeroableOption
 class InitializePausableConfigArgs(typing.TypedDict):
     pausableDiscriminator:int
@@ -19,7 +19,7 @@ class InitializePausableConfigArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "pausableDiscriminator" /borsh.U8,
-    "authority" /ZeroableOption(BorshPubkey),
+    "authority" /ZeroableOption(BorshPubkey,None),
     )
 
 
@@ -29,7 +29,7 @@ class InitializePausableConfigAccounts(typing.TypedDict):
 def InitializePausableConfig(
     args: InitializePausableConfigArgs,
     accounts: InitializePausableConfigAccounts,
-    program_id: SolPubkey = PROGRAM_ID,
+    program_id: SolPubkey =  TOKEN_2022_PROGRAM_ADDRESS,
     remaining_accounts: typing.Optional[typing.List[AccountMeta]] = None,
 ) ->Instruction:
     keys: list[AccountMeta] = [

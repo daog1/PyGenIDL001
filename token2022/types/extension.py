@@ -8,10 +8,11 @@
 import borsh_construct as borsh
 import typing
 from anchorpy.borsh_extension import BorshPubkey
+from construct import Float64l
 from dataclasses import dataclass
 from solders.pubkey import Pubkey as SolPubkey
 from . import accountState, decryptableBalance, encryptedBalance, transferFee
-from ..shared import EnumForCodegenU16, ZeroableOption
+from ..shared import EnumForCodegenU16, SizePrefix, ZeroableOption
 
 
 class UninitializedJSON(typing.TypedDict):
@@ -890,15 +891,15 @@ class ConfidentialMintBurn:
 
 class ScaledUiAmountConfigJSONValue(typing.TypedDict):
     authority: str
-    multiplier: int
+    multiplier: float
     newMultiplierEffectiveTimestamp: int
-    newMultiplier: int
+    newMultiplier: float
 
 class ScaledUiAmountConfigValue(typing.TypedDict):
     authority: SolPubkey
-    multiplier: int
+    multiplier: float
     newMultiplierEffectiveTimestamp: int
-    newMultiplier: int
+    newMultiplier: float
 
 
 
@@ -1497,31 +1498,31 @@ def from_json(obj: ExtensionJSON) -> ExtensionKind:
 
 layout = EnumForCodegenU16(
 "Uninitialized" / borsh.CStruct(),
-"TransferFeeConfig" / borsh.CStruct("transferFeeConfigAuthority" /BorshPubkey,"withdrawWithheldAuthority" /BorshPubkey,"withheldAmount" /borsh.U64,"olderTransferFee" /transferFee.TransferFee.layout,"newerTransferFee" /transferFee.TransferFee.layout),
-"TransferFeeAmount" / borsh.CStruct("withheldAmount" /borsh.U64),
-"MintCloseAuthority" / borsh.CStruct("closeAuthority" /BorshPubkey),
-"ConfidentialTransferMint" / borsh.CStruct("authority" /ZeroableOption(BorshPubkey),"autoApproveNewAccounts" /borsh.Bool,"auditorElgamalPubkey" /ZeroableOption(BorshPubkey)),
-"ConfidentialTransferAccount" / borsh.CStruct("approved" /borsh.Bool,"elgamalPubkey" /BorshPubkey,"pendingBalanceLow" /encryptedBalance.EncryptedBalance,"pendingBalanceHigh" /encryptedBalance.EncryptedBalance,"availableBalance" /encryptedBalance.EncryptedBalance,"decryptableAvailableBalance" /decryptableBalance.DecryptableBalance,"allowConfidentialCredits" /borsh.Bool,"allowNonConfidentialCredits" /borsh.Bool,"pendingBalanceCreditCounter" /borsh.U64,"maximumPendingBalanceCreditCounter" /borsh.U64,"expectedPendingBalanceCreditCounter" /borsh.U64,"actualPendingBalanceCreditCounter" /borsh.U64),
-"DefaultAccountState" / borsh.CStruct("state" /accountState.layout),
-"ImmutableOwner" / borsh.CStruct(),
-"MemoTransfer" / borsh.CStruct("requireIncomingTransferMemos" /borsh.Bool),
-"NonTransferable" / borsh.CStruct(),
-"InterestBearingConfig" / borsh.CStruct("rateAuthority" /BorshPubkey,"initializationTimestamp" /borsh.U64,"preUpdateAverageRate" /borsh.I16,"lastUpdateTimestamp" /borsh.U64,"currentRate" /borsh.I16),
-"CpiGuard" / borsh.CStruct("lockCpi" /borsh.Bool),
-"PermanentDelegate" / borsh.CStruct("delegate" /BorshPubkey),
-"NonTransferableAccount" / borsh.CStruct(),
-"TransferHook" / borsh.CStruct("authority" /BorshPubkey,"programId" /BorshPubkey),
-"TransferHookAccount" / borsh.CStruct("transferring" /borsh.Bool),
-"ConfidentialTransferFee" / borsh.CStruct("authority" /ZeroableOption(BorshPubkey),"elgamalPubkey" /BorshPubkey,"harvestToMintEnabled" /borsh.Bool,"withheldAmount" /encryptedBalance.EncryptedBalance),
-"ConfidentialTransferFeeAmount" / borsh.CStruct("withheldAmount" /encryptedBalance.EncryptedBalance),
-"MetadataPointer" / borsh.CStruct("authority" /ZeroableOption(BorshPubkey),"metadataAddress" /ZeroableOption(BorshPubkey)),
-"TokenMetadata" / borsh.CStruct("updateAuthority" /ZeroableOption(BorshPubkey),"mint" /BorshPubkey,"name" /borsh.String,"symbol" /borsh.String,"uri" /borsh.String,"additionalMetadata" /borsh.HashMap(borsh.String,borsh.String)),
-"GroupPointer" / borsh.CStruct("authority" /ZeroableOption(BorshPubkey),"groupAddress" /ZeroableOption(BorshPubkey)),
-"TokenGroup" / borsh.CStruct("updateAuthority" /ZeroableOption(BorshPubkey),"mint" /BorshPubkey,"size" /borsh.U64,"maxSize" /borsh.U64),
-"GroupMemberPointer" / borsh.CStruct("authority" /ZeroableOption(BorshPubkey),"memberAddress" /ZeroableOption(BorshPubkey)),
-"TokenGroupMember" / borsh.CStruct("mint" /BorshPubkey,"group" /BorshPubkey,"memberNumber" /borsh.U64),
+"TransferFeeConfig" / SizePrefix(borsh.U16,borsh.CStruct("transferFeeConfigAuthority" /BorshPubkey,"withdrawWithheldAuthority" /BorshPubkey,"withheldAmount" /borsh.U64,"olderTransferFee" /transferFee.TransferFee.layout,"newerTransferFee" /transferFee.TransferFee.layout)),
+"TransferFeeAmount" / SizePrefix(borsh.U16,borsh.CStruct("withheldAmount" /borsh.U64)),
+"MintCloseAuthority" / SizePrefix(borsh.U16,borsh.CStruct("closeAuthority" /BorshPubkey)),
+"ConfidentialTransferMint" / SizePrefix(borsh.U16,borsh.CStruct("authority" /ZeroableOption(BorshPubkey,None),"autoApproveNewAccounts" /borsh.Bool,"auditorElgamalPubkey" /ZeroableOption(BorshPubkey,None))),
+"ConfidentialTransferAccount" / SizePrefix(borsh.U16,borsh.CStruct("approved" /borsh.Bool,"elgamalPubkey" /BorshPubkey,"pendingBalanceLow" /encryptedBalance.EncryptedBalance,"pendingBalanceHigh" /encryptedBalance.EncryptedBalance,"availableBalance" /encryptedBalance.EncryptedBalance,"decryptableAvailableBalance" /decryptableBalance.DecryptableBalance,"allowConfidentialCredits" /borsh.Bool,"allowNonConfidentialCredits" /borsh.Bool,"pendingBalanceCreditCounter" /borsh.U64,"maximumPendingBalanceCreditCounter" /borsh.U64,"expectedPendingBalanceCreditCounter" /borsh.U64,"actualPendingBalanceCreditCounter" /borsh.U64)),
+"DefaultAccountState" / SizePrefix(borsh.U16,borsh.CStruct("state" /accountState.layout)),
+"ImmutableOwner" / SizePrefix(borsh.U16,borsh.CStruct()),
+"MemoTransfer" / SizePrefix(borsh.U16,borsh.CStruct("requireIncomingTransferMemos" /borsh.Bool)),
+"NonTransferable" / SizePrefix(borsh.U16,borsh.CStruct()),
+"InterestBearingConfig" / SizePrefix(borsh.U16,borsh.CStruct("rateAuthority" /BorshPubkey,"initializationTimestamp" /borsh.U64,"preUpdateAverageRate" /borsh.I16,"lastUpdateTimestamp" /borsh.U64,"currentRate" /borsh.I16)),
+"CpiGuard" / SizePrefix(borsh.U16,borsh.CStruct("lockCpi" /borsh.Bool)),
+"PermanentDelegate" / SizePrefix(borsh.U16,borsh.CStruct("delegate" /BorshPubkey)),
+"NonTransferableAccount" / SizePrefix(borsh.U16,borsh.CStruct()),
+"TransferHook" / SizePrefix(borsh.U16,borsh.CStruct("authority" /BorshPubkey,"programId" /BorshPubkey)),
+"TransferHookAccount" / SizePrefix(borsh.U16,borsh.CStruct("transferring" /borsh.Bool)),
+"ConfidentialTransferFee" / SizePrefix(borsh.U16,borsh.CStruct("authority" /ZeroableOption(BorshPubkey,None),"elgamalPubkey" /BorshPubkey,"harvestToMintEnabled" /borsh.Bool,"withheldAmount" /encryptedBalance.EncryptedBalance)),
+"ConfidentialTransferFeeAmount" / SizePrefix(borsh.U16,borsh.CStruct("withheldAmount" /encryptedBalance.EncryptedBalance)),
+"MetadataPointer" / SizePrefix(borsh.U16,borsh.CStruct("authority" /ZeroableOption(BorshPubkey,None),"metadataAddress" /ZeroableOption(BorshPubkey,None))),
+"TokenMetadata" / SizePrefix(borsh.U16,borsh.CStruct("updateAuthority" /ZeroableOption(BorshPubkey,None),"mint" /BorshPubkey,"name" /borsh.String,"symbol" /borsh.String,"uri" /borsh.String,"additionalMetadata" /borsh.HashMap(borsh.String,borsh.String))),
+"GroupPointer" / SizePrefix(borsh.U16,borsh.CStruct("authority" /ZeroableOption(BorshPubkey,None),"groupAddress" /ZeroableOption(BorshPubkey,None))),
+"TokenGroup" / SizePrefix(borsh.U16,borsh.CStruct("updateAuthority" /ZeroableOption(BorshPubkey,None),"mint" /BorshPubkey,"size" /borsh.U64,"maxSize" /borsh.U64)),
+"GroupMemberPointer" / SizePrefix(borsh.U16,borsh.CStruct("authority" /ZeroableOption(BorshPubkey,None),"memberAddress" /ZeroableOption(BorshPubkey,None))),
+"TokenGroupMember" / SizePrefix(borsh.U16,borsh.CStruct("mint" /BorshPubkey,"group" /BorshPubkey,"memberNumber" /borsh.U64)),
 "ConfidentialMintBurn" / borsh.CStruct(),
-"ScaledUiAmountConfig" / borsh.CStruct("authority" /BorshPubkey,"multiplier" /borsh.F64(),"newMultiplierEffectiveTimestamp" /borsh.U64,"newMultiplier" /borsh.F64()),
-"PausableConfig" / borsh.CStruct("authority" /ZeroableOption(BorshPubkey),"paused" /borsh.Bool),
+"ScaledUiAmountConfig" / SizePrefix(borsh.U16,borsh.CStruct("authority" /BorshPubkey,"multiplier" /Float64l,"newMultiplierEffectiveTimestamp" /borsh.U64,"newMultiplier" /Float64l)),
+"PausableConfig" / SizePrefix(borsh.U16,borsh.CStruct("authority" /ZeroableOption(BorshPubkey,None),"paused" /borsh.Bool)),
 "PausableAccount" / borsh.CStruct(),
 )
