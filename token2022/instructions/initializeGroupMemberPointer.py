@@ -20,8 +20,8 @@ class InitializeGroupMemberPointerArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "groupMemberPointerDiscriminator" /borsh.U8,
-    "authority" /ZeroableOption(BorshPubkey,None),
-    "memberAddress" /ZeroableOption(BorshPubkey,None),
+    "authority" /ZeroableOption(BorshPubkey,None,"publicKey"),
+    "memberAddress" /ZeroableOption(BorshPubkey,None,"publicKey"),
     )
 
 

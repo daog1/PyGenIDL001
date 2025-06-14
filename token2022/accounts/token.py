@@ -10,7 +10,7 @@ import typing
 from anchorpy.borsh_extension import BorshPubkey
 from anchorpy.error import AccountInvalidDiscriminator
 from anchorpy.utils.rpc import get_multiple_accounts
-from construct import Const, Construct
+from construct import Const, Construct, GreedyRange
 from dataclasses import dataclass
 from solana.rpc.async_api import AsyncClient
 from solana.rpc.commitment import Commitment
@@ -54,7 +54,7 @@ class Token:
         "isNative" /OptionU32(borsh.U64),
         "delegatedAmount" /borsh.U64,
         "closeAuthority" /OptionU32(BorshPubkey),
-        "extensions" /RemainderOption(HiddenPrefixAdapter(borsh.TupleStruct(Const(2,borsh.U8)),borsh.Vec(typing.cast(Construct, types.extension.layout)))),
+        "extensions" /RemainderOption(HiddenPrefixAdapter(borsh.TupleStruct(Const(2,borsh.U8)),GreedyRange(typing.cast(Construct, types.extension.layout)))),
         )
 
 

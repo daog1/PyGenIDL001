@@ -20,8 +20,8 @@ class InitializeConfidentialTransferFeeArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "confidentialTransferFeeDiscriminator" /borsh.U8,
-    "authority" /ZeroableOption(BorshPubkey,None),
-    "withdrawWithheldAuthorityElGamalPubkey" /ZeroableOption(BorshPubkey,None),
+    "authority" /ZeroableOption(BorshPubkey,None,"publicKey"),
+    "withdrawWithheldAuthorityElGamalPubkey" /ZeroableOption(BorshPubkey,None,"publicKey"),
     )
 
 

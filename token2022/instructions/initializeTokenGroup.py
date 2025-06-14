@@ -18,7 +18,7 @@ class InitializeTokenGroupArgs(typing.TypedDict):
 
 
 layout = borsh.CStruct(
-    "updateAuthority" /ZeroableOption(BorshPubkey,None),
+    "updateAuthority" /ZeroableOption(BorshPubkey,None,"publicKey"),
     "maxSize" /borsh.U64,
     )
 

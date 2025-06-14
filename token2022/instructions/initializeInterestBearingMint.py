@@ -20,7 +20,7 @@ class InitializeInterestBearingMintArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "interestBearingMintDiscriminator" /borsh.U8,
-    "rateAuthority" /ZeroableOption(BorshPubkey,None),
+    "rateAuthority" /ZeroableOption(BorshPubkey,None,"publicKey"),
     "rate" /borsh.I16,
     )
 

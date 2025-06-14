@@ -7,7 +7,7 @@
 
 import borsh_construct as borsh
 import typing
-from construct import Construct
+from construct import Construct, GreedyRange
 from solders.instruction import AccountMeta, Instruction
 from solders.pubkey import Pubkey as SolPubkey
 from .. import types
@@ -17,7 +17,7 @@ class ReallocateArgs(typing.TypedDict):
 
 
 layout = borsh.CStruct(
-    "newExtensionTypes" /borsh.Vec(typing.cast(Construct, types.extensionType.layout)),
+    "newExtensionTypes" /GreedyRange(typing.cast(Construct, types.extensionType.layout)),
     )
 
 

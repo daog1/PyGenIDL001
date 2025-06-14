@@ -21,7 +21,7 @@ class InitializeScaledUiAmountMintArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "scaledUiAmountMintDiscriminator" /borsh.U8,
-    "authority" /ZeroableOption(BorshPubkey,None),
+    "authority" /ZeroableOption(BorshPubkey,None,"publicKey"),
     "multiplier" /Float64l,
     )
 

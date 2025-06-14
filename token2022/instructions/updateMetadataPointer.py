@@ -19,7 +19,7 @@ class UpdateMetadataPointerArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "metadataPointerDiscriminator" /borsh.U8,
-    "metadataAddress" /ZeroableOption(BorshPubkey,None),
+    "metadataAddress" /ZeroableOption(BorshPubkey,None,"publicKey"),
     )
 
 

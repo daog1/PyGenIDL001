@@ -21,9 +21,9 @@ class InitializeConfidentialTransferMintArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "confidentialTransferDiscriminator" /borsh.U8,
-    "authority" /ZeroableOption(BorshPubkey,None),
+    "authority" /ZeroableOption(BorshPubkey,None,"publicKey"),
     "autoApproveNewAccounts" /borsh.Bool,
-    "auditorElgamalPubkey" /ZeroableOption(BorshPubkey,None),
+    "auditorElgamalPubkey" /ZeroableOption(BorshPubkey,None,"publicKey"),
     )
 
 

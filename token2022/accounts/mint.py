@@ -10,7 +10,7 @@ import typing
 from anchorpy.borsh_extension import BorshPubkey
 from anchorpy.error import AccountInvalidDiscriminator
 from anchorpy.utils.rpc import get_multiple_accounts
-from construct import Const, Construct
+from construct import Const, Construct, GreedyRange
 from dataclasses import dataclass
 from solana.rpc.async_api import AsyncClient
 from solana.rpc.commitment import Commitment
@@ -45,7 +45,7 @@ class Mint:
         "decimals" /borsh.U8,
         "isInitialized" /borsh.Bool,
         "freezeAuthority" /OptionU32(BorshPubkey),
-        "extensions" /RemainderOption(HiddenPrefixAdapter(borsh.TupleStruct(Const(1,PreOffset(borsh.Vec(typing.cast(Construct, types.extension.layout)),83))),borsh.Vec(typing.cast(Construct, types.extension.layout)))),
+        "extensions" /RemainderOption(HiddenPrefixAdapter(borsh.TupleStruct(Const(1,PreOffset(borsh.U8,83))),GreedyRange(typing.cast(Construct, types.extension.layout)))),
         )
 
 

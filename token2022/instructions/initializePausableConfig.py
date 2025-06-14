@@ -19,7 +19,7 @@ class InitializePausableConfigArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "pausableDiscriminator" /borsh.U8,
-    "authority" /ZeroableOption(BorshPubkey,None),
+    "authority" /ZeroableOption(BorshPubkey,None,"publicKey"),
     )
 
 

@@ -19,7 +19,7 @@ class UpdateTransferHookArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "transferHookDiscriminator" /borsh.U8,
-    "programId" /ZeroableOption(BorshPubkey,None),
+    "programId" /ZeroableOption(BorshPubkey,None,"publicKey"),
     )
 
 

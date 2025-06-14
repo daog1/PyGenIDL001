@@ -17,7 +17,7 @@ class UpdateTokenMetadataUpdateAuthorityArgs(typing.TypedDict):
 
 
 layout = borsh.CStruct(
-    "newUpdateAuthority" /ZeroableOption(BorshPubkey,None),
+    "newUpdateAuthority" /ZeroableOption(BorshPubkey,None,"publicKey"),
     )
 
 

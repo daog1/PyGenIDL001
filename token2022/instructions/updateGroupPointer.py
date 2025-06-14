@@ -19,7 +19,7 @@ class UpdateGroupPointerArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "groupPointerDiscriminator" /borsh.U8,
-    "groupAddress" /ZeroableOption(BorshPubkey,None),
+    "groupAddress" /ZeroableOption(BorshPubkey,None,"publicKey"),
     )
 
 

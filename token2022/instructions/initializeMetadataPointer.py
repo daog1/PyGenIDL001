@@ -20,8 +20,8 @@ class InitializeMetadataPointerArgs(typing.TypedDict):
 
 layout = borsh.CStruct(
     "metadataPointerDiscriminator" /borsh.U8,
-    "authority" /ZeroableOption(BorshPubkey,None),
-    "metadataAddress" /ZeroableOption(BorshPubkey,None),
+    "authority" /ZeroableOption(BorshPubkey,None,"publicKey"),
+    "metadataAddress" /ZeroableOption(BorshPubkey,None,"publicKey"),
     )
 
 
