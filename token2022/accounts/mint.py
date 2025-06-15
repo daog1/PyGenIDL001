@@ -36,7 +36,7 @@ class Mint:
     decimals: int
     isInitialized: bool
     freezeAuthority: typing.Optional[SolPubkey]
-    extensions: SolPubkey
+    extensions: list[types.extension.ExtensionKind]
 
 
     layout: typing.ClassVar = borsh.CStruct(
@@ -90,14 +90,22 @@ class Mint:
     def decode(cls, data: bytes) -> "Mint":
         dec = Mint.layout.parse(data)
         return cls(
-                mintAuthority=dec.mintAuthority,
+                mintAuthority=(None if dec.mintAuthority is None else dec.mintAuthority),
                 supply=dec.supply,
                 decimals=dec.decimals,
                 isInitialized=dec.isInitialized,
-                freezeAuthority=dec.freezeAuthority,
-                extensions=dec.extensions,
+                freezeAuthority=(None if dec.freezeAuthority is None else dec.freezeAuthority),
+                extensions=(None if dec.extensions is None else list(map(lambda item:types.extension.from_decoded(item),dec.extensions))),
                 )
-
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "mintAuthority": self.mintAuthority,
+                "supply": self.supply,
+                "decimals": self.decimals,
+                "isInitialized": self.isInitialized,
+                "freezeAuthority": self.freezeAuthority,
+                "extensions": list(map(lambda item:item.to_encodable(),self.extensions)),
+                }
     def to_json(self) -> MintJSON:
         return {
                 "mintAuthority": (None if self.mintAuthority is None else str(self.mintAuthority)),
@@ -116,7 +124,7 @@ class Mint:
                 decimals=obj["decimals"],
                 isInitialized=obj["isInitialized"],
                 freezeAuthority=(None if obj["freezeAuthority"] is None else SolPubkey.from_string(obj["freezeAuthority"])),
-                extensions=SolPubkey.from_string(obj["extensions"]),
+                extensions=list(map(lambda item:types.extension.from_json(item),obj["extensions"])),
                 )
 
 

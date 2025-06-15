@@ -43,7 +43,7 @@ def Reallocate(
         keys += remaining_accounts
     identifier = b"\x1d"
     encoded_args = layout.build({
-        "newExtensionTypes":,
+        "newExtensionTypes":list(map(lambda item:item.to_encodable(),args["newExtensionTypes"])),
        })
     data = identifier + encoded_args
     return Instruction(program_id,data,keys)

@@ -42,7 +42,7 @@ class Token:
     isNative: typing.Optional[int]
     delegatedAmount: int
     closeAuthority: typing.Optional[SolPubkey]
-    extensions: SolPubkey
+    extensions: list[types.extension.ExtensionKind]
 
 
     layout: typing.ClassVar = borsh.CStruct(
@@ -102,14 +102,25 @@ class Token:
                 mint=dec.mint,
                 owner=dec.owner,
                 amount=dec.amount,
-                delegate=dec.delegate,
+                delegate=(None if dec.delegate is None else dec.delegate),
                 state=types.accountState.from_decoded(dec.state),
-                isNative=dec.isNative,
+                isNative=(None if dec.isNative is None else dec.isNative),
                 delegatedAmount=dec.delegatedAmount,
-                closeAuthority=dec.closeAuthority,
-                extensions=dec.extensions,
+                closeAuthority=(None if dec.closeAuthority is None else dec.closeAuthority),
+                extensions=(None if dec.extensions is None else list(map(lambda item:types.extension.from_decoded(item),dec.extensions))),
                 )
-
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "mint": self.mint,
+                "owner": self.owner,
+                "amount": self.amount,
+                "delegate": self.delegate,
+                "state": self.state.to_encodable(),
+                "isNative": self.isNative,
+                "delegatedAmount": self.delegatedAmount,
+                "closeAuthority": self.closeAuthority,
+                "extensions": list(map(lambda item:item.to_encodable(),self.extensions)),
+                }
     def to_json(self) -> TokenJSON:
         return {
                 "mint": str(self.mint),
@@ -134,7 +145,7 @@ class Token:
                 isNative=(None if obj["isNative"] is None else obj["isNative"]),
                 delegatedAmount=obj["delegatedAmount"],
                 closeAuthority=(None if obj["closeAuthority"] is None else SolPubkey.from_string(obj["closeAuthority"])),
-                extensions=SolPubkey.from_string(obj["extensions"]),
+                extensions=list(map(lambda item:types.extension.from_json(item),obj["extensions"])),
                 )
 
 

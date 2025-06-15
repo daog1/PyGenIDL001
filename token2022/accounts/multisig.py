@@ -86,7 +86,13 @@ class Multisig:
                 isInitialized=dec.isInitialized,
                 signers=dec.signers,
                 )
-
+    def to_encodable(self) -> dict[str, typing.Any]:
+        return {
+                "m": self.m,
+                "n": self.n,
+                "isInitialized": self.isInitialized,
+                "signers": self.signers,
+                }
     def to_json(self) -> MultisigJSON:
         return {
                 "m": self.m,
